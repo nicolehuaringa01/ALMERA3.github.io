@@ -8,110 +8,125 @@
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
-      background: #f8f9fa;
+      background: #f9fafb;
       color: #333;
       line-height: 1.6;
     }
     header {
-      background: #0366d6;
+      background: #0256b3;
       color: #fff;
       padding: 1rem 2rem;
       position: sticky;
       top: 0;
-      z-index: 999;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     header h1 {
       margin: 0;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
     .nav-buttons {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       background: #fff;
-      padding: 1rem;
+      padding: 0.8rem 1rem;
       position: sticky;
-      top: 60px;
-      z-index: 998;
+      top: 64px;
+      z-index: 999;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
     .nav-buttons a {
-      background: #0366d6;
+      background: #0256b3;
       color: #fff;
       text-decoration: none;
-      margin: 5px;
-      padding: 10px 14px;
-      border-radius: 5px;
+      margin: 6px;
+      padding: 10px 16px;
+      border-radius: 6px;
       font-weight: 600;
-      transition: background 0.3s;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
     .nav-buttons a:hover {
-      background: #024a99;
+      background: #01488f;
+      transform: translateY(-2px);
     }
     main {
       max-width: 1100px;
       margin: 2rem auto;
-      padding: 0 1rem;
+      padding: 0 1.5rem;
     }
     section {
       background: #fff;
-      border-radius: 8px;
+      border-radius: 10px;
       margin-bottom: 2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 1.5rem 2rem;
     }
     h2 {
-      color: #0366d6;
+      color: #0256b3;
+      font-size: 1.4rem;
       margin-top: 0;
     }
     iframe {
       width: 100%;
       border: none;
       border-radius: 8px;
-      height: 500px;
+      height: 480px;
       margin-top: 1rem;
     }
     footer {
       text-align: center;
-      padding: 1rem;
-      background: #eee;
-      color: #666;
-      margin-top: 2rem;
+      padding: 1.5rem;
+      background: #f1f3f5;
+      color: #777;
+      font-size: 0.9rem;
     }
-    /* Accordion Styles */
+    /* Accordion */
     details {
       border: 1px solid #ddd;
       border-radius: 8px;
-      padding: 0.8rem;
+      padding: 1rem;
       margin-bottom: 1rem;
-      background: #fafafa;
+      background: #fdfdfd;
+      transition: background 0.3s ease;
     }
-    details[open] summary::after {
-      content: "▲";
+    details:hover {
+      background: #f8f9fa;
     }
     summary {
       font-weight: 600;
       cursor: pointer;
       position: relative;
+      padding-right: 20px;
     }
     summary::after {
       content: "▼";
       position: absolute;
       right: 0;
+      transition: transform 0.3s ease;
+    }
+    details[open] summary::after {
+      content: "▲";
     }
     /* Scroll-to-top button */
     #topBtn {
       display: none;
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 25px;
+      right: 25px;
       z-index: 1000;
-      background: #0366d6;
+      background: #0256b3;
       color: white;
       border: none;
-      padding: 10px 14px;
+      padding: 12px 16px;
       border-radius: 50%;
       cursor: pointer;
       font-size: 18px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+    #topBtn:hover {
+      background: #01488f;
     }
   </style>
 </head>
@@ -135,10 +150,8 @@
     <details open>
       <summary>Number of Laboratories per Geographic Region</summary>
       <p>In 2025, there were <strong>200</strong> ALMERA laboratories globally, most located in Europe, Asia Pacific, and the Americas.</p>
-      <iframe width="100%" height="476" frameborder="0"
-  src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=LabsGeographic"></iframe>
-      <iframe width="100%" height="576" frameborder="0"
-  src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=ALMERA_MembersMap"></iframe>
+      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=LabsGeographic"></iframe>
+      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=ALMERA_MembersMap"></iframe>
     </details>
   </section>
 
@@ -147,7 +160,7 @@
     <details>
       <summary>Affiliation of ALMERA Labs</summary>
       <p>Labs selected multiple affiliations; each counted individually in the survey.</p>
-      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461@123?cells=AffiliationChart"></iframe>
+      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=AffiliationChart"></iframe>
     </details>
   </section>
 
@@ -156,7 +169,7 @@
     <details>
       <summary>Sector Activities Reported</summary>
       <p>Labs often operate in multiple sectors, such as Food Control and Environmental Monitoring.</p>
-      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461@123?cells=TypeSectorChart"></iframe>
+      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=TypeSectorChart"></iframe>
     </details>
   </section>
 
@@ -165,7 +178,7 @@
     <details>
       <summary>Target Users Identified</summary>
       <p>Labs may serve Academia, Industry, and others, counted per selection.</p>
-      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461@123?cells=TargetUsersChart"></iframe>
+      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=TargetUsersChart"></iframe>
     </details>
   </section>
 
@@ -173,7 +186,7 @@
     <h2>5. Radioactivity Monitoring Scope</h2>
     <details>
       <summary>Scope and Source Interests</summary>
-      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461@123?cells=RadioactivityScopeChart"></iframe>
+      <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=RadioactivityScopeChart"></iframe>
     </details>
   </section>
 
