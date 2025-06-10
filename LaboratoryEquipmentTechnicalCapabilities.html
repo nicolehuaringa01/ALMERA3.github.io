@@ -133,11 +133,6 @@
   </style>
 </head>
 <body>
-<div id="chart-container"></div>
-    <div id="lab-info-container"></div>
-
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="script.js"></script>
 <header>
   <h1>ALMERA in Data (2025)</h1>
 </header>
@@ -173,11 +168,12 @@
     <details open>
       <summary>3. Equipment Availability</summary>
       <p>This pie chart illustrates the types and relative abundance of analytical equipment owned by laboratories within the ALMERA network. Gamma-ray spectrometry systems represent the most widely used instrumentation. Alpha spectrometry systems and liquid scintillation counters also make up significant portions.</p>
-      <iframe width="100%" height="584" frameborder="0"
-  src="https://observablehq.com/embed/fac1d9f41f49a8fa?cells=EquipmentsPieChart"></iframe>
-      <p>The number in parentheses next to each laboratory name indicates how many units of that specific equipment type the laboratory possesses.</p>
-      <iframe width="100%" height="101" frameborder="0"
-  src="https://observablehq.com/embed/fac1d9f41f49a8fa?cells=selectedEquipmentLabs"></iframe>
+     <div id="chart-container"></div>
+    <div id="lab-info-container"></div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="script.js"></script>
+      
     </details>
   </section>
 
