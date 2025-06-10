@@ -1,0 +1,30 @@
+#chart-container {
+    width: 928px;
+    margin: 20px auto;
+}
+
+#lab-info-container {
+    width: 928px;
+    margin: 20px auto;
+    font-family: sans-serif;
+}
+
+#lab-info-container h3 {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+#lab-info-container h4 {
+    font-size: 1em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+}
+
+#lab-info-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+#lab-info-container li {
+    margin-bottom: 0.2em;
+}
