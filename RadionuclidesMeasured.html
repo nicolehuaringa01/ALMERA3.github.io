@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALMERA Radionuclides Measured</title>
+  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -128,10 +130,74 @@
     #topBtn:hover {
       background: #01488f;
     }
+    
+    /* Styles for the D3 charts and lab info containers */
+    #radionuclides-chart-container {
+        width: 928px; /* Adjust as needed */
+        margin: 20px auto;
+        /* Add border, padding, shadow if desired */
+    }
+
+    #chart-selection-container {
+      margin: 20px auto;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f8f8f8;
+    }
+
+    #chart-selection-container label {
+      margin-right: 15px;
+      font-weight: 600;
+    }
+
+    #chart-selection-container input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    #lab-info-container {
+        width: 928px; /* Adjust as needed */
+        margin: 20px auto;
+        font-family: sans-serif;
+    }
+
+    #lab-info-container h3 {
+        font-size: 1.2em;
+        margin-bottom: 0.5em;
+    }
+
+    #lab-info-container h4 {
+        font-size: 1em;
+        margin-top: 1em;
+        margin-bottom: 0.2em;
+    }
+
+    #lab-info-container ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    #lab-info-container li {
+        margin-bottom: 0.2em;
+    }
+
+    /* For the dynamic chart display */
+    #chart-display-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center; /* Center charts if multiple are selected */
+        margin-top: 20px;
+    }
+    #chart-display-container svg {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
   </style>
 </head>
 <body>
-
 <header>
   <h1>ALMERA in Data (2025)</h1>
 </header>
@@ -152,16 +218,18 @@
     <h2>5. Radionuclides Measured</h2>
     <details open>
       <summary>20 Most Frequently Measured Radionuclides in ALMERA Laboratories</summary>
-      <div id="chart-container"></div>
-    <div id="lab-info-container"></div>
+      <div id="radionuclides-chart-container"></div>
+     <div id="chart-selection-container">
+        <label>Please select charts to display:</label><br>
+        <label><input type="checkbox" class="chart-selector" value="Bar chart" checked> Bar chart</label>
+        <label><input type="checkbox" class="chart-selector" value="Tree Map"> Tree Map</label>
+     </div>
+     <div id="chart-display-container"></div> <!-- Container for dynamic charts -->
+     <div id="lab-info-container"></div>
     </details>
   </section>
 
-<script src="https://d3js.org/d3.v7.min.js"></script>
 
-<script src="js/FrequentRadionuclidesMeasured.js"></script>
-
-<script src="js/utility.js"></script>
 
 </main>
 
@@ -171,17 +239,17 @@
   &copy; 2025 ALMERA Network
 </footer>
 
-<script>
-  // Scroll to Top button
-  const topBtn = document.getElementById("topBtn");
-  window.onscroll = () => {
-    topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
-  };
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
-</script>
+<!-- Load D3.js first as it's a dependency for your visualization -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<!-- Your visualization-specific script -->
+<script src="js/radionuclides-visualization.js"></script>
+
+<!-- Your general utility scripts (like the scroll-to-top button) -->
+<script src="js/utility.js"></script>
+
+<!-- Your new script for Method Development, if it exists -->
+<!-- <script src="js/MethodDevelopment1.js"></script> -->
 
 </body>
 </html>
