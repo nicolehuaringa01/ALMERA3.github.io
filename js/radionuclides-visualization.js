@@ -1,23 +1,19 @@
 // js/radionuclides-visualization.js
 
-// This global variable will store the data after it's loaded.
-// It needs to be accessible to all functions that process or use the data.
-let rawSurveyData = [];
+// Declare variables that will hold our processed data and state
+let allSurveyData; // Will hold the loaded CSV data
+let radionuclideCountsData;
+let topRadionuclidesData;
+let radionuclideToLabsMapData;
+let selectedRadionuclide = null; // Emulates Observable's mutable state
 
-// This will hold the currently selected radionuclide from the pie chart.
-let selectedRadionuclide = null;
-
-// This will hold the currently selected chart types from the checkboxes.
-let selectedCharts = ["Bar chart"]; // Default selection
-
-// ----------------------------------------------------------------------
-// Data Processing Functions (Adapted from Observable cells)
-// ----------------------------------------------------------------------
-
-// Function to count occurrences of each radionuclide from the raw data
-const getRadionuclideCounts = () => {
+/**
+ * Calculates the count of each radionuclide from the raw data.
+ * @returns {Array<Object>} An array of objects, { name: string, value: number }.
+ */
+const calculateRadionuclideCounts = () => {
     const counts = new Map();
-    for (const row of rawSurveyData) {
+    for (const row of allSurveyData) {
         if (row["EasyRadionuclides"]) {
             const radionuclides = row["EasyRadionuclides"].split(";").map(d => d.trim());
             for (const r of radionuclides) {
@@ -25,147 +21,214 @@ const getRadionuclideCounts = () => {
             }
         }
     }
-    // Convert Map to an array of objects for D3
     return Array.from(counts.entries()).map(([name, value]) => ({ name, value }));
 };
 
-// Function to get the top N radionuclides
-const getTopRadionuclides = () => {
-    // Call getRadionuclideCounts to get the full list, then sort and slice
-    return getRadionuclideCounts()
+/**
+ * Gets the top N most frequently measured radionuclides.
+ * @param {number} n - The number of top radionuclides to retrieve.
+ * @returns {Array<Object>} Sorted array of top radionuclides.
+ */
+const getTopRadionuclides = (n = 20) => {
+    return radionuclideCountsData
+        .slice() // Create a copy to avoid mutating the original array
         .sort((a, b) => d3.descending(a.value, b.value))
-        .slice(0, 7); // Assuming you want top 7, adjust as needed
+        .slice(0, n);
 };
 
-// Function to create a map of radionuclides to labs and their counts by state
-const getRadionuclideToLabsMap = () => {
+/**
+ * Creates a map from radionuclide to a nested map of MemberState to LabName counts.
+ * @returns {Map<string, Map<string, Map<string, number>>>} The mapping.
+ */
+const createRadionuclideToLabsMap = () => {
     const map = new Map();
-
-    for (const row of rawSurveyData) {
-        const radionuclideRaw = row["EasyRadionuclides"]; // Corrected variable name
+    for (const row of allSurveyData) {
+        const radionuclideRaw = row["EasyRadionuclides"];
         const labName = row["1.1 Name of Laboratory"];
         const memberState = row["1.3 Member State"];
 
-        // Ensure all necessary data points exist for the current row
         if (!radionuclideRaw || !labName || !memberState) continue;
 
-        const radionuclides = radionuclideRaw.split(";").map(e => e.trim()); // Corrected variable name
+        const radionuclides = radionuclideRaw.split(";").map(e => e.trim());
 
-        // Count radionuclide occurrences within this row
+        // Count radionuclide occurrences per lab
         const counts = {};
-        for (const r of radionuclides) { // Corrected loop variable name
-            if (!counts[r]) counts[r] = 0;
-            counts[r]++;
+        for (const radionuclide of radionuclides) {
+            if (!counts[radionuclide]) counts[radionuclide] = 0;
+            counts[radionuclide]++;
         }
 
-        for (const [radionuclide, count] of Object.entries(counts)) { // Corrected variable name
-            // If the radionuclide is not yet in the map, add it with a new Map for states
-            if (!map.has(radionuclide)) map.set(radionuclide, new Map());
+        for (const [radionuclide, count] of Object.entries(counts)) {
+            if (!map.has(radionuclide)) map.set(radionuclide, new Map()); // radionuclide → Map<MemberState, Map<LabName, count>>
 
             const stateMap = map.get(radionuclide);
 
-            // If the member state is not yet in its map, add it with a new Map for labs
             if (!stateMap.has(memberState)) stateMap.set(memberState, new Map());
 
-            // Add/update lab name and count for this state
             stateMap.get(memberState).set(labName, count);
         }
     }
     return map;
 };
 
-
-// ----------------------------------------------------------------------
-// Chart Rendering Functions
-// ----------------------------------------------------------------------
-
-// Function to create and render the Radionuclides Pie Chart
-const createRadionuclidesPieChart = () => {
-    const topRadionuclidesData = getTopRadionuclides(); // Get data for the chart
-
+/**
+ * Creates the Radionuclides Bar Chart.
+ * @param {string} currentSelectedRadionuclide - The currently selected radionuclide for highlighting.
+ * @param {Function} onClickHandler - Callback function for bar clicks.
+ * @returns {SVGElement} The D3 SVG node for the bar chart.
+ */
+const RadionuclidesBarChart = (currentSelectedRadionuclide, onClickHandler) => {
     const width = 928;
-    const height = Math.min(width, 500);
+    const height = 500;
+    const margin = { top: 40, right: 20, bottom: 120, left: 60 }; // Increased bottom margin for labels
+
+    const x = d3.scaleBand()
+        .domain(topRadionuclidesData.map(d => d.name))
+        .range([margin.left, width - margin.right])
+        .padding(0.1);
+
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(topRadionuclidesData, d => d.value)]).nice()
+        .range([height - margin.bottom, margin.top]);
 
     const color = d3.scaleOrdinal()
         .domain(topRadionuclidesData.map(d => d.name))
         .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topRadionuclidesData.length).reverse());
 
-    const pie = d3.pie()
-        .sort(null)
-        .value(d => d.value);
-
-    const arc = d3.arc()
-        .innerRadius(0)
-        .outerRadius(Math.min(width, height) / 2 - 1);
-
-    const arcs = pie(topRadionuclidesData);
-
-    // Clear previous chart before rendering a new one
-    d3.select("#radionuclides-chart-container").html("");
-
-    const svg = d3.select("#radionuclides-chart-container")
-        .append("svg")
+    const svg = d3.create("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("viewBox", [-width / 2, -height / 2, width, height])
-        .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif; cursor: pointer;");
+        .attr("viewBox", `0 0 ${width} ${height}`) // Set viewBox for responsiveness
+        .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif; cursor: pointer; display: block; margin: auto;");
 
+    // Bars
     svg.append("g")
-        .attr("stroke", "white")
-        .selectAll()
-        .data(arcs)
-        .join("path")
-        .attr("fill", d => color(d.data.name))
-        .attr("d", arc)
+        .selectAll("rect")
+        .data(topRadionuclidesData)
+        .join("rect")
+        .attr("x", d => x(d.name))
+        .attr("y", d => y(d.value))
+        .attr("height", d => y(0) - y(d.value))
+        .attr("width", x.bandwidth())
+        .attr("fill", d => d.name === currentSelectedRadionuclide ? "#FFD700" : color(d.name)) // Highlight selected
+        .attr("stroke", d => d.name === currentSelectedRadionuclide ? "black" : "none") // Add border to selected
+        .attr("stroke-width", d => d.name === currentSelectedRadionuclide ? 2 : 0)
         .on("click", (event, d) => {
-            selectedRadionuclide = d.data.name; // Update the global selected radionuclide
-            updateRadionuclideLabInfo(); // Update the lab info section
-            updateChartDisplay(); // Re-render dynamic charts based on new selection
+            onClickHandler(d.name); // Call the handler to update selectedRadionuclide
+        })
+        .append("title")
+        .text(d => `${d.name}: ${d.value.toLocaleString("en-US")}`);
+
+    // X Axis
+    svg.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end")
+        .style("font-size", "10px"); // Ensure label readability
+
+    // Y Axis
+    svg.append("g")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(y))
+        .call(g => g.select(".domain").remove());
+
+    // Y Axis Label
+    svg.append("text")
+        .attr("text-anchor", "middle")
+        .attr("transform", `translate(${margin.left / 2}, ${height / 2}) rotate(-90)`)
+        .text("Count")
+        .attr("font-size", "12px"); // Adjust label font size
+
+    return svg.node();
+};
+
+/**
+ * Creates the Radionuclides Treemap.
+ * @param {string} currentSelectedRadionuclide - The currently selected radionuclide for highlighting.
+ * @param {Function} onClickHandler - Callback function for tile clicks.
+ * @returns {SVGElement} The D3 SVG node for the treemap.
+ */
+const RadionuclidesTreemap = (currentSelectedRadionuclide, onClickHandler) => {
+    const width = 928;
+    const height = 500;
+
+    const data = {
+        name: "Radionuclides",
+        children: topRadionuclidesData.map(d => ({ name: d.name, value: d.value }))
+    };
+
+    const color = d3.scaleOrdinal()
+        .domain(topRadionuclidesData.map(d => d.name))
+        .range(d3.quantize(t => d3.interpolateBlues(t * 0.7 + 0.3), topRadionuclidesData.length).reverse());
+
+    const root = d3.hierarchy(data)
+        .sum(d => d.value)
+        .sort((a, b) => b.value - a.value);
+
+    d3.treemap()
+        .size([width, height])
+        .padding(2)(root);
+
+    const svg = d3.create("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", `0 0 ${width} ${height}`) // Set viewBox for responsiveness
+        .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif; display: block; margin: auto;");
+
+    const node = svg.selectAll("g")
+        .data(root.leaves())
+        .join("g")
+        .attr("transform", d => `translate(${d.x0},${d.y0})`);
+
+    node.append("rect")
+        .attr("id", d => d.data.name.replace(/\s/g, '-')) // Use a valid ID for HTML
+        .attr("fill", d => d.data.name === currentSelectedRadionuclide ? "#FFD700" : color(d.data.name)) // Highlight selected
+        .attr("stroke", d => d.data.name === currentSelectedRadionuclide ? "black" : "none") // Add border to selected
+        .attr("stroke-width", d => d.data.name === currentSelectedRadionuclide ? 2 : 0)
+        .attr("width", d => d.x1 - d.x0)
+        .attr("height", d => d.y1 - d.y0)
+        .on("click", (event, d) => {
+            onClickHandler(d.data.name); // Call the handler to update selectedRadionuclide
         })
         .append("title")
         .text(d => `${d.data.name}: ${d.data.value.toLocaleString("en-US")}`);
 
-    const legend = svg.append("g")
-        .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`)
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-        .selectAll("g")
-        .data(color.domain())
-        .join("g")
-        .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+    node.append("text")
+        .attr("x", 4)
+        .attr("y", 14)
+        .text(d => {
+            const rectWidth = d.x1 - d.x0;
+            // Only display text if there's enough space to avoid overlap
+            if (rectWidth > 30) { // Arbitrary threshold
+                return d.data.name;
+            }
+            return "";
+        })
+        .attr("fill", "white")
+        .attr("font-size", "10px")
+        .attr("pointer-events", "none"); // Allow click to pass through text to rect
 
-    legend.append("rect")
-        .attr("x", 0)
-        .attr("width", 18)
-        .attr("height", 18)
-        .attr("fill", color);
-
-    legend.append("text")
-        .attr("x", 24)
-        .attr("y", 9)
-        .attr("dy", "0.35em")
-        .text(d => d);
-
-    // No need to return svg.node() as we directly appended it to the DOM
+    return svg.node();
 };
 
-// Function to update the Lab Info section based on selectedRadionuclide
-const updateRadionuclideLabInfo = () => {
-    const selected = selectedRadionuclide;
-    const container = d3.select("#lab-info-container");
-    const radionuclideLabsMap = getRadionuclideToLabsMap(); // Get the map
+/**
+ * Updates the display of labs measuring the selected radionuclide.
+ */
+const updateSelectedRadionuclideLabs = () => {
+    const labInfoContainer = d3.select("#lab-info-container");
+    labInfoContainer.html(""); // Clear previous content
 
-    container.html(""); // Clear previous content
-
-    if (!selected) {
-        container.append("p").html("<em>Click on a pie slice to see associated labs.</em>");
+    if (!selectedRadionuclide) {
+        labInfoContainer.append("p").html("<em>Click on a chart element (bar or treemap tile) to see related labs.</em>");
         return;
     }
 
-    const stateMap = radionuclideLabsMap.get(selected);
+    const stateMap = radionuclideToLabsMapData.get(selectedRadionuclide);
 
     if (!stateMap || stateMap.size === 0) {
-        container.append("p").html(`No labs found for <strong>${selected}</strong>.`);
+        labInfoContainer.append("p").html(`No labs found for <strong>${selectedRadionuclide}</strong>.`);
         return;
     }
 
@@ -176,128 +239,78 @@ const updateRadionuclideLabInfo = () => {
 
     const sortedStates = Array.from(stateMap.keys()).sort(d3.ascending);
 
-    const div = container.append("div");
-
-    div.append("h3").html(`Labs with <strong>${selected}</strong> (${totalLabs} total)`);
+    const div = labInfoContainer.append("div");
+    div.append("h3").html(`Labs that measure <strong>${selectedRadionuclide}</strong> (${totalLabs} total)`);
 
     sortedStates.forEach(state => {
         const labsMap = stateMap.get(state);
-        // Sort labs by name for consistent display
+        // Labs are stored as Map<LabName, count>, sort by lab name
         const sortedLabs = Array.from(labsMap.entries()).sort((a, b) => d3.ascending(a[0], b[0]));
 
         const stateDiv = div.append("div");
         stateDiv.append("h4").text(state);
 
         const ul = stateDiv.append("ul");
-        sortedLabs.forEach(([lab, count]) => {
-            ul.append("li").text(`${lab} (${count})`);
+        sortedLabs.forEach(([lab]) => { // Only display lab name, not count based on your request
+            ul.append("li").text(lab);
         });
     });
 };
 
-// ----------------------------------------------------------------------
-// Placeholder Chart Functions (for Bar Chart and Treemap)
-// These need to be filled with your actual D3 code for those charts.
-// They should accept data and selectedRadionuclide as arguments if they
-// depend on it. For now, they return simple SVG elements.
-// ----------------------------------------------------------------------
+/**
+ * Main function to render the charts based on selected checkboxes.
+ * It clears the container and appends the selected charts.
+ */
+const renderCharts = () => {
+    const chartDisplayContainer = d3.select("#chart-display-container");
+    chartDisplayContainer.html(""); // Clear previous charts
 
-const createRadionuclidesBarChart = (data, selectedRadionuclide) => {
-    const width = 450;
-    const height = 300;
-    const svg = d3.create("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("viewBox", [0, 0, width, height])
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10);
+    const selectedCharts = Array.from(document.querySelectorAll('.chart-selector:checked')).map(cb => cb.value);
 
-    svg.append("text")
-        .attr("x", width / 2)
-        .attr("y", height / 2)
-        .attr("text-anchor", "middle")
-        .text(`Bar Chart for: ${selectedRadionuclide || 'All Radionuclides'} (Placeholder)`);
-
-    // Add actual D3 bar chart rendering logic here, using 'data' if needed
-    // You'd typically filter 'data' based on 'selectedRadionuclide'
-
-    return svg.node();
-};
-
-const createRadionuclidesTreemap = (data, selectedRadionuclide) => {
-    const width = 450;
-    const height = 300;
-    const svg = d3.create("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("viewBox", [0, 0, width, height])
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10);
-
-    svg.append("text")
-        .attr("x", width / 2)
-        .attr("y", height / 2)
-        .attr("text-anchor", "middle")
-        .text(`Treemap for: ${selectedRadionuclide || 'All Radionuclides'} (Placeholder)`);
-
-    // Add actual D3 treemap rendering logic here, using 'data' if needed
-    // You'd typically filter 'data' based on 'selectedRadionuclide'
-
-    return svg.node();
-};
-
-
-// ----------------------------------------------------------------------
-// Dynamic Chart Display Logic
-// ----------------------------------------------------------------------
-
-const updateChartDisplay = () => {
-    const container = d3.select("#chart-display-container");
-    container.html(""); // Clear previous content
-
-    const topRadionuclidesData = getTopRadionuclides(); // Data for these charts
+    // Define a common click handler for both charts
+    const chartClickHandler = (radionuclideName) => {
+        selectedRadionuclide = radionuclideName;
+        // Re-render charts to apply highlight
+        renderCharts();
+        // Update the lab info display
+        updateSelectedRadionuclideLabs();
+    };
 
     if (selectedCharts.includes("Bar chart")) {
-        const barChart = createRadionuclidesBarChart(topRadionuclidesData, selectedRadionuclide);
-        container.node().appendChild(barChart);
+        const barChartSvg = RadionuclidesBarChart(selectedRadionuclide, chartClickHandler);
+        chartDisplayContainer.node().appendChild(barChartSvg);
     }
 
     if (selectedCharts.includes("Tree Map")) {
-        const treeMap = createRadionuclidesTreemap(topRadionuclidesData, selectedRadionuclide);
-        container.node().appendChild(treeMap);
+        const treemapSvg = RadionuclidesTreemap(selectedRadionuclide, chartClickHandler);
+        chartDisplayContainer.node().appendChild(treemapSvg);
     }
 
-    // If no charts are selected, you might want to display a message
+    // If no charts are selected, show a message
     if (selectedCharts.length === 0) {
-        container.append("p").html("<em>Select at least one chart type to display.</em>");
+        chartDisplayContainer.append("p").text("Please select at least one chart to display.");
     }
 };
 
-// ----------------------------------------------------------------------
-// Initialization: Load Data and Set Up Event Listeners
-// ----------------------------------------------------------------------
-
-// Load the CSV data when the script runs
+// --- Data Loading and Initialization ---
 d3.csv("observable2020SurveyUpdatedData2025.csv").then(data => {
-    rawSurveyData = data; // Store the loaded data globally
+    allSurveyData = data; // Store the loaded data
 
-    // Initial render of the pie chart
-    createRadionuclidesPieChart();
+    // Process data once after loading
+    radionuclideCountsData = calculateRadionuclideCounts();
+    topRadionuclidesData = getTopRadionuclides();
+    radionuclideToLabsMapData = createRadionuclideToLabsMap();
 
-    // Initial render of the lab info (will show "Nothing to show yet" initially)
-    updateRadionuclideLabInfo();
-
-    // Initial render of the dynamic charts
-    updateChartDisplay();
-
-    // Set up event listener for the chart selection checkboxes
-    d3.selectAll(".chart-selector").on("change", function() {
-        selectedCharts = Array.from(d3.selectAll(".chart-selector:checked").nodes()).map(cb => cb.value);
-        updateChartDisplay(); // Re-render the dynamic charts
+    // Attach event listeners to checkboxes for dynamic chart display
+    document.querySelectorAll('.chart-selector').forEach(checkbox => {
+        checkbox.addEventListener('change', renderCharts);
     });
 
+    // Initial render of charts and lab info
+    renderCharts();
+    updateSelectedRadionuclideLabs(); // Show initial message for labs
 }).catch(error => {
-    // Basic error handling for CSV loading
     console.error("Error loading CSV data:", error);
-    d3.select("body").append("p").attr("style", "color: red;").text("Failed to load data. Please check the CSV file path and content.");
+    d3.select("#chart-display-container").append("p").text("Failed to load data. Please check the CSV file path and content.");
+    d3.select("#lab-info-container").append("p").text("Data could not be loaded.");
 });
