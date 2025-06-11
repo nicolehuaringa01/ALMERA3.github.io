@@ -218,8 +218,8 @@
 </nav>
 
 <main>
+<h2>5. Radionuclides Measured</h2>
 <section>
-    <h2>5. Radionuclides Measured</h2>
     <details open>
       <summary>20 Most Frequently Measured Radionuclides in ALMERA Laboratories</summary>
       <!-- Removed the empty #radionuclides-chart-container if it's not used. -->
@@ -234,6 +234,20 @@
      <div id="lab-info-container"></div>
     </details>
   </section>
+  
+<section>
+    <details open>
+        <summary>Radioanalytical methods used to analyse samples collected for monitoring purposes</summary>
+        <div id="radmethod-section-container">
+            <div id="radmethod-chart-selection-container" class="chart-selection-container">
+                <label>Please select chart to display:</label><br>
+                <label><input type="checkbox" class="radmethod-chart-selector" value="Pie chart" checked> Pie chart</label>
+            </div>
+            <div id="radmethod-chart-display-container" class="chart-display-container"></div>
+            <div id="radmethod-lab-info-container" class="lab-info-container"></div>
+        </div>
+    </details>
+</section>
 
 </main>
 
@@ -243,18 +257,11 @@
   &copy; 2025 ALMERA Network
 </footer>
 
-<!-- Load D3.js first as it's a dependency for your visualization -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
 
-<!-- Your visualization-specific script -->
 <script src="js/radionuclides-visualization.js"></script>
-
-<!-- Your general utility scripts (like the scroll-to-top button) -->
+<script src="js/radmethod-visualization.js"></script>
 <script src="js/utility.js"></script>
-
-<!-- Your new script for Method Development, if it exists -->
-<!-- Uncomment the line below if you create js/MethodDevelopment1.js -->
-<!-- <script src="js/MethodDevelopment1.js"></script> -->
 
 </body>
 </html>
