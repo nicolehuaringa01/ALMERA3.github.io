@@ -61,7 +61,7 @@ d3.csv("observable2020SurveyUpdatedData2025.csv").then(data => {
 
 
     // 4. UncertaintyCalculationsPieChart: Function to create and render the pie chart
-    const UncertaintyCalculationsPieChart = () => {
+    const UncertaintyCalculationsPieChart = () => { // <--- THIS IS THE CRITICAL LINE. It must be `() => {` not `{`
         const width = 928;
         const height = Math.min(width, 500);
 
@@ -109,8 +109,8 @@ d3.csv("observable2020SurveyUpdatedData2025.csv").then(data => {
         // Add legend
         const legend = svg.append("g")
             .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`)
-            .attr("font-family", "sans-serif") // Changed to sans-serif for consistency, Times New Roman is less common for charts
-            .attr("font-size", 10) // Changed to 10 for consistency with other charts
+            .attr("font-family", "sans-serif")
+            .attr("font-size", 10)
             .selectAll("g")
             .data(color.domain())
             .join("g")
@@ -129,7 +129,8 @@ d3.csv("observable2020SurveyUpdatedData2025.csv").then(data => {
             .text(d => d);
 
         return svg.node();
-    };
+    }; // <--- Function ends here
+
 
     // 5. updateLabInfo2: Function to update the display of labs for this specific chart
     const updateLabInfo2 = () => {
