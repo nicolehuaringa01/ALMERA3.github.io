@@ -144,6 +144,7 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       background-color: #f8f8f8;
+      max-width: 928px; /* Constrain width to align with charts */
     }
 
     #chart-selection-container label {
@@ -188,6 +189,9 @@
         gap: 20px;
         justify-content: center; /* Center charts if multiple are selected */
         margin-top: 20px;
+        max-width: 928px; /* Constrain width to align with charts */
+        margin-left: auto; /* Center the container */
+        margin-right: auto;
     }
     #chart-display-container svg {
         border: 1px solid #eee;
@@ -247,9 +251,6 @@
 
 <!-- Your general utility scripts (like the scroll-to-top button) -->
 <script src="js/utility.js"></script>
-
-<!-- Your new script for Method Development, if it exists -->
-<!-- <script src="js/MethodDevelopment1.js"></script> -->
 
 </body>
 </html>
