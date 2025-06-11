@@ -177,16 +177,10 @@
     <details open>
       <summary>International PTs that ALMERA labs participate in</summary>
       <div id="chart-container"></div>
-    <div id="lab-info-container"></div>
-
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-
-<script src="js/InternationalPT-visualization.js"></script>
-<script src="js/utility.js"></script>
-      
+      <div id="lab-info-container"></div>
     </details>
   </section>
-  
+    
 <section>
     <details open>
       <summary>7. Has the laboratory established internal QA/QC procedures for measurement validation and to check equipment performance?</summary>
@@ -204,8 +198,11 @@
   &copy; 2025 ALMERA Network
 </footer>
 
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="js/InternationalPT-visualization.js"></script>
+<script src="js/utility.js"></script>
 <script>
-  // Scroll to Top button
+  // Scroll to Top button (moved here as it uses basic JS, not D3)
   const topBtn = document.getElementById("topBtn");
   window.onscroll = () => {
     topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
