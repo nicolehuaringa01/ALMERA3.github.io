@@ -9,223 +9,220 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: #f9fafb;
-      color: #333;
-      line-height: 1.6;
+      margin: 0;
+      background: #f9fafb;
+      color: #333;
+      line-height: 1.6;
     }
     header {
-      background: #0256b3;
-      color: #fff;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: #0256b3;
+      color: #fff;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     header h1 {
-      margin: 0;
-      font-size: 1.6rem;
+      margin: 0;
+      font-size: 1.6rem;
     }
     .nav-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: #fff;
-      padding: 0.8rem 1rem;
-      position: sticky;
-      top: 64px;
-      z-index: 999;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-    }
-    .nav-buttons a {
-      background: #0256b3;
-      color: #fff;
-      text-decoration: none;
-      margin: 6px;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-    .nav-buttons a:hover {
-      background: #01488f;
-      transform: translateY(-2px);
-    }
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
-    section {
-      background: #fff;
-      border-radius: 10px;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      padding: 1.5rem 2rem;
-    }
-    h2 {
-      color: #0256b3;
-      font-size: 1.4rem;
-      margin-top: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: #fff;
+      padding: 0.8rem 1rem;
+      position: sticky;
+      top: 64px;
+      z-index: 999;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+   }
+   .nav-buttons a {
+     background: #0256b3;
+     color: #fff;
+     text-decoration: none;
+     margin: 6px;
+     padding: 10px 16px;
+     border-radius: 6px;
+     font-weight: 600;
+     transition: background 0.3s ease, transform 0.2s ease;
+   }
+   .nav-buttons a:hover {
+     background: #01488f;
+     transform: translateY(-2px);
+   }
+   main {
+     max-width: 1100px;
+     margin: 2rem auto;
+     padding: 0 1.5rem;
+   }
+   section {
+     background: #fff;
+     border-radius: 10px;
+     margin-bottom: 2rem;
+     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+     padding: 1.5rem 2rem;
+   }   h2 {
+     color: #0256b3;
+     font-size: 1.4rem;
+     margin-top: 0;
     }
     iframe {
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      height: 480px;
-      margin-top: 1rem;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      height: 480px;
+      margin-top: 1rem;
     }
     footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #f1f3f5;
-      color: #777;
-      font-size: 0.9rem;
-    }
-    /* Accordion */
-    details {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      background: #fdfdfd;
-      transition: background 0.3s ease;
-    }
-    details:hover {
-      background: #f8f9fa;
-    }
-    summary {
-      font-weight: 600;
-      cursor: pointer;
-      position: relative;
-      padding-right: 20px;
-    }
-    summary::after {
-      content: "▼";
-      position: absolute;
-      right: 0;
-      transition: transform 0.3s ease;
-    }
-    details[open] summary::after {
-      content: "▲";
-    }
-    /* Scroll-to-top button */
-    #topBtn {
-      display: none;
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      z-index: 1000;
-      background: #0256b3;
-      color: white;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: background 0.3s ease;
-    }
-    #topBtn:hover {
-      background: #01488f;
-    }
-    
-    /* Styles for the D3 charts and lab info containers */
-    /* This one is probably not needed now as charts go into #chart-display-container */
-    #radionuclides-chart-container {
-        width: 928px; /* Adjust as needed */
-        margin: 20px auto;
-    }
+      text-align: center;
+      padding: 1.5rem;
+      background: #f1f3f5;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    /* Accordion */
+    details {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #fdfdfd;
+      transition: background 0.3s ease;
+    }
+    details:hover {
+      background: #f8f9fa;
+    }
+    summary {
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      padding-right: 20px;
+    }
+    summary::after {
+      content: "▼";
+      position: absolute;
+      right: 0;
+      transition: transform 0.3s ease;
+    }
+    details[open] summary::after {
+      content: "▲";
+    }
+    /* Scroll-to-top button */
+    #topBtn {
+      display: none;
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 1000;
+      background: #0256b3;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+    #topBtn:hover {
+      background: #01488f;
+    }
+    
+    /* Styles for the D3 charts and lab info containers */
+    #radionuclides-chart-container {
+        width: 928px; /* Adjust as needed */
+        margin: 20px auto;
+        /* Add border, padding, shadow if desired */
+    }
 
-    /* Common styles for chart selection containers */
-    .chart-selection-container { /* Changed to class */
-      margin: 20px auto;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background-color: #f8f8f8;
-      max-width: 928px; /* Constrain width to align with charts */
-    }
+    #chart-selection-container {
+      margin: 20px auto;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f8f8f8;
+      max-width: 928px; /* Constrain width to align with charts */
+    }
 
-    .chart-selection-container label { /* Changed to class */
-      margin-right: 15px;
-      font-weight: 600;
-    }
+    #chart-selection-container label {
+      margin-right: 15px;
+      font-weight: 600;
+    }
 
-    .chart-selection-container input[type="checkbox"] { /* Changed to class */
-      margin-right: 5px;
-    }
+    #chart-selection-container input[type="checkbox"] {
+      margin-right: 5px;
+    }
 
-    /* Common styles for lab info containers */
-    .lab-info-container { /* Changed to class */
-        width: 928px; /* Adjust as needed */
-        margin: 20px auto;
-        font-family: sans-serif;
-    }
+    #lab-info-container {
+        width: 928px; /* Adjust as needed */
+        margin: 20px auto;
+        font-family: sans-serif;
+    }
 
-    .lab-info-container h3 { /* Changed to class */
-        font-size: 1.2em;
-        margin-bottom: 0.5em;
-    }
+    #lab-info-container h3 {
+        font-size: 1.2em;
+        margin-bottom: 0.5em;
+    }
 
-    .lab-info-container h4 { /* Changed to class */
-        font-size: 1em;
-        margin-top: 1em;
-        margin-bottom: 0.2em;
-    }
+    #lab-info-container h4 {
+        font-size: 1em;
+        margin-top: 1em;
+        margin-bottom: 0.2em;
+    }
 
-    .lab-info-container ul { /* Changed to class */
-        list-style: none;
-        padding: 0;
-    }
+    #lab-info-container ul {
+        list-style: none;
+        padding: 0;
+    }
 
-    .lab-info-container li { /* Changed to class */
-        margin-bottom: 0.2em;
-    }
+    #lab-info-container li {
+        margin-bottom: 0.2em;
+    }
 
-    /* Common styles for dynamic chart display containers */
-    .chart-display-container { /* Changed to class */
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center; /* Center charts if multiple are selected */
-        margin-top: 20px;
-        max-width: 928px; /* Constrain width to align with charts */
-        margin-left: auto; /* Center the container */
-        margin-right: auto;
-    }
-    .chart-display-container svg { /* Changed to class */
-        border: 1px solid #eee;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    
-  </style>
+    /* For the dynamic chart display */
+    #chart-display-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center; /* Center charts if multiple are selected */
+        margin-top: 20px;
+        max-width: 928px; /* Constrain width to align with charts */
+        margin-left: auto; /* Center the container */
+        margin-right: auto;
+    }
+    #chart-display-container svg {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+  </style>
 </head>
 <body>
 <header>
-  <h1>ALMERA in Data (2025)</h1>
+  <h1>ALMERA in Data (2025)</h1>
 </header>
 
 <nav class="nav-buttons">
 <a href="GeographicInstitutionalCoverage.html">1.Geographic & Institutional Coverage</a>
 <a href="HumanResourcesTraining.html">2. Human Resources and Training</a>
-    <a href="LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
-    <a href="AnalyticalMethodDevelopmentImplementation.html">4. Analytical Method Development & Implementation</a>
-    <a href="QualityManagementReporting.html">6. Quality Management</a>
-    <a href="EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
-    <a href="NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
-    <a href="RequestedFutureActivities.html">9. Future Activities</a>
+    <a href="LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
+    <a href="AnalyticalMethodDevelopmentImplementation.html">4. Analytical Method Development & Implementation</a>
+    <a href="QualityManagementReporting.html">6. Quality Management</a>
+    <a href="EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
+    <a href="NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
+    <a href="RequestedFutureActivities.html">9. Future Activities</a>
 </nav>
 
 <main>
-    <h2>5. Radionuclides Measured</h2>
+    <h2>5. Radionuclides Measured</h2>
 <section>
-    <details open>
-      <summary>20 Most Frequently Measured Radionuclides in ALMERA Laboratories</summary>
-      <div id="radionuclides-section-container">
-        <div id="radionuclides-chart-selection-container" class="chart-selection-container">
+    <details open>
+      <summary>20 Most Frequently Measured Radionuclides in ALMERA Laboratories</summary>
+      <div id="radionuclides-chart-container">
+          <div id="radionuclides-chart-selection-container" class="chart-selection-container">
             <label>Please select charts to display:</label><br>
             <label><input type="checkbox" class="radionuclides-chart-selector" value="Bar chart" checked> Bar chart</label>
             <label><input type="checkbox" class="radionuclides-chart-selector" value="Tree Map"> Tree Map</label>
@@ -235,31 +232,36 @@
       </div>
     </details>
   </section>
-    
+  
 <section>
-    <details open>
-        <summary>Radioanalytical methods used to analyse samples collected for monitoring purposes</summary>
-        <div id="radmethod-section-container">
-            <div id="radmethod-chart-selection-container" class="chart-selection-container">
-            </div>
-            <div id="radmethod-chart-display-container" class="chart-display-container"></div>
-            <div id="radmethod-lab-info-container" class="lab-info-container"></div>
-        </div>
-    </details>
+    <details open>
+        <summary>Radioanalytical methods used to analyse samples collected for monitoring purposes</summary>
+        <div id="radionuclides-chart-container"></div>
+        <div id="chart-selection-container"></div>
+        <div id="chart-display-container"></div> <!-- Container for dynamic charts -->
+        <div id="lab-info-container"></div>
+    </details>
+      
 </section>
+
+
 
 </main>
 
 <button id="topBtn" onclick="topFunction()">↑</button>
 
 <footer>
-  &copy; 2025 ALMERA Network
+  &copy; 2025 ALMERA Network
 </footer>
 
+<!-- Load D3.js first as it's a dependency for your visualization -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
 
+<!-- Your visualization-specific script -->
 <script src="js/radionuclides-visualization.js"></script>
-<script src="js/radmethod-visualization.js"></script> <script src="js/utility.js"></script>
+
+<!-- Your general utility scripts (like the scroll-to-top button) -->
+<script src="js/utility.js"></script>
 
 </body>
 </html>
