@@ -23,13 +23,24 @@
             top: 0;
             left: 0;
             width: 100%; /* Ensure header spans full width */
-            z-index: 1000;
+            z-index: 1000; /* Ensure header is above other content */
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             box-sizing: border-box; /* Include padding in width calculation */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+        header a {
+            text-decoration: none; /* Remove underline from the link */
+            color: inherit;      /* Inherit the white color from the header */
+            display: block;      /* Make the anchor fill its container */
+            cursor: pointer;     /* Indicate it's clickable */
         }
         header h1 {
-            margin: 0;
-            font-size: 1.6rem;
+            margin: 0; /* Remove default h1 margin */
+            font-size: 1.6rem; /* Equivalent to text-3xl, adjust as needed for optimal display */
+            font-weight: 700; /* Equivalent to font-bold */
+            text-align: left; /* Center the text within the h1 */
+         /* Remove any mb-6 as it's now in a fixed header */
         }
 
         /* Container for the sidebar and main content */
@@ -203,7 +214,9 @@
 <body>
 
 <header>
-    <h1>ALMERA in Data (2025)</h1>
+    <a href="stats.html">
+        <h1>ALMERA in Data (2025)</h1>
+    </a>
 </header>
 
 <div class="content-wrapper">
@@ -220,8 +233,8 @@
     </nav>
 
     <main>
+        <h2>7. Environmental Monitoring</h2>
         <section>
-            <h2>7. Environmental Monitoring</h2>
             <details open>
                 <summary>1. What environmental radioactivity monitoring tasks is the laboratory/institution authorised or appointed to perform?</summary>
                 <iframe width="100%" height="585" frameborder="0"
