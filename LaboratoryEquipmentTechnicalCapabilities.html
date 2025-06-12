@@ -13,50 +13,74 @@
       background: #f9fafb;
       color: #333;
       line-height: 1.6;
+      padding-top: 64px; 
     }
     header {
-      background: #0256b3;
-      color: #fff;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+            background: #0256b3;
+            color: #fff;
+            padding: 1rem 2rem;
+            position: fixed; /* Make header fixed */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ensure header spans full width */
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
     header h1 {
       margin: 0;
       font-size: 1.6rem;
     }
+    /* Container for the sidebar and main content */
+        .content-wrapper {
+            display: flex; /* Use flexbox to lay out sidebar and main content horizontally */
+            min-height: calc(100vh - 64px); /* Adjust min-height to push footer down */
+            /* No margin-left here, main will handle its own margin */
+        }
     .nav-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: #fff;
-      padding: 0.8rem 1rem;
-      position: sticky;
-      top: 64px;
-      z-index: 999;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-    }
+            position: fixed; /* Make the navigation fixed */
+            top: 64px; /* Starts right below the header */
+            left: 0;
+            width: 250px; /* Desired width of the sidebar */
+            height: calc(100vh - 64px); /* Full height of viewport minus header height */
+            background: #fff;
+            padding: 1rem 0.5rem; /* Adjust padding for links */
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: flex-start; /* Align links to the left */
+            overflow-y: auto; /* Enable scrolling for the nav if content overflows */
+            z-index: 998;
+            box-sizing: border-box;
+        }
     .nav-buttons a {
-      background: #0256b3;
-      color: #fff;
-      text-decoration: none;
-      margin: 6px;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-    .nav-buttons a:hover {
-      background: #01488f;
-      transform: translateY(-2px);
-    }
+            background: #f0f0f0; /* Lighter background for nav links */
+            color: #333; /* Darker text for better contrast */
+            text-decoration: none;
+            margin: 4px 0; /* Vertical margin between links */
+            padding: 10px 15px; /* Padding inside links */
+            border-radius: 4px;
+            font-weight: 500; /* Slightly lighter weight */
+            transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
+            width: 100%; /* Make links fill the nav width */
+            box-sizing: border-box; /* Include padding in width */
+            text-align: left; /* Align text to the left */
+        }
+        .nav-buttons a:hover {
+            background: #e0e0e0; /* Hover effect */
+            color: #0256b3; /* Highlight text color */
+            transform: none; /* No translateY on hover for sidebar links */
+        }
+        
     main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
+            flex-grow: 1; /* Allows main to take up remaining horizontal space */
+            margin-left: 250px; /* Push main content to the right by nav width */
+            max-width: 1100px; /* Max width for the actual content */
+            margin-right: auto; /* To help center the content within the available space */
+            margin-top: 2rem; /* Top margin for content */
+            padding: 0 1.5rem; /* Internal padding */
+            box-sizing: border-box;
+        }
     section {
       background: #fff;
       border-radius: 10px;
@@ -77,12 +101,15 @@
       margin-top: 1rem;
     }
     footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #f1f3f5;
-      color: #777;
-      font-size: 0.9rem;
-    }
+            text-align: center;
+            padding: 1.5rem;
+            background: #f1f3f5;
+            color: #777;
+            font-size: 0.9rem;
+            margin-left: 250px; /* Align with main content */
+            box-sizing: border-box;
+            width: calc(100% - 250px); /* Adjust width to span remaining space */
+        }
     /* Accordion */
     details {
       border: 1px solid #ddd;
@@ -126,32 +153,74 @@
       font-size: 18px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       transition: background 0.3s ease;
+      right: 25px;
     }
     #topBtn:hover {
       background: #01488f;
     }
+    
+    /* Basic responsiveness for smaller screens (optional but recommended) */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                position: relative; /* Make nav flow with content on small screens */
+                width: 100%;
+                height: auto;
+                top: 0; /* No longer fixed below header if header itself is not fixed */
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow at bottom */
+                padding: 0.8rem 1rem;
+                flex-direction: row; /* Back to horizontal for small screens */
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-buttons a {
+                width: auto;
+                flex-grow: 1; /* Allow items to grow */
+                text-align: center;
+                margin: 5px;
+            }
+            .content-wrapper {
+                flex-direction: column; /* Stack content vertically */
+                margin-left: 0; /* Remove left margin */
+            }
+            main {
+                margin-left: 0; /* Remove left margin for main content */
+                margin-top: 1rem; /* Adjust top margin for main content */
+            }
+            footer {
+                margin-left: 0;
+                width: 100%;
+            }
+            body {
+                padding-top: 0; /* No padding needed if header isn't fixed anymore */
+            }
+            header {
+                position: relative; /* Make header flow with content on small screens */
+            }
+        }
   </style>
 </head>
 <body>
+
 <header>
   <h1>ALMERA in Data (2025)</h1>
 </header>
 
-<nav class="nav-buttons">
-<a href="GeographicInstitutionalCoverage.html">1. Geographic & Institutional Coverage</a>
-    <p><a href="HumanResourcesTraining.html">2. Human Resources and Training</a></p>
-    <a href="AnalyticalMethodDevelopmentImplementation.html">4. Method Development</a>
-    <a href="RadionuclidesMeasured.html">5. Radionuclides Measured</a>
-    <a href="QualityManagementReporting.html">6. Quality Management</a>
-    <a href="EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
-    <a href="NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
-    <a href="RequestedFutureActivities.html">9. Future Activities</a>
-</nav>
+<div class="content-wrapper">
+    <nav class="nav-buttons">
+        <a href="GeographicInstitutionalCoverage.html">1. Geographic & Institutional Coverage</a>
+        <a href="HumanResourcesTraining.html">2. Human Resources and Training</a>
+        <a href="LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
+        <a href="AnalyticalMethodDevelopmentImplementation.html">4. Method Development</a>
+        <a href="RadionuclidesMeasured.html">5. Radionuclides Measured</a>
+        <a href="QualityManagementReporting.html">6. Quality Management</a>
+        <a href="EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
+        <a href="NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
+        <a href="RequestedFutureActivities.html">9. Future Activities</a>
+    </nav>
 
 <main>
-    <h1>3. Laboratory Equipment and Technical Capabilities</h1>
 <section>
-    <h2>Field Survey Capabilities</h2>
+    <h2>3. Equipment & Technical Capabilities</h2>
     <details open>
       <summary>Field Survey Capabilities</summary>
       <p>1. Does the laboratory have field survey capabilities?</p>
@@ -183,6 +252,7 @@
   </section>
 
 </main>
+</div> <button id="topBtn" onclick="topFunction()">↑</button>
 
 <button id="topBtn" onclick="topFunction()">↑</button>
 
@@ -191,15 +261,21 @@
 </footer>
 
 <script>
-  // Scroll to Top button
-  const topBtn = document.getElementById("topBtn");
-  window.onscroll = () => {
-    topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
-  };
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
+    // Scroll to Top button (ensure this is only in one place, either here or utility.js)
+    const topBtn = document.getElementById("topBtn");
+    // Ensure topBtn exists before adding event listeners
+    if (topBtn) {
+        window.onscroll = () => {
+            topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
+        };
+        // It's good practice to assign onclick directly, rather than inline in HTML
+        topBtn.onclick = topFunction;
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
 </script>
 
 </body>
