@@ -6,6 +6,7 @@
     <title>ALMERA Geographic and Institutional Coverage</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+    
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -22,13 +23,24 @@
             top: 0;
             left: 0;
             width: 100%; /* Ensure header spans full width */
-            z-index: 1000;
+            z-index: 1000; /* Ensure header is above other content */
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             box-sizing: border-box; /* Include padding in width calculation */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+        header a {
+            text-decoration: none; /* Remove underline from the link */
+            color: inherit;      /* Inherit the white color from the header */
+            display: block;      /* Make the anchor fill its container */
+            cursor: pointer;     /* Indicate it's clickable */
         }
         header h1 {
-            margin: 0;
-            font-size: 1.6rem;
+            margin: 0; /* Remove default h1 margin */
+            font-size: 1.6rem; /* Equivalent to text-3xl, adjust as needed for optimal display */
+            font-weight: 700; /* Equivalent to font-bold */
+            text-align: left; /* Center the text within the h1 */
+         /* Remove any mb-6 as it's now in a fixed header */
         }
 
         /* Container for the sidebar and main content */
@@ -80,6 +92,7 @@
             margin-right: auto; /* To help center the content within the available space */
             margin-top: 2rem; /* Top margin for content */
             padding: 0 1.5rem; /* Internal padding */
+            padding-top: 5rem;
             box-sizing: border-box;
         }
         section {
@@ -203,7 +216,9 @@
 <body>
 
 <header>
-    <h1>ALMERA in Data (2025)</h1>
+    <a href="stats.html">
+        <h1>ALMERA in Data</h1>
+    </a>
 </header>
 
 <div class="content-wrapper">
@@ -219,9 +234,9 @@
         <a href="RequestedFutureActivities.html">9. Future Activities</a>
     </nav>
 
-    <main>
-        <section>
-            <h2>1. Geographic & Institutional Coverage</h2>
+    <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+       <h2>1. Geographic & Institutional Coverage</h2>
+       <section class="text-lg text-gray-700 leading-relaxed space-y-4">
             <details open>
                 <summary>Number of Laboratories per Geographic Region</summary>
                 <p>In 2025, there were <strong>200</strong> ALMERA laboratories globally, most located in Europe, Asia Pacific, and the Americas.</p>
@@ -231,7 +246,6 @@
         </section>
 
         <section>
-            <h2>2. Affiliation Type</h2>
             <details open>
                 <summary>Affiliation of ALMERA Labs</summary>
                 <p>Labs selected multiple affiliations; each counted individually in the survey.</p>
@@ -240,7 +254,6 @@
         </section>
 
         <section>
-            <h2>3. Sector Breakdown</h2>
             <details open>
                 <summary>Sector Activities Reported</summary>
                 <p>Labs often operate in multiple sectors, such as Food Control and Environmental Monitoring.</p>
@@ -249,7 +262,6 @@
         </section>
 
         <section>
-            <h2>4. Target Users</h2>
             <details open>
                 <summary>Target Users Identified</summary>
                 <p>Labs may serve Academia, Industry, and others, counted per selection.</p>
@@ -258,7 +270,6 @@
         </section>
 
         <section>
-            <h2>5. Radioactivity Monitoring Scope</h2>
             <details open>
                 <summary>Scope and Source Interests</summary>
                 <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=RadioactivityScopeChart" style="height:600px;"></iframe>
@@ -270,24 +281,3 @@
 <footer>
     &copy; 2025 ALMERA Network
 </footer>
-
-<script>
-    // Scroll to Top button (ensure this is only in one place, either here or utility.js)
-    const topBtn = document.getElementById("topBtn");
-    // Ensure topBtn exists before adding event listeners
-    if (topBtn) {
-        window.onscroll = () => {
-            topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
-        };
-        // It's good practice to assign onclick directly, rather than inline in HTML
-        topBtn.onclick = topFunction;
-    }
-
-    function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
-</script>
-
-</body>
-</html>
