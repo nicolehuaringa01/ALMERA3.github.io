@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALMERA Human Resources and Training</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -11,123 +12,192 @@
       background: #f9fafb;
       color: #333;
       line-height: 1.6;
+      padding-top: 64px;
     }
     header {
-      background: #0256b3;
-      color: #fff;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+            background: #0256b3;
+            color: #fff;
+            padding: 1rem 2rem;
+            position: fixed; /* Make header fixed */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ensure header spans full width */
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
     header h1 {
       margin: 0;
       font-size: 1.6rem;
     }
+    
+    /* Container for the sidebar and main content */
+        .content-wrapper {
+            display: flex; /* Use flexbox to lay out sidebar and main content horizontally */
+            min-height: calc(100vh - 64px); /* Adjust min-height to push footer down */
+            /* No margin-left here, main will handle its own margin */
+        }
+        
     .nav-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: #fff;
-      padding: 0.8rem 1rem;
-      position: sticky;
-      top: 64px;
-      z-index: 999;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-    }
-    .nav-buttons a {
-      background: #0256b3;
-      color: #fff;
-      text-decoration: none;
-      margin: 6px;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-    .nav-buttons a:hover {
-      background: #01488f;
-      transform: translateY(-2px);
-    }
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
-    section {
-      background: #fff;
-      border-radius: 10px;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      padding: 1.5rem 2rem;
-    }
-    h2 {
-      color: #0256b3;
-      font-size: 1.4rem;
-      margin-top: 0;
-    }
-    iframe {
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      height: 480px;
-      margin-top: 1rem;
-    }
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #f1f3f5;
-      color: #777;
-      font-size: 0.9rem;
-    }
-    /* Accordion */
-    details {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      background: #fdfdfd;
-      transition: background 0.3s ease;
-    }
-    details:hover {
-      background: #f8f9fa;
-    }
-    summary {
-      font-weight: 600;
-      cursor: pointer;
-      position: relative;
-      padding-right: 20px;
-    }
-    summary::after {
-      content: "▼";
-      position: absolute;
-      right: 0;
-      transition: transform 0.3s ease;
-    }
-    details[open] summary::after {
-      content: "▲";
-    }
-    /* Scroll-to-top button */
-    #topBtn {
-      display: none;
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      z-index: 1000;
-      background: #0256b3;
-      color: white;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: background 0.3s ease;
-    }
-    #topBtn:hover {
-      background: #01488f;
-    }
+            position: fixed; /* Make the navigation fixed */
+            top: 64px; /* Starts right below the header */
+            left: 0;
+            width: 250px; /* Desired width of the sidebar */
+            height: calc(100vh - 64px); /* Full height of viewport minus header height */
+            background: #fff;
+            padding: 1rem 0.5rem; /* Adjust padding for links */
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: flex-start; /* Align links to the left */
+            overflow-y: auto; /* Enable scrolling for the nav if content overflows */
+            z-index: 998;
+            box-sizing: border-box;
+        }
+     .nav-buttons a {
+            background: #f0f0f0; /* Lighter background for nav links */
+            color: #333; /* Darker text for better contrast */
+            text-decoration: none;
+            margin: 4px 0; /* Vertical margin between links */
+            padding: 10px 15px; /* Padding inside links */
+            border-radius: 4px;
+            font-weight: 500; /* Slightly lighter weight */
+            transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
+            width: 100%; /* Make links fill the nav width */
+            box-sizing: border-box; /* Include padding in width */
+            text-align: left; /* Align text to the left */
+        }
+        .nav-buttons a:hover {
+            background: #e0e0e0; /* Hover effect */
+            color: #0256b3; /* Highlight text color */
+            transform: none; /* No translateY on hover for sidebar links */
+        }
+
+        main {
+            flex-grow: 1; /* Allows main to take up remaining horizontal space */
+            margin-left: 250px; /* Push main content to the right by nav width */
+            max-width: 1100px; /* Max width for the actual content */
+            margin-right: auto; /* To help center the content within the available space */
+            margin-top: 2rem; /* Top margin for content */
+            padding: 0 1.5rem; /* Internal padding */
+            box-sizing: border-box;
+        }
+        section {
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 1.5rem 2rem;
+        }
+        h2 {
+            color: #0256b3;
+            font-size: 1.4rem;
+            margin-top: 0;
+        }
+        iframe {
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            height: 480px; /* Keep this height for Observable embeds */
+            margin-top: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f1f3f5;
+            color: #777;
+            font-size: 0.9rem;
+            margin-left: 250px; /* Align with main content */
+            box-sizing: border-box;
+            width: calc(100% - 250px); /* Adjust width to span remaining space */
+        }
+        /* Accordion */
+        details {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #fdfdfd;
+            transition: background 0.3s ease;
+        }
+        details:hover {
+            background: #f8f9fa;
+        }
+        summary {
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            padding-right: 20px;
+        }
+        summary::after {
+            content: "▼";
+            position: absolute;
+            right: 0;
+            transition: transform 0.3s ease;
+        }
+        details[open] summary::after {
+            content: "▲";
+        }
+        /* Scroll-to-top button */
+        #topBtn {
+            display: none;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+            background: #0256b3;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background 0.3s ease;
+            right: 25px; /* Ensure it's not affected by left margin */
+        }
+        #topBtn:hover {
+            background: #01488f;
+        }
+
+        /* Basic responsiveness for smaller screens (optional but recommended) */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                position: relative; /* Make nav flow with content on small screens */
+                width: 100%;
+                height: auto;
+                top: 0; /* No longer fixed below header if header itself is not fixed */
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow at bottom */
+                padding: 0.8rem 1rem;
+                flex-direction: row; /* Back to horizontal for small screens */
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-buttons a {
+                width: auto;
+                flex-grow: 1; /* Allow items to grow */
+                text-align: center;
+                margin: 5px;
+            }
+            .content-wrapper {
+                flex-direction: column; /* Stack content vertically */
+                margin-left: 0; /* Remove left margin */
+            }
+            main {
+                margin-left: 0; /* Remove left margin for main content */
+                margin-top: 1rem; /* Adjust top margin for main content */
+            }
+            footer {
+                margin-left: 0;
+                width: 100%;
+            }
+            body {
+                padding-top: 0; /* No padding needed if header isn't fixed anymore */
+            }
+            header {
+                position: relative; /* Make header flow with content on small screens */
+            }
+        }
   </style>
 </head>
 <body>
@@ -136,21 +206,22 @@
   <h1>ALMERA in Data (2025)</h1>
 </header>
 
+<div class="content-wrapper">
 <nav class="nav-buttons">
-<a href="GeographicInstitutionalCoverage.html">1. Geographic & Institutional Coverage</a>
-    <a href="LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
-    <a href="AnalyticalMethodDevelopmentImplementation.html">4. Method Development</a>
-    <a href="RadionuclidesMeasured.html">5. Radionuclides Measured</a>
-    <a href="QualityManagementReporting.html">6. Quality Management</a>
-    <a href="EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
-    <a href="NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
-    <a href="RequestedFutureActivities.html">9. Future Activities</a>
-</nav>
+        <a href="GeographicInstitutionalCoverage.html">1. Geographic & Institutional Coverage</a>
+        <a href="HumanResourcesTraining.html">2. Human Resources and Training</a>
+        <a href="LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
+        <a href="AnalyticalMethodDevelopmentImplementation.html">4. Method Development</a>
+        <a href="RadionuclidesMeasured.html">5. Radionuclides Measured</a>
+        <a href="QualityManagementReporting.html">6. Quality Management</a>
+        <a href="EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
+        <a href="NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
+        <a href="RequestedFutureActivities.html">9. Future Activities</a>
+    </nav>
 
 <main>
-    <h1>2. Human Resources & Training</h1>
 <section>
-    <h2>Number of Full-Time Trained Professionals</h2>
+    <h2>2. Human Resources & Training</h2>
     <details open>
       <summary> Full-Time Trained Professionals</summary>
       <p><strong>Key Points</strong></p>
@@ -159,7 +230,6 @@
           <li>Africa and the Middle East have fewer laboratories overall, with minimal representation in the higher categories.</li>
           <li>The majority of the laboratories fall within the 1-5 and 6-10 trained professional categories, suggesting that most labs operate with a relatively small team of trained professionals.</li>
           </ul>
-</p>
       <iframe width="100%" height="600" frameborder="0"
   src="https://observablehq.com/embed/4e36afd6fb0e5027@99?cells=TrainedProfessionals"></iframe>
     </details>
@@ -205,22 +275,28 @@
 
 </main>
 
-<button id="topBtn" onclick="topFunction()">↑</button>
+</div> <button id="topBtn" onclick="topFunction()">↑</button>
 
 <footer>
   &copy; 2025 ALMERA Network
 </footer>
 
 <script>
-  // Scroll to Top button
-  const topBtn = document.getElementById("topBtn");
-  window.onscroll = () => {
-    topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
-  };
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
+    // Scroll to Top button (ensure this is only in one place, either here or utility.js)
+    const topBtn = document.getElementById("topBtn");
+    // Ensure topBtn exists before adding event listeners
+    if (topBtn) {
+        window.onscroll = () => {
+            topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
+        };
+        // It's good practice to assign onclick directly, rather than inline in HTML
+        topBtn.onclick = topFunction;
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
 </script>
 
 </body>
