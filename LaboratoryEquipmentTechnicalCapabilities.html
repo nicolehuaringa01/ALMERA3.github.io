@@ -23,21 +23,34 @@
             top: 0;
             left: 0;
             width: 100%; /* Ensure header spans full width */
-            z-index: 1000;
+            z-index: 1000; /* Ensure header is above other content */
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             box-sizing: border-box; /* Include padding in width calculation */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
         }
-    header h1 {
-      margin: 0;
-      font-size: 1.6rem;
-    }
-    /* Container for the sidebar and main content */
+        header a {
+            text-decoration: none; /* Remove underline from the link */
+            color: inherit;      /* Inherit the white color from the header */
+            display: block;      /* Make the anchor fill its container */
+            cursor: pointer;     /* Indicate it's clickable */
+        }
+        header h1 {
+            margin: 0; /* Remove default h1 margin */
+            font-size: 1.6rem; /* Equivalent to text-3xl, adjust as needed for optimal display */
+            font-weight: 700; /* Equivalent to font-bold */
+            text-align: left; /* Center the text within the h1 */
+         /* Remove any mb-6 as it's now in a fixed header */
+        }
+        
+        /* Container for the sidebar and main content */
         .content-wrapper {
             display: flex; /* Use flexbox to lay out sidebar and main content horizontally */
             min-height: calc(100vh - 64px); /* Adjust min-height to push footer down */
             /* No margin-left here, main will handle its own margin */
         }
-    .nav-buttons {
+
+        .nav-buttons {
             position: fixed; /* Make the navigation fixed */
             top: 64px; /* Starts right below the header */
             left: 0;
@@ -53,7 +66,7 @@
             z-index: 998;
             box-sizing: border-box;
         }
-    .nav-buttons a {
+        .nav-buttons a {
             background: #f0f0f0; /* Lighter background for nav links */
             color: #333; /* Darker text for better contrast */
             text-decoration: none;
@@ -202,7 +215,9 @@
 <body>
 
 <header>
-  <h1>ALMERA in Data (2025)</h1>
+    <a href="stats.html">
+        <h1>ALMERA in Data (2025)</h1>
+    </a>
 </header>
 
 <div class="content-wrapper">
