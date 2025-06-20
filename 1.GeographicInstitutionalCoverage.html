@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Geographic and Institutional Coverage</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <!-- We don't need Observable Plot for this specific map, as it uses D3 Canvas directly -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script> -->
+    <script src="https://unpkg.com/topojson-client@3"></script> <!-- Required for topojson.feature -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -212,6 +215,35 @@
                 position: relative; /* Make header flow with content on small screens */
             }
         }
+
+        /* Custom styles for the map and tooltip */
+        #almera-members-map-container {
+            width: 100%; /* Or set a fixed width like 960px */
+            height: 500px; /* Fixed height as per Observable code */
+            margin-top: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden; /* Ensures content stays within bounds */
+        }
+
+        #almera-members-map-container canvas {
+            display: block; /* Remove extra space below canvas */
+            width: 100%; /* Make canvas fill its container */
+            height: 100%;
+        }
+
+        .map-tooltip {
+            position: absolute;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 4px;
+            pointer-events: none; /* Allows clicks/hovers to pass through */
+            font-size: 12px;
+            display: none; /* Hidden by default */
+            z-index: 1001; /* Above header if possible */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
@@ -239,11 +271,26 @@
        <h2>1. Geographic & Institutional Coverage</h2>
        <section class="text-lg text-gray-700 leading-relaxed space-y-4">
             <details open>
-                <summary>Number of Laboratories per Geographic Region</summary>
+                <summary>Geographic Coverage of ALMERA Laboratories</summary>
+                <p>This map visualizes the global distribution of ALMERA laboratories, colored by geographic region. Hover over a point to see laboratory details, or click to pin the tooltip.</p>
+                <!-- This is where the JavaScript map will be inserted -->
+                <div id="almera-members-map-container"></div>
+                <!-- IMPORTANT: Place the script AFTER the div it targets -->
+                <script src="js/ALMERAMembersMap.js"></script>
+                <!-- Remove the Observable iframe if this map is intended to replace it -->
+                <!-- <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=ALMERA_MembersMap"></iframe> -->
+            </details>
+        </section>
+
+        <!-- Other sections for different charts (keeping iframes as they are for now) -->
+        <section>
+            <details open>
+                <summary>Number of Laboratories per Geographic Region (Bar Chart)</summary>
                 <p>In 2025, there were <strong>200</strong> ALMERA laboratories globally, most located in Europe, Asia Pacific, and the Americas.</p>
+                <!-- This is where the bar chart from LabsGeographic.js will be inserted -->
                 <div id="labs-geographic-chart"></div>
+                <!-- Ensure LabsGeographic.js still has the correct path -->
                 <script src="js/LabsGeographic.js"></script>
-                <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=ALMERA_MembersMap"></iframe>
             </details>
         </section>
 
@@ -281,6 +328,8 @@
 </div>
 <button id="topBtn" onclick="topFunction()">↑</button>
 
+<div id="map-page-tooltip" class="map-tooltip"></div> <!-- Tooltip for the map -->
+
 <footer>
     &copy; 2025 ALMERA Network
 </footer>
@@ -289,10 +338,11 @@
     window.onscroll = function() {scrollFunction()};
 
     function scrollFunction() {
+        var topBtn = document.getElementById("topBtn");
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementById("topBtn").style.display = "block";
+            if (topBtn) topBtn.style.display = "block";
         } else {
-            document.getElementById("topBtn").style.display = "none";
+            if (topBtn) topBtn.style.display = "none";
         }
     }
 
