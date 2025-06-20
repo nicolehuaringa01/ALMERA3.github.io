@@ -1,12 +1,10 @@
 // js/ALMERAMembersMap.js
 
 // Define paths to your data files
-// IMPORTANT: Adjust these paths based on your actual GitHub Pages file structure!
-//
-// Assuming '1.GeographicInstitutionalCoverage.html' is at the root, and this JS is in 'js/' folder:
-// CSV data (one level up from js/ folder)
-const csvDataPath = "../observable2020SurveyUpdatedData.csv";
-// TopoJSON land data (from CDN)
+// IMPORTANT: This path now includes your repository name, making it absolute relative to the domain root.
+// This is the most robust way to link files on GitHub Project Pages.
+const csvDataPath = "/ALMERA3.github.io/observable2020SurveyUpdatedData.csv"; // CORRECTED PATH
+// TopoJSON land data (from CDN) - no change needed here as it's a full URL
 const landTopojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
 
 async function initializeALMERAMap() {
@@ -16,7 +14,8 @@ async function initializeALMERAMap() {
     return;
   }
 
-  const width = container.clientWidth; // Use container's width
+  // Get current width of the container for responsiveness
+  const width = container.clientWidth;
   const height = 500; // Fixed height as per Observable notebook
 
   const canvas = document.createElement("canvas");
