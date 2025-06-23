@@ -3672,23 +3672,21 @@ Matrices: Aqueous and solid matrices
 Evaluation software: Maestro, Number of systems: 4
 Model: 
 Quantulus, Hidex 300SL, 2x TRI-CARB 
-Evaluation software: Various, "Number of systems: 1
-Model: 
-Agilent 8800 Triple Quadrupole ICP-MS 
-Radionuclides analysed: 
-Actinides, Ra226, Sr90, Ca41, lanthanides "
-, "Number of systems: 1
-Model: NPL Defined Solid Angle Alpha Counter 
-Matrices: 
-Aqueous solutions 
-Evaluation software: Developed in-house"
-, "Number of systems: 1
-Model: 
-NANA: A Fast-Scintillator, Coincidence Gamma-ray Array for Radioactive Source Characterisation and Absolute Activity Measurements 
+Evaluation software: Various, Number of systems: 1
+Model:
+Agilent 8800 Triple Quadrupole ICP-MS,Radionuclides analysed:
+Actinides,Ra226,Sr90,Ca41,lanthanides
+,Number of systems: 1
+Model: NPL Defined Solid Angle Alpha Counter
+Matrices:
+Aqueous solutions
+Evaluation software: Developed in-house
+,Number of systems: 1
+Model:
+NANA: A Fast-Scintillator, Coincidence Gamma-ray Array for Radioactive Source Characterisation and Absolute Activity Measurements
 Matrices: Aqueous solutions
-Evaluation software: Developed in-house", Gamma-ray spectrometry system; Gamma-ray spectrometry system; Gamma-ray spectrometry system; Gamma-ray spectrometry system; Gamma-ray spectrometry system; Gamma-ray spectrometry system; Alpha spectrometry system; Alpha spectrometry system; Alpha spectrometry system; Alpha spectrometry system; Alpha spectrometry system; Liquid scintillation counter; Liquid scintillation counter; Liquid scintillation counter; Liquid scintillation counter; Mass spectrometry; Other equipment; Other equipment
-,, Yes
-,rapid analysis of Sr-90 by ICP-MS; analysis of Ra-226 in groundwater; analysis of actinides in decommissioning and environmental samples, analysis of Ca-41 in concrete; analysis of Zr-93 in solid samples, Analysis of Fe-55 by extraction chromatography and LSC; Ni-63 by extraction chromatography and LSC, Analysis of Cl-36 by ICP-MS; I-129 by ICP-MS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Evaluation software: Developed in-house, Gamma-ray spectrometry system; Gamma-ray spectrometry system; Gamma-ray spectrometry system; Gamma-ray spectrometry system; Gamma-ray spectrometry system; Gamma-ray spectrometry system; Alpha spectrometry system; Alpha spectrometry system; Alpha spectrometry system; Alpha spectrometry system; Alpha spectrometry system; Liquid scintillation counter; Liquid scintillation counter; Liquid scintillation counter; Liquid scintillation counter; Mass spectrometry; Other equipment; Other equipment
+,,Yes,rapid analysis of Sr-90 by ICP-MS; analysis of Ra-226 in groundwater; analysis of actinides in decommissioning and environmental samples, analysis of Ca-41 in concrete; analysis of Zr-93 in solid samples, Analysis of Fe-55 by extraction chromatography and LSC; Ni-63 by extraction chromatography and LSC, Analysis of Cl-36 by ICP-MS; I-129 by ICP-MS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 W4QFSN,52.458373,1.739584,Suffolk,"Radiochemistry and Analysis Laboratory
 Centre for Environment, Fisheries & Aquaculture Science","Pakefield Road
 Lowestoft, NR33 0HT
