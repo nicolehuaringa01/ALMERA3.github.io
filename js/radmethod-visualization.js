@@ -1,5 +1,3 @@
-// js/radmethod-visualization.js
-
 // Declare variables specific to RadMethod visualization
 let allRadMethodSurveyData; // Will hold the loaded CSV data (same as radionuclides, but processed here)
 let radMethodCountsData;
@@ -210,7 +208,7 @@ const renderRadMethodCharts = () => {
 // It's crucial that this script loads AFTER the CSV data is available.
 // If your previous script already loads it, you might pass it, or load it again here.
 // For simplicity and independence, we'll load it again.
-d3.csv("observable2020SurveyUpdatedData2025.csv").then(data => {
+d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
     allRadMethodSurveyData = data; // Store the loaded data
 
     // Process data once after loading
