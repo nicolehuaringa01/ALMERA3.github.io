@@ -9,7 +9,7 @@ let ptSchemeToLabsMapData;
 let selectedPtScheme = null; // Mutable state for the selected PT scheme
 
 // Load the CSV data
-d3.csv("observable2020SurveyUpdatedData2025.csv").then(data => {
+d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
     allPTData = data; // Store the loaded data globally for this script
 
     // 1. ptSchemeCounts: Calculate counts of each PT scheme
