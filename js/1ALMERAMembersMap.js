@@ -3,7 +3,7 @@
 // Define paths to your data files
 // IMPORTANT: This path now includes your repository name, making it absolute relative to the domain root.
 // This is the most robust way to link files on GitHub Project Pages.
-const csvDataPath = "https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable 2020 Survey + Updated Data (2025).csv"; // CORRECTED PATH
+const csvDataPath = "data/Observable2020Survey.csv"; // CORRECTED PATH
 // TopoJSON land data (from CDN) - no change needed here as it's a full URL
 const landTopojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
 
