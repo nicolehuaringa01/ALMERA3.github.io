@@ -1,4 +1,4 @@
-const csvDataPath = "/ALMERA3.github.io/data/Observable 2020 Survey + Updated Data (2025).csv";
+const csvDataPath = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
 console.log("Attempting to load CSV from:", csvDataPath);
 
