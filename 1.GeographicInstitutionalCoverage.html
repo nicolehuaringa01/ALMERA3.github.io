@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Geographic and Institutional Coverage</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <!-- We don't need Observable Plot for this specific map, as it uses D3 Canvas directly -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script> -->
-    <script src="https://unpkg.com/topojson-client@3"></script> <!-- Required for topojson.feature -->
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
 
@@ -17,35 +16,34 @@
             background: #f9fafb;
             color: #333;
             line-height: 1.6;
-            padding-top: 64px; /* Add padding to body to prevent content from hiding under fixed header */
+            padding-top: 64px; 
         }
         header {
             background: #0256b3;
             color: #fff;
             padding: 1rem 2rem;
-            position: fixed; /* Make header fixed */
+            position: fixed; 
             top: 0;
             left: 0;
-            width: 100%; /* Ensure header spans full width */
-            z-index: 1000; /* Ensure header is above other content */
+            width: 100%; 
+            z-index: 1000; 
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            box-sizing: border-box; /* Include padding in width calculation */
-            display: flex; /* Use flexbox for centering content */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
+            box-sizing: border-box; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
         }
         header a {
-            text-decoration: none; /* Remove underline from the link */
-            color: inherit;      /* Inherit the white color from the header */
-            display: block;      /* Make the anchor fill its container */
-            cursor: pointer;     /* Indicate it's clickable */
+            text-decoration: none; 
+            color: inherit;     
+            display: block;     
+            cursor: pointer;     
         }
         header h1 {
             margin: 0; /* Remove default h1 margin */
-            font-size: 1.6rem; /* Equivalent to text-3xl, adjust as needed for optimal display */
-            font-weight: 700; /* Equivalent to font-bold */
-            text-align: left; /* Center the text within the h1 */
-         /* Remove any mb-6 as it's now in a fixed header */
+            font-size: 1.6rem; 
+            font-weight: 700;
+            text-align: left;
         }
 
         /* Container for the sidebar and main content */
@@ -56,8 +54,8 @@
         }
 
         .nav-buttons {
-            position: fixed; /* Make the navigation fixed */
-            top: 64px; /* Starts right below the header */
+            position: fixed;
+            top: 64px;
             left: 0;
             width: 250px; /* Desired width of the sidebar */
             height: calc(100vh - 64px); /* Full height of viewport minus header height */
@@ -124,7 +122,7 @@
             background: #f1f3f5;
             color: #777;
             font-size: 0.9rem;
-            margin-left: 250px; /* Align with main content */
+            margin-left: 250px;
             box-sizing: border-box;
             width: calc(100% - 250px); /* Adjust width to span remaining space */
         }
@@ -155,7 +153,6 @@
         details[open] summary::after {
             content: "▲";
         }
-        /* Scroll-to-top button */
         #topBtn {
             display: none;
             position: fixed;
@@ -277,8 +274,6 @@
                 <div id="almera-members-map-container"></div>
                 <!-- IMPORTANT: Place the script AFTER the div it targets -->
                 <script src="js/ALMERAMembersMap.js"></script>
-                <!-- Remove the Observable iframe if this map is intended to replace it -->
-                <!-- <iframe src="https://observablehq.com/embed/9283f0c7b9bfd461?cells=ALMERA_MembersMap"></iframe> -->
             </details>
         </section>
 
