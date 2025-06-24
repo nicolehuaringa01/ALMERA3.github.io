@@ -9,7 +9,7 @@ let uncertaintyToLabsMapData; // Placeholder, assuming you might want a map for 
 let selectedUncertaintyScheme = null; // To track selection for interactivity
 
 // Load the CSV data
-d3.csv("observable2020SurveyUpdatedData2025.csv").then(data => {
+d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
     allUncertaintyData = data; // Store the loaded data globally for this script
 
     // 1. UncertaintyCounts: Calculate counts of each uncertainty calculation method
