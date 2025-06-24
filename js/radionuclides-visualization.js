@@ -293,7 +293,7 @@ const renderCharts = () => {
 };
 
 // --- Data Loading and Initialization ---
-d3.csv("observable2020SurveyUpdatedData2025.csv").then(data => {
+d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
     allSurveyData = data; // Store the loaded data
 
     // Process data once after loading
