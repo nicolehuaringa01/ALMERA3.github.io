@@ -25,7 +25,7 @@ async function initializeAffiliationChart() {
     }
 
     // --- Data Processing for topAffiliation ---
-    const affiliationColumn = "2.2 What is the affiliation of your laboratory?";
+    const affiliationColumn = "1.11 Affiliation";
     if (!data[0] || !data[0][affiliationColumn]) {
         console.error(`Error: CSV data missing required column "${affiliationColumn}". Available columns:`, Object.keys(data[0] || {}));
         container.innerHTML = `<p style='color: red;'>Error: Missing "${affiliationColumn}" column in CSV data.</p>`;
