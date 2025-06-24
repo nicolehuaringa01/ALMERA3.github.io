@@ -1,7 +1,7 @@
 // IMPORTANT: Verify this path carefully!
 // This path is relative to the HTML file that loads this JS.
-// Assuming your CSV is in the root of your GitHub Pages project (e.g., /ALMERA3.github.io/observable2020SurveyUpdatedData.csv)
-const csvDataPath3 = "/ALMERA3.github.io/observable2020SurveyUpdatedData.csv";
+// Assuming your CSV is in the root of your GitHub Pages project (e.g., /ALMERA3.github.io/observable2020Survey.csv)
+const csvDataPath3 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
 async function initializeAffiliationChart() {
     const container = document.getElementById("affiliation-chart-container");
