@@ -1,5 +1,3 @@
-const csvDataPath = "/ALMERA3.github.io/data/Observable2020Survey.csv";
-
 console.log("Attempting to load CSV from:", csvDataPath);
 
 d3.csv(csvDataPath)
