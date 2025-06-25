@@ -4,7 +4,7 @@
 // This path is relative to the HTML file that loads this JS.
 // Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
 // (e.g., https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable2020Survey.csv)
-const csvDataPath4 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
+const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
 
 // This function processes the raw data to count targets
 function gettargetCounts(data, targetColumn) {
@@ -72,7 +72,7 @@ async function initializetargetChart() {
 
     let rawData;
     try {
-        rawData = await d3.csv(csvDataPath4);
+        rawData = await d3.csv(csvDataPath5);
         console.log("target CSV raw data loaded:", rawData.length, "records");
     } catch (error) {
         console.error("Error loading target CSV data:", error);
