@@ -81,7 +81,7 @@ async function initializesectorChart() {
     }
 
     // --- Data Processing using the new functions ---
-    const sectorColumn = "1.11 sector"; // User-provided column name
+    const sectorColumn = "1.12 Type/Sector in which the laboratory falls"; // User-provided column name
     if (!rawData[0] || !rawData[0][sectorColumn]) {
         console.error(`Error: CSV data missing required column "${sectorColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
         container.innerHTML = `<p style='color: red;'>Error: Missing "${sectorColumn}" column in CSV data.</p>`;
