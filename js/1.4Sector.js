@@ -41,7 +41,7 @@ function getsectorCounts(data, sectorColumn) {
 }
 
 // This function selects the top N sectors, including "Other" if present
-function getTopsectors(sectorCounts, numTop = 6) {
+function getTopsectors(sectorCounts, numTop = 12) {
     let top = sectorCounts
         .slice() // Create a shallow copy to sort without modifying original
         .sort((a, b) => d3.descending(a.value, b.value)) // Sort by value descending
