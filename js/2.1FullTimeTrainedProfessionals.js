@@ -132,7 +132,7 @@ async function initializeHumanResourcesChart() {
                     x: "range",
                     y: "count",
                     fill: "region", // Fill bars based on region
-                    title: d => `${d.range} professionals, ${d.region}: ${d.count} labs` // Tooltip text
+                    title: d => `${d.count} labs` // Tooltip text
                 }),
                 Plot.ruleY([0]) // Draw a baseline at y=0
             ],
