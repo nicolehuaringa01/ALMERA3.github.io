@@ -1,7 +1,5 @@
 // js/2.9ALMERACMsHostingCapacity.js
 
-const csvDataPath9 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
-
 // Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
 function normalizeString(str) {
     if (typeof str !== 'string') return '';
@@ -25,7 +23,7 @@ async function initializeALMERAHostingCapacityChart() {
 
     let data;
     try {
-        data = await d3.csv(csvDataPath9);
+        data = await d3.csv(csvDataPath9); // Assuming csvDataPath9 is defined globally or earlier
         console.log("ALMERA Hosting Capacity CSV data loaded successfully. Number of records:", data.length);
         if (data.length === 0) {
             console.warn("CSV data is empty. No chart to display.");
@@ -44,11 +42,12 @@ async function initializeALMERAHostingCapacityChart() {
 
     // --- Data Processing (from your Observable code) ---
 
-    const minVal = 20; // Keep minVal at 0 for domain, but filter data to >=1
+    // *** CRITICAL CHANGE: Set minVal to 0 to align with binning that starts from 0 ***
+    const minVal = 0; // Changed from 20 to 0
     const maxVal = 120;
     const numBins = 5;
-    const binWidth = maxVal / numBins;
-    const thresholds = Array.from({length: numBins + 1}, (_, i) => i * binWidth);
+    const binWidth = maxVal / numBins; // This is (120 / 5) = 24
+    const thresholds = Array.from({length: numBins + 1}, (_, i) => i * binWidth); // Will be [0, 24, 48, 72, 96, 120]
 
     const targetColumnName = "If 'yes' above, state the maximum number of participants";
 
@@ -72,18 +71,15 @@ async function initializeALMERAHostingCapacityChart() {
     console.log(`Successfully identified column: "${foundColumn}" for processing.`);
     const ALMERAhostingCapacityColumn = foundColumn;
 
-    // *** MODIFIED FILTERING LOGIC HERE ***
     const filteredData = data.map(d => {
         const rawValue = d[ALMERAhostingCapacityColumn];
-        // Treat null, undefined, or empty strings as non-numeric/blank
         const trimmedValue = (typeof rawValue === 'string' || rawValue instanceof String) ? rawValue.trim() : String(rawValue).trim();
-
         if (trimmedValue === '') {
             return null; // Explicitly mark empty cells for removal
         }
         const numValue = +trimmedValue; // Convert to number
         return numValue;
-    }).filter(n => n !== null && !isNaN(n) && n >= 1); // Keep only valid numbers that are 1 or greater
+    }).filter(n => n !== null && !isNaN(n) && n >= 1); // Keep only valid numbers that are 1 or greater (adjust if 0 is a valid participant count)
 
     if (filteredData.length === 0) {
         console.warn("No valid ALMERA hosting capacity data found after processing (all values were non-numeric, less than 1, or column was entirely empty/blank).");
@@ -103,14 +99,14 @@ async function initializeALMERAHostingCapacityChart() {
             height: height,
             x: {
                 label: "Amount of Participants that each lab could host",
-                domain: [minVal, maxVal], // Keep domain for axis appearance
+                domain: [minVal, maxVal], // Now [0, 120], aligning with thresholds
                 tickFormat: (d, i) => {
-                    // Custom tick format for ranges, adjusted to match bins precisely
-                    if (i === thresholds.length - 1 && d === maxVal) return `${d}+`; // e.g., 20+
+                    // This tickFormat should now align correctly
+                    if (i === thresholds.length - 1 && d === maxVal) return `${d}+`;
                     if (thresholds[i+1] !== undefined) {
                         const lowerBound = Math.floor(d);
-                        const upperBound = Math.floor(thresholds[i+1]) - 1; // Exclusive upper bound for bin
-                        if (lowerBound > upperBound) { // Handles cases where a bin is just one number (e.g., if maxVal=5, binWidth=1, then thresholds=[0,1,2,3,4,5], this helps with label 5+)
+                        const upperBound = Math.floor(thresholds[i+1]) - 1;
+                        if (lowerBound > upperBound) {
                             return `${lowerBound}+`;
                         }
                         return `${lowerBound}-${upperBound}`;
@@ -124,10 +120,10 @@ async function initializeALMERAHostingCapacityChart() {
             },
             marks: [
                 Plot.rectY(filteredData, Plot.binX(
-                    { y: "count", title: d => { // Updated tooltip logic
+                    { y: "count", title: d => {
                         const lowerBound = Math.floor(d.x0);
                         const upperBound = Math.floor(d.x1) -1;
-                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`; // Last bin
+                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`;
                         return `Participants ${lowerBound}-${upperBound}: ${d.length} labs`;
                     }},
                     {
@@ -158,5 +154,8 @@ async function initializeALMERAHostingCapacityChart() {
         }, 200);
     });
 }
+
+// Assuming csvDataPath9 is defined somewhere accessible, e.g., globally or in HTML
+const csvDataPath9 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Ensure this path is correct
 
 document.addEventListener("DOMContentLoaded", initializeALMERAHostingCapacityChart);
