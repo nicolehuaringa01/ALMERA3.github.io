@@ -168,7 +168,4 @@ async function initializeALMERAHostingCapacityChart() {
     });
 }
 
-// Assuming csvDataPath9 is defined somewhere accessible, e.g., globally or in HTML
-const csvDataPath9 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Ensure this path is correct
-
 document.addEventListener("DOMContentLoaded", initializeALMERAHostingCapacityChart);
