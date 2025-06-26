@@ -38,17 +38,8 @@ async function initializeTrainingHostingCapacityChart() {
             return;
         }
 
-        // *** CRUCIAL DEBUGGING STEP: Log all headers found by D3.js ***
         const parsedHeaders = Object.keys(data[0]);
         console.log("CSV data loaded. First row headers (as parsed by D3.js):", parsedHeaders);
-
-        // Also log a few values from the target column to check content
-        const potentialTargetColumn = "If 'yes' above, specify the maximum number of participants for practical training";
-        console.log(`Checking first 5 values for column "${potentialTargetColumn}":`);
-        for (let i = 0; i < Math.min(5, data.length); i++) {
-            console.log(`Row ${i}:`, data[i][potentialTargetColumn]);
-        }
-
 
     } catch (error) {
         console.error("Error loading Training Hosting Capacity CSV data:", error);
@@ -58,18 +49,14 @@ async function initializeTrainingHostingCapacityChart() {
 
     // --- Data Processing (from your Observable code) ---
 
-    const minVal = 0;
+    const minVal = 0; // Keep minVal at 0 for domain, but filter data to >=1
     const maxVal = 20;
     const numBins = 5;
     const binWidth = (maxVal - minVal) / numBins;
     const thresholds = Array.from({length: numBins + 1}, (_, i) => minVal + i * binWidth);
 
-    // The user-provided exact string for the column name
     const targetColumnName = "If 'yes' above, specify the maximum number of participants for practical training";
 
-    // --- Robust Column Name Validation ---
-    // Find the actual column name in the parsed headers that matches our target,
-    // accounting for potential hidden whitespace or character differences.
     let foundColumn = null;
     const normalizedTarget = normalizeString(targetColumnName);
 
@@ -88,14 +75,24 @@ async function initializeTrainingHostingCapacityChart() {
     }
 
     console.log(`Successfully identified column: "${foundColumn}" for processing.`);
-    const hostingCapacityColumn = foundColumn; // Use the exactly matched header
+    const hostingCapacityColumn = foundColumn;
 
-    const filteredData = data.map(d => +d[hostingCapacityColumn]) // Convert to number
-                             .filter(n => !isNaN(n) && n >= 0); // Filter out invalid numbers and negative counts
+    // *** MODIFIED FILTERING LOGIC HERE ***
+    const filteredData = data.map(d => {
+        const rawValue = d[hostingCapacityColumn];
+        // Treat null, undefined, or empty strings as non-numeric/blank
+        const trimmedValue = (typeof rawValue === 'string' || rawValue instanceof String) ? rawValue.trim() : String(rawValue).trim();
+
+        if (trimmedValue === '') {
+            return null; // Explicitly mark empty cells for removal
+        }
+        const numValue = +trimmedValue; // Convert to number
+        return numValue;
+    }).filter(n => n !== null && !isNaN(n) && n >= 1); // Keep only valid numbers that are 1 or greater
 
     if (filteredData.length === 0) {
-        console.warn("No valid hosting capacity data found after processing (all values were non-numeric or less than 0, or column was entirely empty).");
-        container.innerHTML = "<p style='text-align: center;'>No valid training hosting capacity data to display (check column values or if column is entirely empty).</p>";
+        console.warn("No valid hosting capacity data found after processing (all values were non-numeric, less than 1, or column was entirely empty/blank).");
+        container.innerHTML = "<p style='text-align: center;'>No valid training hosting capacity data (1 or more participants) to display.</p>";
         return;
     }
 
@@ -111,12 +108,17 @@ async function initializeTrainingHostingCapacityChart() {
             height: height,
             x: {
                 label: "Amount of Participants that each lab could host",
-                domain: [minVal, maxVal],
+                domain: [minVal, maxVal], // Keep domain for axis appearance
                 tickFormat: (d, i) => {
                     // Custom tick format for ranges, adjusted to match bins precisely
                     if (i === thresholds.length - 1 && d === maxVal) return `${d}+`; // e.g., 20+
                     if (thresholds[i+1] !== undefined) {
-                        return `${Math.floor(d)}-${Math.floor(thresholds[i+1]) - (thresholds[i+1] > d ? 1 : 0)}`; // e.g., 1-4, 5-9, 10-14, 15-19
+                        const lowerBound = Math.floor(d);
+                        const upperBound = Math.floor(thresholds[i+1]) - 1; // Exclusive upper bound for bin
+                        if (lowerBound > upperBound) { // Handles cases where a bin is just one number (e.g., if maxVal=5, binWidth=1, then thresholds=[0,1,2,3,4,5], this helps with label 5+)
+                            return `${lowerBound}+`;
+                        }
+                        return `${lowerBound}-${upperBound}`;
                     }
                     return `${Math.floor(d)}`;
                 },
@@ -127,7 +129,12 @@ async function initializeTrainingHostingCapacityChart() {
             },
             marks: [
                 Plot.rectY(filteredData, Plot.binX(
-                    { y: "count", title: d => `Participants ${Math.floor(d.x0)}-${Math.floor(d.x1)-1}: ${d.length} labs` }, // Updated tooltip with floored values
+                    { y: "count", title: d => { // Updated tooltip logic
+                        const lowerBound = Math.floor(d.x0);
+                        const upperBound = Math.floor(d.x1) -1;
+                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`; // Last bin
+                        return `Participants ${lowerBound}-${upperBound}: ${d.length} labs`;
+                    }},
                     {
                         x: d => d,
                         thresholds: thresholds,
