@@ -44,7 +44,7 @@ async function initializeTrainingHostingCapacityChart() {
     const thresholds = Array.from({length: numBins + 1}, (_, i) => minVal + i * binWidth);
 
     // Define the column for hosting capacity
-    const hostingCapacityColumn = 'If "yes" above, specify the maximum number of participants for practical training';
+    const hostingCapacityColumn = "If 'yes' above, specify the maximum number of participants for practical training";
 
     // Validate if the required column exists
     if (data.length === 0 || !data[0][hostingCapacityColumn]) {
