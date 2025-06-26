@@ -74,7 +74,7 @@ async function initializeALMERAHostingCapacityChart() {
 
     // *** MODIFIED FILTERING LOGIC HERE ***
     const filteredData = data.map(d => {
-        const rawValue = d[hostingCapacityColumn];
+        const rawValue = d[ALMERAhostingCapacityColumn];
         // Treat null, undefined, or empty strings as non-numeric/blank
         const trimmedValue = (typeof rawValue === 'string' || rawValue instanceof String) ? rawValue.trim() : String(rawValue).trim();
 
