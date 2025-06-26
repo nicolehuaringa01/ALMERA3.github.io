@@ -47,8 +47,8 @@ async function initializeALMERAHostingCapacityChart() {
     const minVal = 20; // Keep minVal at 0 for domain, but filter data to >=1
     const maxVal = 120;
     const numBins = 5;
-    const binWidth = (maxVal - minVal) / numBins;
-    const thresholds = Array.from({length: numBins + 1}, (_, i) => minVal + i * binWidth);
+    const binWidth = maxVal / numBins;
+    const thresholds = Array.from({length: numBins + 1}, (_, i) => i * binWidth);
 
     const targetColumnName = "If 'yes' above, state the maximum number of participants";
 
