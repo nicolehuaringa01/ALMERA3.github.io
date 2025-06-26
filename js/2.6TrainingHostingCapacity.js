@@ -1,6 +1,17 @@
 // js/2.6TrainingHostingCapacity.js
 
+// IMPORTANT: Verify this path carefully!
+// This path is relative to the root of your GitHub Pages project.
+// Based on your previous successful paths, this assumes:
+// - Your GitHub Pages are serving from 'https://nicolehuaringa01.github.io/ALMERA3.github.io/'
+// - Your CSV file is located at '/ALMERA3.github.io/data/Observable2020Survey.csv'
 const csvDataPath6 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
+
+// Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
+function normalizeString(str) {
+    if (typeof str !== 'string') return '';
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' '); // Replace all whitespace with single space, remove non-breaking spaces
+}
 
 async function initializeTrainingHostingCapacityChart() {
     const container = document.getElementById("training-hosting-capacity-chart-container");
@@ -21,23 +32,23 @@ async function initializeTrainingHostingCapacityChart() {
     try {
         data = await d3.csv(csvDataPath6);
         console.log("Training Hosting Capacity CSV data loaded successfully. Number of records:", data.length);
-        if (data.length > 0) {
-            // *** THIS IS THE CRUCIAL LINE TO CHECK IN YOUR BROWSER CONSOLE ***
-            // It will show you the exact column names as D3.js parsed them from your CSV.
-            // COPY THE ARRAY OF NAMES AFTER THIS MESSAGE.
-            console.log("CSV data loaded. First row headers:", Object.keys(data[0]));
-
-            // Also logging a few values from the column to see if they are empty/null
-            console.log(`First 5 values for column "${hostingCapacityColumn}":`);
-            for (let i = 0; i < Math.min(5, data.length); i++) {
-                console.log(`Row ${i}:`, data[i][hostingCapacityColumn]);
-            }
-
-        } else {
+        if (data.length === 0) {
             console.warn("CSV data is empty. No chart to display.");
             container.innerHTML = "<p style='text-align: center;'>CSV data is empty. No chart to display.</p>";
             return;
         }
+
+        // *** CRUCIAL DEBUGGING STEP: Log all headers found by D3.js ***
+        const parsedHeaders = Object.keys(data[0]);
+        console.log("CSV data loaded. First row headers (as parsed by D3.js):", parsedHeaders);
+
+        // Also log a few values from the target column to check content
+        const potentialTargetColumn = "If 'yes' above, specify the maximum number of participants for practical training";
+        console.log(`Checking first 5 values for column "${potentialTargetColumn}":`);
+        for (let i = 0; i < Math.min(5, data.length); i++) {
+            console.log(`Row ${i}:`, data[i][potentialTargetColumn]);
+        }
+
 
     } catch (error) {
         console.error("Error loading Training Hosting Capacity CSV data:", error);
@@ -53,27 +64,42 @@ async function initializeTrainingHostingCapacityChart() {
     const binWidth = (maxVal - minVal) / numBins;
     const thresholds = Array.from({length: numBins + 1}, (_, i) => minVal + i * binWidth);
 
-    // THIS IS THE LINE YOU NEED TO VERIFY WITH YOUR CONSOLE OUTPUT!
-    // Paste the exact column name here from Object.keys(data[0]) if it's different.
-    const hostingCapacityColumn = "If 'yes' above, specify the maximum number of participants for practical training"; // CURRENTLY USING YOUR PROVIDED STRING
+    // The user-provided exact string for the column name
+    const targetColumnName = "If 'yes' above, specify the maximum number of participants for practical training";
 
-    // Validate if the required column exists
-    if (!data[0][hostingCapacityColumn]) { // data.length > 0 is already checked above
-        console.error(`Error: CSV data missing required column "${hostingCapacityColumn}". Available columns:`, Object.keys(data[0]));
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for training hosting capacity chart. Check column name. Look at console for 'Available columns:'.</p>`;
+    // --- Robust Column Name Validation ---
+    // Find the actual column name in the parsed headers that matches our target,
+    // accounting for potential hidden whitespace or character differences.
+    let foundColumn = null;
+    const normalizedTarget = normalizeString(targetColumnName);
+
+    for (const header of Object.keys(data[0])) {
+        if (normalizeString(header) === normalizedTarget) {
+            foundColumn = header;
+            break;
+        }
+    }
+
+    if (!foundColumn) {
+        console.error(`Error: Could not find a matching column for "${targetColumnName}" in the CSV data.`);
+        console.error("Available headers (normalized for comparison):", Object.keys(data[0]).map(normalizeString));
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column "${targetColumnName}" not found in CSV. Please check the exact header name.</p>`;
         return;
     }
+
+    console.log(`Successfully identified column: "${foundColumn}" for processing.`);
+    const hostingCapacityColumn = foundColumn; // Use the exactly matched header
 
     const filteredData = data.map(d => +d[hostingCapacityColumn]) // Convert to number
                              .filter(n => !isNaN(n) && n >= 0); // Filter out invalid numbers and negative counts
 
     if (filteredData.length === 0) {
-        console.warn("No valid hosting capacity data found after processing (all values were non-numeric or less than 0, or column was empty).");
+        console.warn("No valid hosting capacity data found after processing (all values were non-numeric or less than 0, or column was entirely empty).");
         container.innerHTML = "<p style='text-align: center;'>No valid training hosting capacity data to display (check column values or if column is entirely empty).</p>";
         return;
     }
 
-    console.log("Processed Training Hosting Capacity data (first 10 values):", filteredData.slice(0, 10));
+    console.log("Processed Training Hosting Capacity data (first 10 valid values):", filteredData.slice(0, 10));
 
     // --- Chart Rendering Logic (using Observable Plot) ---
 
@@ -87,12 +113,10 @@ async function initializeTrainingHostingCapacityChart() {
                 label: "Amount of Participants that each lab could host",
                 domain: [minVal, maxVal],
                 tickFormat: (d, i) => {
-                    // Custom tick format for ranges, adjust if your bins are not simple arithmetic progression
-                    if (i === thresholds.length - 1 && d === maxVal) return `${d}+`;
-                    if (i === 0 && d === minVal && thresholds.length > 1 && thresholds[1] !== 0) return `${d}-${Math.floor(thresholds[1])}`; // Adjusted for 0-X range
-                    const nextThreshold = thresholds[i + 1];
-                    if (nextThreshold !== undefined) {
-                        return `${Math.floor(d)}-${Math.floor(nextThreshold - 1)}`; // Labels like 1-5, 6-10 etc.
+                    // Custom tick format for ranges, adjusted to match bins precisely
+                    if (i === thresholds.length - 1 && d === maxVal) return `${d}+`; // e.g., 20+
+                    if (thresholds[i+1] !== undefined) {
+                        return `${Math.floor(d)}-${Math.floor(thresholds[i+1]) - (thresholds[i+1] > d ? 1 : 0)}`; // e.g., 1-4, 5-9, 10-14, 15-19
                     }
                     return `${Math.floor(d)}`;
                 },
@@ -103,7 +127,7 @@ async function initializeTrainingHostingCapacityChart() {
             },
             marks: [
                 Plot.rectY(filteredData, Plot.binX(
-                    { y: "count", title: d => `Participants ${d.x0}-${d.x1-1}: ${d.length} labs` }, // Updated tooltip
+                    { y: "count", title: d => `Participants ${Math.floor(d.x0)}-${Math.floor(d.x1)-1}: ${d.length} labs` }, // Updated tooltip with floored values
                     {
                         x: d => d,
                         thresholds: thresholds,
