@@ -1,5 +1,12 @@
 // js/2.9ALMERACMsHostingCapacity.js
 
+// IMPORTANT: Verify this path carefully!
+// This path is relative to the root of your GitHub Pages project.
+// Based on your previous successful paths, this assumes:
+// - Your GitHub Pages are serving from 'https://nicolehuaringa01.github.io/ALMERA3.github.io/'
+// - Your CSV file is located at '/ALMERA3.github.io/data/Observable2020Survey.csv'
+const csvDataPath9 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
+
 // Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
 function normalizeString(str) {
     if (typeof str !== 'string') return '';
@@ -23,7 +30,7 @@ async function initializeALMERAHostingCapacityChart() {
 
     let data;
     try {
-        data = await d3.csv(csvDataPath9); // Assuming csvDataPath9 is defined globally or earlier
+        data = await d3.csv(csvDataPath9);
         console.log("ALMERA Hosting Capacity CSV data loaded successfully. Number of records:", data.length);
         if (data.length === 0) {
             console.warn("CSV data is empty. No chart to display.");
@@ -40,14 +47,19 @@ async function initializeALMERAHostingCapacityChart() {
         return;
     }
 
-    // --- Data Processing (from your Observable code) ---
+    // --- Data Processing ---
 
-    // *** CRITICAL CHANGE: Set minVal to 0 to align with binning that starts from 0 ***
-    const minVal = 0; // Changed from 20 to 0
-    const maxVal = 120;
+    // Define custom min/max values and number of bins
+    // *** CRITICAL CHANGE: minVal is the start of your first bin AND your x-axis.domain ***
+    const minVal = 20; // Start of your first desired bin
+    const maxVal = 120; // End of your last desired bin
     const numBins = 5;
-    const binWidth = maxVal / numBins; // This is (120 / 5) = 24
-    const thresholds = Array.from({length: numBins + 1}, (_, i) => i * binWidth); // Will be [0, 24, 48, 72, 96, 120]
+
+    // *** CRITICAL CHANGE: binWidth calculation is based on (maxVal - minVal) ***
+    const binWidth = (maxVal - minVal) / numBins; // (120 - 20) / 5 = 100 / 5 = 20
+
+    // *** CRITICAL CHANGE: thresholds now start from minVal ***
+    const thresholds = Array.from({length: numBins + 1}, (_, i) => minVal + i * binWidth); // [20, 40, 60, 80, 100, 120]
 
     const targetColumnName = "If 'yes' above, state the maximum number of participants";
 
@@ -75,15 +87,15 @@ async function initializeALMERAHostingCapacityChart() {
         const rawValue = d[ALMERAhostingCapacityColumn];
         const trimmedValue = (typeof rawValue === 'string' || rawValue instanceof String) ? rawValue.trim() : String(rawValue).trim();
         if (trimmedValue === '') {
-            return null; // Explicitly mark empty cells for removal
+            return null;
         }
-        const numValue = +trimmedValue; // Convert to number
+        const numValue = +trimmedValue;
         return numValue;
-    }).filter(n => n !== null && !isNaN(n) && n >= 1); // Keep only valid numbers that are 1 or greater (adjust if 0 is a valid participant count)
+    }).filter(n => n !== null && !isNaN(n) && n >= minVal); // Filter only numbers >= your desired minVal
 
     if (filteredData.length === 0) {
-        console.warn("No valid ALMERA hosting capacity data found after processing (all values were non-numeric, less than 1, or column was entirely empty/blank).");
-        container.innerHTML = "<p style='text-align: center;'>No valid ALMERA hosting capacity data (1 or more participants) to display.</p>";
+        console.warn("No valid ALMERA hosting capacity data found after processing (all values were non-numeric, less than minVal, or column was entirely empty/blank).");
+        container.innerHTML = "<p style='text-align: center;'>No valid ALMERA hosting capacity data (starting from 20 participants) to display.</p>";
         return;
     }
 
@@ -99,15 +111,15 @@ async function initializeALMERAHostingCapacityChart() {
             height: height,
             x: {
                 label: "Amount of Participants that each lab could host",
-                domain: [minVal, maxVal], // Now [0, 120], aligning with thresholds
+                domain: [minVal, maxVal], // Now [20, 120], aligning with thresholds
                 tickFormat: (d, i) => {
-                    // This tickFormat should now align correctly
-                    if (i === thresholds.length - 1 && d === maxVal) return `${d}+`;
+                    // Custom tick format for ranges, adjusted to match new thresholds
+                    if (i === thresholds.length - 1 && d === maxVal) return `${d}+`; // e.g., 120+
                     if (thresholds[i+1] !== undefined) {
                         const lowerBound = Math.floor(d);
-                        const upperBound = Math.floor(thresholds[i+1]) - 1;
-                        if (lowerBound > upperBound) {
-                            return `${lowerBound}+`;
+                        const upperBound = Math.floor(thresholds[i+1]) - (thresholds[i+1] > d ? 1 : 0); // Correctly calculate upper bound for labels
+                        if (lowerBound >= upperBound && i !== thresholds.length - 1) { // Handle single-value bins or edge cases
+                            return `${lowerBound}`;
                         }
                         return `${lowerBound}-${upperBound}`;
                     }
@@ -122,8 +134,9 @@ async function initializeALMERAHostingCapacityChart() {
                 Plot.rectY(filteredData, Plot.binX(
                     { y: "count", title: d => {
                         const lowerBound = Math.floor(d.x0);
-                        const upperBound = Math.floor(d.x1) -1;
-                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`;
+                        const upperBound = Math.floor(d.x1) -1; // -1 for labels to show 20-39, 40-59 etc.
+                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`; // Last bin
+                        if (lowerBound >= upperBound) return `Participants ${lowerBound}: ${d.length} labs`; // Single value bin
                         return `Participants ${lowerBound}-${upperBound}: ${d.length} labs`;
                     }},
                     {
