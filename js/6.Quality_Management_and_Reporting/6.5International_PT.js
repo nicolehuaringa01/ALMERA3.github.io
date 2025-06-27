@@ -144,4 +144,4 @@ async function initializeInternational_PTChart() {
 }
 
 // Initialize the chart when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", initializeQMS_Syste
+document.addEventListener("DOMContentLoaded", initializeInternational_PTChart);
