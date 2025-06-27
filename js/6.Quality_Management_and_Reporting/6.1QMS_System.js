@@ -88,7 +88,7 @@ async function initializeQMS_SystemChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Participation in Development of Analytical Methods ",
+                label: "Implementation of a Quality Management System",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
