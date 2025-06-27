@@ -29,7 +29,7 @@ async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry
     }
 
     // --- Data Processing ---
-    const Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryColumn = '7.5 Is there an environmental monitoring network of automatic monitors for gamma-ray spectrometry of aerosols and/or for gaseous iodine in the laboratory's country?';
+    const Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryColumn = "7.5 Is there an environmental monitoring network of automatic monitors for gamma-ray spectrometry of aerosols and/or for gaseous iodine in the laboratory's country?";
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
