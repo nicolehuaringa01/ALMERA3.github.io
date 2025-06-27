@@ -49,16 +49,11 @@ async function initializeALMERAHostingCapacityChart() {
 
     // --- Data Processing ---
 
-    // Define custom min/max values and number of bins
-    // *** CRITICAL CHANGE: minVal is the start of your first bin AND your x-axis.domain ***
     const minVal = 20; // Start of your first desired bin
     const maxVal = 120; // End of your last desired bin
     const numBins = 5;
 
-    // *** CRITICAL CHANGE: binWidth calculation is based on (maxVal - minVal) ***
     const binWidth = (maxVal - minVal) / numBins; // (120 - 20) / 5 = 100 / 5 = 20
-
-    // *** CRITICAL CHANGE: thresholds now start from minVal ***
     const thresholds = Array.from({length: numBins + 1}, (_, i) => minVal + i * binWidth); // [20, 40, 60, 80, 100, 120]
 
     const targetColumnName = "If 'yes' above, state the maximum number of participants";
@@ -91,7 +86,7 @@ async function initializeALMERAHostingCapacityChart() {
         }
         const numValue = +trimmedValue;
         return numValue;
-    }).filter(n => n !== null && !isNaN(n) && n >= minVal); // Filter only numbers >= your desired minVal
+    }).filter(n => n !== null && !isNaN(n) && n >= minVal); // Keep only valid numbers that are >= your minVal
 
     if (filteredData.length === 0) {
         console.warn("No valid ALMERA hosting capacity data found after processing (all values were non-numeric, less than minVal, or column was entirely empty/blank).");
@@ -111,32 +106,24 @@ async function initializeALMERAHostingCapacityChart() {
             height: height,
             x: {
                 label: "Amount of Participants that each lab could host",
-                domain: [minVal, maxVal], // Now [20, 120], aligning with thresholds
-                tickFormat: (d, i) => {
-                    // Custom tick format for ranges, adjusted to match new thresholds
-                    if (i === thresholds.length - 1 && d === maxVal) return `${d}+`; // e.g., 120+
-                    if (thresholds[i+1] !== undefined) {
-                        const lowerBound = Math.floor(d);
-                        const upperBound = Math.floor(thresholds[i+1]) - (thresholds[i+1] > d ? 1 : 0); // Correctly calculate upper bound for labels
-                        if (lowerBound >= upperBound && i !== thresholds.length - 1) { // Handle single-value bins or edge cases
-                            return `${lowerBound}`;
-                        }
-                        return `${lowerBound}-${upperBound}`;
-                    }
-                    return `${Math.floor(d)}`;
-                },
+                domain: [minVal, maxVal], // Stays [20, 120]
+                // *** CHANGE: Use thresholds for ticks, and format simply as numbers ***
+                tickFormat: d => d, // Formats tick values as plain numbers (20, 40, etc.)
+                ticks: thresholds, // Explicitly use your calculated thresholds for ticks
             },
             y: {
                 label: "Number of Laboratories",
-                grid: true
+                grid: true,
+                // *** CHANGE: Format y-axis ticks as integers ***
+                tickFormat: d3.format("d") // Formats y-axis ticks as integers (e.g., 1, 2, 3)
             },
             marks: [
                 Plot.rectY(filteredData, Plot.binX(
                     { y: "count", title: d => {
                         const lowerBound = Math.floor(d.x0);
-                        const upperBound = Math.floor(d.x1) -1; // -1 for labels to show 20-39, 40-59 etc.
-                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`; // Last bin
-                        if (lowerBound >= upperBound) return `Participants ${lowerBound}: ${d.length} labs`; // Single value bin
+                        const upperBound = Math.floor(d.x1) - (d.x1 === maxVal + binWidth ? 0 : 1); // For labels like 20-39, 40-59, etc.
+                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`; // Last bin (e.g., 120+)
+                        if (lowerBound === upperBound) return `Participants ${lowerBound}: ${d.length} labs`; // Single value bin (e.g., 20)
                         return `Participants ${lowerBound}-${upperBound}: ${d.length} labs`;
                     }},
                     {
@@ -167,5 +154,8 @@ async function initializeALMERAHostingCapacityChart() {
         }, 200);
     });
 }
+
+// Assuming csvDataPath9 is defined somewhere accessible, e.g., globally or in HTML
+const csvDataPath9 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Ensure this path is correct
 
 document.addEventListener("DOMContentLoaded", initializeALMERAHostingCapacityChart);
