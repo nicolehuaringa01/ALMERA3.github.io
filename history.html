@@ -2,7 +2,12 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALMERA History</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primer/16.2.0/build.css">
   <style>
     body {
@@ -40,7 +45,19 @@
     a {
       color: #0366d6;
     }
-
+    .chart-container {
+            width: 100%;
+            min-height: 400px; /* Minimum height for your chart */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            border: 1px solid #eee; /* Simple border for visibility */
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
     footer {
       margin-top: 3rem;
       font-size: 0.9rem;
