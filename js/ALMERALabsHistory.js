@@ -36,7 +36,7 @@ async function initializeALMERA_Labs_HistoryChart() {
         // This sorts the countries so the ones with more labs in 2025 appear higher
         data.sort((a, b) => d3.descending(a.Value_2025, b.Value_2025));
 
-        console.log("Processed ALMERA_Labs_History Chart data (first 5 rows):", data.slice(0, 5));
+        console.log("Processed ALMERA_Labs_History Chart data (first 10 rows):", data.slice(0, 10));
 
     } catch (error) {
         console.error("Error loading ALMERA_Labs_History Chart CSV data:", error);
@@ -62,7 +62,7 @@ async function initializeALMERA_Labs_HistoryChart() {
 
         // X-scale (linear scale for number of laboratories)
         const xScale = d3.scaleLinear()
-            .domain([0, 10]) // Max 5 labs as specified
+            .domain([0, 10]) // Max 10 labs as specified
             .range([0, innerWidth]);
 
         // Y-scale (Band scale for countries)
@@ -74,8 +74,8 @@ async function initializeALMERA_Labs_HistoryChart() {
         // Add X-axis
         svg.append("g")
             .attr("transform", `translate(0,${innerHeight})`)
-            // Use d3.range to ensure ticks at 0, 1, 2, 3, 4, 5
-            .call(d3.axisBottom(xScale).tickValues(d3.range(0, 6)).tickFormat(d3.format("d"))) // No %, integer format
+            // Use d3.range to ensure ticks at 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+            .call(d3.axisBottom(xScale).tickValues(d3.range(0, 11)).tickFormat(d3.format("d"))) // No %, integer format
             .selectAll("text")
             .style("font-family", "Inter, sans-serif")
             .style("font-size", "10px");
