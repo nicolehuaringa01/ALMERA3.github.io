@@ -88,7 +88,7 @@ async function initializeInternational_PTChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Participation in Development of Analytical Methods ",
+                label: "Participation in International Proficiency Tests ",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
