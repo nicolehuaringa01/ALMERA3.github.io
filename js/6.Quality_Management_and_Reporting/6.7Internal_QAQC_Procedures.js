@@ -144,4 +144,4 @@ async function initializeInternal_QAQC_ProceduresChart() {
 }
 
 // Initialize the chart when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", initializeQMS_Syste
+document.addEventListener("DOMContentLoaded", initializeInternal_QAQC_ProceduresChart);
