@@ -1,6 +1,6 @@
 // js/ALMERALabsHistory.js
 
-const csvDataPath = "ALMERA3.github.io/data/ALMERA_Country_Lab_History.csv";
+const csvDataPath = "data/ALMERA_Country_Lab_History.csv";
 
 async function initializeALMERA_Labs_HistoryChart() {
     const container = document.getElementById("ALMERA_Labs_History-chart-container");
