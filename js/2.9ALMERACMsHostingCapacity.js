@@ -101,15 +101,14 @@ async function initializeALMERAHostingCapacityChart() {
     const renderPlot = (currentWidth) => {
         container.innerHTML = ''; // Clear any existing chart
 
-        // Calculate the max count to set a precise Y-axis domain
-        const binnedData = Plot.binX(
-            { y: "count" },
+        // Bin the data here to get the counts for y-axis domain calculation
+        const binnedDataForDomain = Plot.binX(
+            { y: "count" }, // This option tells binX to count the values
             { x: d => d, thresholds: thresholds }
-        )(filteredData); // Bin the data to get counts per bin
+        )(filteredData);
 
-        const maxCount = d3.max(binnedData, d => d.length); // Find the maximum count in any bin
-        // Determine the Y-axis max. If no bars, it's 1. Otherwise, it's the max count,
-        // potentially rounded up to the next integer if needed.
+        const maxCount = d3.max(binnedDataForDomain, d => d.length); // Get the max count from binned data
+        // Determine the Y-axis max. If no bars, it's 1. Otherwise, it's the max count, plus a little buffer
         const yMaxDomain = maxCount !== undefined && maxCount > 0 ? Math.ceil(maxCount) : 1;
 
 
@@ -118,7 +117,7 @@ async function initializeALMERAHostingCapacityChart() {
             height: height,
             x: {
                 label: "Amount of Participants that each lab could host",
-                domain: [minVal, maxVal], // Stays [20, 120]
+                domain: [minVal, maxVal],
                 tickFormat: d => d, // Formats tick values as plain numbers (20, 40, etc.)
                 ticks: thresholds, // Explicitly use your calculated thresholds for ticks
             },
@@ -126,26 +125,30 @@ async function initializeALMERAHostingCapacityChart() {
                 label: "Number of Laboratories",
                 grid: true,
                 tickFormat: d3.format("d"), // Formats y-axis ticks as integers (e.g., 1, 2, 3)
-                // *** CHANGE: Set specific interval and domain for y-axis ticks ***
                 interval: 1, // Ensure ticks are only at whole number intervals
                 domain: [0, yMaxDomain + 1] // Start from 0 and extend slightly beyond maxCount to show all ticks
             },
             marks: [
-                Plot.rectY(filteredData, Plot.binX(
-                    { y: "count", title: d => {
-                        const lowerBound = Math.floor(d.x0);
+                // *** CORRECTED Plot.rectY with Plot.binX usage ***
+                Plot.rectY(filteredData, Plot.binX({
+                    // Options for the binning TRANSFORM itself:
+                    x: d => d,          // The accessor for the value to bin (participant count)
+                    thresholds: thresholds, // Use our custom thresholds for bin edges
+                    y: "count"          // This tells binX to count the items in each bin for the y-value
+                }, {
+                    // Options for the RECTY MARK, applied to the *binned data*
+                    fill: "black",      // Color of the histogram bars
+                    title: d => {       // Tooltip for each bar
+                        const lowerBound = Math.floor(d.x0); // Start of the bin
+                        // Calculate upper bound for display; for the last bin, use maxVal+
                         const upperBound = Math.floor(d.x1) - (d.x1 === maxVal + binWidth ? 0 : 1);
-                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`;
-                        if (lowerBound >= upperBound) return `Participants ${lowerBound}: ${d.length} labs`;
-                        return `Participants ${lowerBound}-${upperBound}: ${d.length} labs`;
-                    }},
-                    {
-                        x: d => d,
-                        thresholds: thresholds,
-                        fill: "black"
+                        const count = d.length; // Count of items in this bin
+
+                        if (d.x1 >= maxVal) return `Participants ${lowerBound}+: ${count} labs`; // Last bin (e.g., 120+)
+                        return `Participants ${lowerBound}-${upperBound}: ${count} labs`; // Standard bin label (e.g., 20-39)
                     }
-                )),
-                Plot.ruleY([0])
+                })),
+                Plot.ruleY([0]) // Horizontal baseline at y=0
             ],
             style: {
                 fontFamily: "Inter, sans-serif",
