@@ -1,6 +1,8 @@
 // js/ALMERALabsHistory.js
 
-const csvDataPath = "data/ALMERA_Country_Lab_History.csv";
+// IMPORTANT: Set the correct path to your CSV data file.
+// Assuming your CSV is in the 'data' subfolder relative to your HTML file
+const csvDataPath = "/ALMERA3.github.io/data/ALMERA_Country_Lab_History.csv"; // Ensure this path is correct for GitHub Pages
 
 async function initializeALMERA_Labs_HistoryChart() {
     const container = document.getElementById("ALMERA_Labs_History-chart-container");
@@ -31,7 +33,7 @@ async function initializeALMERA_Labs_HistoryChart() {
         });
 
         // Sort data by the 'Value_2025' column in descending order
-        // You can change 'Value_2025' to 'Value_2013' or any other sorting logic
+        // This sorts the countries so the ones with more labs in 2025 appear higher
         data.sort((a, b) => d3.descending(a.Value_2025, b.Value_2025));
 
         console.log("Processed ALMERA_Labs_History Chart data (first 5 rows):", data.slice(0, 5));
@@ -47,9 +49,9 @@ async function initializeALMERA_Labs_HistoryChart() {
     const renderChart = (currentWidth) => {
         container.innerHTML = ''; // Clear previous chart on resize
 
-        const margin = { top: 30, right: 60, bottom: 40, left: 120 }; // Adjusted left margin for country names
+        const margin = { top: 30, right: 60, bottom: 40, left: 150 }; // Increased left margin for longer country names
         const innerWidth = currentWidth - margin.left - margin.right;
-        const innerHeight = data.length * 25; // Height based on number of countries and spacing
+        const innerHeight = data.length * 20; // Adjusted height for more countries (20px per country row)
 
         // Create SVG container
         const svg = d3.select(container).append("svg")
@@ -58,21 +60,22 @@ async function initializeALMERA_Labs_HistoryChart() {
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        // X-scale
+        // X-scale (linear scale for number of laboratories)
         const xScale = d3.scaleLinear()
-            .domain([0, 100]) // Percentages from 0 to 100
+            .domain([0, 10]) // Max 5 labs as specified
             .range([0, innerWidth]);
 
         // Y-scale (Band scale for countries)
         const yScale = d3.scaleBand()
             .domain(data.map(d => d.Country))
             .range([0, innerHeight])
-            .padding(0.5);
+            .padding(0.5); // Padding between bands
 
         // Add X-axis
         svg.append("g")
             .attr("transform", `translate(0,${innerHeight})`)
-            .call(d3.axisBottom(xScale).ticks(5).tickFormat(d => `${d}%`)) // Show ticks at 5 intervals, add %
+            // Use d3.range to ensure ticks at 0, 1, 2, 3, 4, 5
+            .call(d3.axisBottom(xScale).tickValues(d3.range(0, 6)).tickFormat(d3.format("d"))) // No %, integer format
             .selectAll("text")
             .style("font-family", "Inter, sans-serif")
             .style("font-size", "10px");
@@ -84,7 +87,7 @@ async function initializeALMERA_Labs_HistoryChart() {
             .attr("text-anchor", "middle")
             .style("font-family", "Inter, sans-serif")
             .style("font-size", "12px")
-            .text("% Favorable Views");
+            .text("Number of Laboratories");
 
         // Add Y-axis (Country names)
         svg.append("g")
@@ -93,11 +96,11 @@ async function initializeALMERA_Labs_HistoryChart() {
             .style("font-family", "Inter, sans-serif")
             .style("font-size", "11px");
 
-        // Lines connecting the two points (ALMERA_Labs_Historys)
-        svg.selectAll(".ALMERA_Labs_History-line")
+        // Lines connecting the two points (Dumbbells)
+        svg.selectAll(".dumbbell-line")
             .data(data)
             .enter().append("line")
-            .attr("class", "ALMERA_Labs_History-line")
+            .attr("class", "dumbbell-line")
             .attr("x1", d => xScale(d.Value_2025))
             .attr("y1", d => yScale(d.Country) + yScale.bandwidth() / 2)
             .attr("x2", d => xScale(d.Value_2013))
@@ -138,7 +141,7 @@ async function initializeALMERA_Labs_HistoryChart() {
             .style("font-family", "Inter, sans-serif")
             .style("font-size", "10px")
             .style("fill", "#333") // Dark text
-            .text(d => d.Value_2025);
+            .text(d => d.Value_2025); // Display raw number
 
         // Text labels for 2013 values (blue)
         svg.selectAll(".text-2013")
@@ -153,9 +156,9 @@ async function initializeALMERA_Labs_HistoryChart() {
             .style("font-family", "Inter, sans-serif")
             .style("font-size", "10px")
             .style("fill", "#333")
-            .text(d => d.Value_2013);
+            .text(d => d.Value_2013); // Display raw number
 
-        // Add a legend (similar to your image)
+        // Add a legend
         const legendData = [
             { label: "2025", color: "#ff9900" },
             { label: "2013", color: "#007bff" }
