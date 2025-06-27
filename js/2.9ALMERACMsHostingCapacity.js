@@ -101,29 +101,42 @@ async function initializeALMERAHostingCapacityChart() {
     const renderPlot = (currentWidth) => {
         container.innerHTML = ''; // Clear any existing chart
 
+        // Calculate the max count to set a precise Y-axis domain
+        const binnedData = Plot.binX(
+            { y: "count" },
+            { x: d => d, thresholds: thresholds }
+        )(filteredData); // Bin the data to get counts per bin
+
+        const maxCount = d3.max(binnedData, d => d.length); // Find the maximum count in any bin
+        // Determine the Y-axis max. If no bars, it's 1. Otherwise, it's the max count,
+        // potentially rounded up to the next integer if needed.
+        const yMaxDomain = maxCount !== undefined && maxCount > 0 ? Math.ceil(maxCount) : 1;
+
+
         const ALMERAHostingCapacityPlot = Plot.plot({
             width: currentWidth,
             height: height,
             x: {
                 label: "Amount of Participants that each lab could host",
                 domain: [minVal, maxVal], // Stays [20, 120]
-                // *** CHANGE: Use thresholds for ticks, and format simply as numbers ***
                 tickFormat: d => d, // Formats tick values as plain numbers (20, 40, etc.)
                 ticks: thresholds, // Explicitly use your calculated thresholds for ticks
             },
             y: {
                 label: "Number of Laboratories",
                 grid: true,
-                // *** CHANGE: Format y-axis ticks as integers ***
-                tickFormat: d3.format("d") // Formats y-axis ticks as integers (e.g., 1, 2, 3)
+                tickFormat: d3.format("d"), // Formats y-axis ticks as integers (e.g., 1, 2, 3)
+                // *** CHANGE: Set specific interval and domain for y-axis ticks ***
+                interval: 1, // Ensure ticks are only at whole number intervals
+                domain: [0, yMaxDomain + 1] // Start from 0 and extend slightly beyond maxCount to show all ticks
             },
             marks: [
                 Plot.rectY(filteredData, Plot.binX(
                     { y: "count", title: d => {
                         const lowerBound = Math.floor(d.x0);
-                        const upperBound = Math.floor(d.x1) - (d.x1 === maxVal + binWidth ? 0 : 1); // For labels like 20-39, 40-59, etc.
-                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`; // Last bin (e.g., 120+)
-                        if (lowerBound === upperBound) return `Participants ${lowerBound}: ${d.length} labs`; // Single value bin (e.g., 20)
+                        const upperBound = Math.floor(d.x1) - (d.x1 === maxVal + binWidth ? 0 : 1);
+                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`;
+                        if (lowerBound >= upperBound) return `Participants ${lowerBound}: ${d.length} labs`;
                         return `Participants ${lowerBound}-${upperBound}: ${d.length} labs`;
                     }},
                     {
