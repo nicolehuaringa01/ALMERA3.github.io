@@ -73,7 +73,7 @@ async function initializeFieldSurveyCapabilitiesChart() {
 
     let rawData;
     try {
-        rawData = await d3.csv(csvDataPath3);
+        rawData = await d3.csv(csvDataPath1);
         console.log("FieldSurveyCapabilities CSV raw data loaded:", rawData.length, "records");
     } catch (error) {
         console.error("Error loading FieldSurveyCapabilities CSV data:", error);
