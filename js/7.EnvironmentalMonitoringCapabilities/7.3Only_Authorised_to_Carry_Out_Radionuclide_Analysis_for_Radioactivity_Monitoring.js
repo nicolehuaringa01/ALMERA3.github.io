@@ -29,7 +29,7 @@ async function initializeOnly_Authorised_to_Carry_Out_Radionuclide_Analysis_for_
     }
 
     // --- Data Processing ---
-    const Only_Authorised_to_Carry_Out_Radionuclide_Analysis_for_Radioactivity_MonitoringColumn = '7.5 Is there an environmental monitoring network of automatic monitors for gamma-ray spectrometry of aerosols and/or for gaseous iodine in the laboratory's country?';
+    const Only_Authorised_to_Carry_Out_Radionuclide_Analysis_for_Radioactivity_MonitoringColumn = '7.3 Is the institution only authorised/appointed to carry out analytical measurements of radionuclides in environmental samples for monitoring or research purposes?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
