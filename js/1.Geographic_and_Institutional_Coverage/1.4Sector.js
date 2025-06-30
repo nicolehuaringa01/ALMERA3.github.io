@@ -105,7 +105,7 @@ async function initializesectorChart() {
         d.percent = (totalsectorCount > 0) ? (d.value / totalsectorCount) : 0;
     });
 
-    console.log("Processed topsector data with percentages:", topAffiliation);
+    console.log("Processed topsector data with percentages:", topsector);
 
     // --- Chart Rendering Logic ---
 
