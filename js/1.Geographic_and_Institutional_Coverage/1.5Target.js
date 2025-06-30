@@ -97,8 +97,16 @@ async function initializetargetChart() {
         return;
     }
 
-    console.log("Processed toptarget data:", toptarget);
+    // --- Calculate total and percentages for the tooltip ---
+    const totaltargetsCount = d3.sum(toptarget, d => d.value);
 
+    // Add percentage to each target object in toptarget
+    toptarget.forEach(d => {
+        d.percent = (totaltargetsCount > 0) ? (d.value / totaltargetsCount) : 0;
+    });
+
+    console.log("Processed toptarget data with percentages:", toptarget);
+    
     // --- Chart Rendering Logic ---
 
     // Create the color scale.
@@ -133,7 +141,7 @@ async function initializetargetChart() {
             .attr("fill", d => color(d.data.name))
             .attr("d", arc)
         .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${d.data.value.toLocaleString("en-US")}`);
+             .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
 
     // Add a legend.
     const legend = svg.append("g")
