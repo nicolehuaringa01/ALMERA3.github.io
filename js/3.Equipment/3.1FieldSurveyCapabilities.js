@@ -98,7 +98,15 @@ async function initializeFieldSurveyCapabilitiesChart() {
         return;
     }
 
-    console.log("Processed topFieldSurveyCapabilities data:", topFieldSurveyCapabilities);
+    // --- Calculate total and percentages for the tooltip ---
+    const totalFieldSurveyCapabilitiessCount = d3.sum(topFieldSurveyCapabilities, d => d.value);
+
+    // Add percentage to each FieldSurveyCapabilities object in topFieldSurveyCapabilities
+    topFieldSurveyCapabilities.forEach(d => {
+        d.percent = (totalFieldSurveyCapabilitiessCount > 0) ? (d.value / totalFieldSurveyCapabilitiessCount) : 0;
+    });
+
+    console.log("Processed topFieldSurveyCapabilities data with percentages:", topFieldSurveyCapabilities);
 
     // --- Chart Rendering Logic ---
 
@@ -134,8 +142,7 @@ async function initializeFieldSurveyCapabilitiesChart() {
             .attr("fill", d => color(d.data.name))
             .attr("d", arc)
         .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${d.data.value.toLocaleString("en-US")}`);
-
+            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
     // Add a legend.
     const legend = svg.append("g")
         .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`) // Position adjusted for clarity
