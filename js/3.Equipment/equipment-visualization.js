@@ -63,7 +63,15 @@ d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
     const createPieChart = () => {
         const width = 928;
         const height = Math.min(width, 500);
+// --- Calculate total and percentages for the tooltip ---
+    const totalEquipmentsCount = d3.sum(topEquipment, d => d.value);
 
+    // Add percentage to each Equipment object in topEquipment
+    topEquipment.forEach(d => {
+        d.percent = (totalEquipmentsCount > 0) ? (d.value / totalEquipmentsCount) : 0;
+    });
+
+    console.log("Processed topEquipment data with percentages:", topEquipment);
         const color = d3.scaleOrdinal()
             .domain(topEquipment.map(d => d.name))
             .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topEquipment.length).reverse());
@@ -97,7 +105,7 @@ d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
                 updateLabInfo(); // Call the function to update the lab info
             })
             .append("title")
-            .text(d => `${d.data.name}: ${d.data.value.toLocaleString("en-US")}`);
+            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
 
         const legend = svg.append("g")
             .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`)
