@@ -66,8 +66,8 @@ d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
         const height = Math.min(width, 500);
 
         // Clear previous chart if any, and append to the specific container
-        d3.select("#chart-2-container").html(""); // Clear content of div
-        const svg = d3.select("#chart-2-container")
+        d3.select("#Uncertainty_Calculations-chart-container").html(""); // Clear content of div
+        const svg = d3.select("#Uncertainty_Calculations-chart-container")
             .append("svg") // Append SVG to the div
             .attr("width", width)
             .attr("height", height)
@@ -135,7 +135,7 @@ d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
     // 5. updateLabInfo2: Function to update the display of labs for this specific chart
     const updateLabInfo2 = () => {
         const selected = selectedUncertaintyScheme;
-        const container = d3.select("#lab-info2-container"); // Target the correct container
+        const container = d3.select("#Uncertainty_Calculations-container"); // Target the correct container
 
         container.html(""); // Clear previous content
 
@@ -183,6 +183,6 @@ d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
 }).catch(error => {
     // Basic error handling for data loading
     console.error("Error loading CSV data for Uncertainty Calculations:", error);
-    d3.select("#chart-2-container").append("p").text("Failed to load data for Uncertainty Calculations chart.");
-    d3.select("#lab-info2-container").append("p").text("Data could not be loaded for Uncertainty Calculation labs.");
+    d3.select("#Uncertainty_Calculations-chart-container").append("p").text("Failed to load data for Uncertainty Calculations chart.");
+    d3.select("#Uncertainty_Calculations-container").append("p").text("Data could not be loaded for Uncertainty Calculation labs.");
 });
