@@ -98,14 +98,14 @@ async function initializescopeChart() {
     }
 
      // --- Calculate total and percentages for the tooltip ---
-    const totalAffiliationsCount = d3.sum(topAffiliation, d => d.value);
+    const totalscopesCount = d3.sum(topscope, d => d.value);
 
-    // Add percentage to each affiliation object in topAffiliation
-    topAffiliation.forEach(d => {
-        d.percent = (totalAffiliationsCount > 0) ? (d.value / totalAffiliationsCount) : 0;
+    // Add percentage to each scope object in topscope
+    topscope.forEach(d => {
+        d.percent = (totalscopesCount > 0) ? (d.value / totalscopesCount) : 0;
     });
 
-    console.log("Processed topAffiliation data with percentages:", topAffiliation);
+    console.log("Processed topscope data with percentages:", topscope);
 
     // --- Chart Rendering Logic ---
 
