@@ -2,7 +2,7 @@
 
 const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
-async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_FoodChart() {
+async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodChart() {
     const container = document.getElementById("National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food-chart-container");
     if (!container) {
       console.error("National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food chart container element #National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Foods-chart-container not found.");
@@ -144,4 +144,4 @@ async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nati
 }
 
 // Initialize the chart when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", initializeNational_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_FoodChart);
+document.addEventListener("DOMContentLoaded", initializeNational_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodChart);
