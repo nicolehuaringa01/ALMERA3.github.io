@@ -86,7 +86,7 @@ d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
 
         const arcs = pie(topInternational_PT_Pie);
 
-        const svg = d3.select("#chart-container") // Select the container in the HTML
+        const svg = d3.select("#International_PT_Pie_Chart-chart-container") // Select the container in the HTML
             .append("svg")
             .attr("width", width)
             .attr("height", height)
