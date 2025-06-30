@@ -1,4 +1,3 @@
-
 const csvDataPath2 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 console.log("Attempting to load CSV from:", csvDataPath2);
 
@@ -41,6 +40,23 @@ d3.csv(csvDataPath2)
     // Filter out any regions that might be empty strings or 'Unknown' if not desired for display
     processedRegionCounts = processedRegionCounts.filter(d => d.region !== "" && d.region !== "Unknown/Unspecified");
 
+    // --- Calculate total and percentages ---
+    const totalLabs = d3.sum(processedRegionCounts, d => d.count);
+    if (totalLabs === 0) {
+        console.warn("No laboratories found in the data for geographic regions.");
+        const chartContainer = document.getElementById("labs-geographic-chart");
+        if (chartContainer) {
+            chartContainer.innerHTML = "<p style='text-align: center;'>No data to display for geographic regions.</p>";
+        }
+        return;
+    }
+
+    // Add percentage to each region object
+    processedRegionCounts.forEach(d => {
+        d.percent = d.count / totalLabs;
+    });
+
+    console.log("Processed Geographic chartData with percentages:", processedRegionCounts);
 
     // Create the plot
     const LabsGeographic = Plot.plot({
@@ -68,6 +84,7 @@ d3.csv(csvDataPath2)
               default: return "black"; // Fallback for any other regions
             }
           },
+          // Modified Tooltip
           title: d => `${d.region}: ${(d.percent * 100).toFixed(1)}% (${d.count} labs)` // Tooltip on hover
         }),
         Plot.text(processedRegionCounts, {
