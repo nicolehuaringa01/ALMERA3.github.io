@@ -97,7 +97,15 @@ async function initializescopeChart() {
         return;
     }
 
-    console.log("Processed topscope data:", topscope);
+     // --- Calculate total and percentages for the tooltip ---
+    const totalAffiliationsCount = d3.sum(topAffiliation, d => d.value);
+
+    // Add percentage to each affiliation object in topAffiliation
+    topAffiliation.forEach(d => {
+        d.percent = (totalAffiliationsCount > 0) ? (d.value / totalAffiliationsCount) : 0;
+    });
+
+    console.log("Processed topAffiliation data with percentages:", topAffiliation);
 
     // --- Chart Rendering Logic ---
 
@@ -133,7 +141,7 @@ async function initializescopeChart() {
             .attr("fill", d => color(d.data.name))
             .attr("d", arc)
         .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${d.data.value.toLocaleString("en-US")}`);
+            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
 
     // Add a legend.
     const legend = svg.append("g")
