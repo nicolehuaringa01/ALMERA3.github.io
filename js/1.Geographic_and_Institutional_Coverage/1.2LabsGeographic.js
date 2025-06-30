@@ -68,7 +68,7 @@ d3.csv(csvDataPath2)
               default: return "black"; // Fallback for any other regions
             }
           },
-          title: d => `${d.region}: ${d.count} labs` // Tooltip on hover
+          title: d => `${d.region}: ${(d.percent * 100).toFixed(1)}% (${d.count} labs)` // Tooltip on hover
         }),
         Plot.text(processedRegionCounts, {
           x: "region",
