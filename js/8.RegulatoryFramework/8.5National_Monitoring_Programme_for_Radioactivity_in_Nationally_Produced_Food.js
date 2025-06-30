@@ -1,15 +1,15 @@
-// js/8.5National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food.js
+// js/8.5National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food.js
 
 const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
 async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodChart() {
-    const container = document.getElementById("National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food-chart-container");
+    const container = document.getElementById("National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food-chart-container");
     if (!container) {
-      console.error("National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food chart container element #National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Foods-chart-container not found.");
+      console.error("National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food chart container element #National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Foods-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
-        errorDiv.textContent = 'Error: Chart container not found in HTML for National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food chart.';
+        errorDiv.textContent = 'Error: Chart container not found in HTML for National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food chart.';
         document.body.appendChild(errorDiv);
         return;
     }
@@ -21,15 +21,15 @@ async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nati
     let data;
     try {
         data = await d3.csv(csvDataPath5);
-        console.log("National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food CSV data loaded successfully. Number of records:", data.length);
+        console.log("National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food CSV data loaded successfully. Number of records:", data.length);
     } catch (error) {
-        console.error("Error loading National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food data. Please check the console for details and ensure the CSV path is correct.</p>";
+        console.error("Error loading National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food CSV data:", error);
+        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food data. Please check the console for details and ensure the CSV path is correct.</p>";
         return;
     }
 
     // --- Data Processing ---
-    const National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_FoodColumn = '8.5 Is there a national monitoring programme for radioactivity in nationally-produced food?';
+    const National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodColumn = '8.5 Is there a national monitoring programme for radioactivity in nationally-produced food?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -38,14 +38,14 @@ async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nati
     };
 
     // Validate if the required column exists
-    if (data.length === 0 || !data[0][National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_FoodColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_FoodColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food chart. Check column name.</p>`;
+    if (data.length === 0 || !data[0][National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodColumn]) {
+        console.error(`Error: CSV data is empty or missing expected column ("${National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodColumn}").`);
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food chart. Check column name.</p>`;
         return;
     }
 
     data.forEach(d => {
-        let answer = d[National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_FoodColumn];
+        let answer = d[National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodColumn];
         if (typeof answer === "string") {
             // Trim whitespace and take only the first part if semi-colon separated
             answer = answer.trim().split(";")[0];
@@ -60,8 +60,8 @@ async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nati
 
     // Check if total is zero to avoid division by zero
     if (total === 0) {
-        console.warn("No 'Yes' or 'No' responses found for National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food.");
-        container.innerHTML = "<p style='text-align: center;'>No data to display for National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food.</p>";
+        console.warn("No 'Yes' or 'No' responses found for National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food.");
+        container.innerHTML = "<p style='text-align: center;'>No data to display for National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food.</p>";
         return;
     }
 
@@ -72,7 +72,7 @@ async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nati
         count
     }));
 
-    console.log("Processed National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food chartData:", chartData);
+    console.log("Processed National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food chartData:", chartData);
 
     // --- Chart Rendering ---
 
@@ -80,7 +80,7 @@ async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nati
     const renderPlot = (currentWidth) => {
         container.innerHTML = ''; // Clear existing chart
 
-        const National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_FoodPlot = Plot.plot({
+        const National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodPlot = Plot.plot({
             width: currentWidth,
             height: height,
             y: {
@@ -126,8 +126,8 @@ async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nati
                 fontSize: "14px"
             }
         });
-        container.appendChild(National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_FoodPlot);
-        console.log("National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food chart appended to DOM.");
+        container.appendChild(National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodPlot);
+        console.log("National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food chart appended to DOM.");
     };
 
     // Initial render
