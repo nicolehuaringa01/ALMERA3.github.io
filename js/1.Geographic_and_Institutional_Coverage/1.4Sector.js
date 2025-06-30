@@ -1,4 +1,4 @@
-// js/sectorChart.js
+// js/1.Geographic_and_Institutional_Coverage/1.4Sector.js
 
 // IMPORTANT: Verify this path carefully!
 // This path is relative to the HTML file that loads this JS.
@@ -41,7 +41,7 @@ function getsectorCounts(data, sectorColumn) {
 }
 
 // This function selects the top N sectors, including "Other" if present
-function getTopsectors(sectorCounts, numTop = 12) {
+function getTopsectors(sectorCounts, numTop = 13) {
     let top = sectorCounts
         .slice() // Create a shallow copy to sort without modifying original
         .sort((a, b) => d3.descending(a.value, b.value)) // Sort by value descending
@@ -97,7 +97,15 @@ async function initializesectorChart() {
         return;
     }
 
-    console.log("Processed topsector data:", topsector);
+    // --- Calculate total and percentages for the tooltip ---
+    const totalsectorCount = d3.sum(topsector, d => d.value);
+
+    // Add percentage to each sector object in topsector
+    topsector.forEach(d => {
+        d.percent = (totalsectorCount > 0) ? (d.value / totalsectorCount) : 0;
+    });
+
+    console.log("Processed topsector data with percentages:", topAffiliation);
 
     // --- Chart Rendering Logic ---
 
@@ -133,7 +141,7 @@ async function initializesectorChart() {
             .attr("fill", d => color(d.data.name))
             .attr("d", arc)
         .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${d.data.value.toLocaleString("en-US")}`);
+            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
 
     // Add a legend.
     const legend = svg.append("g")
