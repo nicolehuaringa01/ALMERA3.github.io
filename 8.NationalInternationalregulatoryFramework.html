@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Environmental Monitoring</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
     
@@ -237,30 +241,24 @@
         <section>
             <details open>
                 <summary>3. Does the country have national regulatory limits for radioactivity in food, drinking water, and/or atmospheric aerosols and deposition?</summary>
-                <iframe width="100%" height="234" frameborder="0"
-  src="https://observablehq.com/embed/462cca89d407f5f7@40?cells=NationalLimitsFoodWaterAerosols"></iframe>
-                <iframe width="100%" height="605" frameborder="0"
-  src="https://observablehq.com/embed/462cca89d407f5f7@64?cells=FoodRadioacticityControllerAuthority"></iframe>
+                <div id="National_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_Deposition-chart-container" class="chart-container"></div>
+                <script src="js/8.RegulatoryFramework/8.3National_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_Deposition.js"></script>
             </details>
         </section>
 
         <section>
             <details open>
                 <summary>5. Is there a national monitoring programme for radioactivity in nationally-produced food? </summary>
-                <iframe width="100%" height="234" frameborder="0"
-  src="https://observablehq.com/embed/462cca89d407f5f7@65?cells=NationallyProducedFoodMonitoring"></iframe>
-                <iframe width="100%" height="605" frameborder="0"
-  src="https://observablehq.com/embed/462cca89d407f5f7@65?cells=RadioactivityInNationallyProducedFoodMap"></iframe>
+                <div id="National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food-chart-container" class="chart-container"></div>
+                <script src="js/8.RegulatoryFramework/8.5National_Monitoring_Programme_for_Radioactivity_in_Nationally-Produced_Food.js"></script>
             </details>
         </section>
 
         <section>
             <details open>
                 <summary>6. Is there a national monitoring programme for radioactivity in imported food?</summary>
-                <iframe width="100%" height="234" frameborder="0"
-  src="https://observablehq.com/embed/462cca89d407f5f7@66?cells=ImportedFoodRadioactivityMonitoring"></iframe>
-                <iframe width="100%" height="605" frameborder="0"
-  src="https://observablehq.com/embed/462cca89d407f5f7@66?cells=RadioactivityInImportedFoodMap"></iframe>
+                <div id="National_Monitoring_Programme_for_Radioactivity_in_Imported_Food-chart-container" class="chart-container"></div>
+                <script src="js/8.RegulatoryFramework/8.6National_Monitoring_Programme_for_Radioactivity_in_Imported_Food.js"></script>
             </details>
         </section>
         
