@@ -7,8 +7,8 @@ d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
         const counts = new Map();
 
         for (const row of data) {
-            if (row["If 'yes' above, state the name the PT scheme/s and the duration of he laboratory's enrollment in each scheme."]) {
-                const radionuclides = row["If 'yes' above, state the name the PT scheme/s and the duration of he laboratory's enrollment in each scheme."].split(";").map(d => d.trim());
+            if (row["If 'yes' above, state the name of the PT scheme/s"]) {
+                const radionuclides = row["If 'yes' above, state the name of the PT scheme/s"].split(";").map(d => d.trim());
                 for (const r of radionuclides) {
                     counts.set(r, (counts.get(r) || 0) + 1);
                 }
