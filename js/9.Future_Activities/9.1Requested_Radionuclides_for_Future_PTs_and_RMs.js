@@ -1,5 +1,10 @@
 // js/9.Future_Activities/9.1Requested_Radionuclides_for_Future_PTs_and_RMs.js
 
+// IMPORTANT: Verify this path carefully!
+// This path is relative to the HTML file that loads this JS.
+// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
+const csvDataPath = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Consistent CSV path
+
 // Declare variables that will hold our processed data and state
 let allSurveyData; // Will hold the loaded CSV data
 let Requested_Radionuclides_for_Future_PTs_and_RMsCountsData;
@@ -7,16 +12,25 @@ let topRequested_Radionuclides_for_Future_PTs_and_RMssData;
 let Requested_Radionuclides_for_Future_PTs_and_RMsToLabsMapData;
 let selectedRequested_Radionuclides_for_Future_PTs_and_RMs = null; // Emulates Observable's mutable state
 
+// --- Helper Functions ---
+
+// Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
+function normalizeString(str) {
+    if (typeof str !== 'string') return '';
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' '); // Replace all whitespace with single space, remove non-breaking spaces
+}
+
 /**
  * Calculates the count of each Requested_Radionuclides_for_Future_PTs_and_RMs from the raw data.
+ * @param {string} radionuclideColumn - The exact column name for radionuclides.
  * @returns {Array<Object>} An array of objects, { name: string, value: number }.
  */
-const calculateRequested_Radionuclides_for_Future_PTs_and_RMsCounts = () => {
+const calculateRequested_Radionuclides_for_Future_PTs_and_RMsCounts = (radionuclideColumn) => {
     const counts = new Map();
     for (const row of allSurveyData) {
-        if (row["9.1 Requested radionuclides and matrices for future PTs and RMs "]) {
-            const Requested_Radionuclides_for_Future_PTs_and_RMss = row["9.1 Requested radionuclides and matrices for future PTs and RMs "].split(";").map(d => d.trim());
-            for (const r of Requested_Radionuclides_for_Future_PTs_and_RMss) {
+        if (row[radionuclideColumn]) { // Use the passed column name
+            const radionuclides = row[radionuclideColumn].split(";").map(d => d.trim()).filter(d => d); // Filter out empty strings
+            for (const r of radionuclides) {
                 counts.set(r, (counts.get(r) || 0) + 1);
             }
         }
@@ -37,35 +51,35 @@ const getTopRequested_Radionuclides_for_Future_PTs_and_RMss = (n = 20) => {
 };
 
 /**
- * Creates a map from Requested_Radionuclides_for_Future_PTs_and_RMs to a nested map of MemberState to LabName counts.
- * @returns {Map<string, Map<string, Map<string, number>>>} The mapping.
+ * Creates a map from Requested_Radionuclides_for_Future_PTs_and_RMs to a nested map of MemberState to Set of LabNames.
+ * @param {string} radionuclideColumn - The exact column name for radionuclides.
+ * @returns {Map<string, Map<string, Set<string>>>} The mapping.
  */
-const createRequested_Radionuclides_for_Future_PTs_and_RMsToLabsMap = () => {
+const createRequested_Radionuclides_for_Future_PTs_and_RMsToLabsMap = (radionuclideColumn) => {
+    // Map: RadionuclideName -> Map<MemberState, Set<LabName>>
     const map = new Map();
+
     for (const row of allSurveyData) {
-        const Requested_Radionuclides_for_Future_PTs_and_RMsRaw = row["EasyRequested_Radionuclides_for_Future_PTs_and_RMss"];
+        const radionuclidesRaw = row[radionuclideColumn]; // Use the dynamically found column name
         const labName = row["1.1 Name of Laboratory"];
         const memberState = row["1.3 Member State"];
 
-        if (!Requested_Radionuclides_for_Future_PTs_and_RMsRaw || !labName || !memberState) continue;
+        if (!radionuclidesRaw || !labName || !memberState) continue; // Skip if essential data is missing
 
-        const Requested_Radionuclides_for_Future_PTs_and_RMss = Requested_Radionuclides_for_Future_PTs_and_RMsRaw.split(";").map(e => e.trim());
+        const radionuclides = radionuclidesRaw.split(";").map(e => e.trim()).filter(e => e); // Split, trim, and filter out empty strings
 
-        // Count Requested_Radionuclides_for_Future_PTs_and_RMs occurrences per lab
-        const counts = {};
-        for (const Requested_Radionuclides_for_Future_PTs_and_RMs of Requested_Radionuclides_for_Future_PTs_and_RMss) {
-            if (!counts[Requested_Radionuclides_for_Future_PTs_and_RMs]) counts[Requested_Radionuclides_for_Future_PTs_and_RMs] = 0;
-            counts[Requested_Radionuclides_for_Future_PTs_and_RMs]++;
-        }
+        for (const radionuclide of radionuclides) {
+            if (!map.has(radionuclide)) {
+                map.set(radionuclide, new Map()); // Initialize Map for this radionuclide
+            }
 
-        for (const [Requested_Radionuclides_for_Future_PTs_and_RMs, count] of Object.entries(counts)) {
-            if (!map.has(Requested_Radionuclides_for_Future_PTs_and_RMs)) map.set(Requested_Radionuclides_for_Future_PTs_and_RMs, new Map()); // Requested_Radionuclides_for_Future_PTs_and_RMs → Map<MemberState, Map<LabName, count>>
+            const stateMap = map.get(radionuclide);
 
-            const stateMap = map.get(Requested_Radionuclides_for_Future_PTs_and_RMs);
+            if (!stateMap.has(memberState)) {
+                stateMap.set(memberState, new Set()); // Initialize Set for labs in this state
+            }
 
-            if (!stateMap.has(memberState)) stateMap.set(memberState, new Map());
-
-            stateMap.get(memberState).set(labName, count);
+            stateMap.get(memberState).add(labName); // Add lab to the Set for its state
         }
     }
     return map;
@@ -217,7 +231,8 @@ const Requested_Radionuclides_for_Future_PTs_and_RMssTreemap = (currentSelectedR
  * Updates the display of labs measuring the selected Requested_Radionuclides_for_Future_PTs_and_RMs.
  */
 const updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs = () => {
-    const labInfoContainer = d3.select("#lab-info-container");
+    // *** RENAMED CONTAINER ID HERE ***
+    const labInfoContainer = d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-lab-info-container");
     labInfoContainer.html(""); // Clear previous content
 
     if (!selectedRequested_Radionuclides_for_Future_PTs_and_RMs) {
@@ -233,8 +248,8 @@ const updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs = () => {
     }
 
     let totalLabs = 0;
-    for (const labsMap of stateMap.values()) {
-        totalLabs += labsMap.size;
+    for (const labsSet of stateMap.values()) { // Iterate through the Sets of labs
+        totalLabs += labsSet.size; // Sum the sizes of the Sets
     }
 
     const sortedStates = Array.from(stateMap.keys()).sort(d3.ascending);
@@ -243,15 +258,14 @@ const updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs = () => {
     div.append("h3").html(`Labs that measure <strong>${selectedRequested_Radionuclides_for_Future_PTs_and_RMs}</strong> (${totalLabs} total)`);
 
     sortedStates.forEach(state => {
-        const labsMap = stateMap.get(state);
-        // Labs are stored as Map<LabName, count>, sort by lab name
-        const sortedLabs = Array.from(labsMap.entries()).sort((a, b) => d3.ascending(a[0], b[0]));
+        const labsSet = stateMap.get(state); // This is now a Set
+        const sortedLabs = Array.from(labsSet).sort(d3.ascending); // Convert Set to Array for sorting
 
         const stateDiv = div.append("div");
         stateDiv.append("h4").text(state);
 
         const ul = stateDiv.append("ul");
-        sortedLabs.forEach(([lab]) => { // Only display lab name, not count based on your request
+        sortedLabs.forEach(lab => { // 'lab' is already the lab name string
             ul.append("li").text(lab);
         });
     });
@@ -262,10 +276,11 @@ const updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs = () => {
  * It clears the container and appends the selected charts.
  */
 const renderCharts = () => {
-    const chartDisplayContainer = d3.select("#chart-display-container");
+    // *** RENAMED CONTAINER ID HERE ***
+    const chartDisplayContainer = d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container");
     chartDisplayContainer.html(""); // Clear previous charts
 
-    const selectedCharts = Array.from(document.querySelectorAll('.chart-selector:checked')).map(cb => cb.value);
+    const selectedCharts = Array.from(document.querySelectorAll('.chart-selector')).filter(cb => cb.checked).map(cb => cb.value);
 
     // Define a common click handler for both charts
     const chartClickHandler = (Requested_Radionuclides_for_Future_PTs_and_RMsName) => {
@@ -293,13 +308,37 @@ const renderCharts = () => {
 };
 
 // --- Data Loading and Initialization ---
-d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
+d3.csv(csvDataPath).then(data => { // Use the globally defined csvDataPath
     allSurveyData = data; // Store the loaded data
 
-    // Process data once after loading
-    Requested_Radionuclides_for_Future_PTs_and_RMsCountsData = calculateRequested_Radionuclides_for_Future_PTs_and_RMsCounts();
-    topRequested_Radionuclides_for_Future_PTs_and_RMssData = getTopRequested_Radionuclides_for_Future_PTs_and_RMss();
-    Requested_Radionuclides_for_Future_PTs_and_RMsToLabsMapData = createRequested_Radionuclides_for_Future_PTs_and_RMsToLabsMap();
+    // Define the target column name for radionuclides
+    const targetRadionuclideColumnName = "9.1 Requested radionuclides and matrices for future PTs and RMs ";
+
+    // Robustly find the exact column name for radionuclides
+    let foundRadionuclideColumn = null;
+    const normalizedTargetRadionuclide = normalizeString(targetRadionuclideColumnName);
+
+    for (const header of Object.keys(allSurveyData[0])) {
+        if (normalizeString(header) === normalizedTargetRadionuclide) {
+            foundRadionuclideColumn = header;
+            break;
+        }
+    }
+
+    if (!foundRadionuclideColumn) {
+        console.error(`Initialization Error: Could not find a matching column for "${targetRadionuclideColumnName}" in the CSV data.`);
+        console.error("Available headers (normalized for comparison):", Object.keys(allSurveyData[0]).map(normalizeString));
+        d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container").html("<p style='color: red;'>Failed to initialize charts: Radionuclide column not found. Check console for details.</p>");
+        d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-lab-info-container").html("<p style='color: red;'>Data could not be loaded or processed.</p>");
+        return;
+    }
+    console.log(`Successfully identified radionuclide column: "${foundRadionuclideColumn}" for processing.`);
+
+
+    // Process data once after loading, passing the found column name
+    Requested_Radionuclides_for_Future_PTs_and_RMsCountsData = calculateRequested_Radionuclides_for_Future_PTs_and_RMsCounts(foundRadionuclideColumn);
+    topRequested_Radionuclides_for_Future_PTs_and_RMssData = getTopRequested_Radionuclides_for_Future_PTs_and_RMss(20); // Get top 20 for initial display
+    Requested_Radionuclides_for_Future_PTs_and_RMsToLabsMapData = createRequested_Radionuclides_for_Future_PTs_and_RMsToLabsMap(foundRadionuclideColumn);
 
     // Attach event listeners to checkboxes for dynamic chart display
     document.querySelectorAll('.chart-selector').forEach(checkbox => {
@@ -311,6 +350,12 @@ d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
     updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs(); // Show initial message for labs
 }).catch(error => {
     console.error("Error loading CSV data:", error);
-    d3.select("#chart-display-container").append("p").text("Failed to load data. Please check the CSV file path and content.");
-    d3.select("#lab-info-container").append("p").text("Data could not be loaded.");
+    d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container").html("<p style='color: red;'>Failed to load data. Please check the CSV file path and content.</p>");
+    d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-lab-info-container").html("<p style='color: red;'>Data could not be loaded.</p>");
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    // This DOMContentLoaded listener is now primarily for ensuring the page is ready
+    // before the d3.csv().then() block runs. The d3.csv itself is asynchronous.
+    // The main initialization logic is within the d3.csv().then() block.
 });
