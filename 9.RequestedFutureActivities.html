@@ -246,8 +246,13 @@
             <details open>
                 <summary>Radionuclides (No matrices) requested by ALMERA Laboratories </summary>
                 <p>* Some labs requested the same radionuclide many times in different matrices, therefore the amount of requested radionuclides may not be the same as number of labs.</p>
-                <iframe width="100%" height="584" frameborder="0"
-  src="https://observablehq.com/embed/9d9ab33b86e9013c?cells=OnlyRadionuclidesMap"></iframe>
+                <div id="chart-selection-container">
+        <label>Please select charts to display:</label><br>
+        <label><input type="checkbox" class="chart-selector" value="Bar chart" checked> Bar chart</label>
+        <label><input type="checkbox" class="chart-selector" value="Tree Map"> Tree Map</label>
+     </div>
+     <div id="chart-display-container"></div> <!-- Container for dynamic charts -->
+     <div id="lab-info-container"></div>
             </details>
         </section>
 
