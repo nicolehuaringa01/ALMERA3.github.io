@@ -231,41 +231,53 @@ const Requested_Radionuclides_for_Future_PTs_and_RMssTreemap = (currentSelectedR
  * Updates the display of labs measuring the selected Requested_Radionuclides_for_Future_PTs_and_RMs.
  */
 const updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs = () => {
-    // *** RENAMED CONTAINER ID HERE ***
-    const labInfoContainer = d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-lab-info-container");
-    labInfoContainer.html(""); // Clear previous content
+    // Target the main chart display container
+    const chartDisplayContainer = d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container");
+
+    // Remove any previously appended lab info div
+    chartDisplayContainer.select(".lab-info-content").remove();
+
+    // Create a new div specifically for the lab info within the chart container
+    const labInfoDiv = chartDisplayContainer.append("div")
+        .attr("class", "lab-info-content") // Add a class for styling and easy removal
+        .style("margin-top", "20px") // Add some space below the charts
+        .style("padding", "15px")
+        .style("border", "1px solid #eee")
+        .style("border-radius", "8px")
+        .style("background", "#fff")
+        .style("box-shadow", "0 2px 5px rgba(0,0,0,0.1)");
+
 
     if (!selectedRequested_Radionuclides_for_Future_PTs_and_RMs) {
-        labInfoContainer.append("p").html("<em>Click on a chart element (bar or treemap tile) to see related labs.</em>");
+        labInfoDiv.append("p").html("<em>Click on a chart element (bar or treemap tile) to see related labs.</em>");
         return;
     }
 
     const stateMap = Requested_Radionuclides_for_Future_PTs_and_RMsToLabsMapData.get(selectedRequested_Radionuclides_for_Future_PTs_and_RMs);
 
     if (!stateMap || stateMap.size === 0) {
-        labInfoContainer.append("p").html(`No labs found for <strong>${selectedRequested_Radionuclides_for_Future_PTs_and_RMs}</strong>.`);
+        labInfoDiv.append("p").html(`No labs found for <strong>${selectedRequested_Radionuclides_for_Future_PTs_and_RMs}</strong>.`);
         return;
     }
 
     let totalLabs = 0;
-    for (const labsSet of stateMap.values()) { // Iterate through the Sets of labs
-        totalLabs += labsSet.size; // Sum the sizes of the Sets
+    for (const labsSet of stateMap.values()) {
+        totalLabs += labsSet.size;
     }
 
     const sortedStates = Array.from(stateMap.keys()).sort(d3.ascending);
 
-    const div = labInfoContainer.append("div");
-    div.append("h3").html(`Labs that measure <strong>${selectedRequested_Radionuclides_for_Future_PTs_and_RMs}</strong> (${totalLabs} total)`);
+    labInfoDiv.append("h4").html(`Labs that measure <strong>${selectedRequested_Radionuclides_for_Future_PTs_and_RMs}</strong> (${totalLabs} total)`);
 
     sortedStates.forEach(state => {
-        const labsSet = stateMap.get(state); // This is now a Set
-        const sortedLabs = Array.from(labsSet).sort(d3.ascending); // Convert Set to Array for sorting
+        const labsSet = stateMap.get(state);
+        const sortedLabs = Array.from(labsSet).sort(d3.ascending);
 
-        const stateDiv = div.append("div");
-        stateDiv.append("h4").text(state);
+        const stateDiv = labInfoDiv.append("div");
+        stateDiv.append("h5").text(state).style("margin-top", "10px").style("margin-bottom", "5px"); // Smaller heading for states
 
-        const ul = stateDiv.append("ul");
-        sortedLabs.forEach(lab => { // 'lab' is already the lab name string
+        const ul = stateDiv.append("ul").style("list-style-type", "disc").style("margin-left", "20px");
+        sortedLabs.forEach(lab => {
             ul.append("li").text(lab);
         });
     });
@@ -276,19 +288,16 @@ const updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs = () => {
  * It clears the container and appends the selected charts.
  */
 const renderCharts = () => {
-    // *** RENAMED CONTAINER ID HERE ***
     const chartDisplayContainer = d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container");
-    chartDisplayContainer.html(""); // Clear previous charts
+    chartDisplayContainer.html(""); // Clear previous charts (including old lab info)
 
     const selectedCharts = Array.from(document.querySelectorAll('.chart-selector')).filter(cb => cb.checked).map(cb => cb.value);
 
     // Define a common click handler for both charts
     const chartClickHandler = (Requested_Radionuclides_for_Future_PTs_and_RMsName) => {
         selectedRequested_Radionuclides_for_Future_PTs_and_RMs = Requested_Radionuclides_for_Future_PTs_and_RMsName;
-        // Re-render charts to apply highlight
+        // Re-render charts to apply highlight AND update lab info
         renderCharts();
-        // Update the lab info display
-        updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs();
     };
 
     if (selectedCharts.includes("Bar chart")) {
@@ -305,6 +314,9 @@ const renderCharts = () => {
     if (selectedCharts.length === 0) {
         chartDisplayContainer.append("p").text("Please select at least one chart to display.");
     }
+
+    // Always update lab info after charts are rendered (or message is displayed)
+    updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs();
 };
 
 // --- Data Loading and Initialization ---
@@ -329,7 +341,6 @@ d3.csv(csvDataPath).then(data => { // Use the globally defined csvDataPath
         console.error(`Initialization Error: Could not find a matching column for "${targetRadionuclideColumnName}" in the CSV data.`);
         console.error("Available headers (normalized for comparison):", Object.keys(allSurveyData[0]).map(normalizeString));
         d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container").html("<p style='color: red;'>Failed to initialize charts: Radionuclide column not found. Check console for details.</p>");
-        d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-lab-info-container").html("<p style='color: red;'>Data could not be loaded or processed.</p>");
         return;
     }
     console.log(`Successfully identified radionuclide column: "${foundRadionuclideColumn}" for processing.`);
@@ -346,12 +357,10 @@ d3.csv(csvDataPath).then(data => { // Use the globally defined csvDataPath
     });
 
     // Initial render of charts and lab info
-    renderCharts();
-    updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs(); // Show initial message for labs
+    renderCharts(); // This will now also call updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs
 }).catch(error => {
     console.error("Error loading CSV data:", error);
     d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container").html("<p style='color: red;'>Failed to load data. Please check the CSV file path and content.</p>");
-    d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-lab-info-container").html("<p style='color: red;'>Data could not be loaded.</p>");
 });
 
 document.addEventListener("DOMContentLoaded", () => {
