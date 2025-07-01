@@ -1,11 +1,11 @@
-// js/6.16Affiliation_to_Another_Network_(Not_ALMERA).js
+// js/6.16Affiliation_to_Another_Network.js
 
 const csvDataPath16 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
 async function initializeAffiliation_to_Another_NetworkChart() {
     const container = document.getElementById("Affiliation_to_Another_Network-chart-container");
     if (!container) {
-      console.error("Affiliation_to_Another_Network chart container element #Affiliation_to_Another_Networks-chart-container not found.");
+      console.error("Affiliation_to_Another_Network chart container element #Affiliation_to_Another_Network-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
@@ -88,7 +88,7 @@ async function initializeAffiliation_to_Another_NetworkChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Participation in other networks in addition to ALMERA ",
+                label: "Participation in other networks in addition to ALMERA",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
