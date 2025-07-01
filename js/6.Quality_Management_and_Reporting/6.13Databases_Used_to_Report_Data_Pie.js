@@ -13,7 +13,7 @@ function getDatabases_Used_to_Report_Data_PieCounts(data, Databases_Used_to_Repo
     for (const row of data) {
         if (row[Databases_Used_to_Report_Data_PieColumn]) {
             // Split by semicolon as per your Observable notebook's implicit logic
-            const Databases_Used_to_Report_Data_Pies = row[Databases_Used_to_Report_Data_PieColumn].split(";").map(d => d.trim());
+            const Databases_Used_to_Report_Data_Pies = row[Databases_Used_to_Report_Data_Pie_PieColumn].split(";").map(d => d.trim());
             for (const aff of Databases_Used_to_Report_Data_Pies) {
                 if (aff) { // Ensure Databases_Used_to_Report_Data_Pie string is not empty after trimming
                     counts.set(aff, (counts.get(aff) || 0) + 1);
@@ -23,18 +23,26 @@ function getDatabases_Used_to_Report_Data_PieCounts(data, Databases_Used_to_Repo
     }
 
     let result = [];
-    let otherCount = 0;
+    let syntheticOtherCount = 0; // This will accumulate counts for categories appearing only once
 
+    // First pass: Separate categories with count > 1 from those with count 1
     for (const [name, value] of counts.entries()) {
-        if (value === 1) { // Databases_Used_to_Report_Data_Pies with only one occurrence go into "Other"
-            otherCount += 1;
+        if (value === 1 && name !== "Other") { // Only count unique-occurrence items as 'other', unless they are already named "Other"
+            syntheticOtherCount += 1;
         } else {
-            result.push({ name, value });
+            result.push({ name, value }); // Push all other categories directly
         }
     }
 
-    if (otherCount > 0) {
-        result.push({ name: "Other", value: otherCount });
+    // Second pass: Handle the "Other" category aggregation
+    let existingOtherIndex = result.findIndex(d => d.name === "Other");
+
+    if (existingOtherIndex !== -1) {
+        // If an "Other" category already existed from the raw data, add synthetic counts to it
+        result[existingOtherIndex].value += syntheticOtherCount;
+    } else if (syntheticOtherCount > 0) {
+        // If no "Other" category existed but we have synthetic others, create a new one
+        result.push({ name: "Other", value: syntheticOtherCount });
     }
 
     return result;
@@ -51,7 +59,7 @@ function getTopDatabases_Used_to_Report_Data_Pies(Databases_Used_to_Report_Data_
     const other = Databases_Used_to_Report_Data_PieCounts.find(d => d.name === "Other");
     if (other && !top.some(d => d.name === "Other")) {
         top.push(other); // Add "Other" if it wasn't already in the top N
-        // You might want to re-sort 'top' after adding 'Other' if its position matters
+        // Re-sort 'top' after adding 'Other' to maintain order if 'Other' is not the smallest
         top.sort((a, b) => d3.descending(a.value, b.value));
     }
 
@@ -149,7 +157,7 @@ async function initializeDatabases_Used_to_Report_Data_PieChart() {
         .attr("font-family", "sans-serif")
         .attr("font-size", 10)
         .selectAll("g")
-        .data(color.domain())
+        .data(color.domain()) // This uses the unique names from the color scale domain
         .join("g")
             .attr("transform", (d, i) => `translate(0, ${i * 20})`);
 
