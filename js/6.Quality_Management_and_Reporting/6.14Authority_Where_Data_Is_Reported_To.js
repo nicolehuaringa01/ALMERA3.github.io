@@ -81,7 +81,7 @@ async function initializeAuthority_Where_Data_Is_Reported_ToChart() {
     }
 
     // --- Data Processing using the new functions ---
-    const Authority_Where_Data_Is_Reported_ToColumn = "6.14 To which authority is the data reported? (Select all that apply)"; // User-provided column name
+    const Authority_Where_Data_Is_Reported_ToColumn = "6.12 What is the frequency with which results are reported to national authorities?"; // User-provided column name
     if (!rawData[0] || !rawData[0][Authority_Where_Data_Is_Reported_ToColumn]) {
         console.error(`Error: CSV data missing required column "${Authority_Where_Data_Is_Reported_ToColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
         container.innerHTML = `<p style='color: red;'>Error: Missing "${Authority_Where_Data_Is_Reported_ToColumn}" column in CSV data.</p>`;
