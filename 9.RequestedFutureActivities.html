@@ -84,6 +84,31 @@
             color: #0256b3; /* Highlight text color */
             transform: none; /* No translateY on hover for sidebar links */
         }
+        .chart-container {
+            min-height: 500px; /* Ensure enough space for charts */
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+        }
+        .lab-info-container {
+            min-height: 200px;
+            margin-top: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+        }
+        .chart-selector-group {
+            margin-bottom: 20px;
+        }
+        .chart-selector-group label {
+            margin-right: 15px;
+            font-weight: bold;
+        }
 
         main {
             flex-grow: 1; /* Allows main to take up remaining horizontal space */
@@ -237,27 +262,28 @@
         <h2>9. Future Activities</h2>
         <section>
             <details open>
-                <summary>Requested radionuclides and matrices for future PTs and RMs</summary>
-               <div id="chart-selection-container">
+                <summary>1. Requested radionuclides and matrices for future PTs and RMs</summary>
+                <div class="chart-selector-group">
+                <div id="chart-selection-container">
         <label>Please select charts to display:</label><br>
         <label><input type="checkbox" class="chart-selector" value="Bar chart" checked> Bar chart</label>
         <label><input type="checkbox" class="chart-selector" value="Tree Map"> Tree Map</label>
      </div>
-     <div id="chart-display-container"></div> <!-- Container for dynamic charts -->
-     <div id="lab-info-container"></div>
+     <div id="Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container" class="chart-container">
+     <script src="js/9.Future_Activities/9.1Requested_Radionuclides_for_Future_PTs_and_RMs.js"></script>
             </details>
         </section>
 
         <section>
             <details open>
-                <summary>Radionuclides (No matrices) requested by ALMERA Laboratories </summary>
+                <summary>2. Radionuclides (No matrices) requested by ALMERA Laboratories </summary>
                 <p>* Some labs requested the same radionuclide many times in different matrices, therefore the amount of requested radionuclides may not be the same as number of labs.</p>
             </details>
         </section>
 
         <section>
             <details open>
-                <summary>Requested Activities to be organised by the ALMERA network</summary>
+                <summary>3. Requested Activities to be organised by the ALMERA network</summary>
                <iframe width="100%" height="584" frameborder="0"
   src="https://observablehq.com/embed/9d9ab33b86e9013c?cells=RequestedActivitymap"></iframe>
             </details>
