@@ -262,28 +262,22 @@
 
     <main>
         <h2>9. Future Activities</h2>
-        <section>
-            <details open>
-                <summary>1. Requested radionuclides and matrices for future PTs and RMs</summary>
-                <div class="chart-selector-group">
-                    <div id="chart-selection-container">
-                        <label>Please select charts to display:</label><br>
-                        <label><input type="checkbox" class="chart-selector" value="Bar chart" checked> Bar chart</label>
-                        <label><input type="checkbox" class="chart-selector" value="Tree Map"> Tree Map</label>
-                    </div>
-                </div>
-                <!-- CHART DISPLAY CONTAINER - NOW SEPARATE -->
-                <div id="Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container" class="chart-container">
-                    <!-- Charts will be rendered here by JavaScript -->
-                </div>
-
-                <!-- LAB INFO CONTAINER - NOW SEPARATE -->
-                <h4>Labs Measuring Selected Radionuclide</h4>
-                <div id="Requested_Radionuclides_for_Future_PTs_and_RMs-lab-info-container" class="lab-info-container">
-                    <em>Click on a chart element (bar or treemap tile) to see related labs.</em>
-                </div>
-            </details>
-        </section>
+       <section>
+    <details open>
+        <summary>1. Requested radionuclides and matrices for future PTs and RMs</summary>
+        <!-- The chart-selection-container is a direct child of details -->
+        <div id="chart-selection-container">
+            <label>Please select charts to display:</label><br>
+            <label><input type="checkbox" class="chart-selector" value="Bar chart" checked> Bar chart</label>
+            <label><input type="checkbox" class="chart-selector" value="Tree Map"> Tree Map</label>
+        </div>
+        <!-- This container will now hold BOTH the charts AND the lab info -->
+        <div id="Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container" class="chart-container">
+            <!-- Charts and lab info will be rendered here by JavaScript -->
+            <em>Click on a chart element (bar or treemap tile) to see related labs.</em>
+        </div>
+    </details>
+</section>
 
         <section>
             <details open>
