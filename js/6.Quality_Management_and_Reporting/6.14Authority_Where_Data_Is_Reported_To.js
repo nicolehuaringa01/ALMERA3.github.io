@@ -89,7 +89,7 @@ async function initializeAuthority_Where_Data_Is_Reported_ToChart() {
     }
 
     const Authority_Where_Data_Is_Reported_ToCounts = getAuthority_Where_Data_Is_Reported_ToCounts(rawData, Authority_Where_Data_Is_Reported_ToColumn);
-    const topAuthority_Where_Data_Is_Reported_To = getTopAuthority_Where_Data_Is_Reported_Tos(Authority_Where_Data_Is_Reported_ToCounts, 6); // Get top 6 Authority_Where_Data_Is_Reported_Tos
+    const topAuthority_Where_Data_Is_Reported_To = getTopAuthority_Where_Data_Is_Reported_Tos(Authority_Where_Data_Is_Reported_ToCounts, 10); // Get top 10 Authority_Where_Data_Is_Reported_Tos
 
     if (topAuthority_Where_Data_Is_Reported_To.length === 0) {
         console.warn("No valid Authority_Where_Data_Is_Reported_To data found after processing.");
