@@ -1,5 +1,6 @@
 // js/6.Quality_Management_and_Reporting/6.13Databases_Used_to_Report_Data_Pie.js
 
+
 // IMPORTANT: Verify this path carefully!
 // This path is relative to the HTML file that loads this JS.
 // Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
@@ -13,7 +14,7 @@ function getDatabases_Used_to_Report_Data_PieCounts(data, Databases_Used_to_Repo
     for (const row of data) {
         if (row[Databases_Used_to_Report_Data_PieColumn]) {
             // Split by semicolon as per your Observable notebook's implicit logic
-            const Databases_Used_to_Report_Data_Pies = row[Databases_Used_to_Report_Data_Pie_PieColumn].split(";").map(d => d.trim());
+            const Databases_Used_to_Report_Data_Pies = row[Databases_Used_to_Report_Data_PieColumn].split(";").map(d => d.trim());
             for (const aff of Databases_Used_to_Report_Data_Pies) {
                 if (aff) { // Ensure Databases_Used_to_Report_Data_Pie string is not empty after trimming
                     counts.set(aff, (counts.get(aff) || 0) + 1);
@@ -23,26 +24,18 @@ function getDatabases_Used_to_Report_Data_PieCounts(data, Databases_Used_to_Repo
     }
 
     let result = [];
-    let syntheticOtherCount = 0; // This will accumulate counts for categories appearing only once
+    let otherCount = 0;
 
-    // First pass: Separate categories with count > 1 from those with count 1
     for (const [name, value] of counts.entries()) {
-        if (value === 1 && name !== "Other") { // Only count unique-occurrence items as 'other', unless they are already named "Other"
-            syntheticOtherCount += 1;
+        if (value === 1) { // Databases_Used_to_Report_Data_Pies with only one occurrence go into "Other"
+            otherCount += 1;
         } else {
-            result.push({ name, value }); // Push all other categories directly
+            result.push({ name, value });
         }
     }
 
-    // Second pass: Handle the "Other" category aggregation
-    let existingOtherIndex = result.findIndex(d => d.name === "Other");
-
-    if (existingOtherIndex !== -1) {
-        // If an "Other" category already existed from the raw data, add synthetic counts to it
-        result[existingOtherIndex].value += syntheticOtherCount;
-    } else if (syntheticOtherCount > 0) {
-        // If no "Other" category existed but we have synthetic others, create a new one
-        result.push({ name: "Other", value: syntheticOtherCount });
+    if (otherCount > 0) {
+        result.push({ name: "Other", value: otherCount });
     }
 
     return result;
@@ -59,7 +52,7 @@ function getTopDatabases_Used_to_Report_Data_Pies(Databases_Used_to_Report_Data_
     const other = Databases_Used_to_Report_Data_PieCounts.find(d => d.name === "Other");
     if (other && !top.some(d => d.name === "Other")) {
         top.push(other); // Add "Other" if it wasn't already in the top N
-        // Re-sort 'top' after adding 'Other' to maintain order if 'Other' is not the smallest
+        // You might want to re-sort 'top' after adding 'Other' if its position matters
         top.sort((a, b) => d3.descending(a.value, b.value));
     }
 
@@ -97,7 +90,7 @@ async function initializeDatabases_Used_to_Report_Data_PieChart() {
     }
 
     const Databases_Used_to_Report_Data_PieCounts = getDatabases_Used_to_Report_Data_PieCounts(rawData, Databases_Used_to_Report_Data_PieColumn);
-    const topDatabases_Used_to_Report_Data_Pie = getTopDatabases_Used_to_Report_Data_Pies(Databases_Used_to_Report_Data_PieCounts, 9); // Get top 9 Databases_Used_to_Report_Data_Pies
+    const topDatabases_Used_to_Report_Data_Pie = getTopDatabases_Used_to_Report_Data_Pies(Databases_Used_to_Report_Data_PieCounts, 6); // Get top 6 Databases_Used_to_Report_Data_Pies
 
     if (topDatabases_Used_to_Report_Data_Pie.length === 0) {
         console.warn("No valid Databases_Used_to_Report_Data_Pie data found after processing.");
@@ -157,7 +150,7 @@ async function initializeDatabases_Used_to_Report_Data_PieChart() {
         .attr("font-family", "sans-serif")
         .attr("font-size", 10)
         .selectAll("g")
-        .data(color.domain()) // This uses the unique names from the color scale domain
+        .data(color.domain())
         .join("g")
             .attr("transform", (d, i) => `translate(0, ${i * 20})`);
 
