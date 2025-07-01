@@ -2,10 +2,16 @@
 
 const csvDataPath16 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
+// Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
+function normalizeString(str) {
+    if (typeof str !== 'string') return '';
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' '); // Replace all whitespace with single space, remove non-breaking spaces
+}
+
 async function initializeAffiliation_to_Another_NetworkChart() {
     const container = document.getElementById("Affiliation_to_Another_Network-chart-container");
     if (!container) {
-      console.error("Affiliation_to_Another_Network chart container element #Affiliation_to_Another_Network-chart-container not found.");
+        console.error("Affiliation_to_Another_Network chart container element #Affiliation_to_Another_Network-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
@@ -18,10 +24,23 @@ async function initializeAffiliation_to_Another_NetworkChart() {
     const width = container.clientWidth;
     const height = 120; // Fixed height as per your Observable code
 
-    let data;
+    let rawData; // Renamed to rawData to distinguish from processed data
     try {
-        data = await d3.csv(csvDataPath16);
-        console.log("Affiliation_to_Another_Network CSV data loaded successfully. Number of records:", data.length);
+        rawData = await d3.csv(csvDataPath16);
+        console.log("Affiliation_to_Another_Network CSV raw data loaded successfully. Number of records:", rawData.length);
+
+        if (rawData.length === 0) {
+            console.warn("CSV data is empty. No chart to display.");
+            container.innerHTML = "<p style='text-align: center;'>CSV data is empty. No chart to display.</p>";
+            return;
+        }
+
+        // *** CRUCIAL DEBUGGING STEP: Log all headers found by D3.js ***
+        const parsedHeaders = Object.keys(rawData[0]);
+        console.log("CSV data loaded. First row headers (as parsed by D3.js):", parsedHeaders);
+        console.log("CSV data loaded. First row headers (normalized for comparison):", parsedHeaders.map(normalizeString));
+
+
     } catch (error) {
         console.error("Error loading Affiliation_to_Another_Network CSV data:", error);
         container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Affiliation_to_Another_Network data. Please check the console for details and ensure the CSV path is correct.</p>";
@@ -29,7 +48,29 @@ async function initializeAffiliation_to_Another_NetworkChart() {
     }
 
     // --- Data Processing ---
-    const Affiliation_to_Another_NetworkColumn = '6.16 Is the laboratory part of another network in addition to ALMERA? (e.g. Ring of 5, RANET, PROCORAD, etc.)';
+    const targetColumnName = '6.16 Is the laboratory part of another network in addition to ALMERA? (e.g. Ring of 5, RANET, PROCORAD, etc.)';
+
+    // --- Robust Column Name Validation ---
+    let foundColumn = null;
+    const normalizedTarget = normalizeString(targetColumnName);
+
+    // Iterate through the actual parsed headers to find a match
+    for (const header of Object.keys(rawData[0])) {
+        if (normalizeString(header) === normalizedTarget) {
+            foundColumn = header; // Use the exact header string parsed by D3.js
+            break;
+        }
+    }
+
+    if (!foundColumn) {
+        console.error(`Error: Could not find a matching column for "${targetColumnName}" in the CSV data.`);
+        console.error("Available headers (normalized for comparison):", Object.keys(rawData[0]).map(normalizeString));
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column "${targetColumnName}" not found in CSV. Please check the exact header name in the console's 'Available headers:'.</p>`;
+        return;
+    }
+
+    console.log(`Successfully identified column: "${foundColumn}" for processing.`);
+    const Affiliation_to_Another_NetworkColumn = foundColumn; // Use the found exact column name
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -37,14 +78,8 @@ async function initializeAffiliation_to_Another_NetworkChart() {
         "No": 0
     };
 
-    // Validate if the required column exists
-    if (data.length === 0 || !data[0][Affiliation_to_Another_NetworkColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${Affiliation_to_Another_NetworkColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for Affiliation_to_Another_Network chart. Check column name.</p>`;
-        return;
-    }
-
-    data.forEach(d => {
+    // Process data using the found column name
+    rawData.forEach(d => {
         let answer = d[Affiliation_to_Another_NetworkColumn];
         if (typeof answer === "string") {
             // Trim whitespace and take only the first part if semi-colon separated
