@@ -6,6 +6,12 @@
 // (e.g., https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable2020Survey.csv)
 const csvDataPath145 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
 
+// Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
+function normalizeString(str) {
+    if (typeof str !== 'string') return '';
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' '); // Replace all whitespace with single space, remove non-breaking spaces
+}
+
 // This function processes the raw data to count Authority_Where_Data_Is_Reported_Tos
 function getAuthority_Where_Data_Is_Reported_ToCounts(data, Authority_Where_Data_Is_Reported_ToColumn) {
     const counts = new Map();
@@ -23,18 +29,22 @@ function getAuthority_Where_Data_Is_Reported_ToCounts(data, Authority_Where_Data
     }
 
     let result = [];
-    let otherCount = 0;
+    let syntheticOtherCount = 0;
 
     for (const [name, value] of counts.entries()) {
-        if (value === 1) { // Authority_Where_Data_Is_Reported_Tos with only one occurrence go into "Other"
-            otherCount += 1;
+        if (value === 1 && name !== "Other") {
+            syntheticOtherCount += 1;
         } else {
             result.push({ name, value });
         }
     }
 
-    if (otherCount > 0) {
-        result.push({ name: "Other", value: otherCount });
+    let existingOtherIndex = result.findIndex(d => d.name === "Other");
+
+    if (existingOtherIndex !== -1) {
+        result[existingOtherIndex].value += syntheticOtherCount;
+    } else if (syntheticOtherCount > 0) {
+        result.push({ name: "Other", value: syntheticOtherCount });
     }
 
     return result;
@@ -43,15 +53,13 @@ function getAuthority_Where_Data_Is_Reported_ToCounts(data, Authority_Where_Data
 // This function selects the top N Authority_Where_Data_Is_Reported_Tos, including "Other" if present
 function getTopAuthority_Where_Data_Is_Reported_Tos(Authority_Where_Data_Is_Reported_ToCounts, numTop = 12) {
     let top = Authority_Where_Data_Is_Reported_ToCounts
-        .slice() // Create a shallow copy to sort without modifying original
-        .sort((a, b) => d3.descending(a.value, b.value)) // Sort by value descending
-        .slice(0, numTop); // Take the top N
+        .slice()
+        .sort((a, b) => d3.descending(a.value, b.value))
+        .slice(0, numTop);
 
-    // Ensure "Other" is included if it's one of the top N or if it exists and wasn't in top N
     const other = Authority_Where_Data_Is_Reported_ToCounts.find(d => d.name === "Other");
     if (other && !top.some(d => d.name === "Other")) {
-        top.push(other); // Add "Other" if it wasn't already in the top N
-        // You might want to re-sort 'top' after adding 'Other' if its position matters
+        top.push(other);
         top.sort((a, b) => d3.descending(a.value, b.value));
     }
 
@@ -66,7 +74,6 @@ async function initializeAuthority_Where_Data_Is_Reported_ToChart() {
         return;
     }
 
-    // Set dimensions for the chart
     const width = 928;
     const height = Math.min(width, 500);
 
@@ -74,19 +81,48 @@ async function initializeAuthority_Where_Data_Is_Reported_ToChart() {
     try {
         rawData = await d3.csv(csvDataPath145);
         console.log("Authority_Where_Data_Is_Reported_To CSV raw data loaded:", rawData.length, "records");
+
+        if (rawData.length === 0) {
+            console.warn("CSV data is empty. No chart to display.");
+            container.innerHTML = "<p style='text-align: center;'>CSV data is empty. No chart to display.</p>";
+            return;
+        }
+
+        // *** CRUCIAL DEBUGGING STEP: Log all headers found by D3.js ***
+        const parsedHeaders = Object.keys(rawData[0]);
+        console.log("CSV data loaded. First row headers (as parsed by D3.js):", parsedHeaders);
+
+
     } catch (error) {
         console.error("Error loading Authority_Where_Data_Is_Reported_To CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Authority_Where_Data_Is_Reported_To data. Check console for details (e.g., CSV path).</p>";
+        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Authority_Where_Data_Is_Reported_To data. Please check the console for details and ensure the CSV path is correct.</p>";
         return;
     }
 
     // --- Data Processing using the new functions ---
-    const Authority_Where_Data_Is_Reported_ToColumn = "6.14 To which authority is the data reported to? (Select all that apply)"; // User-provided column name
-    if (!rawData[0] || !rawData[0][Authority_Where_Data_Is_Reported_ToColumn]) {
-        console.error(`Error: CSV data missing required column "${Authority_Where_Data_Is_Reported_ToColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
-        container.innerHTML = `<p style='color: red;'>Error: Missing "${Authority_Where_Data_Is_Reported_ToColumn}" column in CSV data.</p>`;
+    const targetColumnName = "6.14 To which authority is the data reported to? (Select all that apply)"; // User-provided column name
+
+    // --- Robust Column Name Validation ---
+    let foundColumn = null;
+    const normalizedTarget = normalizeString(targetColumnName);
+
+    for (const header of Object.keys(rawData[0])) {
+        if (normalizeString(header) === normalizedTarget) {
+            foundColumn = header;
+            break;
+        }
+    }
+
+    if (!foundColumn) {
+        console.error(`Error: Could not find a matching column for "${targetColumnName}" in the CSV data.`);
+        console.error("Available headers (normalized for comparison):", Object.keys(rawData[0]).map(normalizeString));
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column "${targetColumnName}" not found in CSV. Please check the exact header name in the console.</p>`;
         return;
     }
+
+    console.log(`Successfully identified column: "${foundColumn}" for processing.`);
+    const Authority_Where_Data_Is_Reported_ToColumn = foundColumn; // Use the exactly matched header
+
 
     const Authority_Where_Data_Is_Reported_ToCounts = getAuthority_Where_Data_Is_Reported_ToCounts(rawData, Authority_Where_Data_Is_Reported_ToColumn);
     const topAuthority_Where_Data_Is_Reported_To = getTopAuthority_Where_Data_Is_Reported_Tos(Authority_Where_Data_Is_Reported_ToCounts, 10); // Get top 10 Authority_Where_Data_Is_Reported_Tos
