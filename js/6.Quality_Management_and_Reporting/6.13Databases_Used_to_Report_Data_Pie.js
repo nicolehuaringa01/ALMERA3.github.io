@@ -97,7 +97,7 @@ async function initializeDatabases_Used_to_Report_Data_PieChart() {
     }
 
     const Databases_Used_to_Report_Data_PieCounts = getDatabases_Used_to_Report_Data_PieCounts(rawData, Databases_Used_to_Report_Data_PieColumn);
-    const topDatabases_Used_to_Report_Data_Pie = getTopDatabases_Used_to_Report_Data_Pies(Databases_Used_to_Report_Data_PieCounts, 6); // Get top 6 Databases_Used_to_Report_Data_Pies
+    const topDatabases_Used_to_Report_Data_Pie = getTopDatabases_Used_to_Report_Data_Pies(Databases_Used_to_Report_Data_PieCounts, 9); // Get top 9 Databases_Used_to_Report_Data_Pies
 
     if (topDatabases_Used_to_Report_Data_Pie.length === 0) {
         console.warn("No valid Databases_Used_to_Report_Data_Pie data found after processing.");
