@@ -12,8 +12,8 @@ function getDatabases_Used_to_Report_Data_PieCounts(data, Databases_Used_to_Repo
 
     for (const row of data) {
         if (row[Databases_Used_to_Report_Data_PieColumn]) {
-            // Split by semicolon as per your Observable notebook's implicit logic
-            const Databases_Used_to_Report_Data_Pies = row[Databases_Used_to_Report_Data_Pie_PieColumn].split(";").map(d => d.trim());
+            // CORRECTED LINE: Removed the extra '_Pie' from the variable name
+            const Databases_Used_to_Report_Data_Pies = row[Databases_Used_to_Report_Data_PieColumn].split(";").map(d => d.trim());
             for (const aff of Databases_Used_to_Report_Data_Pies) {
                 if (aff) { // Ensure Databases_Used_to_Report_Data_Pie string is not empty after trimming
                     counts.set(aff, (counts.get(aff) || 0) + 1);
