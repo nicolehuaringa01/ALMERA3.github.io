@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Requested Future Activities</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <!-- You also need Observable Plot for the bar/treemap if you're using it in this file -->
+    <script src="https://unpkg.com/topojson-client@3"></script>
     <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -111,6 +111,21 @@
             margin-right: 15px;
             font-weight: bold;
         }
+        .map-container {
+            width: 100%;
+            height: 500px; /* Or adjust as needed */
+            margin-top: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; /* To center the SVG if it's smaller than container */
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Hide parts of map that go outside */
+        }
+        .map-container svg {
+            display: block; /* Remove extra space below SVG */
 
         main {
             flex-grow: 1; /* Allows main to take up remaining horizontal space */
