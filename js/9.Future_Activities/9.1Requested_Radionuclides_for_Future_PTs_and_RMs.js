@@ -1,7 +1,7 @@
 // js/9.Future_Activities/9.1Requested_Radionuclides_for_Future_PTs_and_RMs.js
 
 const csvDataPath1 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Consistent CSV path
-const topojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
+const topojsonPath1 = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
 
 // Declare variables that will hold our processed data and state
 let allSurveyData_Requested_Radionuclides_for_Future_PTs_and_RMs; // Will hold the loaded CSV data
@@ -335,7 +335,7 @@ const updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs = async (
 
     let world;
     try {
-        world = await d3.json(topojsonPath); // This is where the .json file is loaded from CDN
+        world = await d3.json(topojsonPath1); // This is where the .json file is loaded from CDN
     } catch (error) {
         console.error("Error loading TopoJSON data:", error);
         mapInfoDiv.append("p").html("<span style='color:red;'>Error: Failed to load world map data from CDN. Check network connection or CDN availability.</span>");
