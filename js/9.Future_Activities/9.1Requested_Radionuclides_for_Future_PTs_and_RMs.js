@@ -6,7 +6,7 @@
 const csvDataPath = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Consistent CSV path
 
 // Declare variables that will hold our processed data and state
-let allSurveyData; // Will hold the loaded CSV data
+let allSurveyData_Requested_Radionuclides_for_Future_PTs_and_RMs; // Will hold the loaded CSV data
 let Requested_Radionuclides_for_Future_PTs_and_RMsCountsData;
 let topRequested_Radionuclides_for_Future_PTs_and_RMssData;
 let Requested_Radionuclides_for_Future_PTs_and_RMsToLabsMapData;
@@ -27,7 +27,7 @@ function normalizeString(str) {
  */
 const calculateRequested_Radionuclides_for_Future_PTs_and_RMsCounts = (radionuclideColumn) => {
     const counts = new Map();
-    for (const row of allSurveyData) {
+    for (const row of allSurveyData_Requested_Radionuclides_for_Future_PTs_and_RMs) {
         if (row[radionuclideColumn]) { // Use the passed column name
             const radionuclides = row[radionuclideColumn].split(";").map(d => d.trim()).filter(d => d); // Filter out empty strings
             for (const r of radionuclides) {
@@ -59,7 +59,7 @@ const createRequested_Radionuclides_for_Future_PTs_and_RMsToLabsMap = (radionucl
     // Map: RadionuclideName -> Map<MemberState, Set<LabName>>
     const map = new Map();
 
-    for (const row of allSurveyData) {
+    for (const row of allSurveyData_Requested_Radionuclides_for_Future_PTs_and_RMs) {
         const radionuclidesRaw = row[radionuclideColumn]; // Use the dynamically found column name
         const labName = row["1.1 Name of Laboratory"];
         const memberState = row["1.3 Member State"];
@@ -321,7 +321,7 @@ const renderCharts_Requested_Radionuclides_for_Future_PTs_and_RMs = () => {
 
 // --- Data Loading and Initialization ---
 d3.csv(csvDataPath).then(data => { // Use the globally defined csvDataPath
-    allSurveyData = data; // Store the loaded data
+    allSurveyData_Requested_Radionuclides_for_Future_PTs_and_RMs = data; // Store the loaded data
 
     // Define the target column name for radionuclides
     const targetRadionuclideColumnName = "9.1 Requested radionuclides and matrices for future PTs and RMs ";
@@ -330,7 +330,7 @@ d3.csv(csvDataPath).then(data => { // Use the globally defined csvDataPath
     let foundRadionuclideColumn = null;
     const normalizedTargetRadionuclide = normalizeString(targetRadionuclideColumnName);
 
-    for (const header of Object.keys(allSurveyData[0])) {
+    for (const header of Object.keys(allSurveyData_Requested_Radionuclides_for_Future_PTs_and_RMs[0])) {
         if (normalizeString(header) === normalizedTargetRadionuclide) {
             foundRadionuclideColumn = header;
             break;
@@ -339,7 +339,7 @@ d3.csv(csvDataPath).then(data => { // Use the globally defined csvDataPath
 
     if (!foundRadionuclideColumn) {
         console.error(`Initialization Error: Could not find a matching column for "${targetRadionuclideColumnName}" in the CSV data.`);
-        console.error("Available headers (normalized for comparison):", Object.keys(allSurveyData[0]).map(normalizeString));
+        console.error("Available headers (normalized for comparison):", Object.keys(allSurveyData_Requested_Radionuclides_for_Future_PTs_and_RMs[0]).map(normalizeString));
         d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container").html("<p style='color: red;'>Failed to initialize charts: Radionuclide column not found. Check console for details.</p>");
         return;
     }
