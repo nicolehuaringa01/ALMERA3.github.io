@@ -1,8 +1,5 @@
 // js/9.Future_Activities/9.15Requested_Radionuclides_No_Matrix.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the HTML file that loads this JS.
-// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
 const csvDataPath15 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Consistent CSV path
 
 // Declare variables that will hold our processed data and state
@@ -287,17 +284,17 @@ const updateSelectedRequested_Radionuclides_No_MatrixLabs = () => {
  * Main function to render the charts based on selected checkboxes.
  * It clears the container and appends the selected charts.
  */
-const renderCharts = () => {
+const renderCharts_Requested_Radionuclides_No_Matrix = () => {
     const chartDisplayContainer = d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container");
     chartDisplayContainer.html(""); // Clear previous charts (including old lab info)
 
-    const selectedCharts = Array.from(document.querySelectorAll('.chart-selector')).filter(cb => cb.checked).map(cb => cb.value);
+    const selectedCharts = Array.from(document.querySelectorAll('#Requested_Radionuclides_No_Matrix-chart-selection-container .chart-selector-Requested_Radionuclides_No_Matrix')).filter(cb => cb.checked).map(cb => cb.value);
 
     // Define a common click handler for both charts
     const chartClickHandler = (Requested_Radionuclides_No_MatrixName) => {
         selectedRequested_Radionuclides_No_Matrix = Requested_Radionuclides_No_MatrixName;
         // Re-render charts to apply highlight AND update lab info
-        renderCharts();
+        renderCharts_Requested_Radionuclides_No_Matrix();
     };
 
     if (selectedCharts.includes("Bar chart")) {
@@ -320,7 +317,7 @@ const renderCharts = () => {
 };
 
 // --- Data Loading and Initialization ---
-d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath
+d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath15
     allSurveyData = data; // Store the loaded data
 
     // Define the target column name for radionuclides
@@ -352,7 +349,7 @@ d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath
     Requested_Radionuclides_No_MatrixToLabsMapData = createRequested_Radionuclides_No_MatrixToLabsMap(foundRadionuclideColumn);
 
     // Attach event listeners to checkboxes for dynamic chart display
-    document.querySelectorAll('.chart-selector').forEach(checkbox => {
+    document.querySelectorAll('.chart-selector-Requested_Radionuclides_No_Matrix').forEach(checkbox => {
         checkbox.addEventListener('change', renderCharts);
     });
 
