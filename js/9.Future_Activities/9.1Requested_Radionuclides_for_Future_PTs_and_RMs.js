@@ -287,17 +287,17 @@ const updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs = () => {
  * Main function to render the charts based on selected checkboxes.
  * It clears the container and appends the selected charts.
  */
-const renderCharts = () => {
+const renderCharts_Requested_Radionuclides_for_Future_PTs_and_RMs = () => {
     const chartDisplayContainer = d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container");
     chartDisplayContainer.html(""); // Clear previous charts (including old lab info)
 
-    const selectedCharts = Array.from(document.querySelectorAll('.chart-selector')).filter(cb => cb.checked).map(cb => cb.value);
+    const selectedCharts = Array.from(document.querySelectorAll('#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-selection-container .chart-selector-Requested_Radionuclides_for_Future_PTs_and_RMs')).filter(cb => cb.checked).map(cb => cb.value);
 
     // Define a common click handler for both charts
     const chartClickHandler = (Requested_Radionuclides_for_Future_PTs_and_RMsName) => {
         selectedRequested_Radionuclides_for_Future_PTs_and_RMs = Requested_Radionuclides_for_Future_PTs_and_RMsName;
         // Re-render charts to apply highlight AND update lab info
-        renderCharts();
+        renderCharts_Requested_Radionuclides_for_Future_PTs_and_RMs();
     };
 
     if (selectedCharts.includes("Bar chart")) {
@@ -352,7 +352,7 @@ d3.csv(csvDataPath).then(data => { // Use the globally defined csvDataPath
     Requested_Radionuclides_for_Future_PTs_and_RMsToLabsMapData = createRequested_Radionuclides_for_Future_PTs_and_RMsToLabsMap(foundRadionuclideColumn);
 
     // Attach event listeners to checkboxes for dynamic chart display
-    document.querySelectorAll('.chart-selector').forEach(checkbox => {
+    document.querySelectorAll('.chart-selector-Requested_Radionuclides_for_Future_PTs_and_RMs').forEach(checkbox => {
         checkbox.addEventListener('change', renderCharts);
     });
 
