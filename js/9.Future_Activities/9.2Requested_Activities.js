@@ -41,7 +41,7 @@ const calculateRequested_ActivitiesCounts = (radionuclideColumn) => {
  * @param {number} n - The number of top Requested_Activitiess to retrieve.
  * @returns {Array<Object>} Sorted array of top Requested_Activitiess.
  */
-const getTopRequested_Activitiess = (n = 20) => {
+const getTopRequested_Activitiess = (n = 5) => {
     return Requested_ActivitiesCountsData
         .slice() // Create a copy to avoid mutating the original array
         .sort((a, b) => d3.descending(a.value, b.value))
@@ -454,7 +454,7 @@ d3.csv(csvDataPath2).then(data => {
 
 
     Requested_ActivitiesCountsData = calculateRequested_ActivitiesCounts(foundRadionuclideColumn);
-    topRequested_ActivitiessData = getTopRequested_Activitiess(20); // Get top 20 for initial display
+    topRequested_ActivitiessData = getTopRequested_Activitiess(5); // Get top 5 for initial display
     Requested_ActivitiesToLabsMapData = createRequested_ActivitiesToLabsMap(foundRadionuclideColumn);
 
     // Attach event listeners to checkboxes specific to section 9.2
