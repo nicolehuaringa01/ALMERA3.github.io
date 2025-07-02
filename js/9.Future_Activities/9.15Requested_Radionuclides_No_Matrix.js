@@ -399,7 +399,7 @@ const renderCharts_Requested_Radionuclides_No_Matrix = () => {
     chartDisplayContainer.html(""); // Clear previous charts (and old map/info)
 
     // Target checkboxes specific to section 9.15
-    const selectedCharts = Array.from(document.querySelectorAll('#9-2-chart-selection-container .chart-selector-9-2')).filter(cb => cb.checked).map(cb => cb.value);
+    const selectedCharts = Array.from(document.querySelectorAll('#Requested_Radionuclides_No_Matrix-chart-selection-container .chart-selector-Requested_Radionuclides_No_Matrix')).filter(cb => cb.checked).map(cb => cb.value);
 
     // Define a common click handler for both charts
     const chartClickHandler = (Requested_Radionuclides_No_MatrixName) => {
@@ -458,7 +458,7 @@ d3.csv(csvDataPath15).then(data => {
     Requested_Radionuclides_No_MatrixToLabsMapData = createRequested_Radionuclides_No_MatrixToLabsMap(foundRadionuclideColumn);
 
     // Attach event listeners to checkboxes specific to section 9.15
-    document.querySelectorAll('#9-2-chart-selection-container .chart-selector-9-2').forEach(checkbox => {
+    document.querySelectorAll('#Requested_Radionuclides_No_Matrix-chart-selection-container .chart-selector-Requested_Radionuclides_No_Matrix').forEach(checkbox => {
         checkbox.addEventListener('change', renderCharts_Requested_Radionuclides_No_Matrix);
     });
 
