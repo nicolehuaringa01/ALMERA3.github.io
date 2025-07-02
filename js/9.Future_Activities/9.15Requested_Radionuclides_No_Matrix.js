@@ -1,9 +1,10 @@
-// js/9.Future_Activities/9.15Requested_Radionuclides_No_Matrix
+// js/9.Future_Activities/9.15Requested_Radionuclides_No_Matrix.js
 
 // IMPORTANT: Verify this path carefully!
 // This path is relative to the HTML file that loads this JS.
 // Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
 const csvDataPath15 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Consistent CSV path
+const topojsonPath = "/ALMERA3.github.io/data/land-50m (1).json"; // Path to your TopoJSON file
 
 // Declare variables that will hold our processed data and state
 let allSurveyData_Requested_Radionuclides_No_Matrix; // Will hold the loaded CSV data
@@ -229,18 +230,18 @@ const Requested_Radionuclides_No_MatrixsTreemap = (currentSelectedRequested_Radi
 
 /**
  * Updates the display of labs measuring the selected Requested_Radionuclides_No_Matrix.
+ * This function now renders a map of labs instead of a list.
  */
-const updateSelectedRequested_Radionuclides_No_MatrixLabs = () => {
-    // Target the main chart display container
+const updateSelectedRequested_Radionuclides_No_MatrixLabs = async () => {
     const chartDisplayContainer = d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container");
 
-    // Remove any previously appended lab info div
-    chartDisplayContainer.select(".lab-info-content").remove();
+    // Remove any previously appended map or info div
+    chartDisplayContainer.select(".lab-map-content").remove();
 
-    // Create a new div specifically for the lab info within the chart container
-    const labInfoDiv = chartDisplayContainer.append("div")
-        .attr("class", "lab-info-content") // Add a class for styling and easy removal
-        .style("margin-top", "20px") // Add some space below the charts
+    // Create a new div specifically for the map/info within the chart container
+    const mapInfoDiv = chartDisplayContainer.append("div")
+        .attr("class", "lab-map-content") // Add a class for styling and easy removal
+        .style("margin-top", "20px")
         .style("padding", "15px")
         .style("border", "1px solid #eee")
         .style("border-radius", "8px")
@@ -249,38 +250,147 @@ const updateSelectedRequested_Radionuclides_No_MatrixLabs = () => {
 
 
     if (!selectedRequested_Radionuclides_No_Matrix) {
-        labInfoDiv.append("p").html("<em>Click on a chart element (bar or treemap tile) to see related labs.</em>");
+        mapInfoDiv.append("p").html("<em>Click on a chart element (bar or treemap tile) to see related labs on the map.</em>");
         return;
     }
 
     const stateMap = Requested_Radionuclides_No_MatrixToLabsMapData.get(selectedRequested_Radionuclides_No_Matrix);
 
     if (!stateMap || stateMap.size === 0) {
-        labInfoDiv.append("p").html(`No labs found for <strong>${selectedRequested_Radionuclides_No_Matrix}</strong>.`);
+        mapInfoDiv.append("p").html(`No labs found for <strong>${selectedRequested_Radionuclides_No_Matrix}</strong>.`);
         return;
     }
 
-    let totalLabs = 0;
-    for (const labsSet of stateMap.values()) {
-        totalLabs += labsSet.size;
+    // Prepare labs data for the map
+    const labsForMap = [];
+    const nameColumn = "1.1 Name of Laboratory";
+    const stateColumn = "1.3 Member State";
+    const longColumn = "Long"; // Assuming these are the column names in your CSV
+    const latColumn = "Lat";
+
+    // Robustly find the exact column names for Long and Lat
+    let foundLongColumn = null;
+    let foundLatColumn = null;
+    let foundNameColumn = null;
+    let foundStateColumn = null;
+
+    if (allSurveyData_Requested_Radionuclides_No_Matrix.length > 0) {
+        const headers = Object.keys(allSurveyData_Requested_Radionuclides_No_Matrix[0]);
+        const normalizedHeaders = headers.map(normalizeString);
+
+        const targetLong = normalizeString(longColumn);
+        const targetLat = normalizeString(latColumn);
+        const targetName = normalizeString(nameColumn);
+        const targetState = normalizeString(stateColumn);
+
+        for (let i = 0; i < headers.length; i++) {
+            if (normalizedHeaders[i] === targetLong) foundLongColumn = headers[i];
+            if (normalizedHeaders[i] === targetLat) foundLatColumn = headers[i];
+            if (normalizedHeaders[i] === targetName) foundNameColumn = headers[i];
+            if (normalizedHeaders[i] === targetState) foundStateColumn = headers[i];
+        }
     }
 
-    const sortedStates = Array.from(stateMap.keys()).sort(d3.ascending);
+    if (!foundLongColumn || !foundLatColumn || !foundNameColumn || !foundStateColumn) {
+        console.error("Map Error: Missing 'Long', 'Lat', '1.1 Name of Laboratory', or '1.3 Member State' columns in CSV.");
+        mapInfoDiv.append("p").html("<span style='color:red;'>Error: Geographic data (Longitude/Latitude, Lab Name, or Member State) missing in CSV. Cannot display map.</span>");
+        return;
+    }
 
-    labInfoDiv.append("h4").html(`Labs that measure <strong>${selectedRequested_Radionuclides_No_Matrix}</strong> (${totalLabs} total)`);
 
-    sortedStates.forEach(state => {
-        const labsSet = stateMap.get(state);
-        const sortedLabs = Array.from(labsSet).sort(d3.ascending);
+    for (const [memberState, labsSet] of stateMap.entries()) {
+        for (const labName of labsSet) {
+            // Find the original row in allSurveyData to get Long/Lat
+            const row = allSurveyData_Requested_Radionuclides_No_Matrix.find(r =>
+                normalizeString(r[foundNameColumn]) === normalizeString(labName) &&
+                normalizeString(r[foundStateColumn]) === normalizeString(memberState) &&
+                r[foundLongColumn] !== undefined && r[foundLatColumn] !== undefined // Ensure Long/Lat exist
+            );
 
-        const stateDiv = labInfoDiv.append("div");
-        stateDiv.append("h5").text(state).style("margin-top", "10px").style("margin-bottom", "5px"); // Smaller heading for states
+            if (row) {
+                const longitude = +row[foundLongColumn];
+                const latitude = +row[foundLatColumn];
 
-        const ul = stateDiv.append("ul").style("list-style-type", "disc").style("margin-left", "20px");
-        sortedLabs.forEach(lab => {
-            ul.append("li").text(lab);
-        });
-    });
+                if (!isNaN(longitude) && !isNaN(latitude)) {
+                    labsForMap.push({
+                        name: labName,
+                        country: memberState,
+                        longitude: longitude,
+                        latitude: latitude
+                    });
+                } else {
+                    console.warn(`Skipping lab ${labName} (${memberState}) due to invalid Long/Lat: ${row[foundLongColumn]}, ${row[foundLatColumn]}`);
+                }
+            } else {
+                console.warn(`Could not find full data row for lab: ${labName} in ${memberState}`);
+            }
+        }
+    }
+
+    if (labsForMap.length === 0) {
+        mapInfoDiv.append("p").html(`No labs with valid geographic data found for <strong>${selectedRequested_Radionuclides_No_Matrix}</strong>.`);
+        return;
+    }
+
+    // --- Map Rendering Logic ---
+    const width = 900;
+    const height = 500;
+
+    let world;
+    try {
+        world = await d3.json(topojsonPath);
+    } catch (error) {
+        console.error("Error loading TopoJSON data:", error);
+        mapInfoDiv.append("p").html("<span style='color:red;'>Error: Failed to load world map data. Check TopoJSON file path.</span>");
+        return;
+    }
+
+    const land = topojson.feature(world, world.objects.land);
+
+    const projection = d3.geoEquirectangular().fitSize([width, height], land);
+    const path = d3.geoPath().projection(projection);
+
+    const svg = d3.create("svg")
+        .attr("width", "100%") // Make SVG responsive to its container width
+        .attr("height", height)
+        .attr("viewBox", `0 0 ${width} ${height}`) // Maintain aspect ratio
+        .style("background", "white")
+        .style("display", "block"); // Ensure it behaves like a block element
+
+    const g = svg.append("g"); // Group for zoomable content
+
+    // Draw continents
+    g.append("path")
+        .datum(land)
+        .attr("fill", "#9fc5e8") // Light blue for land
+        .attr("stroke", "#9fc5e8") // Border color
+        .attr("d", path);
+
+    // Draw lab dots
+    g.selectAll("circle")
+        .data(labsForMap)
+        .enter()
+        .append("circle")
+        .attr("cx", d => projection([d.longitude, d.latitude]) ? projection([d.longitude, d.latitude])[0] : -1000) // Handle null projection gracefully
+        .attr("cy", d => projection([d.longitude, d.latitude]) ? projection([d.longitude, d.latitude])[1] : -1000) // Handle null projection gracefully
+        .attr("r", 4)
+        .attr("fill", "#0b5394") // Dark blue for dots
+        .attr("stroke", "#0b5394")
+        .append("title")
+        .text(d => `${d.name} (${d.country})`);
+
+    // Zoom behavior
+    svg.call(d3.zoom()
+        .scaleExtent([1, 8]) // Allow zooming from 1x to 8x
+        .on("zoom", (event) => {
+            g.attr("transform", event.transform); // Apply zoom transform to the group
+            // Adjust radius based on zoom scale
+            g.selectAll("circle")
+                .attr("r", 4 / event.transform.k);
+        })
+    );
+
+    mapInfoDiv.node().appendChild(svg.node());
 };
 
 /**
@@ -289,14 +399,15 @@ const updateSelectedRequested_Radionuclides_No_MatrixLabs = () => {
  */
 const renderCharts_Requested_Radionuclides_No_Matrix = () => {
     const chartDisplayContainer = d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container");
-    chartDisplayContainer.html(""); // Clear previous charts (including old lab info)
+    chartDisplayContainer.html(""); // Clear previous charts (and old map/info)
 
-    const selectedCharts = Array.from(document.querySelectorAll('#Requested_Radionuclides_No_Matrix-chart-selection-container .chart-selector-Requested_Radionuclides_No_Matrix')).filter(cb => cb.checked).map(cb => cb.value);
+    // Target checkboxes specific to section 9.2
+    const selectedCharts = Array.from(document.querySelectorAll('#9-2-chart-selection-container .chart-selector-9-2')).filter(cb => cb.checked).map(cb => cb.value);
 
     // Define a common click handler for both charts
     const chartClickHandler = (Requested_Radionuclides_No_MatrixName) => {
         selectedRequested_Radionuclides_No_Matrix = Requested_Radionuclides_No_MatrixName;
-        // Re-render charts to apply highlight AND update lab info
+        // Re-render charts to apply highlight AND update lab map
         renderCharts_Requested_Radionuclides_No_Matrix();
     };
 
@@ -315,18 +426,17 @@ const renderCharts_Requested_Radionuclides_No_Matrix = () => {
         chartDisplayContainer.append("p").text("Please select at least one chart to display.");
     }
 
-    // Always update lab info after charts are rendered (or message is displayed)
+    // Always update lab map after charts are rendered (or message is displayed)
     updateSelectedRequested_Radionuclides_No_MatrixLabs();
 };
 
 // --- Data Loading and Initialization ---
-d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath
-    allSurveyData_Requested_Radionuclides_No_Matrix = data; // Store the loaded data
+d3.csv(csvDataPath15).then(data => {
+    allSurveyData_Requested_Radionuclides_No_Matrix = data;
 
-    // Define the target column name for radionuclides
-    const targetRadionuclideColumnName = "Request radionuclides Only";
+    // Define the target column name for radionuclides for 9.2
+    const targetRadionuclideColumnName = "9.2 Requested radionuclides (no matrices) for future PTs and RMs"; // **VERIFY THIS COLUMN NAME**
 
-    // Robustly find the exact column name for radionuclides
     let foundRadionuclideColumn = null;
     const normalizedTargetRadionuclide = normalizeString(targetRadionuclideColumnName);
 
@@ -338,33 +448,26 @@ d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath
     }
 
     if (!foundRadionuclideColumn) {
-        console.error(`Initialization Error: Could not find a matching column for "${targetRadionuclideColumnName}" in the CSV data.`);
+        console.error(`Initialization Error (9.2): Could not find a matching column for "${targetRadionuclideColumnName}" in the CSV data.`);
         console.error("Available headers (normalized for comparison):", Object.keys(allSurveyData_Requested_Radionuclides_No_Matrix[0]).map(normalizeString));
         d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container").html("<p style='color: red;'>Failed to initialize charts: Radionuclide column not found. Check console for details.</p>");
         return;
     }
-    console.log(`Successfully identified radionuclide column: "${foundRadionuclideColumn}" for processing.`);
+    console.log(`Successfully identified radionuclide column (9.2): "${foundRadionuclideColumn}" for processing.`);
 
 
-    // Process data once after loading, passing the found column name
     Requested_Radionuclides_No_MatrixCountsData = calculateRequested_Radionuclides_No_MatrixCounts(foundRadionuclideColumn);
     topRequested_Radionuclides_No_MatrixsData = getTopRequested_Radionuclides_No_Matrixs(20); // Get top 20 for initial display
     Requested_Radionuclides_No_MatrixToLabsMapData = createRequested_Radionuclides_No_MatrixToLabsMap(foundRadionuclideColumn);
 
-    // Attach event listeners to checkboxes for dynamic chart display
-    document.querySelectorAll('.chart-selector-Requested_Radionuclides_No_Matrix').forEach(checkbox => {
+    // Attach event listeners to checkboxes specific to section 9.2
+    document.querySelectorAll('#9-2-chart-selection-container .chart-selector-9-2').forEach(checkbox => {
         checkbox.addEventListener('change', renderCharts_Requested_Radionuclides_No_Matrix);
     });
 
-    // Initial render of charts and lab info
-    renderCharts_Requested_Radionuclides_No_Matrix(); // This will now also call updateSelectedRequested_Radionuclides_No_MatrixLabs
+    // Initial render for 9.2
+    renderCharts_Requested_Radionuclides_No_Matrix();
 }).catch(error => {
-    console.error("Error loading CSV data:", error);
-    d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container").html("<p style='color: red;'>Failed to load data. Please check the CSV file path and content.</p>");
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    // This DOMContentLoaded listener is now primarily for ensuring the page is ready
-    // before the d3.csv().then() block runs. The d3.csv itself is asynchronous.
-    // The main initialization logic is within the d3.csv().then() block.
+    console.error("Error loading CSV data for 9.2:", error);
+    d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container").html("<p style='color: red;'>Failed to load data for 9.2. Please check the CSV file path and content.</p>");
 });
