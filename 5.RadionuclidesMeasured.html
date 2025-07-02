@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALMERA Radionuclides Measured</title>
-  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
         body {
@@ -81,6 +83,22 @@
             background: #e0e0e0; /* Hover effect */
             color: #0256b3; /* Highlight text color */
             transform: none; /* No translateY on hover for sidebar links */
+        }
+         .map-container {
+            width: 100%;
+            height: 500px; /* Or adjust as needed */
+            margin-top: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; /* To center the SVG if it's smaller than container */
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Hide parts of map that go outside */
+        }
+        .map-container svg {
+            display: block; /* Remove extra space below SVG */
         }
         
     main {
@@ -302,16 +320,15 @@
 <section>
     <details open>
       <summary>20 Most Frequently Measured Radionuclides in ALMERA Laboratories</summary>
-      <!-- Removed the empty #radionuclides-chart-container if it's not used. -->
-      <!-- If you want a title above the charts themselves, place it here -->
-      
-      <div id="chart-selection-container">
-        <label>Please select charts to display:</label><br>
-        <label><input type="checkbox" class="chart-selector" value="Bar chart" checked> Bar chart</label>
-        <label><input type="checkbox" class="chart-selector" value="Tree Map"> Tree Map</label>
-     </div>
-     <div id="chart-display-container"></div> <!-- Container for dynamic charts -->
-     <div id="lab-info-container"></div>
+
+      <div id="Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs-chart-selection-container">
+            <label>Please select charts to display:</label><br>
+            <label><input type="checkbox" class="chart-selector-Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs" value="Bar chart" checked> Bar chart</label>
+            <label><input type="checkbox" class="chart-selector-Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs" value="Tree Map"> Tree Map</label>
+        </div>
+        <div id="Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs-chart-display-container" class="chart-container">
+            <em>Click on a chart element (bar or treemap tile) to see related labs.</em>
+        </div>
     </details>
   </section>
   
@@ -355,7 +372,7 @@
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 
-<script src="js/5.Radionuclides_measured/radionuclides-visualization.js"></script>
+<script src="js/5.Radionuclides_measured/5.1Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs.js"></script>
 <script src="js/5.Radionuclides_measured/radmethod-visualization.js"></script>
 <script src="js/utility.js"></script>
 
