@@ -111,6 +111,29 @@
             padding-top: 5rem;
             box-sizing: border-box;
         }
+
+        /* Breadcrumbs styling */
+        .breadcrumbs {
+            padding: 10px 0;
+            font-size: 0.9rem;
+            color: #586069;
+            margin-bottom: 20px; /* Space below breadcrumbs */
+        }
+
+        .breadcrumbs a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumbs span {
+            margin: 0 5px;
+            color: #586069; /* Separator color */
+        }
+
         section {
             background: #fff;
             border-radius: 10px;
@@ -257,6 +280,12 @@
     </nav>
 
    <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a>
+            <span>&gt;</span>
+            <span>ALMERA in Data</span>
+        </div>
+
         <h2>ALMERA in Data (2025)</h2>
     <section class="text-lg text-gray-700 leading-relaxed space-y-4">
         <p>Welcome to the <strong>ALMERA in Data</strong> platform, designed to provide comprehensive insights derived from the ALMERA network's capabilities survey.</p>
@@ -289,11 +318,7 @@
                 header: true, // Assuming the first row is a header and should not be counted as a response
                 skipEmptyLines: true,
                 complete: function(results) {
-                    // results.data is an array of objects for each row
-                    // If you have a header row and it's set to true, Papa Parse won't include it in data.length
-                    // So, results.data.length should give you the number of data rows.
                     const rowCount = results.data.length;
-
                     if (responseCountElement) {
                         responseCountElement.textContent = rowCount; // Update the content
                     }
