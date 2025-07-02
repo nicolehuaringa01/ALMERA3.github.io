@@ -229,7 +229,7 @@ async function initializeALMERAMap() {
 
   // --- Zoom Functionality ---
   const zoom = d3.zoom()
-    .scaleExtent([1, 1000]) // Adjust max zoom level
+    .scaleExtent([1, 5000]) // Adjust max zoom level
     .on("zoom", (event) => {
       const { transform } = event;
       // Update projection's translate and scale based on zoom transform
