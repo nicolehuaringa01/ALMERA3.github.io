@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Requested Future Activities</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-    
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script> <style>
+
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -16,34 +16,34 @@
             padding-top: 64px; /* Add padding to body to prevent content from hiding under fixed header */
         }
         header {
-    background: #0256b3;
-    color: #fff;
-    padding: 1rem 2rem;
-    position: fixed; /* Make header fixed */
-    top: 0;
-    left: 0;
-    width: 100%; /* Ensure header spans full width */
-    z-index: 1000; /* Ensure header is above other content */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    box-sizing: border-box; /* Include padding in width calculation */
-    display: flex; /* Use flexbox for centering content */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-  }
+            background: #0256b3;
+            color: #fff;
+            padding: 1rem 2rem;
+            position: fixed; /* Make header fixed */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ensure header spans full width */
+            z-index: 1000; /* Ensure header is above other content */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-sizing: border-box; /* Include padding in width calculation */
+            display: flex; /* Use flexbox for centering content */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
         header a {
-    text-decoration: none; /* Remove underline from the link */
-    color: inherit;      /* Inherit the white color from the header */
-    display: block;      /* Make the anchor fill its container */
-    cursor: pointer;     /* Indicate it's clickable */
-  }
+            text-decoration: none; /* Remove underline from the link */
+            color: inherit;       /* Inherit the white color from the header */
+            display: block;       /* Make the anchor fill its container */
+            cursor: pointer;       /* Indicate it's clickable */
+        }
 
-  header h1 {
-    margin: 0; /* Remove default h1 margin */
-    font-size: 1.6rem; /* Equivalent to text-3xl, adjust as needed for optimal display */
-    font-weight: 700; /* Equivalent to font-bold */
-    text-align: left; /* Center the text within the h1 */
-    /* Remove any mb-6 as it's now in a fixed header */
-  }
+        header h1 {
+            margin: 0; /* Remove default h1 margin */
+            font-size: 1.6rem; /* Equivalent to text-3xl, adjust as needed for optimal display */
+            font-weight: 700; /* Equivalent to font-bold */
+            text-align: left; /* Center the text within the h1 */
+            /* Remove any mb-6 as it's now in a fixed header */
+        }
 
         /* Container for the sidebar and main content */
         .content-wrapper {
@@ -84,6 +84,21 @@
             background: #e0e0e0; /* Hover effect */
             color: #0256b3; /* Highlight text color */
             transform: none; /* No translateY on hover for sidebar links */
+        }
+
+        /* New style for the "Back to Main" button */
+        .nav-buttons .main-page-button {
+            background-color: #0366d6; /* A more prominent blue, similar to your index.html primary buttons */
+            color: white;
+            font-weight: 600; /* Make it bolder */
+            margin-bottom: 15px; /* Add some space below it */
+            padding: 12px 15px; /* Slightly more padding */
+            text-align: center; /* Center the text within the button */
+        }
+
+        .nav-buttons .main-page-button:hover {
+            background-color: #0256b3; /* Darker blue on hover */
+            color: white; /* Keep text white on hover */
         }
 
         main {
@@ -193,6 +208,11 @@
                 text-align: center;
                 margin: 5px;
             }
+            /* Adjust the main-page-button for small screens if needed */
+            .nav-buttons .main-page-button {
+                width: 100%; /* Make it full width on small screens for better clickability */
+                margin-bottom: 10px; /* Adjust margin for small screens */
+            }
             .content-wrapper {
                 flex-direction: column; /* Stack content vertically */
                 margin-left: 0; /* Remove left margin */
@@ -224,6 +244,7 @@
 
 <div class="content-wrapper">
     <nav class="nav-buttons">
+        <a href="index.html" class="main-page-button">Back to Main ALMERA Page</a>
         <a href="1.GeographicInstitutionalCoverage.html">1. Geographic & Institutional Coverage</a>
         <a href="2.HumanResourcesTraining.html">2. Human Resources and Training</a>
         <a href="3.LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
@@ -236,13 +257,11 @@
     </nav>
 
    <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
-       <h2>ALMERA in Data (2025)</h2>
+        <h2>ALMERA in Data (2025)</h2>
     <section class="text-lg text-gray-700 leading-relaxed space-y-4">
         <p>Welcome to the <strong>ALMERA in Data</strong> platform, designed to provide comprehensive insights derived from the ALMERA network's capabilities survey.</p>
 
-        <p>The ALMERA Coordinator conducts a <strong>quinquennial survey</strong> to systematically gather updated information from Designated Contact Persons across all ALMERA laboratories. A key aspect of this process is that participants are provided with the option to consent to the sharing of their individual responses.</p>
-
-        <p>The <strong>2025 survey round</strong> successfully concluded with <strong>[Dynamically insert number of responses here]</strong> submitted responses.</p>
+        <p>The <strong>2025 survey round</strong> successfully concluded with <strong id="response-count">[Dynamically insert number of responses here]</strong> submitted responses.</p>
 
         <p>It is important to note that while 200 laboratories were invited, not all participating laboratories provided responses for every survey question, which may influence the comprehensiveness of certain data points.</p>
     </section>
@@ -254,14 +273,56 @@
 </footer>
 
 <script>
-    // Scroll to Top button (ensure this is only in one place, either here or utility.js)
+    // Function to fetch and parse the CSV
+    async function loadAndCountResponses() {
+        const csvFilePath = 'data/Observable2020Survey.csv'; // Relative path to your CSV
+        const responseCountElement = document.getElementById('response-count');
+
+        try {
+            const response = await fetch(csvFilePath);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const csvText = await response.text();
+
+            Papa.parse(csvText, {
+                header: true, // Assuming the first row is a header and should not be counted as a response
+                skipEmptyLines: true,
+                complete: function(results) {
+                    // results.data is an array of objects for each row
+                    // If you have a header row and it's set to true, Papa Parse won't include it in data.length
+                    // So, results.data.length should give you the number of data rows.
+                    const rowCount = results.data.length;
+
+                    if (responseCountElement) {
+                        responseCountElement.textContent = rowCount; // Update the content
+                    }
+                },
+                error: function(err) {
+                    console.error("Error parsing CSV:", err);
+                    if (responseCountElement) {
+                        responseCountElement.textContent = "Error loading data.";
+                    }
+                }
+            });
+
+        } catch (error) {
+            console.error('Could not fetch the CSV file:', error);
+            if (responseCountElement) {
+                responseCountElement.textContent = "Error loading data.";
+            }
+        }
+    }
+
+    // Call the function when the page loads
+    document.addEventListener('DOMContentLoaded', loadAndCountResponses);
+
+    // Existing Scroll to Top button script (keep this as is or adjust placement)
     const topBtn = document.getElementById("topBtn");
-    // Ensure topBtn exists before adding event listeners
     if (topBtn) {
         window.onscroll = () => {
             topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
         };
-        // It's good practice to assign onclick directly, rather than inline in HTML
         topBtn.onclick = topFunction;
     }
 
