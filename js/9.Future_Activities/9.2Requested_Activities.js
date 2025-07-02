@@ -432,7 +432,7 @@ d3.csv(csvDataPath2).then(data => {
     allSurveyData_Requested_Activities = data;
 
     // Define the target column name for radionuclides for 9.2
-    const targetRadionuclideColumnName = "Request radionuclides Only"; // **VERIFY THIS COLUMN NAME**
+    const targetRadionuclideColumnName = "9.2 Requested activities to be organised by the ALMERA network"; // **VERIFY THIS COLUMN NAME**
 
     let foundRadionuclideColumn = null;
     const normalizedTargetRadionuclide = normalizeString(targetRadionuclideColumnName);
