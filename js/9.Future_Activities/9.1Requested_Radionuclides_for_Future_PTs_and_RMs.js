@@ -353,11 +353,11 @@ d3.csv(csvDataPath).then(data => { // Use the globally defined csvDataPath
 
     // Attach event listeners to checkboxes for dynamic chart display
     document.querySelectorAll('.chart-selector-Requested_Radionuclides_for_Future_PTs_and_RMs').forEach(checkbox => {
-        checkbox.addEventListener('change', renderCharts);
+        checkbox.addEventListener('change', renderCharts_Requested_Radionuclides_for_Future_PTs_and_RMs);
     });
 
     // Initial render of charts and lab info
-    renderCharts(); // This will now also call updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs
+    renderCharts_Requested_Radionuclides_for_Future_PTs_and_RMs(); // This will now also call updateSelectedRequested_Radionuclides_for_Future_PTs_and_RMsLabs
 }).catch(error => {
     console.error("Error loading CSV data:", error);
     d3.select("#Requested_Radionuclides_for_Future_PTs_and_RMs-chart-display-container").html("<p style='color: red;'>Failed to load data. Please check the CSV file path and content.</p>");
