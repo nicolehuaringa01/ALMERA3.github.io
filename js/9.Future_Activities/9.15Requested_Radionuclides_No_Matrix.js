@@ -1,10 +1,7 @@
 // js/9.Future_Activities/9.15Requested_Radionuclides_No_Matrix.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the HTML file that loads this JS.
-// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
 const csvDataPath15 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Consistent CSV path
-const topojsonPath = "/ALMERA3.github.io/data/land-50m (1).json"; // Path to your TopoJSON file
+const topojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
 
 // Declare variables that will hold our processed data and state
 let allSurveyData_Requested_Radionuclides_No_Matrix; // Will hold the loaded CSV data
@@ -293,7 +290,7 @@ const updateSelectedRequested_Radionuclides_No_MatrixLabs = async () => {
 
     if (!foundLongColumn || !foundLatColumn || !foundNameColumn || !foundStateColumn) {
         console.error("Map Error: Missing 'Long', 'Lat', '1.1 Name of Laboratory', or '1.3 Member State' columns in CSV.");
-        mapInfoDiv.append("p").html("<span style='color:red;'>Error: Geographic data (Longitude/Latitude, Lab Name, or Member State) missing in CSV. Cannot display map.</span>");
+        mapInfoDiv.append("p").html("<span style='color:red;'>Error: Geographic data (Longitude/Latitude, Lab Name, or Member State) missing in CSV. Cannot display map.</span></span>");
         return;
     }
 
@@ -338,10 +335,10 @@ const updateSelectedRequested_Radionuclides_No_MatrixLabs = async () => {
 
     let world;
     try {
-        world = await d3.json(topojsonPath);
+        world = await d3.json(topojsonPath); // This is where the .json file is loaded from CDN
     } catch (error) {
         console.error("Error loading TopoJSON data:", error);
-        mapInfoDiv.append("p").html("<span style='color:red;'>Error: Failed to load world map data. Check TopoJSON file path.</span>");
+        mapInfoDiv.append("p").html("<span style='color:red;'>Error: Failed to load world map data from CDN. Check network connection or CDN availability.</span>");
         return;
     }
 
