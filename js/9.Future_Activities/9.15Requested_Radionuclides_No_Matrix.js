@@ -398,7 +398,7 @@ const renderCharts_Requested_Radionuclides_No_Matrix = () => {
     const chartDisplayContainer = d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container");
     chartDisplayContainer.html(""); // Clear previous charts (and old map/info)
 
-    // Target checkboxes specific to section 9.2
+    // Target checkboxes specific to section 9.15
     const selectedCharts = Array.from(document.querySelectorAll('#9-2-chart-selection-container .chart-selector-9-2')).filter(cb => cb.checked).map(cb => cb.value);
 
     // Define a common click handler for both charts
@@ -431,8 +431,8 @@ const renderCharts_Requested_Radionuclides_No_Matrix = () => {
 d3.csv(csvDataPath15).then(data => {
     allSurveyData_Requested_Radionuclides_No_Matrix = data;
 
-    // Define the target column name for radionuclides for 9.2
-    const targetRadionuclideColumnName = "9.2 Requested radionuclides (no matrices) for future PTs and RMs"; // **VERIFY THIS COLUMN NAME**
+    // Define the target column name for radionuclides for 9.15
+    const targetRadionuclideColumnName = "Request radionuclides Only"; // **VERIFY THIS COLUMN NAME**
 
     let foundRadionuclideColumn = null;
     const normalizedTargetRadionuclide = normalizeString(targetRadionuclideColumnName);
@@ -445,26 +445,26 @@ d3.csv(csvDataPath15).then(data => {
     }
 
     if (!foundRadionuclideColumn) {
-        console.error(`Initialization Error (9.2): Could not find a matching column for "${targetRadionuclideColumnName}" in the CSV data.`);
+        console.error(`Initialization Error (9.15): Could not find a matching column for "${targetRadionuclideColumnName}" in the CSV data.`);
         console.error("Available headers (normalized for comparison):", Object.keys(allSurveyData_Requested_Radionuclides_No_Matrix[0]).map(normalizeString));
         d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container").html("<p style='color: red;'>Failed to initialize charts: Radionuclide column not found. Check console for details.</p>");
         return;
     }
-    console.log(`Successfully identified radionuclide column (9.2): "${foundRadionuclideColumn}" for processing.`);
+    console.log(`Successfully identified radionuclide column (9.15): "${foundRadionuclideColumn}" for processing.`);
 
 
     Requested_Radionuclides_No_MatrixCountsData = calculateRequested_Radionuclides_No_MatrixCounts(foundRadionuclideColumn);
     topRequested_Radionuclides_No_MatrixsData = getTopRequested_Radionuclides_No_Matrixs(20); // Get top 20 for initial display
     Requested_Radionuclides_No_MatrixToLabsMapData = createRequested_Radionuclides_No_MatrixToLabsMap(foundRadionuclideColumn);
 
-    // Attach event listeners to checkboxes specific to section 9.2
+    // Attach event listeners to checkboxes specific to section 9.15
     document.querySelectorAll('#9-2-chart-selection-container .chart-selector-9-2').forEach(checkbox => {
         checkbox.addEventListener('change', renderCharts_Requested_Radionuclides_No_Matrix);
     });
 
-    // Initial render for 9.2
+    // Initial render for 9.15
     renderCharts_Requested_Radionuclides_No_Matrix();
 }).catch(error => {
-    console.error("Error loading CSV data for 9.2:", error);
-    d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container").html("<p style='color: red;'>Failed to load data for 9.2. Please check the CSV file path and content.</p>");
+    console.error("Error loading CSV data for 9.15:", error);
+    d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container").html("<p style='color: red;'>Failed to load data for 9.15. Please check the CSV file path and content.</p>");
 });
