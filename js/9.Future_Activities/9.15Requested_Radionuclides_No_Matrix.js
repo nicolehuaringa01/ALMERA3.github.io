@@ -1,9 +1,12 @@
-// js/9.Future_Activities/9.15Requested_Radionuclides_No_Matrix.js
+// js/9.Future_Activities/9.15Requested_Radionuclides_No_Matrix
 
+// IMPORTANT: Verify this path carefully!
+// This path is relative to the HTML file that loads this JS.
+// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
 const csvDataPath15 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Consistent CSV path
 
 // Declare variables that will hold our processed data and state
-let allSurveyData; // Will hold the loaded CSV data
+let allSurveyData_Requested_Radionuclides_No_Matrix; // Will hold the loaded CSV data
 let Requested_Radionuclides_No_MatrixCountsData;
 let topRequested_Radionuclides_No_MatrixsData;
 let Requested_Radionuclides_No_MatrixToLabsMapData;
@@ -24,7 +27,7 @@ function normalizeString(str) {
  */
 const calculateRequested_Radionuclides_No_MatrixCounts = (radionuclideColumn) => {
     const counts = new Map();
-    for (const row of allSurveyData) {
+    for (const row of allSurveyData_Requested_Radionuclides_No_Matrix) {
         if (row[radionuclideColumn]) { // Use the passed column name
             const radionuclides = row[radionuclideColumn].split(";").map(d => d.trim()).filter(d => d); // Filter out empty strings
             for (const r of radionuclides) {
@@ -56,7 +59,7 @@ const createRequested_Radionuclides_No_MatrixToLabsMap = (radionuclideColumn) =>
     // Map: RadionuclideName -> Map<MemberState, Set<LabName>>
     const map = new Map();
 
-    for (const row of allSurveyData) {
+    for (const row of allSurveyData_Requested_Radionuclides_No_Matrix) {
         const radionuclidesRaw = row[radionuclideColumn]; // Use the dynamically found column name
         const labName = row["1.1 Name of Laboratory"];
         const memberState = row["1.3 Member State"];
@@ -317,8 +320,8 @@ const renderCharts_Requested_Radionuclides_No_Matrix = () => {
 };
 
 // --- Data Loading and Initialization ---
-d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath15
-    allSurveyData = data; // Store the loaded data
+d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath
+    allSurveyData_Requested_Radionuclides_No_Matrix = data; // Store the loaded data
 
     // Define the target column name for radionuclides
     const targetRadionuclideColumnName = "Request radionuclides Only";
@@ -327,7 +330,7 @@ d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath15
     let foundRadionuclideColumn = null;
     const normalizedTargetRadionuclide = normalizeString(targetRadionuclideColumnName);
 
-    for (const header of Object.keys(allSurveyData[0])) {
+    for (const header of Object.keys(allSurveyData_Requested_Radionuclides_No_Matrix[0])) {
         if (normalizeString(header) === normalizedTargetRadionuclide) {
             foundRadionuclideColumn = header;
             break;
@@ -336,7 +339,7 @@ d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath15
 
     if (!foundRadionuclideColumn) {
         console.error(`Initialization Error: Could not find a matching column for "${targetRadionuclideColumnName}" in the CSV data.`);
-        console.error("Available headers (normalized for comparison):", Object.keys(allSurveyData[0]).map(normalizeString));
+        console.error("Available headers (normalized for comparison):", Object.keys(allSurveyData_Requested_Radionuclides_No_Matrix[0]).map(normalizeString));
         d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container").html("<p style='color: red;'>Failed to initialize charts: Radionuclide column not found. Check console for details.</p>");
         return;
     }
@@ -350,11 +353,11 @@ d3.csv(csvDataPath15).then(data => { // Use the globally defined csvDataPath15
 
     // Attach event listeners to checkboxes for dynamic chart display
     document.querySelectorAll('.chart-selector-Requested_Radionuclides_No_Matrix').forEach(checkbox => {
-        checkbox.addEventListener('change', renderCharts);
+        checkbox.addEventListener('change', renderCharts_Requested_Radionuclides_No_Matrix);
     });
 
     // Initial render of charts and lab info
-    renderCharts(); // This will now also call updateSelectedRequested_Radionuclides_No_MatrixLabs
+    renderCharts_Requested_Radionuclides_No_Matrix(); // This will now also call updateSelectedRequested_Radionuclides_No_MatrixLabs
 }).catch(error => {
     console.error("Error loading CSV data:", error);
     d3.select("#Requested_Radionuclides_No_Matrix-chart-display-container").html("<p style='color: red;'>Failed to load data. Please check the CSV file path and content.</p>");
