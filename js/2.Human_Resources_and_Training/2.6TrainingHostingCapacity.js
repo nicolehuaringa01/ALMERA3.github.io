@@ -1,167 +1,166 @@
-// js/2.6TrainingHostingCapacity.js
+// js/2.Human_Resources_and_Training/2.6TrainingHostingCapacity.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the root of your GitHub Pages project.
-// Based on your previous successful paths, this assumes:
-// - Your GitHub Pages are serving from 'https://nicolehuaringa01.github.io/ALMERA3.github.io/'
-// - Your CSV file is located at '/ALMERA3.github.io/data/Observable2020Survey.csv'
-const csvDataPath6 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
+// Path to your CSV data file.
+const csvDataPath_2_6 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
-// Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
+// Define the exact column name for the training capacity data.
+// Be very careful with spelling and leading/trailing spaces.
+const trainingCapacityColumnName = "If 'yes' above, specify the maximum number of participants for practical training";
+
+// Helper function to normalize strings for robust column matching
 function normalizeString(str) {
     if (typeof str !== 'string') return '';
-    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' '); // Replace all whitespace with single space, remove non-breaking spaces
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' ');
 }
 
-async function initializeTrainingHostingCapacityChart() {
-    const container = document.getElementById("training-hosting-capacity-chart-container");
-    if (!container) {
-        console.error("Training hosting capacity chart container element #training-hosting-capacity-chart-container not found.");
-        const errorDiv = document.createElement('div');
-        errorDiv.style.color = 'red';
-        errorDiv.style.textAlign = 'center';
-        errorDiv.textContent = 'Error: Chart container not found in HTML for training hosting capacity chart.';
-        document.body.appendChild(errorDiv);
-        return;
-    }
+/**
+ * Renders a histogram of training hosting capacity.
+ */
+async function renderTrainingHostingCapacityHistogram() {
+    const container = d3.select("#training-hosting-capacity-chart-container");
+    container.html(""); // Clear previous content
 
-    const width = container.clientWidth;
+    // Set up chart dimensions
+    const width = 928;
     const height = 500;
+    const margin = { top: 40, right: 30, bottom: 60, left: 60 };
 
     let data;
     try {
-        data = await d3.csv(csvDataPath6);
-        console.log("Training Hosting Capacity CSV data loaded successfully. Number of records:", data.length);
-        if (data.length === 0) {
-            console.warn("CSV data is empty. No chart to display.");
-            container.innerHTML = "<p style='text-align: center;'>CSV data is empty. No chart to display.</p>";
-            return;
-        }
-
-        const parsedHeaders = Object.keys(data[0]);
-        console.log("CSV data loaded. First row headers (as parsed by D3.js):", parsedHeaders);
-
+        data = await d3.csv(csvDataPath_2_6);
     } catch (error) {
-        console.error("Error loading Training Hosting Capacity CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load training hosting capacity data. Please check the console for details and ensure the CSV path is correct.</p>";
+        console.error("Error loading CSV data for 2.6 Training Hosting Capacity:", error);
+        container.append("p").style("color", "red").text("Failed to load data for Training Hosting Capacity. Please check the CSV file path and content.");
         return;
     }
 
-    // --- Data Processing (from your Observable code) ---
-
-    const minVal = 0; // Keep minVal at 0 for domain, but filter data to >=1
-    const maxVal = 20;
-    const numBins = 5;
-    const binWidth = (maxVal - minVal) / numBins;
-    const thresholds = Array.from({length: numBins + 1}, (_, i) => minVal + i * binWidth);
-
-    const targetColumnName = "If 'yes' above, specify the maximum number of participants for practical training";
-
+    // Find the exact column name in the loaded data
     let foundColumn = null;
-    const normalizedTarget = normalizeString(targetColumnName);
-
-    for (const header of Object.keys(data[0])) {
-        if (normalizeString(header) === normalizedTarget) {
-            foundColumn = header;
-            break;
+    const normalizedTargetColumn = normalizeString(trainingCapacityColumnName);
+    if (data.length > 0) {
+        for (const header of Object.keys(data[0])) {
+            if (normalizeString(header) === normalizedTargetColumn) {
+                foundColumn = header;
+                break;
+            }
         }
     }
 
     if (!foundColumn) {
-        console.error(`Error: Could not find a matching column for "${targetColumnName}" in the CSV data.`);
-        console.error("Available headers (normalized for comparison):", Object.keys(data[0]).map(normalizeString));
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column "${targetColumnName}" not found in CSV. Please check the exact header name.</p>`;
+        console.error(`Column "${trainingCapacityColumnName}" not found in CSV for 2.6 Training Hosting Capacity.`);
+        console.error("Available headers (normalized):", data.length > 0 ? Object.keys(data[0]).map(normalizeString) : "No data rows to inspect headers.");
+        container.append("p").style("color", "red").text(`Error: Data column "${trainingCapacityColumnName}" not found.`);
         return;
     }
 
-    console.log(`Successfully identified column: "${foundColumn}" for processing.`);
-    const hostingCapacityColumn = foundColumn;
+    // Extract and parse numerical data, filtering out non-numeric values
+    const capacities = data.map(d => {
+        const value = parseInt(d[foundColumn]);
+        return isNaN(value) ? null : value;
+    }).filter(d => d !== null);
 
-    // *** MODIFIED FILTERING LOGIC HERE ***
-    const filteredData = data.map(d => {
-        const rawValue = d[hostingCapacityColumn];
-        // Treat null, undefined, or empty strings as non-numeric/blank
-        const trimmedValue = (typeof rawValue === 'string' || rawValue instanceof String) ? rawValue.trim() : String(rawValue).trim();
-
-        if (trimmedValue === '') {
-            return null; // Explicitly mark empty cells for removal
-        }
-        const numValue = +trimmedValue; // Convert to number
-        return numValue;
-    }).filter(n => n !== null && !isNaN(n) && n >= 1); // Keep only valid numbers that are 1 or greater
-
-    if (filteredData.length === 0) {
-        console.warn("No valid hosting capacity data found after processing (all values were non-numeric, less than 1, or column was entirely empty/blank).");
-        container.innerHTML = "<p style='text-align: center;'>No valid training hosting capacity data (1 or more participants) to display.</p>";
+    if (capacities.length === 0) {
+        container.append("p").text("No valid training capacity data available to display a histogram.");
         return;
     }
 
-    console.log("Processed Training Hosting Capacity data (first 10 valid values):", filteredData.slice(0, 10));
+    // Define the bins for the histogram
+    // Using d3.histogram for automatic binning, or you can define custom bins
+    const maxCapacity = d3.max(capacities);
+    const minCapacity = d3.min(capacities);
 
-    // --- Chart Rendering Logic (using Observable Plot) ---
+    // Determine a reasonable number of bins or step size
+    // For counts, often integer bins or small ranges make sense.
+    // Let's try bins of size 5, or use d3.thresholdFreedmanDiaconis for more dynamic binning
+    const binThresholds = d3.range(0, maxCapacity + 5, 5); // Bins like [0-5), [5-10), etc.
 
-    const renderPlot = (currentWidth) => {
-        container.innerHTML = ''; // Clear any existing chart
+    const histogram = d3.histogram()
+        .value(d => d)
+        .domain([0, maxCapacity + 5]) // Ensure domain covers all data
+        .thresholds(binThresholds);
 
-        const TrainingHostingCapacityPlot = Plot.plot({
-            width: currentWidth,
-            height: height,
-            x: {
-                label: "Amount of Participants that each lab could host",
-                domain: [minVal, maxVal], // Keep domain for axis appearance
-                tickFormat: (d, i) => {
-                    // Custom tick format for ranges, adjusted to match bins precisely
-                    if (i === thresholds.length - 1 && d === maxVal) return `${d}+`; // e.g., 20+
-                    if (thresholds[i+1] !== undefined) {
-                        const lowerBound = Math.floor(d);
-                        const upperBound = Math.floor(thresholds[i+1]) - 1; // Exclusive upper bound for bin
-                        if (lowerBound > upperBound) { // Handles cases where a bin is just one number (e.g., if maxVal=5, binWidth=1, then thresholds=[0,1,2,3,4,5], this helps with label 5+)
-                            return `${lowerBound}+`;
-                        }
-                        return `${lowerBound}-${upperBound}`;
-                    }
-                    return `${Math.floor(d)}`;
-                },
-            },
-            y: {
-                label: "Number of Laboratories",
-                grid: true
-            },
-            marks: [
-                Plot.rectY(filteredData, Plot.binX(
-                    { y: "count", title: d => { // Updated tooltip logic
-                        const lowerBound = Math.floor(d.x0);
-                        const upperBound = Math.floor(d.x1) -1;
-                        if (d.x1 === maxVal + binWidth) return `Participants ${lowerBound}+: ${d.length} labs`; // Last bin
-                        return `Participants ${lowerBound}-${upperBound}: ${d.length} labs`;
-                    }},
-                    {
-                        x: d => d,
-                        thresholds: thresholds,
-                        fill: "black"
-                    }
-                )),
-                Plot.ruleY([0])
-            ],
-            style: {
-                fontFamily: "Inter, sans-serif",
-                fontSize: "12px",
-            }
-        });
+    const bins = histogram(capacities);
 
-        container.appendChild(TrainingHostingCapacityPlot);
-        console.log("Training Hosting Capacity chart appended to DOM.");
-    };
+    // Filter out empty bins if you don't want to show them
+    const nonEmptyBins = bins.filter(b => b.length > 0);
 
-    renderPlot(width);
+    // Set up scales
+    const x = d3.scaleBand()
+        .domain(nonEmptyBins.map(d => {
+            // Format bin labels nicely, e.g., "0-4", "5-9", "10+"
+            if (d.x1 === Infinity) return `${d.x0}+`;
+            if (d.x0 === d.x1 - 1) return `${d.x0}`; // For single value bins if that happens
+            return `${d.x0}-${d.x1 - 1}`;
+        }))
+        .range([margin.left, width - margin.right])
+        .padding(0.1);
 
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            renderPlot(container.clientWidth);
-        }, 200);
-    });
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(nonEmptyBins, d => d.length)]).nice()
+        .range([height - margin.bottom, margin.top]);
+
+    // Create SVG element
+    const svg = container.append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif; display: block; margin: auto;");
+
+    // Bars
+    svg.append("g")
+        .attr("fill", "#0256b3") // Blue color for bars
+        .selectAll("rect")
+        .data(nonEmptyBins)
+        .join("rect")
+        .attr("x", d => x(`${d.x0}-${d.x1 - 1}`)) // Use formatted bin label for x position
+        .attr("y", d => y(d.length))
+        .attr("height", d => y(0) - y(d.length))
+        .attr("width", x.bandwidth())
+        .append("title") // Tooltip for each bar
+        .text(d => `Capacity: ${d.x0}-${d.x1 - 1} participants\nNumber of Labs: ${d.length}`);
+
+    // X-axis
+    svg.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end")
+        .style("font-size", "10px");
+
+    // X-axis label
+    svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height - margin.bottom / 2 + 10) // Adjust position
+        .attr("text-anchor", "middle")
+        .style("font-size", "12px")
+        .text("Maximum Number of Participants");
+
+    // Y-axis
+    svg.append("g")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(y).ticks(5)) // Adjust number of ticks
+        .call(g => g.select(".domain").remove()); // Remove axis line
+
+    // Y-axis label
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", margin.left / 2 - 20) // Adjust position
+        .attr("x", -height / 2)
+        .attr("dy", "1em")
+        .attr("text-anchor", "middle")
+        .style("font-size", "12px")
+        .text("Number of Laboratories");
+
+    // Chart Title
+    svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", margin.top / 2)
+        .attr("text-anchor", "middle")
+        .style("font-size", "16px")
+        .style("font-weight", "bold")
+        .text("Distribution of Training Hosting Capacity");
 }
 
-document.addEventListener("DOMContentLoaded", initializeTrainingHostingCapacityChart);
+// Call the function to render the chart when the script loads
+renderTrainingHostingCapacityHistogram();
