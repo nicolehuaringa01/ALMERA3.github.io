@@ -1,174 +1,164 @@
 // js/2.9ALMERACMsHostingCapacity.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the root of your GitHub Pages project.
-// Based on your previous successful paths, this assumes:
-// - Your GitHub Pages are serving from 'https://nicolehuaringa01.github.io/ALMERA3.github.io/'
-// - Your CSV file is located at '/ALMERA3.github.io/data/Observable2020Survey.csv'
 const csvDataPath9 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
 
-// Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
+const ALMERACMsHostingCapacityColumnName = "If 'yes' above, state the maximum number of participants";
+
+// Helper function to normalize strings for robust column matching
 function normalizeString(str) {
     if (typeof str !== 'string') return '';
-    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' '); // Replace all whitespace with single space, remove non-breaking spaces
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' ');
 }
 
-async function initializeALMERAHostingCapacityChart() {
-    const container = document.getElementById("almera-hosting-capacity-chart-container");
-    if (!container) {
-        console.error("ALMERA hosting capacity chart container element #almera-hosting-capacity-chart-container not found.");
-        const errorDiv = document.createElement('div');
-        errorDiv.style.color = 'red';
-        errorDiv.style.textAlign = 'center';
-        errorDiv.textContent = 'Error: Chart container not found in HTML for ALMERA hosting capacity chart.';
-        document.body.appendChild(errorDiv);
-        return;
-    }
+/**
+ * Renders a histogram of ALMERACMs hosting capacity.
+ */
+async function renderALMERACMsHostingCapacityHistogram() {
+    const container = d3.select("#almera-hosting-capacity-chart-container");
+    container.html(""); // Clear previous content
 
-    const width = container.clientWidth;
+    // Set up chart dimensions
+    const width = 928;
     const height = 500;
+    const margin = { top: 40, right: 30, bottom: 60, left: 60 };
 
     let data;
     try {
         data = await d3.csv(csvDataPath9);
-        console.log("ALMERA Hosting Capacity CSV data loaded successfully. Number of records:", data.length);
-        if (data.length === 0) {
-            console.warn("CSV data is empty. No chart to display.");
-            container.innerHTML = "<p style='text-align: center;'>CSV data is empty. No chart to display.</p>";
-            return;
-        }
-
-        const parsedHeaders = Object.keys(data[0]);
-        console.log("CSV data loaded. First row headers (as parsed by D3.js):", parsedHeaders);
-
     } catch (error) {
-        console.error("Error loading ALMERA Hosting Capacity CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load ALMERA hosting capacity data. Please check the console for details and ensure the CSV path is correct.</p>";
+        console.error("Error loading CSV data for 2.9 ALMERACMs Hosting Capacity:", error);
+        container.append("p").style("color", "red").text("Failed to load data for ALMERA CMs Hosting Capacity. Please check the CSV file path and content.");
         return;
     }
 
-    // --- Data Processing ---
-
-    const minVal = 20; // Start of your first desired bin
-    const maxVal = 120; // End of your last desired bin
-    const numBins = 5;
-
-    const binWidth = (maxVal - minVal) / numBins; // (120 - 20) / 5 = 100 / 5 = 20
-    const thresholds = Array.from({length: numBins + 1}, (_, i) => minVal + i * binWidth); // [20, 40, 60, 80, 100, 120]
-
-    const targetColumnName = "If 'yes' above, state the maximum number of participants";
-
+    // Find the exact column name in the loaded data
     let foundColumn = null;
-    const normalizedTarget = normalizeString(targetColumnName);
-
-    for (const header of Object.keys(data[0])) {
-        if (normalizeString(header) === normalizedTarget) {
-            foundColumn = header;
-            break;
+    const normalizedTargetColumn = normalizeString(ALMERACMsHostingCapacityColumnName);
+    if (data.length > 0) {
+        for (const header of Object.keys(data[0])) {
+            if (normalizeString(header) === normalizedTargetColumn) {
+                foundColumn = header;
+                break;
+            }
         }
     }
 
     if (!foundColumn) {
-        console.error(`Error: Could not find a matching column for "${targetColumnName}" in the CSV data.`);
-        console.error("Available headers (normalized for comparison):", Object.keys(data[0]).map(normalizeString));
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column "${targetColumnName}" not found in CSV. Please check the exact header name.</p>`;
+        console.error(`Column "${ALMERACMsHostingCapacityColumnName}" not found in CSV for 2.9 ALMERACMs Hosting Capacity.`);
+        console.error("Available headers (normalized):", data.length > 0 ? Object.keys(data[0]).map(normalizeString) : "No data rows to inspect headers.");
+        container.append("p").style("color", "red").text(`Error: Data column "${ALMERACMsHostingCapacityColumnName}" not found.`);
         return;
     }
 
-    console.log(`Successfully identified column: "${foundColumn}" for processing.`);
-    const ALMERAhostingCapacityColumn = foundColumn;
+    // Extract and parse numerical data, filtering out non-numeric values
+    const capacities = data.map(d => {
+        const value = parseInt(d[foundColumn]);
+        return isNaN(value) ? null : value;
+    }).filter(d => d !== null);
 
-    const filteredData = data.map(d => {
-        const rawValue = d[ALMERAhostingCapacityColumn];
-        const trimmedValue = (typeof rawValue === 'string' || rawValue instanceof String) ? rawValue.trim() : String(rawValue).trim();
-        if (trimmedValue === '') {
-            return null;
-        }
-        const numValue = +trimmedValue;
-        return numValue;
-    }).filter(n => n !== null && !isNaN(n) && n >= minVal); // Keep only valid numbers that are >= your minVal
-
-    if (filteredData.length === 0) {
-        console.warn("No valid ALMERA hosting capacity data found after processing (all values were non-numeric, less than minVal, or column was entirely empty/blank).");
-        container.innerHTML = "<p style='text-align: center;'>No valid ALMERA hosting capacity data (starting from 20 participants) to display.</p>";
+    if (capacities.length === 0) {
+        container.append("p").text("No valid ALMERA CMs Hosting capacity data available to display a histogram.");
         return;
     }
 
-    console.log("Processed ALMERA CM Hosting Capacity data (first 10 valid values):", filteredData.slice(0, 10));
+    // Define the bins for the histogram
+    // Using d3.histogram for automatic binning, or you can define custom bins
+    const maxCapacity = d3.max(capacities);
+    const minCapacity = d3.min(capacities);
 
-    // --- Chart Rendering Logic (using Observable Plot) ---
+    // Determine a reasonable number of bins or step size
+    // For counts, often integer bins or small ranges make sense.
+    // Let's try bins of size 5, or use d3.thresholdFreedmanDiaconis for more dynamic binning
+    const binThresholds = d3.range(0, maxCapacity + 5, 5); // Bins like [0-5), [5-10), etc.
 
-    const renderPlot = (currentWidth) => {
-        container.innerHTML = ''; // Clear any existing chart
+    const histogram = d3.histogram()
+        .value(d => d)
+        .domain([0, maxCapacity + 5]) // Ensure domain covers all data
+        .thresholds(binThresholds);
 
-        // Bin the data here to get the counts for y-axis domain calculation
-        const binnedDataForDomain = Plot.binX(
-            { y: "count" }, // This option tells binX to count the values
-            { x: d => d, thresholds: thresholds }
-        )(filteredData);
+    const bins = histogram(capacities);
 
-        const maxCount = d3.max(binnedDataForDomain, d => d.length); // Get the max count from binned data
-        // Determine the Y-axis max. If no bars, it's 1. Otherwise, it's the max count, plus a little buffer
-        const yMaxDomain = maxCount !== undefined && maxCount > 0 ? Math.ceil(maxCount) : 1;
+    // Filter out empty bins if you don't want to show them
+    const nonEmptyBins = bins.filter(b => b.length > 0);
 
+    // Set up scales
+    const x = d3.scaleBand()
+        .domain(nonEmptyBins.map(d => {
+            // Format bin labels nicely, e.g., "0-4", "5-9", "10+"
+            if (d.x1 === Infinity) return `${d.x0}+`;
+            if (d.x0 === d.x1 - 1) return `${d.x0}`; // For single value bins if that happens
+            return `${d.x0}-${d.x1 - 1}`;
+        }))
+        .range([margin.left, width - margin.right])
+        .padding(0.1);
 
-        const ALMERAHostingCapacityPlot = Plot.plot({
-            width: currentWidth,
-            height: height,
-            x: {
-                label: "Amount of Participants that each lab could host",
-                domain: [minVal, maxVal],
-                tickFormat: d => d, // Formats tick values as plain numbers (20, 40, etc.)
-                ticks: thresholds, // Explicitly use your calculated thresholds for ticks
-            },
-            y: {
-                label: "Number of Laboratories",
-                grid: true,
-                tickFormat: d3.format("d"), // Formats y-axis ticks as integers (e.g., 1, 2, 3)
-                interval: 1, // Ensure ticks are only at whole number intervals
-                domain: [0, yMaxDomain + 1] // Start from 0 and extend slightly beyond maxCount to show all ticks
-            },
-            marks: [
-                // *** CORRECTED Plot.rectY with Plot.binX usage ***
-                Plot.rectY(filteredData, Plot.binX({
-                    // Options for the binning TRANSFORM itself:
-                    x: d => d,          // The accessor for the value to bin (participant count)
-                    thresholds: thresholds, // Use our custom thresholds for bin edges
-                    y: "count"          // This tells binX to count the items in each bin for the y-value
-                }, {
-                    // Options for the RECTY MARK, applied to the *binned data*
-                    fill: "black",      // Color of the histogram bars
-                    title: d => {       // Tooltip for each bar
-                        const lowerBound = Math.floor(d.x0); // Start of the bin
-                        // Calculate upper bound for display; for the last bin, use maxVal+
-                        const upperBound = Math.floor(d.x1) - (d.x1 === maxVal + binWidth ? 0 : 1);
-                        const count = d.length; // Count of items in this bin
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(nonEmptyBins, d => d.length)]).nice()
+        .range([height - margin.bottom, margin.top]);
 
-                        if (d.x1 >= maxVal) return `Participants ${lowerBound}+: ${count} labs`; // Last bin (e.g., 120+)
-                        return `Participants ${lowerBound}-${upperBound}: ${count} labs`; // Standard bin label (e.g., 20-39)
-                    }
-                })),
-                Plot.ruleY([0]) // Horizontal baseline at y=0
-            ],
-            style: {
-                fontFamily: "Inter, sans-serif",
-                fontSize: "12px",
-            }
-        });
+    // Create SVG element
+    const svg = container.append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif; display: block; margin: auto;");
 
-        container.appendChild(ALMERAHostingCapacityPlot);
-        console.log("ALMERA Hosting Capacity chart appended to DOM.");
-    };
+    // Bars
+    svg.append("g")
+        .attr("fill", "black") // Blue color for bars
+        .selectAll("rect")
+        .data(nonEmptyBins)
+        .join("rect")
+        .attr("x", d => x(`${d.x0}-${d.x1 - 1}`)) // Use formatted bin label for x position
+        .attr("y", d => y(d.length))
+        .attr("height", d => y(0) - y(d.length))
+        .attr("width", x.bandwidth())
+        .append("title") // Tooltip for each bar
+        .text(d => `Capacity: ${d.x0}-${d.x1 - 1} participants\nNumber of Labs: ${d.length}`);
 
-    renderPlot(width);
+    // X-axis
+    svg.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end")
+        .style("font-size", "10px");
 
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            renderPlot(container.clientWidth);
-        }, 200);
-    });
+    // X-axis label
+    svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height - margin.bottom / 2 + 10) // Adjust position
+        .attr("text-anchor", "middle")
+        .style("font-size", "12px")
+        .text("Maximum Number of Participants");
+
+    // Y-axis
+    svg.append("g")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(y).ticks(5)) // Adjust number of ticks
+        .call(g => g.select(".domain").remove()); // Remove axis line
+
+    // Y-axis label
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", margin.left / 2 - 20) // Adjust position
+        .attr("x", -height / 2)
+        .attr("dy", "1em")
+        .attr("text-anchor", "middle")
+        .style("font-size", "12px")
+        .text("Number of Laboratories");
+
+    // Chart Title
+    svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", margin.top / 2)
+        .attr("text-anchor", "middle")
+        .style("font-size", "16px")
+        .style("font-weight", "bold")
+        .text("Distribution of ALMERA CMs Hosting Capacity");
 }
 
-document.addEventListener("DOMContentLoaded", initializeALMERAHostingCapacityChart);
+// Call the function to render the chart when the script loads
+renderALMERACMsHostingHostingCapacityHistogram();
+
