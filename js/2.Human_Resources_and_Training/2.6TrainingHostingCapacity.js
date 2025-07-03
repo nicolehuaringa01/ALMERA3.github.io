@@ -108,7 +108,7 @@ async function renderTrainingHostingCapacityHistogram() {
 
     // Bars
     svg.append("g")
-        .attr("fill", "#0256b3") // Blue color for bars
+        .attr("fill", "black") // Blue color for bars
         .selectAll("rect")
         .data(nonEmptyBins)
         .join("rect")
