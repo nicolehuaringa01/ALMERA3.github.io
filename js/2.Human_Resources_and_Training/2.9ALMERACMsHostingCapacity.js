@@ -159,6 +159,6 @@ async function renderALMERACMsHostingCapacityHistogram() {
         .text("Distribution of ALMERA CMs Hosting Capacity");
 }
 
-// Call the function to render the chart when the script loads
-renderALMERACMsHostingHostingCapacityHistogram();
+// Call the function to r the chart when the script loads
+renderALMERACMsHostingCapacityHistogram();
 
