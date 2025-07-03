@@ -6,17 +6,23 @@
 // (e.g., https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable2020Survey.csv)
 const csvDataPath135 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
 
+// Helper function to normalize strings for robust column matching
+function normalizeString(str) {
+    if (typeof str !== 'string') return '';
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' ');
+}
+
 // This function processes the raw data to count Databases_Used_to_Report_Data_Pies
 function getDatabases_Used_to_Report_Data_PieCounts(data, Databases_Used_to_Report_Data_PieColumn) {
     const counts = new Map();
 
     for (const row of data) {
+        // Use the found column name directly
         if (row[Databases_Used_to_Report_Data_PieColumn]) {
-            // CORRECTED LINE: Removed the extra '_Pie' from the variable name
-            const Databases_Used_to_Report_Data_Pies = row[Databases_Used_to_Report_Data_PieColumn].split(";").map(d => d.trim());
-            for (const aff of Databases_Used_to_Report_Data_Pies) {
-                if (aff) { // Ensure Databases_Used_to_Report_Data_Pie string is not empty after trimming
-                    counts.set(aff, (counts.get(aff) || 0) + 1);
+            const databases = row[Databases_Used_to_Report_Data_PieColumn].split(";").map(d => d.trim());
+            for (const db of databases) {
+                if (db) { // Ensure string is not empty after trimming
+                    counts.set(db, (counts.get(db) || 0) + 1);
                 }
             }
         }
@@ -89,14 +95,31 @@ async function initializeDatabases_Used_to_Report_Data_PieChart() {
     }
 
     // --- Data Processing using the new functions ---
-    const Databases_Used_to_Report_Data_PieColumn = "6.13 Which database(s) is the routine monitoring data reported to? (Select all that apply)"; // User-provided column name
-    if (!rawData[0] || !rawData[0][Databases_Used_to_Report_Data_PieColumn]) {
-        console.error(`Error: CSV data missing required column "${Databases_Used_to_Report_Data_PieColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
-        container.innerHTML = `<p style='color: red;'>Error: Missing "${Databases_Used_to_Report_Data_PieColumn}" column in CSV data.</p>`;
-        return;
+    // Define the target column name string
+    const targetColumnNameString = "6.13 Which database(s) is the routine monitoring data reported to? (Select all that apply)";
+
+    // Robustly find the exact column name from the CSV headers
+    let foundColumn = null;
+    const normalizedTargetColumn = normalizeString(targetColumnNameString);
+
+    if (rawData.length > 0) {
+        for (const header of Object.keys(rawData[0])) {
+            if (normalizeString(header) === normalizedTargetColumn) {
+                foundColumn = header;
+                break;
+            }
+        }
     }
 
-    const Databases_Used_to_Report_Data_PieCounts = getDatabases_Used_to_Report_Data_PieCounts(rawData, Databases_Used_to_Report_Data_PieColumn);
+    if (!foundColumn) {
+        console.error(`Error: CSV data missing required column "${targetColumnNameString}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
+        container.innerHTML = `<p style='color: red;'>Error: Missing "${targetColumnNameString}" column in CSV data.</p>`;
+        return;
+    }
+    console.log(`Successfully identified column: "${foundColumn}" for processing.`);
+
+
+    const Databases_Used_to_Report_Data_PieCounts = getDatabases_Used_to_Report_Data_PieCounts(rawData, foundColumn); // Use foundColumn here
     const topDatabases_Used_to_Report_Data_Pie = getTopDatabases_Used_to_Report_Data_Pies(Databases_Used_to_Report_Data_PieCounts, 6); // Get top 6 Databases_Used_to_Report_Data_Pies
 
     if (topDatabases_Used_to_Report_Data_Pie.length === 0) {
@@ -105,7 +128,7 @@ async function initializeDatabases_Used_to_Report_Data_PieChart() {
         return;
     }
 
-     // --- Calculate total and percentages for the tooltip ---
+    // --- Calculate total and percentages for the tooltip ---
     const totalDatabases_Used_to_Report_Data_PiesCount = d3.sum(topDatabases_Used_to_Report_Data_Pie, d => d.value);
 
     // Add percentage to each Databases_Used_to_Report_Data_Pie object in topDatabases_Used_to_Report_Data_Pie
