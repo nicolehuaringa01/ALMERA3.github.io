@@ -1,26 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Path to your CSV file
     const csvFilePath = 'data/Observable2020Survey.csv';
-    const tableBody = d3.select('#table-body-content'); // Select the tbody by its ID
+    const tableBody = d3.select('#table-body-content');
 
-    // Use d3.csv to load the data
     d3.csv(csvFilePath).then(function(data) {
-        // Log the data to console to inspect its structure and column names
-        console.log("Loaded CSV data:", data);
+        console.log("Loaded CSV data:", data); // Always good to double-check this output in the console!
 
-        // Filter out any rows that might be empty or invalid if necessary
-        // For example, if you have header-like rows or empty lines at the end
-        const validData = data.filter(d => d["1.3 Member State"] && d["1.1 Name of Laboratory"]);
+        // Filter out any rows that might be empty or invalid (e.g., missing essential data)
+        const validData = data.filter(d => d["1.3 Member State"] && (d["1.1 Name of Laboratory"] || d["1.2 Physical Address"]));
 
-        // Sort the data alphabetically by Member State for better readability (optional)
+        // Sort the data alphabetically by Member State for better readability
         validData.sort((a, b) => {
-            const memberStateA = a["1.3 Member State"] ? a["1.3 Member State"].toUpperCase() : "";
-            const memberStateB = b["1.3 Member State"] ? b["1.3 Member State"].toUpperCase() : "";
+            const memberStateA = (a["1.3 Member State"] || "").toUpperCase();
+            const memberStateB = (b["1.3 Member State"] || "").toUpperCase();
             return memberStateA.localeCompare(memberStateB);
         });
 
-
-        // Create a row for each object in the data array
+        // Create a row for each object in the validData array
         const rows = tableBody.selectAll('tr')
             .data(validData)
             .enter()
@@ -34,16 +29,21 @@ document.addEventListener('DOMContentLoaded', function() {
         rows.append('td')
             .attr('class', 'border border-gray-300 p-3 align-top')
             .html(d => {
-                // Split by comma or <br> to format address, if desired.
-                // Assuming "1.1 Name of Laboratory" might contain <br> or just be plain text.
-                return d["1.1 Name of Laboratory"] ? d["1.1 Name of Laboratory"].replace(/,/g, '<br>') : '';
+                let labName = d["1.1 Name of Laboratory"] || '';
+                // Replace commas (followed by optional space) with <br> for lab names
+                // This assumes commas are used solely as line break indicators here.
+                labName = labName.replace(/,\s?/g, '<br>'); // Matches ", " or ","
+                return labName;
             });
 
         rows.append('td')
             .attr('class', 'border border-gray-300 p-3 align-top')
             .html(d => {
-                // Replace commas with <br> for multi-line address display
-                return d["1.2 Physical Address"] ? d["1.2 Physical Address"].replace(/,/g, '<br>') : '';
+                let address = d["1.2 Physical Address"] || '';
+                // Replace commas (followed by optional space) with <br> for addresses
+                // This is a very common and usually safe practice for address formatting.
+                address = address.replace(/,\s?/g, '<br>'); // Matches ", " or ","
+                return address;
             });
 
     }).catch(function(error) {
