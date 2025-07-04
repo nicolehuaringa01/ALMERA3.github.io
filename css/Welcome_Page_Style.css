@@ -1,5 +1,4 @@
-<style>
-        /* Custom CSS for advanced effects not easily done with pure Tailwind */
+/* Custom CSS for advanced effects not easily done with pure Tailwind */
 
         /* Define CSS variables for the new color palette */
         :root {
@@ -138,4 +137,3 @@
         .text-blue-400 { /* Footer links */
             color: var(--color-primary-light);
         }
-    </style>
