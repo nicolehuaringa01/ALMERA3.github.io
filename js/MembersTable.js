@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tableBody = d3.select('#table-body-content');
 
     d3.csv(csvFilePath).then(function(data) {
-        console.log("Loaded CSV data:", data); // Always good to double-check this output in the console!
+        console.log("Loaded CSV data:", data); // CRITICAL: Check this output!
 
         // Filter out any rows that might be empty or invalid (e.g., missing essential data)
         const validData = data.filter(d => d["1.3 Member State"] && (d["1.1 Name of Laboratory"] || d["1.2 Physical Address"]));
@@ -30,20 +30,17 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr('class', 'border border-gray-300 p-3 align-top')
             .html(d => {
                 let labName = d["1.1 Name of Laboratory"] || '';
-                // Replace commas (followed by optional space) with <br> for lab names
-                // This assumes commas are used solely as line break indicators here.
-                labName = labName.replace(/,\s?/g, '<br>'); // Matches ", " or ","
-                return labName;
+                // Replace actual newline characters (\n) with HTML <br> tags.
+                // This will also catch \r\n (Windows style) as \n after D3.js parses it.
+                return labName.replace(/\n/g, '<br>');
             });
 
         rows.append('td')
             .attr('class', 'border border-gray-300 p-3 align-top')
             .html(d => {
                 let address = d["1.2 Physical Address"] || '';
-                // Replace commas (followed by optional space) with <br> for addresses
-                // This is a very common and usually safe practice for address formatting.
-                address = address.replace(/,\s?/g, '<br>'); // Matches ", " or ","
-                return address;
+                // Replace actual newline characters (\n) with HTML <br> tags for addresses.
+                return address.replace(/\n/g, '<br>');
             });
 
     }).catch(function(error) {
