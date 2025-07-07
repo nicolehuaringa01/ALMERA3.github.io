@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>ALMERA Structure</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
@@ -13,10 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-        /* This container style needs to be flexible for responsiveness */
         #almera-members-map-container {
-            /* max-width: 960px; /* Optional: if you want a max width for the map itself */
-            width: 100%; /* Make it fill its parent container */
+            width: 100%; /* Or set a fixed width like 960px */
             height: 500px; /* Fixed height as per Observable code */
             margin-top: 1rem;
             border: 1px solid #ddd;
@@ -24,11 +22,15 @@
             overflow: hidden; /* Ensures content stays within bounds */
         }
 
+
+
         #almera-members-map-container canvas {
             display: block; /* Remove extra space below canvas */
             width: 100%; /* Make canvas fill its container */
             height: 100%;
         }
+
+
 
         .map-tooltip {
             position: absolute;
@@ -42,8 +44,9 @@
             z-index: 1001; /* Above header if possible */
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-  </style>
 
+  </style>
+  
 </head>
 
 <body class="antialiased">
@@ -53,7 +56,7 @@
         </a>
 
         <div id="main-nav-placeholder"></div>
-
+       
         <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -64,6 +67,7 @@
   <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
         <div id="mobile-nav-placeholder"></div>
     </div>
+
     <div class="pt-20 md:pt-24"></div>
 
    <main class="container mx-auto px-4 md:px-8 py-12">
@@ -71,19 +75,18 @@
       <h1 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">ALMERA Network Structure</h1>
 
       <p class="mb-6 text-lg text-gray-700">
-              </p>
 
-            <div id="labs-geographic-chart" class="max-w-full mx-auto" style="height: 500px;"></div>
+      <div id="labs-geographic-chart"></div>
       <script src="js/1.Geographic_and_Institutional_Coverage/1.2LabsGeographic.js"></script>
 
       <h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Central Coordination</h2>
-                <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700"></ul>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
 
       <p class="mb-6 text-lg text-gray-700">
         Based at the <strong>IAEA's Marine Environmental Laboratories in Monaco</strong>.</p>
-
+        
       <p class="mb-6 text-lg text-gray-700">Responsibilities include: </p>
-
+      
       <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
       <li>Coordinating the global network and developing medium/long-term targets </li>
       <li>Ensuring results are SI-traceable</li>
@@ -97,7 +100,7 @@
 <p> To enhance collaboration, ALMERA is subdivided into regional groups, with their respective coordinating centre:
 </p>
 
-    <img src="Structure.png" alt="ALMERA Network Structure" class="w-full max-w-screen-md mx-auto block mb-6">
+  <img src="Structure.png" width="700" height="400">
 
  <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
           <li>Laboratories must select their regional group; otherwise, IAEA assigns based on geography.</li>
@@ -108,6 +111,7 @@
  </ul>
 
 </section>
+
 </main>
 <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
         <div class="container mx-auto px-4">
