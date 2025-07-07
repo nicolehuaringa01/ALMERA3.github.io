@@ -1,137 +1,139 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The ALMERA Network</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> 
-  <link rel="stylesheet" href="css/Welcome_Page_Style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The ALMERA Network</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="css/Welcome_Page_Style.css">
 </head>
 
 
 <body class="antialiased">
 
- <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
-    <a href="#hero" class="flex items-center space-x-3 group">
-        <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
-    </a>
+ <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
+    <a href="#hero" class="flex items-center space-x-3 group">
+        <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
+    </a>
 
-    <div id="main-nav-placeholder"></div>
+    <div id="main-nav-placeholder"></div>
 
-    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-    </button>
+    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
 </header>
 
-     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
-    <div id="mobile-nav-placeholder"></div>
-      </div>
-    
-    <section id="hero" class="relative h-screen flex items-center justify-center text-center animated-gradient-bg text-white pt-16">
-        <div class="z-10 p-6 max-w-4xl mx-auto glassmorphism rounded-2xl border border-white border-opacity-30 shadow-2xl">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg leading-tight">
-                The ALMERA Network
-            </h1>
-            <p class="text-lg md:text-xl font-light mb-8 opacity-90">
-                Supporting Global Efforts to Reliably Measure Environmental Radioactivity
-            </p>
-            <a href="#about" class="inline-block bg-white text-[var(--color-accent-green-dark)] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-lg">
-                Discover More
-            </a>
-        </div>
-    </section>
+     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
+    <div id="mobile-nav-placeholder"></div>
+      </div>
+    
+    <section id="hero" class="relative h-screen flex items-center justify-center text-center animated-gradient-bg text-white pt-16">
+        <div class="z-10 p-6 max-w-4xl mx-auto glassmorphism rounded-2xl border border-white border-opacity-30 shadow-2xl">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg leading-tight">
+                The ALMERA Network
+            </h1>
+            <p class="text-lg md:text-xl font-light mb-8 opacity-90">
+                Supporting Global Efforts to Reliably Measure Environmental Radioactivity
+            </p>
+            <a href="#about" class="inline-block bg-white text-[var(--color-accent-green-dark)] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-lg">
+                Discover More
+            </a>
+        </div>
+    </section>
 
 <main class="container mx-auto px-4 md:px-8 py-12">
 
-        <section id="about" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
-    <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">About the ALMERA Network</h2>
-    <p class="mb-6 text-lg text-gray-700">
-        The worldwide network of <strong class="text-[var(--color-primary-dark)]">Analytical Laboratories for the Measurement of Environmental Radioactivity (ALMERA)</strong> aims at providing reliable and timely determination of radionuclides in samples, such as air, water, soil, sediment and vegetation that are used for both routine and emergency environmental monitoring by Member States.
-    </p>
-    <p class="mb-6 text-lg text-gray-700">
-        The <strong class="text-[var(--color-primary-dark)]">International Atomic Energy Agency (IAEA)</strong> supports ALMERA activities that help Member States to provide reliable, comparable and fit-for-purpose results, which are an essential requirement for any decision based on analytical measurements to protect people and the environment. This includes the organization of annual
-        
-        <a href="tests.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">Proficiency Tests</a>
-        
-        (PTs) and interlaboratory comparisons (ILCs) for radionuclides in environmental and food samples, the provision of trainings through various
-        
-        <a href="workshops.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">workshops</a> 
-        
-        and
-        
-        <a href="webinars.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">webinars</a>
-        
-        , as well as support for collaborative development and the
-        
-        <a href="methods.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">validation of radioanalytical methods</a>.
-    </p>
-    <p class="mb-6 text-lg text-gray-700">
-        As of <strong class="text-[var(--color-primary-dark)]">July 2025</strong>, ALMERA consists of
-    
-        <a href="members.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline"><strong class="text-[var(--color-primary-dark)]"><strong id="response-count">Loading...</strong></strong></a> representing <strong class="text-[var(--color-primary-dark)]">90 countries</strong>. You can find more detailed
-        <a href="stats.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">ALMERA in Data (2025)</a> regarding the network's composition and activities. The Agency's Marine Environment Laboratories in Monaco and the Terrestrial Environmental Radiochemistry (TERC) Laboratory of the IAEA Physical and Chemical Sciences Division are additional members of the network. The <strong class="text-[var(--color-primary-dark)]">IAEA Marine Environment Laboratories</strong> act as the central coordinator of the ALMERA network's activities.
-    </p>
-    <p class="mb-6 text-lg text-gray-700">
-        The IAEA helps the ALMERA network maintain readiness through coordination activities such as:
-    </p>
-    <ul class="list-disc list-inside space-y-3 mb-6 text-lg text-gray-700">
-        <li>Organizing <a href="meetings.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">Coordination Meetings</a></li>
-        <li>Developing standardized methods for sample collection and analysis</li>
-        <li>Conducting interlaboratory comparison exercises and proficiency tests as tools for external quality control</li>
-    </ul>
+        <section id="about" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">About the ALMERA Network</h2>
+    <p class="mb-6 text-lg text-gray-700">
+        The worldwide network of <strong class="text-[var(--color-primary-dark)]">Analytical Laboratories for the Measurement of Environmental Radioactivity (ALMERA)</strong> aims at providing reliable and timely determination of radionuclides in samples, such as air, water, soil, sediment and vegetation that are used for both routine and emergency environmental monitoring by Member States.
+    </p>
+    <p class="mb-6 text-lg text-gray-700">
+        The <strong class="text-[var(--color-primary-dark)]">International Atomic Energy Agency (IAEA)</strong> supports ALMERA activities that help Member States to provide reliable, comparable and fit-for-purpose results, which are an essential requirement for any decision based on analytical measurements to protect people and the environment. This includes the organization of annual
+        
+        <a href="tests.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">Proficiency Tests</a>
+        
+        (PTs) and interlaboratory comparisons (ILCs) for radionuclides in environmental and food samples, the provision of trainings through various
+        
+        <a href="workshops.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">workshops</a> 
+        
+        and
+        
+        <a href="webinars.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">webinars</a>
+        
+        , as well as support for collaborative development and the
+        
+        <a href="methods.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">validation of radioanalytical methods</a>.
+    </p>
+    <p class="mb-6 text-lg text-gray-700">
+        As of <strong class="text-[var(--color-primary-dark)]">July 2025</strong>, ALMERA consists of
+    
+        <a href="members.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline"><strong class="text-[var(--color-primary-dark)]"><strong id="response-count">Loading...</strong></strong></a> representing <strong class="text-[var(--color-primary-dark)]">90 countries</strong>. You can find more detailed
+        <a href="stats.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">ALMERA in Data (2025)</a> regarding the network's composition and activities. The Agency's Marine Environment Laboratories in Monaco and the Terrestrial Environmental Radiochemistry (TERC) Laboratory of the IAEA Physical and Chemical Sciences Division are additional members of the network. The <strong class="text-[var(--color-primary-dark)]">IAEA Marine Environment Laboratories</strong> act as the central coordinator of the ALMERA network's activities.
+    </p>
+    <p class="mb-6 text-lg text-gray-700">
+        The IAEA helps the ALMERA network maintain readiness through coordination activities such as:
+    </p>
+    <ul class="list-disc list-inside space-y-3 mb-6 text-lg text-gray-700">
+        <li>Organizing <a href="meetings.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">Coordination Meetings</a></li>
+        <li>Developing standardized methods for sample collection and analysis</li>
+        <li>Conducting interlaboratory comparison exercises and proficiency tests as tools for external quality control</li>
+    </ul>
 </section>
 
-        <section id="benefits" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
-    <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">Benefits of Joining ALMERA</h2>
-    <p class="mb-6 text-lg text-gray-700">
-        For environmental radioanalytical laboratories worldwide, participation in the ALMERA network's activities enables them to:
-    </p>
-    <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg text-gray-700">
-        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
-            <h3 class="font-semibold text-xl mb-2">Demonstrate Technical Competence</h3>
-            <p>Prove and maintain their technical competence in accurately measuring environmental radioactivity through international proficiency tests.</p>
-        </li>
-        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
-            <h3 class="font-semibold text-xl mb-2">Harmonize Analytical Methods</h3>
-            <p>Adopt and apply recommended, validated analytical methods, leading to methodological harmonization and enhanced worldwide comparability of environmental radioactivity measurement results.</p>
-        </li>
-        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
-            <h3 class="font-semibold text-xl mb-2">Enhance Staff Capabilities</h3>
-            <p>Improve the analytical capabilities of their personnel through training, workshops, and shared best practices, ensuring they meet global standards.</p>
-        </li>
-        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
-            <h3 class="font-semibold text-xl mb-2">Foster Global Collaboration</h3>
-            <p>Collaborate closely with similar laboratories in their region and across the globe, contributing to a stronger, more prepared international network for radiological emergencies.</p>
-        </li>
-    </ul>
+        <section id="benefits" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">Benefits of Joining ALMERA</h2>
+    <p class="mb-6 text-lg text-gray-700">
+        For environmental radioanalytical laboratories worldwide, participation in the ALMERA network's activities enables them to:
+    </p>
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg text-gray-700">
+        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
+            <h3 class="font-semibold text-xl mb-2">Demonstrate Technical Competence</h3>
+            <p>Prove and maintain their technical competence in accurately measuring environmental radioactivity through international proficiency tests.</p>
+        </li>
+        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
+            <h3 class="font-semibold text-xl mb-2">Harmonize Analytical Methods</h3>
+            <p>Adopt and apply recommended, validated analytical methods, leading to methodological harmonization and enhanced worldwide comparability of environmental radioactivity measurement results.</p>
+        </li>
+        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
+            <h3 class="font-semibold text-xl mb-2">Enhance Staff Capabilities</h3>
+            <p>Improve the analytical capabilities of their personnel through training, workshops, and shared best practices, ensuring they meet global standards.</p>
+        </li>
+        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
+            <h3 class="font-semibold text-xl mb-2">Foster Global Collaboration</h3>
+            <p>Collaborate closely with similar laboratories in their region and across the globe, contributing to a stronger, more prepared international network for radiological emergencies.</p>
+        </li>
+    </ul>
 </section>
 
-        <section class="bg-[var(--color-primary-dark)] text-white p-8 md:p-12 rounded-xl shadow-2xl text-center scroll-reveal">
-            <h2 class="text-white text-3xl md:text-4xl font-bold mb-4">Join the Global Network</h2>
-            <p class="text-lg md:text-xl mb-8 opacity-90">
-                Be part of a leading international effort in environmental radioactivity measurement.
-            </p>
-            <a href="contact.html" class="inline-block bg-white text-[var(--color-accent-green-dark)] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-lg">
-                Contact Us
-            </a>
-        </section>
+        <section class="bg-[var(--color-primary-dark)] text-white p-8 md:p-12 rounded-xl shadow-2xl text-center scroll-reveal">
+            <h2 class="text-white text-3xl md:text-4xl font-bold mb-4">Join the Global Network</h2>
+            <p class="text-lg md:text-xl mb-8 opacity-90">
+                Be part of a leading international effort in environmental radioactivity measurement.
+            </p>
+            <a href="contact.html" class="inline-block bg-white text-[var(--color-accent-green-dark)] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-lg">
+                Contact Us
+            </a>
+        </section>
 
-    </main>
-    
-    <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
-        </div>
-    </footer>
-  
+    </main>
+    
+    <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
+        </div>
+    </footer>
+  
+<script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+
 <script src="js/Update_Shortcuts/load_navigation.js"></script>
 <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
 <script src="js/Update_Shortcuts/load_response_count.js"></script>
-<script src="js/Update_Shortcuts/scroll_to_top.js"></script> </body>
-<script src="js/Welcome_Page_Style.js"></script> </html>
+<script src="js/Update_Shortcuts/scroll_to_top.js"></script>
+<script src="js/Welcome_Page_Style.js"></script>
 
 </body>
 </html>
