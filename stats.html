@@ -5,119 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Requested Future Activities</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script> <style>
-
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             background: #f9fafb;
             color: #333;
             line-height: 1.6;
-            padding-top: 64px; /* Add padding to body to prevent content from hiding under fixed header */
+            padding-top: 64px;
         }
         header {
             background: #0256b3;
             color: #fff;
             padding: 1rem 2rem;
-            position: fixed; /* Make header fixed */
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%; /* Ensure header spans full width */
-            z-index: 1000; /* Ensure header is above other content */
+            width: 100%;
+            z-index: 1000;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            box-sizing: border-box; /* Include padding in width calculation */
-            display: flex; /* Use flexbox for centering content */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         header a {
-            text-decoration: none; /* Remove underline from the link */
-            color: inherit;       /* Inherit the white color from the header */
-            display: block;       /* Make the anchor fill its container */
-            cursor: pointer;       /* Indicate it's clickable */
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            cursor: pointer;
         }
 
         header h1 {
-            margin: 0; /* Remove default h1 margin */
-            font-size: 1.6rem; /* Equivalent to text-3xl, adjust as needed for optimal display */
-            font-weight: 700; /* Equivalent to font-bold */
-            text-align: left; /* Center the text within the h1 */
-            /* Remove any mb-6 as it's now in a fixed header */
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-align: left;
         }
 
-        /* Container for the sidebar and main content */
         .content-wrapper {
-            display: flex; /* Use flexbox to lay out sidebar and main content horizontally */
-            min-height: calc(100vh - 64px); /* Adjust min-height to push footer down */
-            /* No margin-left here, main will handle its own margin */
+            display: flex;
+            min-height: calc(100vh - 64px);
         }
         .nav-buttons {
-            position: fixed; /* Make the navigation fixed */
-            top: 64px; /* Starts right below the header */
+            position: fixed;
+            top: 64px;
             left: 0;
-            width: 250px; /* Desired width of the sidebar */
-            height: calc(100vh - 64px); /* Full height of viewport minus header height */
+            width: 250px;
+            height: calc(100vh - 64px);
             background: #fff;
-            padding: 1rem 0.5rem; /* Adjust padding for links */
+            padding: 1rem 0.5rem;
             box-shadow: 2px 0 5px rgba(0,0,0,0.1);
             display: flex;
-            flex-direction: column; /* Stack items vertically */
-            align-items: flex-start; /* Align links to the left */
-            overflow-y: auto; /* Enable scrolling for the nav if content overflows */
+            flex-direction: column;
+            align-items: flex-start;
+            overflow-y: auto;
             z-index: 998;
             box-sizing: border-box;
         }
         .nav-buttons a {
-            background: #f0f0f0; /* Lighter background for nav links */
-            color: #333; /* Darker text for better contrast */
+            background: #f0f0f0;
+            color: #333;
             text-decoration: none;
-            margin: 4px 0; /* Vertical margin between links */
-            padding: 10px 15px; /* Padding inside links */
+            margin: 4px 0;
+            padding: 10px 15px;
             border-radius: 4px;
-            font-weight: 500; /* Slightly lighter weight */
+            font-weight: 500;
             transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
-            width: 100%; /* Make links fill the nav width */
-            box-sizing: border-box; /* Include padding in width */
-            text-align: left; /* Align text to the left */
+            width: 100%;
+            box-sizing: border-box;
+            text-align: left;
         }
         .nav-buttons a:hover {
-            background: #e0e0e0; /* Hover effect */
-            color: #0256b3; /* Highlight text color */
-            transform: none; /* No translateY on hover for sidebar links */
+            background: #e0e0e0;
+            color: #0256b3;
+            transform: none;
         }
 
-        /* New style for the "Back to Main" button */
         .nav-buttons .main-page-button {
-            background-color: #0366d6; /* A more prominent blue, similar to your index.html primary buttons */
+            background-color: #0366d6;
             color: white;
-            font-weight: 600; /* Make it bolder */
-            margin-bottom: 15px; /* Add some space below it */
-            padding: 12px 15px; /* Slightly more padding */
-            text-align: center; /* Center the text within the button */
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            text-align: center;
         }
 
         .nav-buttons .main-page-button:hover {
-            background-color: #0256b3; /* Darker blue on hover */
-            color: white; /* Keep text white on hover */
+            background-color: #0256b3;
+            color: white;
         }
 
         main {
-            flex-grow: 1; /* Allows main to take up remaining horizontal space */
-            margin-left: 250px; /* Push main content to the right by nav width */
-            max-width: 1100px; /* Max width for the actual content */
-            margin-right: auto; /* To help center the content within the available space */
-            margin-top: 2rem; /* Top margin for content */
-            padding: 0 1.5rem; /* Internal padding */
+            flex-grow: 1;
+            margin-left: 250px;
+            max-width: 1100px;
+            margin-right: auto;
+            margin-top: 2rem;
+            padding: 0 1.5rem;
             padding-top: 5rem;
             box-sizing: border-box;
         }
 
-        /* Breadcrumbs styling */
         .breadcrumbs {
             padding: 10px 0;
             font-size: 0.9rem;
             color: #586069;
-            margin-bottom: 20px; /* Space below breadcrumbs */
+            margin-bottom: 20px;
         }
 
         .breadcrumbs a {
@@ -131,7 +126,7 @@
 
         .breadcrumbs span {
             margin: 0 5px;
-            color: #586069; /* Separator color */
+            color: #586069;
         }
 
         section {
@@ -150,7 +145,7 @@
             width: 100%;
             border: none;
             border-radius: 8px;
-            height: 480px; /* Keep this height for Observable embeds */
+            height: 480px;
             margin-top: 1rem;
         }
         footer {
@@ -159,9 +154,9 @@
             background: #f1f3f5;
             color: #777;
             font-size: 0.9rem;
-            margin-left: 250px; /* Align with main content */
+            margin-left: 250px;
             box-sizing: border-box;
-            width: calc(100% - 250px); /* Adjust width to span remaining space */
+            width: calc(100% - 250px);
         }
         /* Accordion */
         details {
@@ -206,53 +201,51 @@
             font-size: 18px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             transition: background 0.3s ease;
-            right: 25px; /* Ensure it's not affected by left margin */
+            right: 25px;
         }
         #topBtn:hover {
             background: #01488f;
         }
 
-        /* Basic responsiveness for smaller screens (optional but recommended) */
         @media (max-width: 768px) {
             .nav-buttons {
-                position: relative; /* Make nav flow with content on small screens */
+                position: relative;
                 width: 100%;
                 height: auto;
-                top: 0; /* No longer fixed below header if header itself is not fixed */
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow at bottom */
+                top: 0;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
                 padding: 0.8rem 1rem;
-                flex-direction: row; /* Back to horizontal for small screens */
+                flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: center;
             }
             .nav-buttons a {
                 width: auto;
-                flex-grow: 1; /* Allow items to grow */
+                flex-grow: 1;
                 text-align: center;
                 margin: 5px;
             }
-            /* Adjust the main-page-button for small screens if needed */
             .nav-buttons .main-page-button {
-                width: 100%; /* Make it full width on small screens for better clickability */
-                margin-bottom: 10px; /* Adjust margin for small screens */
+                width: 100%;
+                margin-bottom: 10px;
             }
             .content-wrapper {
-                flex-direction: column; /* Stack content vertically */
-                margin-left: 0; /* Remove left margin */
+                flex-direction: column;
+                margin-left: 0;
             }
             main {
-                margin-left: 0; /* Remove left margin for main content */
-                margin-top: 1rem; /* Adjust top margin for main content */
+                margin-left: 0;
+                margin-top: 1rem;
             }
             footer {
                 margin-left: 0;
                 width: 100%;
             }
             body {
-                padding-top: 0; /* No padding needed if header isn't fixed anymore */
+                padding-top: 0;
             }
             header {
-                position: relative; /* Make header flow with content on small screens */
+                position: relative;
             }
         }
     </style>
@@ -260,102 +253,46 @@
 <body>
 
 <header>
-    <a href="stats.html">
-        <h1>ALMERA in Data</h1>
-    </a>
+    <a href="stats.html">
+        <h1>ALMERA in Data</h1>
+    </a>
 </header>
 
 <div class="content-wrapper">
-    <nav class="nav-buttons">
-        <a href="index.html" class="main-page-button">Back to Main ALMERA Page</a>
-        <a href="1.GeographicInstitutionalCoverage.html">1. Geographic & Institutional Coverage</a>
-        <a href="2.HumanResourcesTraining.html">2. Human Resources and Training</a>
-        <a href="3.LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
-        <a href="4.AnalyticalMethodDevelopmentImplementation.html">4. Method Development</a>
-        <a href="5.RadionuclidesMeasured.html">5. Radionuclides Measured</a>
-        <a href="6.QualityManagementReporting.html">6. Quality Management</a>
-        <a href="7.EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
-        <a href="8.NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
-        <a href="9.RequestedFutureActivities.html">9. Future Activities</a>
-    </nav>
+    <nav class="nav-buttons">
+        <a href="index.html" class="main-page-button">Back to Main ALMERA Page</a>
+        <a href="1.GeographicInstitutionalCoverage.html">1. Geographic & Institutional Coverage</a>
+        <a href="2.HumanResourcesTraining.html">2. Human Resources and Training</a>
+        <a href="3.LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
+        <a href="4.AnalyticalMethodDevelopmentImplementation.html">4. Method Development</a>
+        <a href="5.RadionuclidesMeasured.html">5. Radionuclides Measured</a>
+        <a href="6.QualityManagementReporting.html">6. Quality Management</a>
+        <a href="7.EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
+        <a href="8.NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
+        <a href="9.RequestedFutureActivities.html">9. Future Activities</a>
+    </nav>
 
-   <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
-        <div class="breadcrumbs">
-            <a href="index.html">Home</a>
-            <span>&gt;</span>
-            <span>ALMERA in Data</span>
-        </div>
+   <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a>
+            <span>&gt;</span>
+            <span>ALMERA in Data</span>
+        </div>
 
-        <h2>ALMERA in Data (2025)</h2>
-    <section class="text-lg text-gray-700 leading-relaxed space-y-4">
-        <p>Welcome to the <strong>ALMERA in Data</strong> platform, designed to provide comprehensive insights derived from the ALMERA network's capabilities survey.</p>
+        <h2>ALMERA in Data (2025)</h2>
+    <section class="text-lg text-gray-700 leading-relaxed space-y-4">
+        <p>Welcome to the <strong>ALMERA in Data</strong> platform, designed to provide comprehensive insights derived from the ALMERA network's capabilities survey.</p>
 
-        <p>The <strong>2025 survey round</strong> successfully concluded with <strong id="response-count">[Dynamically insert number of responses here]</strong> submitted responses.</p>
+        <p>The <strong>2025 survey round</strong> successfully concluded with <strong id="response-count">Loading...</strong> submitted responses.</p>
 
-        <p>It is important to note that while 200 laboratories were invited, not all participating laboratories provided responses for every survey question, which may influence the comprehensiveness of certain data points.</p>
-    </section>
+        <p>It is important to note that while 200 laboratories were invited, not all participating laboratories provided responses for every survey question, which may influence the comprehensiveness of certain data points.</p>
+    </section>
 </main>
-</div> <button id="topBtn" onclick="topFunction()">↑</button>
-
-<footer>
-    &copy; 2025 ALMERA Network
+</div>
+<button id="topBtn">↑</button> <footer>
+    &copy; 2025 ALMERA Network
 </footer>
 
-<script>
-    // Function to fetch and parse the CSV
-    async function loadAndCountResponses() {
-        const csvFilePath = 'data/Observable2020Survey.csv'; // Relative path to your CSV
-        const responseCountElement = document.getElementById('response-count');
-
-        try {
-            const response = await fetch(csvFilePath);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const csvText = await response.text();
-
-            Papa.parse(csvText, {
-                header: true, // Assuming the first row is a header and should not be counted as a response
-                skipEmptyLines: true,
-                complete: function(results) {
-                    const rowCount = results.data.length;
-                    if (responseCountElement) {
-                        responseCountElement.textContent = rowCount; // Update the content
-                    }
-                },
-                error: function(err) {
-                    console.error("Error parsing CSV:", err);
-                    if (responseCountElement) {
-                        responseCountElement.textContent = "Error loading data.";
-                    }
-                }
-            });
-
-        } catch (error) {
-            console.error('Could not fetch the CSV file:', error);
-            if (responseCountElement) {
-                responseCountElement.textContent = "Error loading data.";
-            }
-        }
-    }
-
-    // Call the function when the page loads
-    document.addEventListener('DOMContentLoaded', loadAndCountResponses);
-
-    // Existing Scroll to Top button script (keep this as is or adjust placement)
-    const topBtn = document.getElementById("topBtn");
-    if (topBtn) {
-        window.onscroll = () => {
-            topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
-        };
-        topBtn.onclick = topFunction;
-    }
-
-    function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
-</script>
-
-</body>
+<script src="js/Update_Shortcuts/load_response_count.js"></script>
+<script src="js/Update_Shortcuts/scroll_to_top.js"></script> </body>
 </html>
