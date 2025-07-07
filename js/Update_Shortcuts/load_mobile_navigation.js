@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileNavPlaceholder = document.getElementById('mobile-nav-placeholder');
 
     if (mobileNavPlaceholder) {
-        fetch('mobile_navbar.html') // Path to your mobile navigation HTML file
+        fetch('js/Update_Shortcuts/mobile_navbar.html')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
