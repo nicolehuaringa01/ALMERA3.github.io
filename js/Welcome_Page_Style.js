@@ -1,34 +1,4 @@
-// JavaScript for Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-        const mobileMenuNav = mobileMenuOverlay.querySelector('nav');
-        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenuOverlay.classList.remove('hidden');
-            setTimeout(() => {
-                mobileMenuNav.classList.remove('translate-x-full');
-            }, 10); // Small delay for transition to work
-        });
-
-        closeMobileMenuButton.addEventListener('click', () => {
-            mobileMenuNav.classList.add('translate-x-full');
-            setTimeout(() => {
-                mobileMenuOverlay.classList.add('hidden');
-            }, 300); // Match transition duration
-        });
-
-        // Close mobile menu when a link is clicked
-        mobileMenuNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuNav.classList.add('translate-x-full');
-                setTimeout(() => {
-                    mobileMenuOverlay.classList.add('hidden');
-                }, 300);
-            });
-        });
-
-        // JavaScript for Scroll-Reveal Animation
+// JavaScript for Scroll-Reveal Animation
         const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
 
         const observerOptions = {
