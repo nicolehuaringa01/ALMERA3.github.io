@@ -1,163 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <title>ALMERA Proficiency Tests and Interlaboratory Comparisons</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primer/16.2.0/build.css">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      padding: 2rem;
-      background-color: #fff;
-      color: #24292e;
-      max-width: 800px;
-      margin: auto;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Coordination Meetings</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
 
-    h1, h2 {
-      color: #0366d6;
-    }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/Welcome_Page_Style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    .nav-buttons {
-      margin-bottom: 2rem;
-    }
+    <style>
+        table.meeting-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: sans-serif;
+            margin-bottom: 2rem;
+        }
 
-    .nav-buttons a {
-      display: inline-block;
-      margin: 6px;
-      padding: 10px 18px;
-      background-color: #0366d6;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 600;
-    }
+        table.meeting-table th,
+        table.meeting-table td {
+            border: 1px solid #ccc;
+            padding: 8px 10px;
+            text-align: center;
+        }
 
-    .nav-buttons a:hover {
-      background-color: #0256b3;
-    }
+        table.meeting-table thead {
+            background-color: #f2f2f2;
+        }
 
-    a {
-      color: #0366d6;
-    }
+        table.meeting-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
 
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #586069;
-      text-align: center;
-    }
-
-    table.meeting-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: sans-serif;
-      margin-bottom: 2rem;
-    }
-
-    table.meeting-table th,
-    table.meeting-table td {
-      border: 1px solid #ccc;
-      padding: 8px 10px;
-      text-align: center;
-    }
-
-    table.meeting-table thead {
-      background-color: #f2f2f2;
-    }
-
-    table.meeting-table tr:nth-child(even) {
-      background-color: #fafafa;
-    }
-
-    table.meeting-table th {
-      font-weight: bold;
-    }
-  </style>
+        table.meeting-table th {
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
 
-<div class="nav-buttons">
-    <a href="index.html">Home</a>
-    <a href="members.html">Members</a>
-    <a href="structure.html">Structure</a>
-    <a href="meetings.html">Coordination Meetings</a>
-    <a href="tests.html">Proficiency Tests</a>
-    <a href="methods.html">Validated Analytical Methods</a>
-    <a href="workshops.html">Workshops</a>
-    <a href="webinars.html">Webinars</a>
-    <a href="contact.html">Contact Persons</a>
-    <a href="https://teams.microsoft.com/l/team/19:c359651111d64497970da3e1230cdd75@thread.tacv2/conversations?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=a2f21493-a4d1-4b7f-ad07-819c824f5c4a">ALMERA Inside</a>
-    <a href="history.html">History</a>
-    <a href="stats.html">ALMERA in Data (2025)</a>
-  </div>
+<body class="antialiased">
 
 
-  <h1>ALMERA Proficiency Tests</h1>
+    <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
+        <a href="index.html#hero" class="flex items-center space-x-3 group"> <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
+        </a>
 
-  <p>Laboratories around the world may use different equipment, materials, and analytical procedures. Many prefer to continue using well-established methods that have proven reliable unless there is a compelling reason to change.</p>
+        <div id="main-nav-placeholder"></div>
 
-  <p>ALMERA provides its members with proficiency test (PT) samples, enabling them to evaluate their methods and results. These tests help assess accuracy, precision, and global comparability of measurement outcomes.</p>
+        <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </header>
 
-  <p>Specific procedures and methods are developed following ISO guidelines. To ensure their effectiveness, these procedures are comprehensive, clearly described, and readily accessible to both analysts and data users.</p>
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
+        <div id="mobile-nav-placeholder"></div>
+    </div>
+    <div class="pt-20 md:pt-24"></div>
 
-  <p><strong>Proficiency Tests are designed to:</strong></p>
-  <ul>
-    <li>Monitor the analytical performance of network members and identify gaps or problem areas as part of external quality control.</li>
-    <li>Be conducted annually, exclusively for ALMERA members.</li>
-    <li>Provide each participating laboratory with a set of environmental samples for characterization of anthropogenic and natural alpha, beta, and gamma-emitting radionuclides.</li>
-    <li>Allow laboratories to choose which radionuclides to report, with evaluations based on these selections.</li>
-    <li>Include a unique emergency-response PT feature, requiring results on gamma-emitting radionuclides within three days.</li>
-  </ul>
+    <main class="container mx-auto px-4 md:px-8 py-12">
+        <section class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
+            <h1 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">ALMERA Proficiency Tests</h1>
 
-  <p>The IAEA's proficiency tests and interlaboratory comparison exercises are summarized in the table below:</p>
 
-  <h2>Upcoming Proficiency Test</h2>
 
-  <h3>IAEA-TERC-2025-01</h3>
+            <p class="mb-6 text-lg text-gray-700">
+                Laboratories around the world may use different equipment, materials, and analytical procedures. Many prefer to continue using well-established methods that have proven reliable unless there is a compelling reason to change.
+            </p>
 
-  <p><strong>Sample Descriptions:</strong></p>
-  <ul>
-    <li><strong>Sample 1:</strong> Water (500 mL) — Determination of anthropogenic and natural radionuclides using radioanalytical techniques.</li>
-    <li><strong>Sample 2:</strong> Mineral Water (500 mL) — Determination of low-level uranium and other long-lived natural radionuclides (ICP-MS, alpha-particle spectrometry, LSC) and gross alpha/beta activity.</li>
-    <li><strong>Sample 3:</strong> Soil (200 g) — Determination of natural and anthropogenic radionuclides using radioanalytical techniques.</li>
-    <li><strong>Sample 4:</strong> Vegetation (100 g) — Determination of natural radionuclides using radioanalytical techniques.</li>
-    <li><strong>Sample 5:</strong> Simulated contaminated surface sample, including a blank sample.</li>
-  </ul>
+            <p class="mb-6 text-lg text-gray-700">
+                ALMERA provides its members with proficiency test (PT) samples, enabling them to evaluate their methods and results. These tests help assess accuracy, precision, and global comparability of measurement outcomes.</p>
 
-  <h2>Past Proficiency Tests</h2>
+            <p class="mb-6 text-lg text-gray-700">
+                Specific procedures and methods are developed following ISO guidelines. To ensure their effectiveness, these procedures are comprehensive, clearly described, and readily accessible to both analysts and data users.</p>
 
-  <table class="meeting-table">
-    <thead>
-      <tr>
-        <th>Year</th>
-        <th>ALMERA Proficiency Test / Interlaboratory Comparison</th>
-        <th>Participants</th>
-        <th>Member States</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>2005</td><td><a href="https://nucleus.iaea.org/rpst/ReferenceProducts/ALMERA/ALMERA_Proficiency_Tests/iaea_al_152.pdf">2005 ALMERA proficiency test</a></td><td>53</td><td>37</td></tr>
-      <tr><td>2005</td><td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-1_web.pdf">Soil sampling interlaboratory comparison</a></td><td>10</td><td>10</td></tr>
-      <tr><td>2006</td><td><a href="https://nucleus.iaea.org/rpst/ReferenceProducts/ALMERA/ALMERA_Proficiency_Tests/iaea_al_170.pdf">Gamma-emitting RNs in water, soil and grass</a></td><td>38</td><td>29</td></tr>
-      <tr><td>2007</td><td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-3_web.pdf">Artificial and natural RNs in water, soil and spinach</a></td><td>58</td><td>46</td></tr>
-      <tr><td>2007</td><td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-4_web.pdf">Po-210 determination in water</a></td><td>36</td><td>30</td></tr>
-      <tr><td>2008</td><td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-15_web.pdf">Naturally occurring radionuclides in phosphogypsum</a></td><td>49</td><td>40</td></tr>
-      <tr><td>2009</td><td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-16_web.pdf">Gamma-emitting RN in simulated air filters</a></td><td>69</td><td>46</td></tr>
-      <tr><td>2010</td><td>Ra-226 in soil and natural radionuclides in water</td><td>46</td><td>36</td></tr>
-      <tr><td>2011</td><td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-32_web.pdf">Natural and artificial RNs in soil and water</a></td><td>57</td><td>41</td></tr>
-      <tr><td>2012</td><td><a href="http://www.teledos.gr/PT/iaea_tel_2012_03">Natural and artificial RN in water, hay and soil</a></td><td>63</td><td>44</td></tr>
-      <tr><td>2013</td><td>Man-made and natural radionuclides in water and flour samples</td><td>76</td><td>49</td></tr>
-      <tr><td>2014</td><td>Anthropogenic radionuclides in water, seaweed and sediment sample</td><td>71</td><td>49</td></tr>
-      <tr><td>2014</td><td>Interlaboratory comparison on gamma-ray spectra evaluation</td><td>106</td><td>47</td></tr>
-      <tr><td>2015</td><td>Anthropogenic and natural radionuclides in water, biota and soil samples</td><td>82</td><td>57</td></tr>
-      <tr><td>2016</td><td><a href="http://www.teledos.gr/PT/iaea_tel_2016_03">Natural and artificial RNs in water, vegetation and sediment samples</a></td><td>82</td><td>51</td></tr>
-      <tr><td>2017</td><td><a href="http://www.teledos.gr/PT/iaea_tel_2017_03">Natural and anthropogenic RNs in water, milk powder and NORM samples</a></td><td>89</td><td>58</td></tr>
-      <tr><td>2018</td><td><a href="https://nucleus.iaea.org/sites/AnalyticalReferenceMaterials/Shared%20Documents/ProficiencyTests/IAEA-TEL-2018-04/s_shape_summary_report_IAEA-TEL-2018-04_final1.pdf">Natural and anthropogenic RNs in water and soil samples</a></td><td>98</td><td>60</td></tr>
-      <tr><td>2019</td><td><a href="http://www.teledos.gr/PT/iaea_tel_2019_03">Mediterranean seawater spiked with radionuclides 3H, 89Sr, 90Sr, 134Cs, 137Cs and one undisclosed γ emitter</a></td><td>109</td><td>59</td></tr>
-      <tr><td>2020</td><td><a href="http://www.teledos.gr/PT/iaea_tel_2020_03">Determination of anthropogenic and natural radionuclides in water and fish samples, and gross alpha/beta estimation on simulated aerosol filter</a></td><td>105</td><td>60</td></tr>
-    </tbody>
-  </table>
+            <p class="mb-6 text-lg text-gray-700">
+                <strong>Proficiency Tests are designed to:</strong>
+            </p>
+
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
+                <li>Monitor the analytical performance of network members and identify gaps or problem areas as part of external quality control.</li>
+                <li>Be conducted annually, exclusively for ALMERA members.</li>
+                <li>Provide each participating laboratory with a set of environmental samples for characterization of anthropogenic and natural alpha, beta, and gamma-emitting radionuclides.</li>
+                <li>Allow laboratories to choose which radionuclides to report, with evaluations based on these selections.</li>
+                <li>Include a unique emergency-response PT feature, requiring results on gamma-emitting radionuclides within three days.</li>
+            </ul>
+
+            <p class="mb-6 text-lg text-gray-700">
+                The IAEA's proficiency tests and interlaboratory comparison exercises are summarized in the table below:</p>
+
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">
+
+                Upcoming Proficiency Test</h2>
+
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">IAEA-TERC-2025-01</h3>
+
+
+            <p class="mb-6 text-lg text-gray-700">
+                <strong>Sample Descriptions:</strong>
+            </p>
+
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
+                <li><strong>Sample 1:</strong> Water (500 mL) — Determination of anthropogenic and natural radionuclides using radioanalytical techniques.</li>
+                <li><strong>Sample 2:</strong> Mineral Water (500 mL) — Determination of low-level uranium and other long-lived natural radionuclides (ICP-MS, alpha-particle spectrometry, LSC) and gross alpha/beta activity.</li>
+                <li><strong>Sample 3:</strong> Soil (200 g) — Determination of natural and anthropogenic radionuclides using radioanalytical techniques.</li>
+                <li><strong>Sample 4:</strong> Vegetation (100 g) — Determination of natural radionuclides using radioanalytical techniques.</li>
+                <li><strong>Sample 5:</strong> Simulated contaminated surface sample, including a blank sample.</li>
+            </ul>
+
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">
+                Past Proficiency Tests</h2>
+
+            <table class="meeting-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>ALMERA Proficiency Test / Interlaboratory Comparison</th>
+                        <th>Participants</th>
+                        <th>Member States</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2005</td>
+                        <td><a href="https://nucleus.iaea.org/rpst/ReferenceProducts/ALMERA/ALMERA_Proficiency_Tests/iaea_al_152.pdf">2005 ALMERA proficiency test</a></td>
+                        <td>53</td>
+                        <td>37</td>
+                    </tr>
+                    <tr>
+                        <td>2005</td>
+                        <td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-1_web.pdf">Soil sampling interlaboratory comparison</a></td>
+                        <td>10</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>2006</td>
+                        <td><a href="https://nucleus.iaea.org/rpst/ReferenceProducts/ALMERA/ALMERA_Proficiency_Tests/iaea_al_170.pdf">Gamma-emitting RNs in water, soil and grass</a></td>
+                        <td>38</td>
+                        <td>29</td>
+                    </tr>
+                    <tr>
+                        <td>2007</td>
+                        <td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-3_web.pdf">Artificial and natural RNs in water, soil and spinach</a></td>
+                        <td>58</td>
+                        <td>46</td>
+                    </tr>
+                    <tr>
+                        <td>2007</td>
+                        <td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-4_web.pdf">Po-210 determination in water</a></td>
+                        <td>36</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>2008</td>
+                        <td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-15_web.pdf">Naturally occurring radionuclides in phosphogypsum</a></td>
+                        <td>49</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>2009</td>
+                        <td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-16_web.pdf">Gamma-emitting RN in simulated air filters</a></td>
+                        <td>69</td>
+                        <td>46</td>
+                    </tr>
+                    <tr>
+                        <td>2010</td>
+                        <td>Ra-226 in soil and natural radionuclides in water</td>
+                        <td>46</td>
+                        <td>36</td>
+                    </tr>
+                    <tr>
+                        <td>2011</td>
+                        <td><a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-32_web.pdf">Natural and artificial RNs in soil and water</a></td>
+                        <td>57</td>
+                        <td>41</td>
+                    </tr>
+                    <tr>
+                        <td>2012</td>
+                        <td><a href="http://www.teledos.gr/PT/iaea_tel_2012_03">Natural and artificial RN in water, hay and soil</a></td>
+                        <td>63</td>
+                        <td>44</td>
+                    </tr>
+                    <tr>
+                        <td>2013</td>
+                        <td>Man-made and natural radionuclides in water and flour samples</td>
+                        <td>76</td>
+                        <td>49</td>
+                    </tr>
+                    <tr>
+                        <td>2014</td>
+                        <td>Anthropogenic radionuclides in water, seaweed and sediment sample</td>
+                        <td>71</td>
+                        <td>49</td>
+                    </tr>
+                    <tr>
+                        <td>2014</td>
+                        <td>Interlaboratory comparison on gamma-ray spectra evaluation</td>
+                        <td>106</td>
+                        <td>47</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td>Anthropogenic and natural radionuclides in water, biota and soil samples</td>
+                        <td>82</td>
+                        <td>57</td>
+                    </tr>
+                    <tr>
+                        <td>2016</td>
+                        <td><a href="http://www.teledos.gr/PT/iaea_tel_2016_03">Natural and artificial RNs in water, vegetation and sediment samples</a></td>
+                        <td>82</td>
+                        <td>51</td>
+                    </tr>
+                    <tr>
+                        <td>2017</td>
+                        <td><a href="http://www.teledos.gr/PT/iaea_tel_2017_03">Natural and anthropogenic RNs in water, milk powder and NORM samples</a></td>
+                        <td>89</td>
+                        <td>58</td>
+                    </tr>
+                    <tr>
+                        <td>2018</td>
+                        <td><a href="https://nucleus.iaea.org/sites/AnalyticalReferenceMaterials/Shared%20Documents/ProficiencyTests/IAEA-TEL-2018-04/s_shape_summary_report_IAEA-TEL-2018-04_final1.pdf">Natural and anthropogenic RNs in water and soil samples</a></td>
+                        <td>98</td>
+                        <td>60</td>
+                    </tr>
+                    <tr>
+                        <td>2019</td>
+                        <td><a href="http://www.teledos.gr/PT/iaea_tel_2019_03">Mediterranean seawater spiked with radionuclides 3H, 89Sr, 90Sr, 134Cs, 137Cs and one undisclosed γ emitter</a></td>
+                        <td>109</td>
+                        <td>59</td>
+                    </tr>
+                    <tr>
+                        <td>2020</td>
+                        <td><a href="http://www.teledos.gr/PT/iaea_tel_2020_03">Determination of anthropogenic and natural radionuclides in water and fish samples, and gross alpha/beta estimation on simulated aerosol filter</a></td>
+                        <td>105</td>
+                        <td>60</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+
+    <script src="js/MembersTable.js"></script>
+    <script src="js/Update_Shortcuts/load_navigation.js"></script>
+    <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
+    <script src="js/Update_Shortcuts/load_response_count.js"></script>
+    <script src="js/Update_Shortcuts/scroll_to_top.js"></script>
+    <script src="js/Welcome_Page_Style.js"></script>
 
 </body>
+
 </html>
+
