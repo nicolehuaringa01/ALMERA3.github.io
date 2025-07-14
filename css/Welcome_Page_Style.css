@@ -133,6 +133,32 @@ a {
     color: var(--color-primary); /* General link color in medium muted blue */
 }
 
+ol {
+    list-style-type: decimal; /* Ensure numbers are visible */
+    padding-left: 1.5rem; /* Indent for numbers */
+    margin-bottom: 1.5rem; /* Space below the list */
+    }
+
+ol li {
+    margin-bottom: 0.75rem; /* Space between list items */
+    font-size: 1.125rem; /* text-lg equivalent */
+    line-height: 1.6; /* leading-relaxed equivalent */
+    color: #4a5b6f; /* text-gray-700 equivalent */
+        }
+
+ol li a {
+    color: var(--color-accent-green); /* Links within list items use accent green */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease-in-out, text-decoration-color 0.2s ease-in-out;
+    font-weight: 500;
+        }
+
+ol li a:hover {
+    color: var(--color-accent-green-dark); /* Darker green on hover */
+    text-decoration-color: transparent;
+        }
+
 /* Specific overrides for elements that use Tailwind's default blue classes */
 .bg-blue-900 { /* Header background */
     background-color: var(--color-primary-dark);
