@@ -116,7 +116,7 @@ main {
 
 /* Section styling */
 section {
-    @apply bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12;
+    @apply bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-20;
 }
 
 /* Heading styles */
@@ -254,14 +254,12 @@ ul li a:hover {
 /* --- END STYLES FOR UNORDERED LIST (UL) --- */
 
 /* Specific overrides for Tailwind's default blue classes */
-/* These were already in Welcome_Page_Style.css, ensuring they are consistent */
 .bg-blue-900 { /* Header background */
     background-color: var(--color-primary-dark);
 }
 .text-blue-300 { /* Icon color in header */
     color: var(--color-accent-green);
 }
-/* .nav-link.active is handled above */
 .bg-blue-600 { /* ALMERA Inside button background */
     background-color: var(--color-accent-green);
 }
