@@ -12,73 +12,12 @@
     <link rel="stylesheet" href="css/Welcome_Page_Style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <style>
-        table.meeting-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: sans-serif;
-            margin-bottom: 2rem;
-        }
-
-        table.meeting-table th,
-        table.meeting-table td {
-            border: 1px solid #ccc;
-            padding: 8px 10px;
-            text-align: center;
-        }
-
-        table.meeting-table thead {
-            background-color: #f2f2f2;
-        }
-
-        table.meeting-table tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-
-        table.meeting-table th {
-            font-weight: bold;
-        }
-
-        ol {
-            list-style-type: decimal;
-            /* Ensure numbers are visible */
-            padding-left: 1.5rem;
-            /* Indent for numbers */
-            margin-bottom: 1.5rem;
-            /* Space below the list */
-            font-size: 1.125rem;
-            /* text-lg equivalent */
-            line-height: 1.6;
-            /* leading-relaxed equivalent */
-            color: var(--color-primary-dark);
-            /* Use dark muted blue for list item text */
-        }
-
-        ol li {
-            margin-bottom: 0.75rem;
-            /* Space between list items */
-        }
-
-        ol li a {
-            color: var(--color-accent-green);
-            /* Links within list items use accent green */
-            text-decoration: underline;
-            text-underline-offset: 3px;
-            transition: color 0.2s ease-in-out, text-decoration-color 0.2s ease-in-out;
-            font-weight: 500;
-        }
-
-        ol li a:hover {
-            color: var(--color-accent-green-dark);
-            /* Darker green on hover */
-            text-decoration-color: transparent;
-        }
-    </style>
 </head>
 
 <body class="antialiased">
 
     <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
+        
         <a href="index.html#hero" class="flex items-center space-x-3 group"> <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
         </a>
 
@@ -101,89 +40,91 @@
             <h1 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Validated Analytical Methods</h1>
 
             <p class="mb-6 text-lg text-gray-700">
-                Tested and validated analytical procedures are important tools for the production of reliable, comparable and ‘fit for purpose’ analytical measurements. However, finding and choosing a procedure can be a challenge due to a wide variety of technologies available and the rapidity of developments in the field.</p>
+                Tested and validated analytical procedures are important tools for the production of reliable, comparable and ‘fit for purpose’ analytical measurements. However, finding and choosing a procedure can be a challenge due to a wide variety of technologies available and the rapidity of developments in the field.
+            </p>
 
             <p class="mb-6 text-lg text-gray-700">
-                Therefore, since 2004 the IAEA’s programme related to ALMERA has included activities aimed towards the development of a set of procedures for determination of radionuclides in environmental samples. It is intended that as these are developed, they will be made available to laboratories wishing to use procedures that have been validated by a large number of laboratories and therefore could be regarded as having been widely tested.</p>
+                Therefore, since 2004 the IAEA’s programme related to ALMERA has included activities aimed towards the development of a set of procedures for determination of radionuclides in environmental samples. It is intended that as these are developed, they will be made available to laboratories wishing to use procedures that have been validated by a large number of laboratories and therefore could be regarded as having been widely tested.
+            </p>
 
             <p class="mb-6 text-lg text-gray-700">
                 The following table reports the most recent outcomes of ALMERA’s activities aimed towards the development of a set of procedures for determination of radionuclides in environmental samples, both for routine environmental monitoring and emergency monitoring. The number between brackets is related to the corresponding IAEA publication available for download below the table.</p>
 
-            <table style="border-collapse: collapse; width: 100%;">
+            <table class="meeting-table">
                 <thead>
                     <tr>
-                        <th style="border: 1px solid #000; padding: 8px;">Sample Matrix</th>
-                        <th style="border: 1px solid #000; padding: 8px;">Pu isot.</th>
-                        <th style="border: 1px solid #000; padding: 8px;">Am-241</th>
-                        <th style="border: 1px solid #000; padding: 8px;">Sr-90</th>
-                        <th style="border: 1px solid #000; padding: 8px;">Po-210</th>
-                        <th style="border: 1px solid #000; padding: 8px;">Pb-210</th>
-                        <th style="border: 1px solid #000; padding: 8px;">Ra-226+228</th>
-                        <th style="border: 1px solid #000; padding: 8px;">U</th>
-                        <th style="border: 1px solid #000; padding: 8px;">Th</th>
+                        <th>Sample Matrix</th>
+                        <th>Pu isot.</th>
+                        <th>Am-241</th>
+                        <th>Sr-90</th>
+                        <th>Po-210</th>
+                        <th>Pb-210</th>
+                        <th>Ra-226+228</th>
+                        <th>U</th>
+                        <th>Th</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="border: 1px solid #000; padding: 8px;">Aerosol</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(4)</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(4)</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(4)</td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td>Aerosol</td>
+                        <td>O(4)</td>
+                        <td>O(4)</td>
+                        <td>O(4)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #000; padding: 8px;">Soil/Sediment</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(4)/O(1)</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(4)/O(1)</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(4)</td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td>Soil/Sediment</td>
+                        <td>O(4)/O(1)</td>
+                        <td>O(4)/O(1)</td>
+                        <td>O(4)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #000; padding: 8px;">Terrestrial Surface Water</td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(2)</td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(5)</td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td>Terrestrial Surface Water</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>O(2)</td>
+                        <td></td>
+                        <td>O(5)</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #000; padding: 8px;">Milk</td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(6)</td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td>Milk</td>
+                        <td></td>
+                        <td></td>
+                        <td>O(6)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #000; padding: 8px;">Phosphogypsum</td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;"></td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(3)</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(3)</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(3)</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(3)</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(3)</td>
-                        <td style="border: 1px solid #000; padding: 8px;">O(3)</td>
+                        <td>Phosphogypsum</td>
+                        <td></td>
+                        <td></td>
+                        <td>O(3)</td>
+                        <td>O(3)</td>
+                        <td>O(3)</td>
+                        <td>O(3)</td>
+                        <td>O(3)</td>
+                        <td>O(3)</td>
                     </tr>
                 </tbody>
             </table>
 
 
-            <hr>
+            <hr class="my-8 border-t-2 border-gray-200">
 
             <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">Legend:</h3>
             <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
@@ -201,13 +142,16 @@
             </ol>
 
             <p class="mb-6 text-lg text-gray-700">
-                The following review report is also available as an IAEA Analytical Quality in Nuclear Applications Series document:</p>
+                The following review report is also available as an IAEA Analytical Quality in Nuclear Applications Series document:
+            </p>
+            
             <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
                 <li>Determination of radium isotopes in environmental samples, Analytical Quality in Nuclear Applications Series No. 19, 2010 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-19_web.pdf">download report (pdf)</a>)</li>
             </ul>
 
             <p class="mb-6 text-lg text-gray-700">
-                Bibliographic references of related ALMERA publications in journals are given below:</p>
+                Bibliographic references of related ALMERA publications in journals are given below:
+            </p>
 
             <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">Reviews</h3>
 
@@ -223,7 +167,7 @@
             </ul>
 
             <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">Research articles:</h3>
-            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
+            <ul>
                 <li>Development and application of an on-line sequential injection system for the separation of Pu, 210Po and 210Pb from environmental samples, Applied Radiation and Isotopes, 66, 223-230 (2008)</li>
                 <li>Quantification of measurement uncertainty in the sequential determination of 210Pb and 210Po by liquid scintillation counting and alpha-particle spectrometry, Accreditation and Quality Assurance, 13, 691-701 (2008)</li>
                 <li>Method validation of a procedure for determination of 210Po in water using DDTC solvent extraction and Sr-resin, Journal of Radioanalytical and. Nuclear Chemistry, 279, 639-646 (2009)</li>
@@ -234,9 +178,9 @@
                 <li>IAEA’s ALMERA network: Supporting the quality of environmental radioactivity measurements, Applied Radiation and Isotopes, 109, 90-95 (2016)</li>
                 <li>Assessment of measurement result uncertainty in determination of 210Pb with the focus on matrix composition effect in gamma-ray spectrometry, Applied Radiation and Isotopes, 109, 101-104 (2016)</li>
             </ul>
-
         </section>
     </main>
+    
     <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
         <div class="container mx-auto px-4">
             <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
