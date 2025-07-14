@@ -3,7 +3,7 @@
 /* Define CSS variables for the new color palette */
 :root {
     --color-primary-dark: #4a5b6f; /* Dark muted blue for header, main headings, strong text */
-    --color-primary: #69859d;      /* Medium muted blue for general links, some accents */
+    --color-primary: #69859d;     /* Medium muted blue for general links, some accents */
     --color-primary-light: #a7b9c9; /* Light muted blue for borders, subtle text */
     --color-primary-lighter: #e0e8f0; /* Very light muted blue for card backgrounds */
 
@@ -16,6 +16,7 @@ body {
     font-family: 'Inter', sans-serif;
     @apply bg-gray-50 text-gray-800 leading-relaxed;
     scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+    padding-top: 64px; /* Space for fixed header */
 }
 
 /* Animated Gradient Background for Hero Section - Updated to include green tones */
@@ -33,11 +34,11 @@ body {
 
 /* Glassmorphism Effect for Cards/Elements */
 .glassmorphism {
-    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-    backdrop-filter: blur(10px); /* Blur effect */
-    -webkit-backdrop-filter: blur(10px); /* Safari support */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Scroll-Reveal Animation */
@@ -74,77 +75,141 @@ body {
     display: none;
 }
 .hide-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 /* Custom styles for navigation links for active state */
 .nav-link {
     @apply block px-4 py-2 rounded-lg font-medium transition-colors duration-200 ease-in-out;
+    color: var(--color-primary-light); /* Lighter text for nav links */
 }
-.nav-link { /* This block might be redundant or conflict with the one above, consider merging */
-    @apply relative py-2 px-3 transition-all duration-300 rounded-full;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+.nav-link:hover {
+    background-color: var(--color-primary); /* Medium primary blue on hover */
+    color: white;
 }
 .nav-link.active {
-    background-color: var(--color-primary-dark); /* Use darker primary blue for active background */
-    @apply text-white shadow-md;
-}
-.nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-accent-green);
-    transition: width 0.3s ease;
+    background-color: var(--color-primary); /* Medium primary blue for active link */
+    color: white;
+    @apply shadow-md;
 }
 
-.nav-link.active::after {
-    width: calc(100% - 16px); /* Adjust based on padding/desired width */
+/* Header styles */
+header {
+    background-color: var(--color-primary-dark); /* Use primary dark for header background */
+    @apply fixed top-0 left-0 w-full text-white p-4 shadow-xl z-50 flex items-center justify-between;
+}
+header a {
+    @apply text-white; /* Ensure header links are white */
+}
+header .group svg {
+    color: var(--color-accent-green); /* Header icon in accent green */
+}
+#mobile-menu-overlay nav {
+    background-color: var(--color-primary-dark); /* Mobile menu background */
 }
 
-/* NEW: Table Styles using @apply */
-.table-data-cell {
-    @apply p-3; /* Apply padding utility */
-    border: 1px solid var(--color-primary-light); /* Use CSS variable for border color */
+/* Main content area */
+main {
+    @apply container mx-auto px-4 md:px-8 py-12;
 }
 
-.table-header-cell {
-    @apply p-3 text-left font-bold cursor-pointer; /* Apply common header utilities */
-    border: 1px solid var(--color-primary-light); /* Use CSS variable for border color */
-    background-color: var(--color-primary-lighter); /* Use CSS variable for background */
+/* Section styling */
+section {
+    @apply bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12;
 }
 
-/* Overriding Tailwind classes for headings and strong tags using CSS variables */
+/* Heading styles */
+h1 {
+    color: var(--color-primary-dark);
+    border-color: var(--color-primary-light);
+    @apply text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4;
+}
+
 h2 {
-    color: var(--color-primary-dark); /* Main headings in dark muted blue */
-    border-color: var(--color-primary-light); /* Lighter muted blue for border */
+    color: var(--color-primary-dark);
+    border-color: var(--color-primary-light);
+    @apply text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2;
 }
+
 h3 {
-    color: var(--color-accent-green-dark); /* Sub-headings in darker accent green */
+    color: var(--color-accent-green-dark);
+    @apply font-semibold text-xl mb-4;
+}
+
+/* Paragraph and strong text styling */
+p {
+    @apply text-lg text-gray-700 mb-6;
 }
 strong {
-    color: var(--color-primary-dark); /* Strong text in dark muted blue */
-}
-a {
-    color: var(--color-primary); /* General link color in medium muted blue */
+    color: var(--color-primary-dark); /* Apply dark muted blue to strong tags */
 }
 
+/* Table styling (consolidated and updated) */
+table.meeting-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 2rem;
+    @apply shadow-lg rounded-lg overflow-hidden;
+}
+
+table.meeting-table th,
+table.meeting-table td {
+    border: 1px solid var(--color-primary-light); /* Use CSS variable for lighter border */
+    padding: 12px 15px; /* More padding for better readability */
+    text-align: center;
+    @apply text-gray-700;
+}
+
+table.meeting-table thead {
+    background-color: var(--color-primary-lighter); /* Use lighter muted blue for header background */
+}
+
+table.meeting-table th {
+    font-weight: 600; /* Slightly bolder for headers */
+    color: var(--color-primary-dark); /* Dark muted blue for header text */
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+table.meeting-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8; /* Very light gray for even rows */
+}
+
+table.meeting-table tbody tr:hover {
+    background-color: #f0f0f0; /* Subtle hover effect for rows */
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Table link styling */
+table.meeting-table a {
+    color: var(--color-accent-green); /* Use the new accent green for link color */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease-in-out, text-decoration-color 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+table.meeting-table a:hover {
+    color: var(--color-accent-green-dark); /* Darker green on hover */
+    text-decoration-color: transparent;
+}
+
+
+/* --- STYLES FOR ORDERED LIST (OL) --- */
 ol {
     list-style-type: decimal; /* Ensure numbers are visible */
     padding-left: 1.5rem; /* Indent for numbers */
     margin-bottom: 1.5rem; /* Space below the list */
-    }
+    font-size: 1.125rem; /* text-lg equivalent */
+    line-height: 1.6; /* leading-relaxed equivalent */
+    color: var(--color-primary-dark); /* Use dark muted blue for list item text */
+}
 
 ol li {
     margin-bottom: 0.75rem; /* Space between list items */
-    font-size: 1.125rem; /* text-lg equivalent */
-    line-height: 1.6; /* leading-relaxed equivalent */
-    color: #4a5b6f; /* text-gray-700 equivalent */
-        }
+}
 
 ol li a {
     color: var(--color-accent-green); /* Links within list items use accent green */
@@ -152,34 +217,62 @@ ol li a {
     text-underline-offset: 3px;
     transition: color 0.2s ease-in-out, text-decoration-color 0.2s ease-in-out;
     font-weight: 500;
-        }
+}
 
 ol li a:hover {
     color: var(--color-accent-green-dark); /* Darker green on hover */
     text-decoration-color: transparent;
-        }
+}
+/* --- END STYLES FOR ORDERED LIST (OL) --- */
 
-/* Specific overrides for elements that use Tailwind's default blue classes */
+/* --- STYLES FOR UNORDERED LIST (UL) --- */
+ul {
+    list-style-type: disc; /* Ensure bullets are visible */
+    padding-left: 1.5rem; /* Indent for bullets */
+    margin-bottom: 1.5rem; /* Space below the list */
+    font-size: 1.125rem; /* text-lg equivalent */
+    line-height: 1.6; /* leading-relaxed equivalent */
+    color: var(--color-primary-dark); /* Use dark muted blue for list item text */
+}
+
+ul li {
+    margin-bottom: 0.75rem; /* Space between list items */
+}
+
+ul li a {
+    color: var(--color-accent-green); /* Links within list items use accent green */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease-in-out, text-decoration-color 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+ul li a:hover {
+    color: var(--color-accent-green-dark); /* Darker green on hover */
+    text-decoration-color: transparent;
+}
+/* --- END STYLES FOR UNORDERED LIST (UL) --- */
+
+/* Specific overrides for Tailwind's default blue classes */
+/* These were already in Welcome_Page_Style.css, ensuring they are consistent */
 .bg-blue-900 { /* Header background */
     background-color: var(--color-primary-dark);
 }
 .text-blue-300 { /* Icon color in header */
-    color: var(--color-accent-green); /* Header icon in accent green */
+    color: var(--color-accent-green);
 }
-.nav-link.active { /* Active nav link background - Redundant if defined above, keep this if it needs to override */
-    background-color: var(--color-primary-dark);
-}
+/* .nav-link.active is handled above */
 .bg-blue-600 { /* ALMERA Inside button background */
-    background-color: var(--color-accent-green); /* ALMERA Inside button in accent green */
+    background-color: var(--color-accent-green);
 }
 .hover\:bg-blue-700:hover { /* Hover for nav links and ALMERA Inside button */
-    background-color: var(--color-primary-dark); /* Hover for nav links in darker primary blue */
+    background-color: var(--color-primary-dark);
 }
 .text-blue-200 { /* Lighter text for nav links */
     color: var(--color-primary-light);
 }
 .text-blue-800 { /* Hero button text, Call to Action button text */
-    color: var(--color-accent-green-dark); /* Hero button text in darker accent green */
+    color: var(--color-accent-green-dark);
 }
 .bg-blue-50 { /* Benefits list items background */
     background-color: var(--color-primary-lighter);
@@ -194,12 +287,13 @@ ol li a:hover {
 .text-blue-400 { /* Footer links */
     color: var(--color-primary-light);
 }
+
+/* Footer styles */
+footer {
+    @apply bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner;
+}
+
+/* Scroll margin for fixed header */
 section[id] {
     scroll-margin-top: 80px; /* Adjust this value based on your header's height */
 }
-
-
-
-
-
-
