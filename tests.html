@@ -10,46 +10,101 @@
     <script src="https://unpkg.com/topojson-client@3"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Assuming css/Welcome_Page_Style.css contains your root color variables -->
     <link rel="stylesheet" href="css/Welcome_Page_Style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        /* Custom CSS for the table structure */
         table.meeting-table {
             width: 100%;
             border-collapse: collapse;
-            font-family: sans-serif;
+            font-family: 'Inter', sans-serif;
+            /* Ensure Inter font for table text */
             margin-bottom: 2rem;
+            @apply shadow-lg rounded-lg overflow-hidden;
+            /* Add modern styling to the table container */
         }
 
         table.meeting-table th,
         table.meeting-table td {
-            border: 1px solid #ccc;
-            padding: 8px 10px;
+            border: 1px solid #e0e0e0;
+            /* Lighter border for a softer look */
+            padding: 12px 15px;
+            /* More padding for better readability */
             text-align: center;
+            @apply text-gray-700;
+            /* Default text color for cells */
         }
 
         table.meeting-table thead {
-            background-color: #f2f2f2;
-        }
-
-        table.meeting-table tr:nth-child(even) {
-            background-color: #fafafa;
+            background-color: var(--color-primary-lighter);
+            /* Use lighter muted blue for header background */
         }
 
         table.meeting-table th {
-            font-weight: bold;
+            font-weight: 600;
+            /* Slightly bolder for headers */
+            color: var(--color-primary-dark);
+            /* Dark muted blue for header text */
+            text-transform: uppercase;
+            /* Optional: uppercase for headers */
+            font-size: 0.9rem;
+            /* Slightly smaller font for headers */
         }
+
+        table.meeting-table tbody tr:nth-child(even) {
+            background-color: #f8f8f8;
+            /* Very light gray for even rows */
+        }
+
+        table.meeting-table tbody tr:hover {
+            background-color: #f0f0f0;
+            /* Subtle hover effect for rows */
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        /* --- NEW STYLES FOR TABLE LINKS --- */
+        table.meeting-table a {
+            color: var(--color-accent-green);
+            /* Use the new accent green for link color */
+            text-decoration: underline;
+            /* Add underline to clearly show it's a link */
+            text-underline-offset: 3px;
+            /* Offset underline for better readability */
+            transition: color 0.2s ease-in-out, text-decoration-color 0.2s ease-in-out;
+            /* Smooth transition */
+            font-weight: 500;
+            /* Make links slightly bolder */
+        }
+
+        table.meeting-table a:hover {
+            color: var(--color-accent-green-dark);
+            /* Darker green on hover */
+            text-decoration-color: transparent;
+            /* Make underline disappear on hover for a modern touch */
+        }
+
     </style>
 </head>
 
 <body class="antialiased">
 
-
     <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
-        <a href="index.html#hero" class="flex items-center space-x-3 group"> <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
+        <a href="index.html#hero" class="flex items-center space-x-3 group">
+            <svg class="w-8 h-8 text-[var(--color-accent-green)] group-hover:text-white transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+            </svg>
+            <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
         </a>
 
-        <div id="main-nav-placeholder"></div>
+        <!-- Desktop Navigation (hidden on small screens, shown on medium+) -->
+        <nav class="hidden md:flex space-x-6">
+            <a href="index.html#about" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">About</a>
+            <a href="index.html#benefits" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Benefits</a>
+            <a href="stats.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Data Insights</a>
+            <a href="https://teams.microsoft.com/l/team/19:c359651111d64497970da3e1230cdd75@thread.tacv2/conversations?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=a2f21493-a4d1-4b7f-ad07-819c824f5c4a" target="_blank" rel="noopener noreferrer" class="nav-link bg-[var(--color-accent-green)] hover:bg-[var(--color-accent-green-dark)] text-white px-5 py-2 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">ALMERA Inside</a>
+        </nav>
 
         <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -58,16 +113,25 @@
         </button>
     </header>
 
+    <!-- Mobile Navigation Overlay -->
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
-        <div id="mobile-nav-placeholder"></div>
+        <nav class="absolute top-0 right-0 w-64 h-full bg-[var(--color-primary-dark)] shadow-lg p-6 flex flex-col space-y-4 transform translate-x-full transition-transform duration-300 ease-in-out">
+            <button id="close-mobile-menu" class="self-end text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="index.html#about" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">About</a>
+            <a href="index.html#benefits" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Benefits</a>
+            <a href="stats.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Data Insights</a>
+            <a href="https://teams.microsoft.com/l/team/19:c359651111d64497970da3e1230cdd75@thread.tacv2/conversations?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=a2f21493-a4d1-4b7f-ad07-819c824f5c4a" target="_blank" rel="noopener noreferrer" class="nav-link bg-[var(--color-accent-green)] hover:bg-[var(--color-accent-green-dark)] text-white px-5 py-2 rounded-full shadow-md transition-all duration-300 transform hover:scale-105 mt-4">ALMERA Inside</a>
+        </nav>
     </div>
     <div class="pt-20 md:pt-24"></div>
 
     <main class="container mx-auto px-4 md:px-8 py-12">
         <section class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
             <h1 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">ALMERA Proficiency Tests</h1>
-
-
 
             <p class="mb-6 text-lg text-gray-700">
                 Laboratories around the world may use different equipment, materials, and analytical procedures. Many prefer to continue using well-established methods that have proven reliable unless there is a compelling reason to change.
@@ -95,7 +159,6 @@
                 The IAEA's proficiency tests and interlaboratory comparison exercises are summarized in the table below:</p>
 
             <h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">
-
                 Upcoming Proficiency Test</h2>
 
             <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">IAEA-TERC-2025-01</h3>
@@ -218,7 +281,7 @@
                     </tr>
                     <tr>
                         <td>2017</td>
-                        <td><a href="http://www.teledos.gr/PT/iaea_tel_2017_03">Natural and anthropogenic RNs in water, milk powder and NORM samples</a></td>
+                        <td><a href="http://www.teledos.gr/PT/iaea_tel_2017-03">Natural and anthropogenic RNs in water, milk powder and NORM samples</a></td>
                         <td>89</td>
                         <td>58</td>
                     </tr>
@@ -260,6 +323,8 @@
     <script src="js/Welcome_Page_Style.js"></script>
 
 </body>
+
+</html>
 
 </html>
 
