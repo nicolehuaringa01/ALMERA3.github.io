@@ -1,124 +1,128 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="UTF-8">
-  <title>ALMERA Webinars</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primer/16.2.0/build.css">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      padding: 2rem;
-      background-color: #fff;
-      color: #24292e;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    h1, h2 {
-      color: #0366d6;
-    }
-
-    .nav-buttons {
-      margin-bottom: 2rem;
-    }
-
-    .nav-buttons a {
-      display: inline-block;
-      margin: 6px;
-      padding: 10px 18px;
-      background-color: #0366d6;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 600;
-    }
-
-    .nav-buttons a:hover {
-      background-color: #0256b3;
-    }
-
-    a {
-      color: #0366d6;
-    }
-
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #586069;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Webinars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Welcome_Page_Style.css">
 </head>
-<body>
 
-<div class="nav-buttons">
-    <a href="index.html">Home</a>
-    <a href="members.html">Members</a>
-    <a href="structure.html">Structure</a>
-    <a href="meetings.html">Coordination Meetings</a>
-    <a href="tests.html">Proficiency Tests</a>
-    <a href="methods.html">Validated Analytical Methods</a>
-    <a href="workshops.html">Workshops</a>
-    <a href="webinars.html">Webinars</a>
-    <a href="contact.html">Contact Persons</a>
-    <a href="https://teams.microsoft.com/l/team/19:c359651111d64497970da3e1230cdd75@thread.tacv2/conversations?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=a2f21493-a4d1-4b7f-ad07-819c824f5c4a">ALMERA Inside</a>
-    <a href="history.html">History</a>
-    <a href="stats.html">ALMERA in Data (2025)</a>
-  </div>
+<body class="antialiased">
 
+    <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
+        <a href="index.html#hero" class="flex items-center space-x-3 group"> <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
+        </a>
 
-<h1>ALMERA Webinar series: Foundations of gamma-ray spectrometry</h1>
+        <div id="main-nav-placeholder"></div>
 
-<p>Gamma-ray spectrometry measurement systems used in the laboratory (left) and in the field (right) for determination of gamma-ray emitting radionuclide activities in different types of samples.</p>
+        <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </header>
 
-<p>Example of a typical gamma spectrum output from the measurements.</p>
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
+        <div id="mobile-nav-placeholder"></div>
+    </div>
 
-<p>The ALMERA Coordination Team would hereby like to extend invitations to an upcoming Webinar series entitled "Foundations of gamma-ray spectrometry" which will take place virtually during the spring of 2021. The Webinar series will consist of 3 separate sessions which will focus on the basics of gamma-ray spectrometry as applied in a typical environmental radioactivity monitoring laboratory. The sessions aim to provide a general foundation of gamma-ray spectrometry to persons who are new to this field, or as repetition of some basic theory for more experienced practitioners.</p>
-
-<p>Each session will last an estimated 1.5-2 hours, including time for questions. Some pen-and-paper "homework exercises" emphasizing relevant topics will be prepared for each session. Participants can then work on the exercises individually after the session is over.</p>
-
-<p>The lecturer for the Webinar series is Mr Alexander Mauring, Gamma Spectrometry Specialist at IAEAs Terrestrial Laboratory in Seibersdorf and Scientific Coordinator of the ALMERA Network.</p>
-
-<h2>Details on webinar sessions</h2>
-
-<h3>Session 1: Gamma-ray spectrometry basics</h3>
-<p><strong>Date and time:</strong> 10 March 2021 09:00-11:00 CET (08:00-10:00 GMT)</p>
-<ul>
-    <li>What is gamma-ray spectrometry?</li>
-    <li>Features of the gamma spectrum</li>
-    <li>Different detector types and their properties</li>
-    <li>The measurement system</li>
-    <li>Energy calibration</li>
-    <li>General overview of a typical measurement process</li>
-</ul>
-
-<h3>Session 2: Gamma spectrum analysis and activity calculations</h3>
-<p><strong>Date and time:</strong> 7 April 2021 09:00-11:00 CET (07:00-09:00 GMT)</p>
-<ul>
-    <li>Spectrum analysis steps</li>
-    <li>Main features of typical gamma spectrum analysis software</li>
-    <li>Activity and uncertainty calculations in gamma-ray spectrometry</li>
-    <li>Some important correction factors (decay, self-attenuation, true coincidence summing, …)</li>
-</ul>
-
-<h3>Session 3: Efficiency calibration of HPGe detectors</h3>
-<p><strong>Date and time:</strong> 5 May 2021 09:00-11:00 CET (07:00-9:00 GMT)</p>
-<ul>
-    <li>Definition of the different types of "efficiency"</li>
-    <li>Theoretical basis of the full energy peak efficiency</li>
-    <li>Single nuclide vs. multi nuclide calibration</li>
-    <li>The efficiency calibration process in practice</li>
-    <li>Which factors influence the efficiency?</li>
-</ul>
-
-<h2>Presentations and recordings</h2>
-<p>All sessions were recorded and made available online for those who were not able to join live. The files from past sessions can be found <a href="https://nucleus.iaea.org/sites/AnalyticalReferenceMaterials/Shared%20Documents/Publications/Webinars/2021-ALMERA-Webinars.zip">here</a>.</p>
+    <main class="container mx-auto px-4 md:px-8 py-12">
 
 
+        <section id="webinars" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">
+                ALMERA Webinar series: Foundations of gamma-ray spectrometry</h2>
 
-<footer>
-    © 2025 ALMERA Network
-  </footer>
+            <p class="mb-6 text-lg text-gray-700">
+                Gamma-ray spectrometry measurement systems used in the laboratory (left) and in the field (right) for determination of gamma-ray emitting radionuclide activities in different types of samples.</p>
+
+            <p class="mb-6 text-lg text-gray-700">
+                Example of a typical gamma spectrum output from the measurements.</p>
+
+            <p class="mb-6 text-lg text-gray-700">
+                The ALMERA Coordination Team would hereby like to extend invitations to an upcoming Webinar series entitled "Foundations of gamma-ray spectrometry" which will take place virtually during the spring of 2021. The Webinar series will consist of 3 separate sessions which will focus on the basics of gamma-ray spectrometry as applied in a typical environmental radioactivity monitoring laboratory. The sessions aim to provide a general foundation of gamma-ray spectrometry to persons who are new to this field, or as repetition of some basic theory for more experienced practitioners.</p>
+
+            <p class="mb-6 text-lg text-gray-700">
+                Each session will last an estimated 1.5-2 hours, including time for questions. Some pen-and-paper "homework exercises" emphasizing relevant topics will be prepared for each session. Participants can then work on the exercises individually after the session is over.</p>
+
+            <p class="mb-6 text-lg text-gray-700">
+                The lecturer for the Webinar series is Mr Alexander Mauring, Gamma Spectrometry Specialist at IAEAs Terrestrial Laboratory in Seibersdorf and Scientific Coordinator of the ALMERA Network.</p>
+
+        </section>
+        <section id="details" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
+
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">
+                Details on webinar sessions</h2>
+
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
+                Session 1: Gamma-ray spectrometry basics</h3>
+
+            <p class="mb-6 text-lg text-gray-700">
+                <strong>Date and time:</strong>
+                10 March 2021 09:00-11:00 CET (08:00-10:00 GMT)
+            </p>
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
+                <li>What is gamma-ray spectrometry?</li>
+                <li>Features of the gamma spectrum</li>
+                <li>Different detector types and their properties</li>
+                <li>The measurement system</li>
+                <li>Energy calibration</li>
+                <li>General overview of a typical measurement process</li>
+            </ul>
+
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
+                Session 2: Gamma spectrum analysis and activity calculations</h3>
+            <p class="mb-6 text-lg text-gray-700">
+                <strong>Date and time:</strong>
+                7 April 2021 09:00-11:00 CET (07:00-09:00 GMT)
+            </p>
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
+                <li>Spectrum analysis steps</li>
+                <li>Main features of typical gamma spectrum analysis software</li>
+                <li>Activity and uncertainty calculations in gamma-ray spectrometry</li>
+                <li>Some important correction factors (decay, self-attenuation, true coincidence summing, …)</li>
+            </ul>
+
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
+                Session 3: Efficiency calibration of HPGe detectors</h3>
+            <p class="mb-6 text-lg text-gray-700">
+                <strong>Date and time:</strong>
+                5 May 2021 09:00-11:00 CET (07:00-9:00 GMT)
+            </p>
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
+                <li>Definition of the different types of "efficiency"</li>
+                <li>Theoretical basis of the full energy peak efficiency</li>
+                <li>Single nuclide vs. multi nuclide calibration</li>
+                <li>The efficiency calibration process in practice</li>
+                <li>Which factors influence the efficiency?</li>
+            </ul>
+
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
+                Presentations and recordings</h3>
+            <p class="mb-6 text-lg text-gray-700">
+                All sessions were recorded and made available online for those who were not able to join live. The files from past sessions can be found <a href="https://nucleus.iaea.org/sites/AnalyticalReferenceMaterials/Shared%20Documents/Publications/Webinars/2021-ALMERA-Webinars.zip">here</a>.</p>
+        </section>
+    </main>
+
+
+    <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+
+    <script src="js/Update_Shortcuts/load_navigation.js"></script>
+    <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
+    <script src="js/Update_Shortcuts/load_response_count.js"></script>
+    <script src="js/Update_Shortcuts/scroll_to_top.js"></script>
+    <script src="js/Welcome_Page_Style.js"></script>
 
 </body>
+
 </html>
