@@ -1,258 +1,235 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="UTF-8">
-  <title>ALMERA Training Workshops</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primer/16.2.0/build.css">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      padding: 2rem;
-      background-color: #fff;
-      color: #24292e;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    h1, h2 {
-      color: #0366d6;
-    }
-
-    .nav-buttons {
-      margin-bottom: 2rem;
-    }
-
-    .nav-buttons a {
-      display: inline-block;
-      margin: 6px;
-      padding: 10px 18px;
-      background-color: #0366d6;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 600;
-    }
-
-    .nav-buttons a:hover {
-      background-color: #0256b3;
-    }
-
-    a {
-      color: #0366d6;
-    }
-
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #586069;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Training Workshops</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Welcome_Page_Style.css">
 </head>
-<body>
 
-<div class="nav-buttons">
-    <a href="index.html">Home</a>
-    <a href="members.html">Members</a>
-    <a href="structure.html">Structure</a>
-    <a href="meetings.html">Coordination Meetings</a>
-    <a href="tests.html">Proficiency Tests</a>
-    <a href="methods.html">Validated Analytical Methods</a>
-    <a href="workshops.html">Workshops</a>
-    <a href="webinars.html">Webinars</a>
-    <a href="contact.html">Contact Persons</a>
-    <a href="https://teams.microsoft.com/l/team/19:c359651111d64497970da3e1230cdd75@thread.tacv2/conversations?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=a2f21493-a4d1-4b7f-ad07-819c824f5c4a">ALMERA Inside</a>
-    <a href="history.html">History</a>
-    <a href="stats.html">ALMERA in Data (2025)</a>
-  </div>
+<body class="antialiased bg-gray-50 text-gray-800 leading-relaxed">
 
+    <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
+        <a href="#hero" class="flex items-center space-x-3 group">
+            <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
+        </a>
 
-<div style="text-align: center;">
-<img src="Screenshot 2025-06-09 114855.png" width="700" height="400">
-</div>
- 
- <div style="text-align: center;">
-    <i>2024 ALMERA Workshop, Environmental Sampling Techniques: Participants engaged in hands-on exercises, performing random systematic sampling in various contamination case study scenarios</i>
-</div>
- 
-  <h1>ALMERA Training Workshops</h1>
+        <div id="main-nav-placeholder"></div>
 
-<p>ALMERA workshops and training courses aim at giving the opportunity to scientists from the ALMERA analytical laboratories to refresh and update their knowledge and skills in areas of interest to members of the ALMERA network. They consist of lectures and practical exercises.</p>
+        <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </header>
 
-<h3>Past Workshops and Trainings</h2>
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
+        <div id="mobile-nav-placeholder"></div>
+    </div>
 
-<table border="1" cellspacing="0" cellpadding="5">
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>Title of the ALMERA Workshop/Training Course</th>
-      <th>Participants</th>
-      <th>Member States</th>
-      <th>Host</th>
-      <th>Dates</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>2007</td>
-      <td><a href="http://cdsagenda5.ictp.trieste.it/full_display.php?ida=a06186">Understanding and evaluating radioanalytical measurement uncertainty</a></td>
-      <td>61</td>
-      <td>34</td>
-      <td>ICTP, Italy</td>
-      <td>8-16 November 2007</td>
-    </tr>
-    <tr>
-      <td>2009</td>
-      <td>Uptake of radionuclides into staple crops in the Asian region</td>
-      <td>17</td>
-      <td>10</td>
-      <td>Daejon, Republic of Korea</td>
-      <td>16-17 April 2009</td>
-    </tr>
-    <tr>
-      <td>2009</td>
-      <td><a href="http://agenda.ictp.it/smr.php?2064">In-situ X-ray fluorescence and gamma ray spectrometry</a></td>
-      <td>44</td>
-      <td>28</td>
-      <td>ICTP, Italy</td>
-      <td>26-30 October 2009</td>
-    </tr>
-    <tr>
-      <td>2010</td>
-      <td><a href="https://nucleus.iaea.org/rpst/ReferenceProducts/ALMERA/ALMERA_Workshops/ALMERA_Technical_Visit_Seibersdorf_2010.zip">Coincidence summing and geometry corrections in gamma spectrometry</a></td>
-      <td>32</td>
-      <td>20</td>
-      <td>IAEA Terrestrial Environment Laboratory, Austria</td>
-      <td>19-23 July 2010</td>
-    </tr>
-    <tr>
-      <td>2011</td>
-      <td>Measurement of natural radionuclides in environmental samples and NORMs and TENORMs by gamma spectrometry: challenges & methods</td>
-      <td>35</td>
-      <td>27</td>
-      <td>IAEA Marine Environment Laboratories, Monaco</td>
-      <td>5-9 December 2011</td>
-    </tr>
-    <tr>
-      <td>2012</td>
-      <td>Alpha Spectrometry and Radioanalytical Techniques</td>
-      <td>12</td>
-      <td>10</td>
-      <td>NECSA, South Africa</td>
-      <td>15-19 October 2012</td>
-    </tr>
-    <tr>
-      <td>2012</td>
-      <td>Measurement Results Uncertainty Estimation and Method Validation</td>
-      <td>29</td>
-      <td>20</td>
-      <td>TAEK, Turkey</td>
-      <td>12-16 November 2012</td>
-    </tr>
-    <tr>
-      <td>2014</td>
-      <td><a href="http://www.iaea.org/newscenter/news/2014/almera.html">Rapid Assessment Methods for Environmental Radioactivity</a></td>
-      <td>24</td>
-      <td>21</td>
-      <td>Argonne National Laboratory, United States of America</td>
-      <td>10-21 March 2014</td>
-    </tr>
-    <tr>
-      <td>2014</td>
-      <td><a href="http://www.iaea.org/newscenter/news/checking-radionuclides-dairy-food-products">Rapid Determination of Radiostrontium in Milk Using Cerenkov and Scintillation Counting</a></td>
-      <td>12</td>
-      <td>12</td>
-      <td>KINS, Republic of Korea</td>
-      <td>3-7 November 2014</td>
-    </tr>
-    <tr>
-      <td>2015</td>
-      <td><a href="http://www-pub.iaea.org/iaeameetings/49985/ALMERA-Analytical-Laboratories-for-the-Measurement-of-Environmental-Radioactivity-Training-Course-on-Rapid-Assessment-Methods-for-Environmental-Radioactivity">Rapid Assessment Methods for Environmental Radioactivity</a></td>
-      <td>24</td>
-      <td>22</td>
-      <td>Argonne National Laboratory, United States of America</td>
-      <td>4-15 May 2015</td>
-    </tr>
-    <tr>
-      <td>2015</td>
-      <td>In-Situ Gamma-Ray Spectrometry</td>
-      <td>24</td>
-      <td>20</td>
-      <td>Labor Spiez, Switzerland</td>
-      <td>2 - 6 November 2015</td>
-    </tr>
-    <tr>
-      <td>2016</td>
-      <td>Determination of Organically Bound Tritium in Food Samples Using Liquid Scintillation Counting</td>
-      <td>14</td>
-      <td>14</td>
-      <td>Canadian Nuclear Safety Commission, Canada</td>
-      <td>26-30 September 2016</td>
-    </tr>
-    <tr>
-      <td>2017</td>
-      <td>Measurement of natural radionuclides in environmental and NORM samples</td>
-      <td>24</td>
-      <td>19</td>
-      <td>Karlsruhe Institute of Technology, Germany</td>
-      <td>3-7 July 2017</td>
-    </tr>
-    <tr>
-      <td>2018</td>
-      <td><a href="https://www.iaea.org/events/almera-training-workshop-on-the-determination-of-characteristic-limits-used-in-nuclear-analytical-techniques">Determination of Characteristic Limits Used in Nuclear Analytical Techniques</a></td>
-      <td>30</td>
-      <td>24</td>
-      <td>National Physical Laboratory, United Kingdom</td>
-      <td>29-31 October 2018</td>
-    </tr>
-    <tr>
-      <td>2019</td>
-      <td>In-situ measurement techniques for the characterization of contaminated sites</td>
-      <td>16</td>
-      <td>15</td>
-      <td>Labor Spiez, Switzerland</td>
-      <td>21-25 October 2019</td>
-    </tr>
-    <tr>
-      <td>2021</td>
-      <td><a href="https://teams.microsoft.com/l/channel/19%3A17e80266c17a49aea2a721f7de470026%40thread.tacv2/EVT1904351?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=">Advanced Topics in Gamma-Ray Spectrometry</a></td>
-      <td>250</td>
-      <td>70</td>
-      <td>IAEA (Virtually)</td>
-      <td>7 - 11 June 2021</td>
-    </tr>
-    <tr>
-      <td>2022</td>
-      <td><a href="https://teams.microsoft.com/l/channel/19%3A6fe14d2641ae4a20a43d572bef9bdea2%40thread.tacv2/EVT2104246%202022%20QA-QC%20Training%20Workshop%20(copy)?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=">Quality Assurance/Quality Control for Environmental Radioanalytical Laboratories</a></td>
-      <td>226</td>
-      <td>62</td>
-      <td>IAEA (Virtually)</td>
-      <td>27 June - 1 July 2022</td>
-    </tr>
-    <tr>
-      <td>2023</td>
-      <td><a href="https://teams.microsoft.com/l/channel/19%3A9db576c9ad004ceb926a533ccb0cef54%40thread.tacv2/EVT2204728%202023%20Training%20Workshop?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=">Advanced Topics in Radiochemistry Techniques: Lead-210 and Polonium-210</a></td>
-      <td>262</td>
-      <td>67</td>
-      <td>IAEA (Virtually)</td>
-      <td>9-12 October 2023</td>
-    </tr>
-    <tr>
-      <td>2024</td>
-      <td><a href="https://www.iaea.org/newscenter/news/advancing-environmental-sampling-techniques-iaeas-almera-network-workshop-in-switzerland">Environmental Sampling Techniques</a></td>
-      <td>26</td>
-      <td>25</td>
-      <td>Labor Spiez, Switzerland</td>
-      <td>3-7 June 2024</td>
-    </tr>
-  </tbody>
-</table>
+    <main class="container mx-auto px-4 md:px-8 py-12">
 
+        <section id="workshops" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">ALMERA Training Workshops</h2>
+            <p class="mb-6 text-lg text-gray-700">
+                ALMERA workshops and training courses aim at giving the opportunity to scientists from the ALMERA analytical laboratories to refresh and update their knowledge and skills in areas of interest to members of the ALMERA network. They consist of lectures and practical exercises.
+            </p>
+            <div style="text-align: center;">
+                <img src="Screenshot 2025-06-09 114855.png" width="700" height="400">
+            </div>
 
+            <div style="text-align: center;">
+                <i>2024 ALMERA Workshop, Environmental Sampling Techniques: Participants engaged in hands-on exercises, performing random systematic sampling in various contamination case study scenarios</i>
+            </div>
+        </section>
 
-<footer>
-    © 2025 ALMERA Network
-  </footer>
+        <section id="past_workshops" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">Past Workshops and Trainings</h2>
+            <table class="meeting-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Title of the ALMERA Workshop/Training Course</th>
+                        <th>Participants</th>
+                        <th>Member States</th>
+                        <th>Host</th>
+                        <th>Dates</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2007</td>
+                        <td><a href="http://cdsagenda5.ictp.trieste.it/full_display.php?ida=a06186">Understanding and evaluating radioanalytical measurement uncertainty</a></td>
+                        <td>61</td>
+                        <td>34</td>
+                        <td>ICTP, Italy</td>
+                        <td>8-16 November 2007</td>
+                    </tr>
+                    <tr>
+                        <td>2009</td>
+                        <td>Uptake of radionuclides into staple crops in the Asian region</td>
+                        <td>17</td>
+                        <td>10</td>
+                        <td>Daejon, Republic of Korea</td>
+                        <td>16-17 April 2009</td>
+                    </tr>
+                    <tr>
+                        <td>2009</td>
+                        <td><a href="http://agenda.ictp.it/smr.php?2064">In-situ X-ray fluorescence and gamma ray spectrometry</a></td>
+                        <td>44</td>
+                        <td>28</td>
+                        <td>ICTP, Italy</td>
+                        <td>26-30 October 2009</td>
+                    </tr>
+                    <tr>
+                        <td>2010</td>
+                        <td><a href="https://nucleus.iaea.org/rpst/ReferenceProducts/ALMERA/ALMERA_Workshops/ALMERA_Technical_Visit_Seibersdorf_2010.zip">Coincidence summing and geometry corrections in gamma spectrometry</a></td>
+                        <td>32</td>
+                        <td>20</td>
+                        <td>IAEA Terrestrial Environment Laboratory, Austria</td>
+                        <td>19-23 July 2010</td>
+                    </tr>
+                    <tr>
+                        <td>2011</td>
+                        <td>Measurement of natural radionuclides in environmental samples and NORMs and TENORMs by gamma spectrometry: challenges & methods</td>
+                        <td>35</td>
+                        <td>27</td>
+                        <td>IAEA Marine Environment Laboratories, Monaco</td>
+                        <td>5-9 December 2011</td>
+                    </tr>
+                    <tr>
+                        <td>2012</td>
+                        <td>Alpha Spectrometry and Radioanalytical Techniques</td>
+                        <td>12</td>
+                        <td>10</td>
+                        <td>NECSA, South Africa</td>
+                        <td>15-19 October 2012</td>
+                    </tr>
+                    <tr>
+                        <td>2012</td>
+                        <td>Measurement Results Uncertainty Estimation and Method Validation</td>
+                        <td>29</td>
+                        <td>20</td>
+                        <td>TAEK, Turkey</td>
+                        <td>12-16 November 2012</td>
+                    </tr>
+                    <tr>
+                        <td>2014</td>
+                        <td><a href="http://www.iaea.org/newscenter/news/2014/almera.html">Rapid Assessment Methods for Environmental Radioactivity</a></td>
+                        <td>24</td>
+                        <td>21</td>
+                        <td>Argonne National Laboratory, United States of America</td>
+                        <td>10-21 March 2014</td>
+                    </tr>
+                    <tr>
+                        <td>2014</td>
+                        <td><a href="http://www.iaea.org/newscenter/news/checking-radionuclides-dairy-food-products">Rapid Determination of Radiostrontium in Milk Using Cerenkov and Scintillation Counting</a></td>
+                        <td>12</td>
+                        <td>12</td>
+                        <td>KINS, Republic of Korea</td>
+                        <td>3-7 November 2014</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td><a href="http://www-pub.iaea.org/iaeameetings/49985/ALMERA-Analytical-Laboratories-for-the-Measurement-of-Environmental-Radioactivity-Training-Course-on-Rapid-Assessment-Methods-for-Environmental-Radioactivity">Rapid Assessment Methods for Environmental Radioactivity</a></td>
+                        <td>24</td>
+                        <td>22</td>
+                        <td>Argonne National Laboratory, United States of America</td>
+                        <td>4-15 May 2015</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td>In-Situ Gamma-Ray Spectrometry</td>
+                        <td>24</td>
+                        <td>20</td>
+                        <td>Labor Spiez, Switzerland</td>
+                        <td>2 - 6 November 2015</td>
+                    </tr>
+                    <tr>
+                        <td>2016</td>
+                        <td>Determination of Organically Bound Tritium in Food Samples Using Liquid Scintillation Counting</td>
+                        <td>14</td>
+                        <td>14</td>
+                        <td>Canadian Nuclear Safety Commission, Canada</td>
+                        <td>26-30 September 2016</td>
+                    </tr>
+                    <tr>
+                        <td>2017</td>
+                        <td>Measurement of natural radionuclides in environmental and NORM samples</td>
+                        <td>24</td>
+                        <td>19</td>
+                        <td>Karlsruhe Institute of Technology, Germany</td>
+                        <td>3-7 July 2017</td>
+                    </tr>
+                    <tr>
+                        <td>2018</td>
+                        <td><a href="https://www.iaea.org/events/almera-training-workshop-on-the-determination-of-characteristic-limits-used-in-nuclear-analytical-techniques">Determination of Characteristic Limits Used in Nuclear Analytical Techniques</a></td>
+                        <td>30</td>
+                        <td>24</td>
+                        <td>National Physical Laboratory, United Kingdom</td>
+                        <td>29-31 October 2018</td>
+                    </tr>
+                    <tr>
+                        <td>2019</td>
+                        <td>In-situ measurement techniques for the characterization of contaminated sites</td>
+                        <td>16</td>
+                        <td>15</td>
+                        <td>Labor Spiez, Switzerland</td>
+                        <td>21-25 October 2019</td>
+                    </tr>
+                    <tr>
+                        <td>2021</td>
+                        <td><a href="https://teams.microsoft.com/l/channel/19%3A17e80266c17a49aea2a721f7de470026%40thread.tacv2/EVT1904351?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=">Advanced Topics in Gamma-Ray Spectrometry</a></td>
+                        <td>250</td>
+                        <td>70</td>
+                        <td>IAEA (Virtually)</td>
+                        <td>7 - 11 June 2021</td>
+                    </tr>
+                    <tr>
+                        <td>2022</td>
+                        <td><a href="https://teams.microsoft.com/l/channel/19%3A6fe14d2641ae4a20a43d572bef9bdea2%40thread.tacv2/EVT2104246%202022%20QA-QC%20Training%20Workshop%20(copy)?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=">Quality Assurance/Quality Control for Environmental Radioanalytical Laboratories</a></td>
+                        <td>226</td>
+                        <td>62</td>
+                        <td>IAEA (Virtually)</td>
+                        <td>27 June - 1 July 2022</td>
+                    </tr>
+                    <tr>
+                        <td>2023</td>
+                        <td><a href="https://teams.microsoft.com/l/channel/19%3A9db576c9ad004ceb926a533ccb0cef54%40thread.tacv2/EVT2204728%202023%20Training%20Workshop?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=">Advanced Topics in Radiochemistry Techniques: Lead-210 and Polonium-210</a></td>
+                        <td>262</td>
+                        <td>67</td>
+                        <td>IAEA (Virtually)</td>
+                        <td>9-12 October 2023</td>
+                    </tr>
+                    <tr>
+                        <td>2024</td>
+                        <td><a href="https://www.iaea.org/newscenter/news/advancing-environmental-sampling-techniques-iaeas-almera-network-workshop-in-switzerland">Environmental Sampling Techniques</a></td>
+                        <td>26</td>
+                        <td>25</td>
+                        <td>Labor Spiez, Switzerland</td>
+                        <td>3-7 June 2024</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
+            <div class="container mx-auto px-4">
+                <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+
+        <script src="js/Update_Shortcuts/load_navigation.js"></script>
+        <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
+        <script src="js/Update_Shortcuts/load_response_count.js"></script>
+        <script src="js/Update_Shortcuts/scroll_to_top.js"></script>
+        <script src="js/Welcome_Page_Style.js"></script>
 
 </body>
+
 </html>
