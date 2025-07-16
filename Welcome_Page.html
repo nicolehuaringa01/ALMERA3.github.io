@@ -1,34 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The ALMERA Network</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/Welcome_Page_Style.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Structure</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/Welcome_Page_Style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Existing CSS for map container and tooltip */
+        #almera-members-map-container {
+            width: 100%; /* Or set a fixed width like 960px */
+            height: 500px; /* Fixed height as per Observable code */
+            margin-top: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden; /* Ensures content stays within bounds */
+        }
+
+        #almera-members-map-container canvas {
+            display: block; /* Remove extra space below canvas */
+            width: 100%; /* Make canvas fill its container */
+            height: 100%;
+        }
+
+        .map-tooltip {
+            position: absolute;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 4px;
+            pointer-events: none; /* Allows clicks/hovers to pass through */
+            font-size: 12px;
+            display: none; /* Hidden by default */
+            z-index: 1001; /* Above header if possible */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+
+</head>
 
 <body class="antialiased">
 
- <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
-        <a href="#hero" class="flex items-center space-x-3 group">
-            <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
+    <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
+        <a href="index.html#hero" class="flex items-center space-x-3 group"> <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
         </a>
 
-        <nav class="hidden md:flex space-x-6">
-            <a href="members.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Members</a>
-            <a href="structure.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Structure</a>
-            <a href="meetings.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Coordination Meetings</a>
-            <a href="tests.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Proficiency Tests</a>
-            <a href="methods.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Analytical Methods</a>
-            <a href="workshops.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Workshops</a>
-            <a href="webinars.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Webinars</a>
-            <a href="history.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">History</a>
-            <a href="stats.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">ALMERA in Data (2025)</a>
-            <a href="https://teams.microsoft.com/l/team/19:c359651111d64497970da3e1230cdd75@thread.tacv2/conversations?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=a2f21493-a4d1-4b7f-ad07-819c824f5c4a" target="_blank" rel="noopener noreferrer" class="nav-link bg-[var(--color-accent-green)] hover:bg-[var(--color-accent-green-dark)] text-white px-5 py-2 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">ALMERA Inside</a>
-        </nav>
+        <div id="main-nav-placeholder"></div>
 
         <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -37,126 +60,64 @@
         </button>
     </header>
 
-     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
-        <nav class="absolute top-0 right-0 w-64 h-full bg-blue-900 shadow-lg p-6 flex flex-col space-y-4 transform translate-x-full transition-transform duration-300 ease-in-out">
-            <button id="close-mobile-menu" class="self-end text-white focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <a href="#about" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">About</a>
-            <a href="#benefits" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Benefits</a>
-            <a href="members.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Members</a>
-            <a href="structure.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Structure</a>
-            <a href="meetings.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Coordination Meetings</a>
-            <a href="tests.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Proficiency Tests</a>
-            <a href="methods.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Validated Analytical Methods</a>
-            <a href="workshops.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Workshops</a>
-            <a href="webinars.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">Webinars</a>
-            <a href="history.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">History</a>
-            <a href="stats.html" class="nav-link text-[var(--color-primary-light)] hover:text-white hover:bg-[var(--color-primary-dark)]">ALMERA in Data (2025)</a>
-            <a href="https://teams.microsoft.com/l/team/19:c359651111d64497970da3e1230cdd75@thread.tacv2/conversations?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=a2f21493-a4d1-4b7f-ad07-819c824f5c4a" target="_blank" rel="noopener noreferrer" class="nav-link bg-[var(--color-accent-green)] hover:bg-[var(--color-accent-green-dark)] text-white px-5 py-2 rounded-full shadow-md transition-all duration-300 transform hover:scale-105 mt-4">ALMERA Inside</a>
-        </nav>
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
+        <div id="mobile-nav-placeholder"></div>
     </div>
-    
-    <section id="hero" class="relative h-screen flex items-center justify-center text-center animated-gradient-bg text-white pt-16">
-        <div class="z-10 p-6 max-w-4xl mx-auto glassmorphism rounded-2xl border border-white border-opacity-30 shadow-2xl">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg leading-tight">
-                The ALMERA Network
-            </h1>
-            <p class="text-lg md:text-xl font-light mb-8 opacity-90">
-                Supporting Global Efforts to Reliably Measure Environmental Radioactivity
-            </p>
-            <a href="#about" class="inline-block bg-white text-[var(--color-accent-green-dark)] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-lg">
-                Discover More
-            </a>
-        </div>
-    </section>
+    <div class="pt-20 md:pt-24"></div>
 
-<main class="container mx-auto px-4 md:px-8 py-12">
 
-        <section id="about" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
-    <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">About the ALMERA Network</h2>
-    <p class="mb-6 text-lg text-gray-700">
-        The worldwide network of <strong class="text-[var(--color-primary-dark)]">Analytical Laboratories for the Measurement of Environmental Radioactivity (ALMERA)</strong> aims at providing reliable and timely determination of radionuclides in samples, such as air, water, soil, sediment and vegetation that are used for both routine and emergency environmental monitoring by Member States.
-    </p>
-    <p class="mb-6 text-lg text-gray-700">
-        The <strong class="text-[var(--color-primary-dark)]">International Atomic Energy Agency (IAEA)</strong> supports ALMERA activities that help Member States to provide reliable, comparable and fit-for-purpose results, which are an essential requirement for any decision based on analytical measurements to protect people and the environment. This includes the organization of annual
-        
-        <a href="tests.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">Proficiency Tests</a>
-        
-        (PTs) and interlaboratory comparisons (ILCs) for radionuclides in environmental and food samples, the provision of trainings through various
-        
-        <a href="workshops.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">workshops</a> 
-        
-        and
-        
-        <a href="webinars.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">webinars</a>
-        
-        , as well as support for collaborative development and the
-        
-        <a href="methods.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">validation of radioanalytical methods</a>.
-    </p>
-    <p class="mb-6 text-lg text-gray-700">
-        As of <strong class="text-[var(--color-primary-dark)]">July 2025</strong>, ALMERA consists of
-    
-        <a href="members.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline"><strong class="text-[var(--color-primary-dark)]">198 members</strong></a> representing <strong class="text-[var(--color-primary-dark)]">90 countries</strong>. You can find more detailed
-        <a href="stats.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">ALMERA in Data (2025)</a> regarding the network's composition and activities. The Agency's Marine Environment Laboratories in Monaco and the Terrestrial Environmental Radiochemistry (TERC) Laboratory of the IAEA Physical and Chemical Sciences Division are additional members of the network. The <strong class="text-[var(--color-primary-dark)]">IAEA Marine Environment Laboratories</strong> act as the central coordinator of the ALMERA network's activities.
-    </p>
-    <p class="mb-6 text-lg text-gray-700">
-        The IAEA helps the ALMERA network maintain readiness through coordination activities such as:
-    </p>
-    <ul class="list-disc list-inside space-y-3 mb-6 text-lg text-gray-700">
-        <li>Organizing <a href="meetings.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline">Coordination Meetings</a></li>
-        <li>Developing standardized methods for sample collection and analysis</li>
-        <li>Conducting interlaboratory comparison exercises and proficiency tests as tools for external quality control</li>
-    </ul>
-</section>
+    <main class="container mx-auto px-4 md:px-8 py-12">
+        <section class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
+            <h1 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">ALMERA Network Structure</h1>
 
-        <section id="benefits" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
-    <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">Benefits of Joining ALMERA</h2>
-    <p class="mb-6 text-lg text-gray-700">
-        For environmental radioanalytical laboratories worldwide, participation in the ALMERA network's activities enables them to:
-    </p>
-    <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg text-gray-700">
-        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
-            <h3 class="font-semibold text-xl mb-2">Demonstrate Technical Competence</h3>
-            <p>Prove and maintain their technical competence in accurately measuring environmental radioactivity through international proficiency tests.</p>
-        </li>
-        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
-            <h3 class="font-semibold text-xl mb-2">Harmonize Analytical Methods</h3>
-            <p>Adopt and apply recommended, validated analytical methods, leading to methodological harmonization and enhanced worldwide comparability of environmental radioactivity measurement results.</p>
-        </li>
-        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
-            <h3 class="font-semibold text-xl mb-2">Enhance Staff Capabilities</h3>
-            <p>Improve the analytical capabilities of their personnel through training, workshops, and shared best practices, ensuring they meet global standards.</p>
-        </li>
-        <li class="p-5 rounded-lg border hover:shadow-lg transition-shadow duration-300">
-            <h3 class="font-semibold text-xl mb-2">Foster Global Collaboration</h3>
-            <p>Collaborate closely with similar laboratories in their region and across the globe, contributing to a stronger, more prepared international network for radiological emergencies.</p>
-        </li>
-    </ul>
-</section>
+            <div id="labs-geographic-chart" class="mb-12"></div>
+            <script src="js/1.Geographic_and_Institutional_Coverage/1.2LabsGeographic.js"></script>
 
-        <section class="bg-[var(--color-primary-dark)] text-white p-8 md:p-12 rounded-xl shadow-2xl text-center scroll-reveal">
-            <h2 class="text-white text-3xl md:text-4xl font-bold mb-4">Join the Global Network</h2>
-            <p class="text-lg md:text-xl mb-8 opacity-90">
-                Be part of a leading international effort in environmental radioactivity measurement.
-            </p>
-            <a href="contact.html" class="inline-block bg-white text-[var(--color-accent-green-dark)] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-lg">
-                Contact Us
-            </a>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Central Coordination</h2>
+            <p class="mb-4 text-lg text-gray-700 max-w-prose">Based at the <strong>IAEA's Marine Environmental Laboratories in Monaco</strong>.</p>
+            <p class="mb-4 text-lg text-gray-700 max-w-prose">Responsibilities include:</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700 max-w-prose">
+                <li>Coordinating the global network and developing medium/long-term targets </li>
+                <li>Ensuring results are SI-traceable</li>
+                <li>Evaluating lab performance through PTs and ILCs </li>
+                <li>Organizing annual coordination meetings and reporting their outcomes and recommendations </li>
+                <li>Disseminating relevant information to members (for example) meeting reports, guidelines for sample design, sample collection and treatment, etc. </li>
+            </ul>
+
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Regional Groups</h2>
+            <p class="mb-6 text-lg text-gray-700 max-w-prose">To enhance collaboration, ALMERA is subdivided into regional groups, with their respective coordinating centre:</p>
+
+            <div class="flex justify-center mb-4"> <img src="Structure.png" alt="ALMERA Network Regional Groups Structure" class="max-w-full h-auto">
+            </div>
+            <div class="text-center text-sm text-gray-600 mb-8 italic max-w-prose mx-auto">
+                Visual representation of ALMERA's regional groups and coordinating centers.
+            </div>
+
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700 max-w-prose">
+                <li>Laboratories must select their regional group; otherwise, IAEA assigns based on geography.</li>
+                <li>Laboratories can switch groups at any moment for any reason.</li>
+                <li>Participation in activities across regions is allowed, but each laboratory should formally belong to one group for organizational efficiency.</li>
+                <li>Countries with multiple laboratories may assign them to different regional groups.</li>
+                <li>Coordinating centres in each group should rotate every five years.</li>
+            </ul>
+
         </section>
-
     </main>
-    
+
     <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
         <div class="container mx-auto px-4">
             <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
         </div>
     </footer>
 
-<script src="js/Welcome_Page_Style.js"></script> </html>
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+
+    <script src="js/MembersTable.js"></script>
+    <script src="js/Update_Shortcuts/load_navigation.js"></script>
+    <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
+    <script src="js/Update_Shortcuts/load_response_count.js"></script>
+    <script src="js/Update_Shortcuts/scroll_to_top.js"></script>
+    <script src="js/Welcome_Page_Style.js"></script>
 
 </body>
 </html>
