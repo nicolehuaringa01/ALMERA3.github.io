@@ -41,7 +41,7 @@ async function initializeALMERAMap() {
     .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
     .range(["#d10000", "#009d28", "#0083b4", "#9942b2", "#ddb100"]);
 
-  const projection = d3.geoEqualEarth().fitSize([width, height], ({ type: "Sphere" }));
+  const projection = d3.geoOrthographic().fitSize([width, height], ({ type: "Sphere" }));
   const path = d3.geoPath(projection, context);
 
   // Tooltip element (created globally in HTML for easier positioning relative to body)
