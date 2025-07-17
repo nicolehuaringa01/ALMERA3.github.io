@@ -159,7 +159,27 @@ async function initializeALMERAMap() {
 
     return points; // Return rendered points for event handling
   }
+let rotation = [0, 0]; // Initial rotation degrees
 
+// ... inside the initializeALMERAMap() function ...
+
+// Add drag behavior for rotation
+const drag = d3.drag()
+    .on("start", (event) => {
+        // Store initial rotation at the start of a drag
+        const [x, y] = projection.rotate();
+        event.x = x;
+        event.y = y;
+    })
+    .on("drag", (event) => {
+        // Rotate the globe based on mouse movement
+        const sensitivity = 0.5;
+        rotation = [event.x + event.dx * sensitivity, event.y - event.dy * sensitivity];
+        projection.rotate(rotation);
+        render(land50m); // Re-render the map with the new rotation
+    });
+
+d3.select(canvas).call(drag); // Apply drag behavior to the canvas
   // Initial render
   let renderedPoints = render(land50m);
 
