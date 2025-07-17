@@ -1,4 +1,4 @@
-const csvDataPath = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // CORRECTED PATH
+const csvDataPath1000 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // CORRECTED PATH
 // Replace the simple land data with a more detailed Natural Earth TopoJSON
 const worldTopojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/world-110m.json";
 
@@ -21,7 +21,7 @@ async function initializeALMERAMap() {
 
     let data, worldTopo;
     try {
-        data = await d3.csv(csvDataPath);
+        data = await d3.csv(csvDataPath1000);
         console.log("ALMERA Survey Data loaded:", data.length, "records");
 
         // Fetch the more detailed world topojson
