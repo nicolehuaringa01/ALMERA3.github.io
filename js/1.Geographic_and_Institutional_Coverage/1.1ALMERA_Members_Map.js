@@ -89,10 +89,11 @@ async function initializeALMERAMap() {
     context.clearRect(0, 0, width, height); // Clear full canvas
 
     // Draw ocean
-    context.beginPath();
-    path({ type: "Sphere" });
-    context.fillStyle = "#ffffff"; // Ocean color
-    context.fill();
+     context.beginPath();
+    d3.geoPath(projection, context)(d3.geoGraticule10()); // Draws lines every 10 degrees
+    context.strokeStyle = "#e0e0e0"; // A subtle gray color
+    context.lineWidth = 0.5;
+    context.stroke();
 
     // Draw land
     context.beginPath();
@@ -123,10 +124,10 @@ async function initializeALMERAMap() {
         city: d["City"] || "Unknown City",
         memberState: d["1.3 Member State"] || "No Member State"
       };
-    }).filter(p => p !== null); // Remove null points (invalid coordinates)
+    }).filter(p => p !== null);
 
     // Cluster points to avoid overlap
-    const clusters = clusterPoints(points, 15); // 15px radius for clustering
+    const clusters = clusterPoints(points, 15);
 
     clusters.forEach(cluster => {
       if (cluster.points.length > 1) {
