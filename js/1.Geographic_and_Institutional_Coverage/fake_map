@@ -3,7 +3,7 @@ const csvDataPath = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // CORRE
 const worldTopojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/world-110m.json";
 
 async function initializeALMERAMap() {
-    const container = document.getElementById("almera-members-map-container");
+    const container = document.getElementById("almera-members-map-container1");
     if (!container) {
         console.error("Map container element #almera-members-map-container not found.");
         return;
