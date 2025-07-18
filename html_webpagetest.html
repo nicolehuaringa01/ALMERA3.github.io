@@ -4,32 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALMERA Webinars</title>
+    <title>ALMERA Training Workshops</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/Welcome_Page_Style.css">
-
-    <!-- D3.js library - REQUIRED for ALMERALabsHistory.js and MembersTable.js -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-
-    <!-- The internal style block is now empty as all styles are in Welcome_Page_Style.css -->
-    <style>
-        /* This style block is intentionally left empty as all custom styles
-           are now consolidated in css/Welcome_Page_Style.css for better maintainability. */
-    </style>
 </head>
 
 <body class="antialiased">
-
+    
+    
     <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
-        <a href="index.html#hero" class="flex items-center space-x-3 group">
-            <!-- Replaced SVG icon with image logo -->
-            <img src="data/Almera Logo 2.jpg" alt="ALMERA Logo" class="w-8 h-8 rounded-full object-cover transition-transform duration-300 transform group-hover:scale-105">
-            <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
+        <a href="index.html#hero" class="flex items-center space-x-3 group"> <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
         </a>
 
         <div id="main-nav-placeholder"></div>
-
+        
         <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -40,157 +29,196 @@
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
         <div id="mobile-nav-placeholder"></div>
     </div>
-
-    <!-- Added padding-top to main to account for fixed header -->
+    
     <div class="pt-20 md:pt-24"></div>
 
-    <main class="container mx-auto px-4 md:px-8 py-12">
-        <section id="history" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-20 scroll-reveal">
+    <main class ="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
+        <section id="workshops">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">
-                History of the ALMERA Network</h2>
-            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
-                Background</h3>
+                ALMERA Training Workshops</h2>
             <p class="mb-6 text-lg text-gray-700">
-                ALMERA emerged from efforts following Chernobyl accident. In 1991, participants of the IAEA Co-ordinated Research Project (CRP) recognized the need to maintain a network of specialized laboratories for radionuclide contamination assessment and emergency response.</p>
-            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
-                Origins</h3>
-
-            <p class="mb-6 text-lg text-gray-700">
-                <strong>1991: </strong>At the 2nd IAEA Research Coordination Meetings (RCM) of the CRP expressed interest to maintain the network of monitoring laboratories assembled for assistance with the International Chernobyl Project. “MARENA” CRP was established:
+                ALMERA workshops and training courses aim at giving the opportunity to scientists from the ALMERA analytical laboratories to refresh and update their knowledge and skills in areas of interest to members of the ALMERA network. They consist of lectures and practical exercises.
             </p>
-            <ul>
-                <li>to provide assessments of radionuclide contamination in food and the environment and in case of a radiological emergency</li>
-                <li>to conduct intercomparison and testing of technologies, employing standard reference materials and procedures and field measurements at significantly contaminated areas</li>
-                <li>to conduct training of Member State laboratory personnel through fellowships, special courses and workshops.</li>
-            </ul>
 
-            <p class="mb-6 text-lg text-gray-700">
-                <strong>1994:</strong> RCM in Abu Dhabi, United Arab Emirates:
-            </p>
-            <ul>
-                <li>Participants recommended establishing a core group of laboratories, expandable to address capability gaps. The laboratories present at this RCM could form the required core.</li>
-                <li>Suggested the IAEA coordinate the network. </li>
-            </ul>
-
-            <p class="mb-6 text-lg text-gray-700">
-                <strong>1995:</strong> The IAEA established the ALMERA Network.</p>
-
-            <p class="mb-6 text-lg text-gray-700">
-                The lecturer for the Webinar series is Mr Alexander Mauring, Gamma Spectrometry Specialist at IAEAs Terrestrial Laboratory in Seibersdorf and Scientific Coordinator of the ALMERA Network.</p>
+            <div style="text-align: center;">
+                <img src="Screenshot 2025-06-09 114855.png" width="700" height="400" class="block mx-auto">
+            </div>
 
 
-            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
-                Coordination Meetings</h3>
+            <div style="text-align: center;">
+                <i>2024 ALMERA Workshop, Environmental Sampling Techniques: Participants engaged in hands-on exercises, performing random systematic sampling in various contamination case study scenarios</i>
+            </div>
 
-            <ul>
-                <li><strong>1997:</strong> 1st Coordination Meeting (Vienna, Austria). It was attended by 38 participants from 15 countries, most of which were European members, due to difficulties in contact update and limited funds.</li>
-                <li><strong>2005:</strong> 2nd Coordination Meeting (Trieste, Italy). UN Secretariat provided the funds and organisation for this meeting. Proposals included the creation of regional sub-groups with focal points and the organisation of annual coordination meetings</li>
-                <li><strong>2006: </strong> 3rd Coordination Meeting held (Daejeon, Republic of Korea). A new structure of the network proposed by the IAEA was discussed and approved.</li>
-                <li><strong>2007-Present:</strong> Ever since then, Coordination Meetings have been organized annually (virtually for 2020 and 2021).</li>
-                <li><strong>Click <a href="meetings.html">here</a></strong> to learn more about ALMERA Coordination Meetings.</li>
-            </ul>
-
-            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
-                Founding Members</h3>
-
-            <p class="mb-6 text-lg text-gray-700">
-                As per the <strong>Appendix III</strong>, <a href="https://inis.iaea.org/records/dcf9b-2an66">“Report of the second research co-ordination meeting on the co-ordinated research programme: rapid instrumental and separation methods for monitoring radionuclides in food and environmental samples”, page 27</a></p>
-
-            <!-- Corrected nested ul structure and applied consistent styling -->
-            <ul>
-                <li><strong>Ministry of Agriculture Fisheries and Food Fisheries Laboratory</strong>
-                    <ul>
-                        <li>Pakefield Road, Lowestoft, Suffolk NR33 OHR, United Kingdom</li>
-                    </ul>
-                </li>
-
-                <li><strong>Atominstitut der Oesterreichischen Universitäten</strong>
-                    <ul>
-                        <li>Schüttelstre. 115, A-1020 Vienna, Austria</li>
-                    </ul>
-                </li>
-
-                <li><strong>Instituto de Radioproteçao e Dosimetria, Commissao Nacional de Energia Nuclear (CNEN)</strong>
-                    <ul>
-                        <li>Av. das Americas Km 11.5, Rio de Janeiro, CEP 22700 Barra de Tijuca, Brazil</li>
-                    </ul>
-                </li>
-
-                <li><strong>Swedish Radiation Protection Institute, Division of Chemistry</strong>
-                    <ul>
-                        <li>P.O. Box 60204, S-104 01 Stockholm, Sweden</li>
-                    </ul>
-                </li>
-
-                <li><strong>Battelle Pacific Northwest Laboratories</strong>
-                    <ul>
-                        <li>P.O. Box 999, Richland, WA 99352, United States of America</li>
-                    </ul>
-                </li>
-
-                <li><strong>Jozef Stefan Institute, Nuclear Chemistry Department</strong>
-                    <ul>
-                        <li>P.O. Box 100, Jamova 39, YU-61111, Ljubljana, Yugoslavia (now Slovenia)</li>
-                    </ul>
-                </li>
-
-                <li><strong>National Institute for Radiation Hygiene</strong>
-                    <ul>
-                        <li>P.O. Box 55, N-1345 Osteras, Norway</li>
-                    </ul>
-                </li>
-
-                <li><strong>Sofia University, Faculty of Physics, Department of Applied Nuclear Physics and Nuclear Energy</strong>
-                    <ul>
-                        <li>A. Ivanov 5, Sofia-1126, Bulgaria</li>
-                    </ul>
-                </li>
-
-                <li><strong>Atomic Energy Research Institute of the Central Research Institute for Physics, Health Physics Department</strong>
-                    <ul>
-                        <li>P.O. Box 49, H-1525 Budapest, Hungary</li>
-                    </ul>
-                </li>
-
-                <li><strong>Institute of Atomic Energy, Radiometrology Centre</strong>
-                    <ul>
-                        <li>P.O. Box 275, Beijing, People’s Republic of China</li>
-                    </ul>
-                </li>
-
-                <li><strong>Bhabha Atomic Research Centre Head, Env. Studies Section, H.P. Division</strong>
-                    <ul>
-                        <li>Trombay, Bombay - 400 085, India</li>
-                    </ul>
-                </li>
-
-                <li><strong>AECL-Research Company, Chalk River Laboratories</strong>
-                    <ul>
-                        <li>Chalk River, Ontario, K0J 1J0, Canada</li>
-                    </ul>
-                </li>
-
-                <li><strong>Nuclear Research Center Karlsruhe</strong>
-                    <ul>
-                        <li>P.O. Box 3640, BFE, Building 325, D-W 7500, Karlsruhe 1, Germany</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
-                ALMERA Amount of Labs from From 2013 - 2025</h3>
-            <summary class="text-lg text-gray-700 mb-4">2013 vs. 2025 Comparison</summary>
-            <p class="mb-6 text-lg text-gray-700">
-                Number of laboratories in each country has increased from 2013 to 2025.</p>
-            <div id="ALMERA_Labs_History-chart-container" class="chart-container"></div>
-            <script src="js/ALMERALabsHistory.js"></script>
-            <p class="mb-6 text-lg text-gray-700">
-                The comparison of ALMERA laboratory counts between 2013 and 2025 reveals a clear trend of global expansion and strengthened network capacity. Several key member states, including China, the United States, Poland, and France, experienced substantial growth, notably increasing their laboratory participation from 3-4 facilities to 6-8 within the twelve-year period.
-            </p>
-            <p class="mb-6 text-lg text-gray-700">
-                While many countries consistently maintained a single laboratory presence, the overall upward trajectory across the network highlights ALMERA's enhanced reach and the increasing national engagement in its mission.</p>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">Past Workshops and Trainings</h2>
+            <table class="meeting-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Title of the ALMERA Workshop/Training Course</th>
+                        <th>Participants</th>
+                        <th>Member States</th>
+                        <th>Host</th>
+                        <th>Dates</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2007</td>
+                        <td><a href="http://cdsagenda5.ictp.trieste.it/full_display.php?ida=a06186">Understanding and evaluating radioanalytical measurement uncertainty</a></td>
+                        <td>61</td>
+                        <td>34</td>
+                        <td>ICTP, Italy</td>
+                        <td>8-16 November 2007</td>
+                    </tr>
+                    <tr>
+                        <td>2009</td>
+                        <td>Uptake of radionuclides into staple crops in the Asian region</td>
+                        <td>17</td>
+                        <td>10</td>
+                        <td>Daejon, Republic of Korea</td>
+                        <td>16-17 April 2009</td>
+                    </tr>
+                    <tr>
+                        <td>2009</td>
+                        <td><a href="http://agenda.ictp.it/smr.php?2064">In-situ X-ray fluorescence and gamma ray spectrometry</a></td>
+                        <td>44</td>
+                        <td>28</td>
+                        <td>ICTP, Italy</td>
+                        <td>26-30 October 2009</td>
+                    </tr>
+                    <tr>
+                        <td>2010</td>
+                        <td><a href="https://nucleus.iaea.org/rpst/ReferenceProducts/ALMERA/ALMERA_Workshops/ALMERA_Technical_Visit_Seibersdorf_2010.zip">Coincidence summing and geometry corrections in gamma spectrometry</a></td>
+                        <td>32</td>
+                        <td>20</td>
+                        <td>IAEA Terrestrial Environment Laboratory, Austria</td>
+                        <td>19-23 July 2010</td>
+                    </tr>
+                    <tr>
+                        <td>2011</td>
+                        <td>Measurement of natural radionuclides in environmental samples and NORMs and TENORMs by gamma spectrometry: challenges & methods</td>
+                        <td>35</td>
+                        <td>27</td>
+                        <td>IAEA Marine Environment Laboratories, Monaco</td>
+                        <td>5-9 December 2011</td>
+                    </tr>
+                    <tr>
+                        <td>2012</td>
+                        <td>Alpha Spectrometry and Radioanalytical Techniques</td>
+                        <td>12</td>
+                        <td>10</td>
+                        <td>NECSA, South Africa</td>
+                        <td>15-19 October 2012</td>
+                    </tr>
+                    <tr>
+                        <td>2012</td>
+                        <td>Measurement Results Uncertainty Estimation and Method Validation</td>
+                        <td>29</td>
+                        <td>20</td>
+                        <td>TAEK, Turkey</td>
+                        <td>12-16 November 2012</td>
+                    </tr>
+                    <tr>
+                        <td>2014</td>
+                        <td><a href="http://www.iaea.org/newscenter/news/2014/almera.html">Rapid Assessment Methods for Environmental Radioactivity</a></td>
+                        <td>24</td>
+                        <td>21</td>
+                        <td>Argonne National Laboratory, United States of America</td>
+                        <td>10-21 March 2014</td>
+                    </tr>
+                    <tr>
+                        <td>2014</td>
+                        <td><a href="http://www.iaea.org/newscenter/news/checking-radionuclides-dairy-food-products">Rapid Determination of Radiostrontium in Milk Using Cerenkov and Scintillation Counting</a></td>
+                        <td>12</td>
+                        <td>12</td>
+                        <td>KINS, Republic of Korea</td>
+                        <td>3-7 November 2014</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td><a href="http://www-pub.iaea.org/iaeameetings/49985/ALMERA-Analytical-Laboratories-for-the-Measurement-of-Environmental-Radioactivity-Training-Course-on-Rapid-Assessment-Methods-for-Environmental-Radioactivity">Rapid Assessment Methods for Environmental Radioactivity</a></td>
+                        <td>24</td>
+                        <td>22</td>
+                        <td>Argonne National Laboratory, United States of America</td>
+                        <td>4-15 May 2015</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td>In-Situ Gamma-Ray Spectrometry</td>
+                        <td>24</td>
+                        <td>20</td>
+                        <td>Labor Spiez, Switzerland</td>
+                        <td>2 - 6 November 2015</td>
+                    </tr>
+                    <tr>
+                        <td>2016</td>
+                        <td>Determination of Organically Bound Tritium in Food Samples Using Liquid Scintillation Counting</td>
+                        <td>14</td>
+                        <td>14</td>
+                        <td>Canadian Nuclear Safety Commission, Canada</td>
+                        <td>26-30 September 2016</td>
+                    </tr>
+                    <tr>
+                        <td>2017</td>
+                        <td>Measurement of natural radionuclides in environmental and NORM samples</td>
+                        <td>24</td>
+                        <td>19</td>
+                        <td>Karlsruhe Institute of Technology, Germany</td>
+                        <td>3-7 July 2017</td>
+                    </tr>
+                    <tr>
+                        <td>2018</td>
+                        <td><a href="https://www.iaea.org/events/almera-training-workshop-on-the-determination-of-characteristic-limits-used-in-nuclear-analytical-techniques">Determination of Characteristic Limits Used in Nuclear Analytical Techniques</a></td>
+                        <td>30</td>
+                        <td>24</td>
+                        <td>National Physical Laboratory, United Kingdom</td>
+                        <td>29-31 October 2018</td>
+                    </tr>
+                    <tr>
+                        <td>2019</td>
+                        <td>In-situ measurement techniques for the characterization of contaminated sites</td>
+                        <td>16</td>
+                        <td>15</td>
+                        <td>Labor Spiez, Switzerland</td>
+                        <td>21-25 October 2019</td>
+                    </tr>
+                    <tr>
+                        <td>2021</td>
+                        <td><a href="https://teams.microsoft.com/l/channel/19%3A17e80266c17a49aea2a721f7de470026%40thread.tacv2/EVT1904351?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=">Advanced Topics in Gamma-Ray Spectrometry</a></td>
+                        <td>250</td>
+                        <td>70</td>
+                        <td>IAEA (Virtually)</td>
+                        <td>7 - 11 June 2021</td>
+                    </tr>
+                    <tr>
+                        <td>2022</td>
+                        <td><a href="https://teams.microsoft.com/l/channel/19%3A6fe14d2641ae4a20a43d572bef9bdea2%40thread.tacv2/EVT2104246%202022%20QA-QC%20Training%20Workshop%20(copy)?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=">Quality Assurance/Quality Control for Environmental Radioanalytical Laboratories</a></td>
+                        <td>226</td>
+                        <td>62</td>
+                        <td>IAEA (Virtually)</td>
+                        <td>27 June - 1 July 2022</td>
+                    </tr>
+                    <tr>
+                        <td>2023</td>
+                        <td><a href="https://teams.microsoft.com/l/channel/19%3A9db576c9ad004ceb926a533ccb0cef54%40thread.tacv2/EVT2204728%202023%20Training%20Workshop?groupId=878cac38-f62e-4437-8d57-86cfd70a84f5&tenantId=">Advanced Topics in Radiochemistry Techniques: Lead-210 and Polonium-210</a></td>
+                        <td>262</td>
+                        <td>67</td>
+                        <td>IAEA (Virtually)</td>
+                        <td>9-12 October 2023</td>
+                    </tr>
+                    <tr>
+                        <td>2024</td>
+                        <td><a href="https://www.iaea.org/newscenter/news/advancing-environmental-sampling-techniques-iaeas-almera-network-workshop-in-switzerland">Environmental Sampling Techniques</a></td>
+                        <td>26</td>
+                        <td>25</td>
+                        <td>Labor Spiez, Switzerland</td>
+                        <td>3-7 June 2024</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
     </main>
+
     <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
         <div class="container mx-auto px-4">
             <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
@@ -199,57 +227,11 @@
 
     <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
 
-    <script src="js/MembersTable.js"></script>
     <script src="js/Update_Shortcuts/load_navigation.js"></script>
     <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
     <script src="js/Update_Shortcuts/load_response_count.js"></script>
     <script src="js/Update_Shortcuts/scroll_to_top.js"></script>
     <script src="js/Welcome_Page_Style.js"></script>
 
-    <script>
-        // JavaScript for Mobile Menu Toggle (copied from main site for consistency)
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-        const mobileMenuNav = mobileMenuOverlay.querySelector('nav');
-        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
-
-        if (mobileMenuButton && mobileMenuOverlay && mobileMenuNav && closeMobileMenuButton) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenuOverlay.classList.remove('hidden');
-                setTimeout(() => {
-                    mobileMenuNav.classList.remove('translate-x-full');
-                }, 10); // Small delay for transition to work
-            });
-
-            closeMobileMenuButton.addEventListener('click', () => {
-                mobileMenuNav.classList.add('translate-x-full');
-                setTimeout(() => {
-                    mobileMenuOverlay.classList.add('hidden');
-                }, 300); // Match transition duration
-            });
-
-            // Close mobile menu when a link is clicked
-            mobileMenuNav.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenuNav.classList.add('translate-x-full');
-                    setTimeout(() => {
-                        mobileMenuOverlay.classList.add('hidden');
-                    }, 300);
-                });
-            });
-        }
-
-        // Dummy functions for external scripts if they are not loaded in this context
-        // These are placeholders to prevent errors if the external JS files are not present
-        function load_navigation() { console.log('load_navigation called (dummy)'); }
-        function load_mobile_navigation() { console.log('load_mobile_navigation called (dummy)'); }
-        function load_response_count() { console.log('load_response_count called (dummy)'); }
-        function scroll_to_top() { console.log('scroll_to_top called (dummy)'); }
-        function Welcome_Page_Style() { console.log('Welcome_Page_Style called (dummy)'); }
-        function MembersTable() { console.log('MembersTable called (dummy)'); }
-    </script>
-
 </body>
-
-</html>
 
