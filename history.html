@@ -8,22 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/Welcome_Page_Style.css">
-
-    <!-- D3.js library - REQUIRED for ALMERALabsHistory.js and MembersTable.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-
-    <!-- The internal style block is now empty as all styles are in Welcome_Page_Style.css -->
-    <style>
-        /* This style block is intentionally left empty as all custom styles
-           are now consolidated in css/Welcome_Page_Style.css for better maintainability. */
-    </style>
 </head>
 
 <body class="antialiased">
 
     <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
         <a href="index.html#hero" class="flex items-center space-x-3 group">
-            <!-- Replaced SVG icon with image logo -->
             <img src="data/Almera Logo 2.jpg" alt="ALMERA Logo" class="w-8 h-8 rounded-full object-cover transition-transform duration-300 transform group-hover:scale-105">
             <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
         </a>
@@ -40,12 +31,9 @@
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
         <div id="mobile-nav-placeholder"></div>
     </div>
-
-    <!-- Added padding-top to main to account for fixed header -->
-    <div class="pt-20 md:pt-24"></div>
-
+    
     <main class="container mx-auto px-4 md:px-8 py-12">
-        <section id="history" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-20 scroll-reveal">
+        <section id="history" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
             <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">
                 History of the ALMERA Network</h2>
             <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
