@@ -131,9 +131,12 @@ main {
 
 /* Section styling */
 section {
-  padding: 2rem;
-  margin-bottom: 2rem;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 2rem 0;
 }
+
 
 
 /* Heading styles */
