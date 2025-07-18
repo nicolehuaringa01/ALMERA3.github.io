@@ -7,19 +7,17 @@
     <title>ALMERA Training Workshops</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/Welcome_Page_Style.css">
+    <link rel="stylesheet" href="css/Non-Main.css">
 </head>
 
 <body class="antialiased">
-
+    
     <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
-        <a href="index.html#hero" class="flex items-center space-x-3 group">
-            <img src="data/Almera Logo 2.jpg" alt="ALMERA Logo" class="w-8 h-8 rounded-full object-cover transition-transform duration-300 transform group-hover:scale-105">
-            <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
+        <a href="index.html#hero" class="flex items-center space-x-3 group"> <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
         </a>
 
         <div id="main-nav-placeholder"></div>
-
+        
         <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -30,28 +28,33 @@
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
         <div id="mobile-nav-placeholder"></div>
     </div>
-
-    <main class="container mx-auto px-4 md:px-8 py-12">
-        <section id="workshops" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">
-                ALMERA Training Workshops</h2>
+    
+    <div class="content-wrapper">
+        
+    <main class="mx-auto px-4 md:px-8 py-12 max-w-screen-lg">
+        <section id="workshops">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Training Workshops</h1>
+           <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">
+                Overview</h2>
             <p class="mb-6 text-lg text-gray-700">
                 ALMERA workshops and training courses aim at giving the opportunity to scientists from the ALMERA analytical laboratories to refresh and update their knowledge and skills in areas of interest to members of the ALMERA network. They consist of lectures and practical exercises.
             </p>
 
+            <p class="mb-6 text-lg text-gray-700">
+                IAEA support includes training workshops, courses and seminars that are conducted in Member States or at the IAEA laboratories. Specific custom-developed training courses help to address methodological aspects of interest for the laboratories, such as rapid assessment methods.
+            </p>
             <div style="text-align: center;">
-                <img src="Screenshot 2025-06-09 114855.png" width="700" height="400" class="block mx-auto">
+                <img src="Screenshot 2025-06-09 114855.png" width="700" height="400" class="block mb-4 mx-auto">
             </div>
 
-
             <div style="text-align: center;">
-                <i>2024 ALMERA Workshop, Environmental Sampling Techniques: Participants engaged in hands-on exercises, performing random systematic sampling in various contamination case study scenarios</i>
+                <i class= "mb-8"> 2024 ALMERA Workshop, Environmental Sampling Techniques: Participants engaged in hands-on exercises, performing random systematic sampling in various contamination case study scenarios</i>
             </div>
-        </section>
 
-        <section id="past_workshops" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">Past Workshops and Trainings</h2>
-            <table class="meeting-table">
+           <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mt-8 mb-6">
+               Past Workshops and Trainings</h2>
+            <table class="meeting-table mb-6">
                 <thead>
                     <tr>
                         <th>Year</th>
@@ -221,7 +224,7 @@
     </main>
 
     <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
-        <div class="container mx-auto px-4">
+        <div class="w-full px-4 md:px-8">
             <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
         </div>
     </footer>
@@ -235,5 +238,3 @@
     <script src="js/Welcome_Page_Style.js"></script>
 
 </body>
-
-</html>
