@@ -4,225 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALMERA History</title>
+    <title>ALMERA Webinars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Welcome_Page_Style.css">
 
-    <!-- D3.js library - REQUIRED for ALMERALabsHistory.js -->
+    <!-- D3.js library - REQUIRED for ALMERALabsHistory.js and MembersTable.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
+    <!-- The internal style block is now empty as all styles are in Welcome_Page_Style.css -->
     <style>
-        /* Define basic color palette for consistency */
-        :root {
-            --color-primary-dark: #4a5b6f;
-            /* Dark muted blue */
-            --color-accent-green-dark: #6e8055;
-            /* Darker green */
-            --color-link: #0066cc;
-            /* A standard blue for links, similar to WHO */
-            --color-text-light: #555;
-            /* Lighter text for general paragraphs */
-            --color-border: #eee;
-            /* Light border for separators */
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            padding: 2rem;
-            background-color: #f8f8f8;
-            /* A very light gray background */
-            color: #333;
-            /* Dark gray for general text */
-            line-height: 1.6;
-            scroll-behavior: smooth;
-            max-width: 800px;
-            /* Constrain content width like WHO */
-            margin: 0 auto;
-            /* Center the content block */
-            padding-top: 80px;
-            /* Space for fixed header */
-        }
-
-        /* Header styles - Simple, like your second example's banner */
-        header {
-            background-color: var(--color-primary-dark);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            color: white;
-            padding: 1rem 2rem;
-            /* More padding for the banner */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* Center content in header */
-            box-sizing: border-box;
-            /* Include padding in width */
-        }
-
-        header a {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
-            /* Inherit white color */
-        }
-
-        header img {
-            width: 32px;
-            /* w-8 equivalent */
-            height: 32px;
-            /* h-8 equivalent */
-            border-radius: 50%;
-            /* rounded-full equivalent */
-            object-fit: cover;
-            margin-right: 0.75rem;
-            /* space-x-3 equivalent */
-        }
-
-        header span {
-            font-size: 1.5rem;
-            /* text-2xl equivalent */
-            font-weight: bold;
-            /* font-extrabold equivalent */
-            letter-spacing: 0.05em;
-            /* tracking-wide equivalent */
-        }
-
-        /* Main content section styling - Simple, no shadows/rounded corners on section itself */
-        section {
-            background-color: #fff;
-            /* White background for content */
-            padding: 2rem;
-            /* Consistent padding */
-            margin-bottom: 2rem;
-            /* Spacing between sections */
-            border-radius: 8px; /* Subtle rounded corners for the content block */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08); /* Subtle shadow */
-        }
-
-        /* Headings */
-        h1 {
-            color: var(--color-primary-dark);
-            font-size: 2.2em;
-            /* Larger for main title */
-            margin-bottom: 0.8em;
-            padding-bottom: 0.4em;
-            border-bottom: 1px solid var(--color-border);
-            font-weight: bold;
-        }
-
-        h2 {
-            color: var(--color-primary-dark);
-            font-size: 1.8em;
-            margin-top: 1.5em;
-            margin-bottom: 0.6em;
-            padding-bottom: 0.3em;
-            border-bottom: 1px solid var(--color-border);
-            font-weight: bold;
-        }
-
-        h3 {
-            color: var(--color-accent-green-dark);
-            font-size: 1.4em;
-            margin-top: 1.2em;
-            margin-bottom: 0.5em;
-            font-weight: 600;
-        }
-
-        /* Paragraphs */
-        p {
-            margin-bottom: 1em;
-            color: var(--color-text-light);
-        }
-
-        p strong {
-            color: var(--color-primary-dark);
-        }
-
-        /* Links */
-        a {
-            color: var(--color-link);
-            text-decoration: none;
-            transition: color 0.2s ease-in-out;
-        }
-
-        a:hover {
-            text-decoration: underline;
-            color: var(--color-primary-dark);
-        }
-
-        /* Lists (UL and OL) */
-        ul,
-        ol {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-            /* Indent for bullets/numbers */
-            color: var(--color-text-light);
-        }
-
-        ul li,
-        ol li {
-            margin-bottom: 0.5rem;
-            /* Spacing between list items */
-        }
-
-        /* Nested lists */
-        ul ul,
-        ol ol {
-            margin-top: 0.5rem;
-            margin-bottom: 0;
-        }
-
-        /* Chart container */
-        .chart-container {
-            width: 100%;
-            min-height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #fff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        }
-
-        /* Footer styles - Simple and centered */
-        footer {
-            margin-top: 3rem;
-            font-size: 0.9rem;
-            color: #777;
-            text-align: center;
-            padding: 1rem 0;
-            border-top: 1px solid var(--color-border);
-            background-color: #f0f0f0; /* Slightly different background for footer */
-        }
+        /* This style block is intentionally left empty as all custom styles
+           are now consolidated in css/Welcome_Page_Style.css for better maintainability. */
     </style>
 </head>
 
-<body>
+<body class="antialiased">
 
-    <header>
-        <a href="index.html#hero">
-            <img src="data/Almera Logo 2.jpg" alt="ALMERA Logo">
-            <span>ALMERA</span>
+    <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center space-between">
+        <a href="index.html#hero" class="flex items-center space-x-3 group">
+            <!-- Replaced SVG icon with image logo -->
+            <img src="data/Almera Logo 2.jpg" alt="ALMERA Logo" class="w-8 h-8 rounded-full object-cover transition-transform duration-300 transform group-hover:scale-105">
+            <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
         </a>
+
+        <div id="main-nav-placeholder"></div>
+
+        <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
     </header>
 
-    <main>
-        <!-- No nav-buttons section as requested -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
+        <div id="mobile-nav-placeholder"></div>
+    </div>
 
-        <section id="history-content">
-            <h1>History of the ALMERA Network</h1>
+    <!-- Added padding-top to main to account for fixed header -->
+    <div class="pt-20 md:pt-24"></div>
 
-            <h2>Background</h2>
-            <p>ALMERA emerged from efforts following Chernobyl accident. In 1991, participants of the IAEA Co-ordinated Research Project (CRP) recognized the need to maintain a network of specialized laboratories for radionuclide contamination assessment and emergency response.</p>
+    <main class="container mx-auto px-4 md:px-8 py-12">
+        <section id="history" class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-20 scroll-reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4">
+                History of the ALMERA Network</h2>
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
+                Background</h3>
+            <p class="mb-6 text-lg text-gray-700">
+                ALMERA emerged from efforts following Chernobyl accident. In 1991, participants of the IAEA Co-ordinated Research Project (CRP) recognized the need to maintain a network of specialized laboratories for radionuclide contamination assessment and emergency response.</p>
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
+                Origins</h3>
 
-            <h2>Origins</h2>
-            <p>
+            <p class="mb-6 text-lg text-gray-700">
                 <strong>1991: </strong>At the 2nd IAEA Research Coordination Meetings (RCM) of the CRP expressed interest to maintain the network of monitoring laboratories assembled for assistance with the International Chernobyl Project. “MARENA” CRP was established:
             </p>
             <ul>
@@ -231,21 +64,24 @@
                 <li>to conduct training of Member State laboratory personnel through fellowships, special courses and workshops.</li>
             </ul>
 
-            <p>
+            <p class="mb-6 text-lg text-gray-700">
                 <strong>1994:</strong> RCM in Abu Dhabi, United Arab Emirates:
             </p>
             <ul>
                 <li>Participants recommended establishing a core group of laboratories, expandable to address capability gaps. The laboratories present at this RCM could form the required core.</li>
                 <li>Suggested the IAEA coordinate the network. </li>
             </ul>
-            <p>
+
+            <p class="mb-6 text-lg text-gray-700">
                 <strong>1995:</strong> The IAEA established the ALMERA Network.</p>
 
-            <p>
+            <p class="mb-6 text-lg text-gray-700">
                 The lecturer for the Webinar series is Mr Alexander Mauring, Gamma Spectrometry Specialist at IAEAs Terrestrial Laboratory in Seibersdorf and Scientific Coordinator of the ALMERA Network.</p>
 
 
-            <h2>Coordination Meetings</h2>
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
+                Coordination Meetings</h3>
+
             <ul>
                 <li><strong>1997:</strong> 1st Coordination Meeting (Vienna, Austria). It was attended by 38 participants from 15 countries, most of which were European members, due to difficulties in contact update and limited funds.</li>
                 <li><strong>2005:</strong> 2nd Coordination Meeting (Trieste, Italy). UN Secretariat provided the funds and organisation for this meeting. Proposals included the creation of regional sub-groups with focal points and the organisation of annual coordination meetings</li>
@@ -254,72 +90,86 @@
                 <li><strong>Click <a href="meetings.html">here</a></strong> to learn more about ALMERA Coordination Meetings.</li>
             </ul>
 
-            <h2>Founding Members</h2>
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
+                Founding Members</h3>
 
-            <p>As per the <strong>Appendix III</strong>, <a href="https://inis.iaea.org/records/dcf9b-2an66">“Report of the second research co-ordination meeting on the co-ordinated research programme: rapid instrumental and separation methods for monitoring radionuclides in food and environmental samples”, page 27</a></p>
+            <p class="mb-6 text-lg text-gray-700">
+                As per the <strong>Appendix III</strong>, <a href="https://inis.iaea.org/records/dcf9b-2an66">“Report of the second research co-ordination meeting on the co-ordinated research programme: rapid instrumental and separation methods for monitoring radionuclides in food and environmental samples”, page 27</a></p>
 
-            <!-- Corrected nested ul structure -->
+            <!-- Corrected nested ul structure and applied consistent styling -->
             <ul>
                 <li><strong>Ministry of Agriculture Fisheries and Food Fisheries Laboratory</strong>
                     <ul>
                         <li>Pakefield Road, Lowestoft, Suffolk NR33 OHR, United Kingdom</li>
                     </ul>
                 </li>
+
                 <li><strong>Atominstitut der Oesterreichischen Universitäten</strong>
                     <ul>
                         <li>Schüttelstre. 115, A-1020 Vienna, Austria</li>
                     </ul>
                 </li>
+
                 <li><strong>Instituto de Radioproteçao e Dosimetria, Commissao Nacional de Energia Nuclear (CNEN)</strong>
                     <ul>
                         <li>Av. das Americas Km 11.5, Rio de Janeiro, CEP 22700 Barra de Tijuca, Brazil</li>
                     </ul>
                 </li>
+
                 <li><strong>Swedish Radiation Protection Institute, Division of Chemistry</strong>
                     <ul>
                         <li>P.O. Box 60204, S-104 01 Stockholm, Sweden</li>
                     </ul>
                 </li>
+
                 <li><strong>Battelle Pacific Northwest Laboratories</strong>
                     <ul>
                         <li>P.O. Box 999, Richland, WA 99352, United States of America</li>
                     </ul>
                 </li>
+
                 <li><strong>Jozef Stefan Institute, Nuclear Chemistry Department</strong>
                     <ul>
                         <li>P.O. Box 100, Jamova 39, YU-61111, Ljubljana, Yugoslavia (now Slovenia)</li>
                     </ul>
                 </li>
+
                 <li><strong>National Institute for Radiation Hygiene</strong>
                     <ul>
                         <li>P.O. Box 55, N-1345 Osteras, Norway</li>
                     </ul>
                 </li>
+
                 <li><strong>Sofia University, Faculty of Physics, Department of Applied Nuclear Physics and Nuclear Energy</strong>
                     <ul>
                         <li>A. Ivanov 5, Sofia-1126, Bulgaria</li>
                     </ul>
                 </li>
+
                 <li><strong>Atomic Energy Research Institute of the Central Research Institute for Physics, Health Physics Department</strong>
                     <ul>
                         <li>P.O. Box 49, H-1525 Budapest, Hungary</li>
                     </ul>
                 </li>
+
                 <li><strong>Institute of Atomic Energy, Radiometrology Centre</strong>
                     <ul>
                         <li>P.O. Box 275, Beijing, People’s Republic of China</li>
                     </ul>
                 </li>
+
                 <li><strong>Bhabha Atomic Research Centre Head, Env. Studies Section, H.P. Division</strong>
                     <ul>
                         <li>Trombay, Bombay - 400 085, India</li>
                     </ul>
                 </li>
+
                 <li><strong>AECL-Research Company, Chalk River Laboratories</strong>
                     <ul>
                         <li>Chalk River, Ontario, K0J 1J0, Canada</li>
                     </ul>
                 </li>
+
                 <li><strong>Nuclear Research Center Karlsruhe</strong>
                     <ul>
                         <li>P.O. Box 3640, BFE, Building 325, D-W 7500, Karlsruhe 1, Germany</li>
@@ -327,35 +177,79 @@
                 </li>
             </ul>
 
-            <h2>ALMERA Amount of Labs from From 2013 - 2025</h2>
-            <details open>
-                <summary>2013 vs. 2025 Comparison</summary>
-                <p>Number of laboratories in each country has increased from 2013 to 2025.</p>
-                <div id="ALMERA_Labs_History-chart-container" class="chart-container"></div>
-                <script src="js/ALMERALabsHistory.js"></script>
-                <p>The comparison of ALMERA laboratory counts between 2013 and 2025 reveals a clear trend of global expansion and strengthened network capacity. Several key member states, including China, the United States, Poland, and France, experienced substantial growth, notably increasing their laboratory participation from 3-4 facilities to 6-8 within the twelve-year period.</p>
-                <p>While many countries consistently maintained a single laboratory presence, the overall upward trajectory across the network highlights ALMERA's enhanced reach and the increasing national engagement in its mission.</p>
-            </details>
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">
+                ALMERA Amount of Labs from From 2013 - 2025</h3>
+            <summary class="text-lg text-gray-700 mb-4">2013 vs. 2025 Comparison</summary>
+            <p class="mb-6 text-lg text-gray-700">
+                Number of laboratories in each country has increased from 2013 to 2025.</p>
+            <div id="ALMERA_Labs_History-chart-container" class="chart-container"></div>
+            <script src="js/ALMERALabsHistory.js"></script>
+            <p class="mb-6 text-lg text-gray-700">
+                The comparison of ALMERA laboratory counts between 2013 and 2025 reveals a clear trend of global expansion and strengthened network capacity. Several key member states, including China, the United States, Poland, and France, experienced substantial growth, notably increasing their laboratory participation from 3-4 facilities to 6-8 within the twelve-year period.
+            </p>
+            <p class="mb-6 text-lg text-gray-700">
+                While many countries consistently maintained a single laboratory presence, the overall upward trajectory across the network highlights ALMERA's enhanced reach and the increasing national engagement in its mission.</p>
         </section>
     </main>
-
-    <footer>
-        <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
+    <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
+        </div>
     </footer>
 
-    <!-- Removed unused scripts -->
     <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+
     <script src="js/MembersTable.js"></script>
-    <!-- Removed all Update_Shortcuts scripts as their functionality is removed -->
-    <!-- Removed Welcome_Page_Style.js as it's no longer used -->
+    <script src="js/Update_Shortcuts/load_navigation.js"></script>
+    <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
+    <script src="js/Update_Shortcuts/load_response_count.js"></script>
+    <script src="js/Update_Shortcuts/scroll_to_top.js"></script>
+    <script src="js/Welcome_Page_Style.js"></script>
 
     <script>
-        // Removed all mobile menu JavaScript as the functionality is removed.
-        // Dummy functions are no longer needed as the scripts are removed.
+        // JavaScript for Mobile Menu Toggle (copied from main site for consistency)
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuNav = mobileMenuOverlay.querySelector('nav');
+        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+
+        if (mobileMenuButton && mobileMenuOverlay && mobileMenuNav && closeMobileMenuButton) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenuOverlay.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileMenuNav.classList.remove('translate-x-full');
+                }, 10); // Small delay for transition to work
+            });
+
+            closeMobileMenuButton.addEventListener('click', () => {
+                mobileMenuNav.classList.add('translate-x-full');
+                setTimeout(() => {
+                    mobileMenuOverlay.classList.add('hidden');
+                }, 300); // Match transition duration
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileMenuNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuNav.classList.add('translate-x-full');
+                    setTimeout(() => {
+                        mobileMenuOverlay.classList.add('hidden');
+                    }, 300);
+                });
+            });
+        }
+
+        // Dummy functions for external scripts if they are not loaded in this context
+        // These are placeholders to prevent errors if the external JS files are not present
+        function load_navigation() { console.log('load_navigation called (dummy)'); }
+        function load_mobile_navigation() { console.log('load_mobile_navigation called (dummy)'); }
+        function load_response_count() { console.log('load_response_count called (dummy)'); }
+        function scroll_to_top() { console.log('scroll_to_top called (dummy)'); }
+        function Welcome_Page_Style() { console.log('Welcome_Page_Style called (dummy)'); }
+        function MembersTable() { console.log('MembersTable called (dummy)'); }
     </script>
 
 </body>
 
 </html>
 
-</html>
