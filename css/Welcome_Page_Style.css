@@ -317,4 +317,8 @@ footer {
 section[id] {
     scroll-margin-top: 80px; /* Adjust this value based on your header's height */
 }
-
+.content-wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
