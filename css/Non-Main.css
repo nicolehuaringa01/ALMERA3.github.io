@@ -313,11 +313,6 @@ ul li a:hover {
     color: var(--color-primary-light);
 }
 
-/* Footer styles */
-footer {
-    @apply bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner;
-}
-
 /* Scroll margin for fixed header */
 section[id] {
     scroll-margin-top: 80px; /* Adjust this value based on your header's height */
@@ -329,4 +324,8 @@ section[id] {
   background: transparent;
   box-shadow: none;
   border: none;
+}
+/* Footer styles */
+footer {
+    @apply bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner;
 }
