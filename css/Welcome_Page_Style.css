@@ -131,8 +131,10 @@ main {
 
 /* Section styling */
 section {
-    @apply bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-20; /* Increased margin-bottom to mb-20 (5rem) */
+  padding: 2rem;
+  margin-bottom: 2rem;
 }
+
 
 /* Heading styles */
 h1 {
