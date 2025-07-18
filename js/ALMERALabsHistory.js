@@ -2,7 +2,7 @@
 
 // IMPORTANT: Set the correct path to your CSV data file.
 // Assuming your CSV is in the 'data' subfolder relative to your HTML file
-const csvDataPath = "/ALMERA3.github.io/data/ALMERA_Country_Lab_History.csv"; // Ensure this path is correct for GitHub Pages
+const csvDataPathH = "/ALMERA3.github.io/data/ALMERA_Country_Lab_History.csv"; // Ensure this path is correct for GitHub Pages
 
 async function initializeALMERA_Labs_HistoryChart() {
     const container = document.getElementById("ALMERA_Labs_History-chart-container");
@@ -18,7 +18,7 @@ async function initializeALMERA_Labs_HistoryChart() {
 
     let data;
     try {
-        data = await d3.csv(csvDataPath);
+        data = await d3.csv(csvDataPathH);
         console.log("ALMERA_Labs_History Chart CSV data loaded successfully. Number of records:", data.length);
         if (data.length === 0) {
             console.warn("CSV data is empty. No chart to display.");
