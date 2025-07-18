@@ -12,8 +12,23 @@
     --color-accent-green-light: #b0c99d; /* Lighter green for subtle accents */
 }
 
+/* --- Frutiger Bold Condensed Font Definition --- */
+/* IMPORTANT: You need to replace 'path/to/your/font-files/' with the actual
+   path where you host your Frutiger Bold Condensed font files.
+   Ensure you have the necessary licenses to use this commercial font. */
+@font-face {
+    font-family: 'Frutiger Bold Condensed';
+    src: url('path/to/your/font-files/Frutiger-BoldCondensed.woff2') format('woff2'),
+         url('path/to/your/font-files/Frutiger-BoldCondensed.woff') format('woff'),
+         url('path/to/your/font-files/Frutiger-BoldCondensed.ttf') format('truetype');
+    font-weight: 700; /* Assuming 'Bold' corresponds to 700 */
+    font-style: normal;
+    font-display: swap; /* Ensures text remains visible during font loading */
+}
+
 body {
-    font-family: 'Inter', sans-serif;
+    /* Prioritize Frutiger Bold Condensed, fallback to Inter, then generic sans-serif */
+    font-family: 'Frutiger Bold Condensed', 'Inter', sans-serif;
     @apply bg-gray-50 text-gray-800 leading-relaxed;
     scroll-behavior: smooth; /* Smooth scrolling for anchor links */
     padding-top: 64px; /* Space for fixed header */
@@ -116,7 +131,7 @@ main {
 
 /* Section styling */
 section {
-    @apply bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-20;
+    @apply bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-20; /* Increased margin-bottom to mb-20 (5rem) */
 }
 
 /* Heading styles */
@@ -149,7 +164,7 @@ strong {
 table.meeting-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif; /* Keep Inter for tables unless specified otherwise */
     margin-bottom: 2rem;
     @apply shadow-lg rounded-lg overflow-hidden;
 }
@@ -239,6 +254,13 @@ ul li {
     margin-bottom: 0.75rem; /* Space between list items */
 }
 
+/* For nested unordered lists, add more padding-left */
+ul ul {
+    padding-left: 1.5rem; /* Additional indent for nested lists */
+    margin-top: 0.5rem; /* Small margin above nested list */
+    margin-bottom: 0; /* No extra margin below nested list */
+}
+
 ul li a {
     color: var(--color-accent-green); /* Links within list items use accent green */
     text-decoration: underline;
@@ -295,3 +317,4 @@ footer {
 section[id] {
     scroll-margin-top: 80px; /* Adjust this value based on your header's height */
 }
+
