@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA History</title>
+
+    <!-- D3.js library - REQUIRED for ALMERALabsHistory.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        /* Define basic color palette for consistency */
+        :root {
+            --color-primary-dark: #4a5b6f;
+            /* Dark muted blue */
+            --color-accent-green-dark: #6e8055;
+            /* Darker green */
+            --color-link: #0066cc;
+            /* A standard blue for links, similar to WHO */
+            --color-text-light: #555;
+            /* Lighter text for general paragraphs */
+            --color-border: #eee;
+            /* Light border for separators */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 2rem;
+            background-color: #f8f8f8;
+            /* A very light gray background */
+            color: #333;
+            /* Dark gray for general text */
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            max-width: 800px;
+            /* Constrain content width like WHO */
+            margin: 0 auto;
+            /* Center the content block */
+            padding-top: 80px;
+            /* Space for fixed header */
+        }
+
+        /* Header styles - Simple, like your second example's banner */
+        header {
+            background-color: var(--color-primary-dark);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            color: white;
+            padding: 1rem 2rem;
+            /* More padding for the banner */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Center content in header */
+            box-sizing: border-box;
+            /* Include padding in width */
+        }
+
+        header a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            /* Inherit white color */
+        }
+
+        header img {
+            width: 32px;
+            /* w-8 equivalent */
+            height: 32px;
+            /* h-8 equivalent */
+            border-radius: 50%;
+            /* rounded-full equivalent */
+            object-fit: cover;
+            margin-right: 0.75rem;
+            /* space-x-3 equivalent */
+        }
+
+        header span {
+            font-size: 1.5rem;
+            /* text-2xl equivalent */
+            font-weight: bold;
+            /* font-extrabold equivalent */
+            letter-spacing: 0.05em;
+            /* tracking-wide equivalent */
+        }
+
+        /* Main content section styling - Simple, no shadows/rounded corners on section itself */
+        section {
+            background-color: #fff;
+            /* White background for content */
+            padding: 2rem;
+            /* Consistent padding */
+            margin-bottom: 2rem;
+            /* Spacing between sections */
+            border-radius: 8px; /* Subtle rounded corners for the content block */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08); /* Subtle shadow */
+        }
+
+        /* Headings */
+        h1 {
+            color: var(--color-primary-dark);
+            font-size: 2.2em;
+            /* Larger for main title */
+            margin-bottom: 0.8em;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid var(--color-border);
+            font-weight: bold;
+        }
+
+        h2 {
+            color: var(--color-primary-dark);
+            font-size: 1.8em;
+            margin-top: 1.5em;
+            margin-bottom: 0.6em;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--color-border);
+            font-weight: bold;
+        }
+
+        h3 {
+            color: var(--color-accent-green-dark);
+            font-size: 1.4em;
+            margin-top: 1.2em;
+            margin-bottom: 0.5em;
+            font-weight: 600;
+        }
+
+        /* Paragraphs */
+        p {
+            margin-bottom: 1em;
+            color: var(--color-text-light);
+        }
+
+        p strong {
+            color: var(--color-primary-dark);
+        }
+
+        /* Links */
+        a {
+            color: var(--color-link);
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: var(--color-primary-dark);
+        }
+
+        /* Lists (UL and OL) */
+        ul,
+        ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            /* Indent for bullets/numbers */
+            color: var(--color-text-light);
+        }
+
+        ul li,
+        ol li {
+            margin-bottom: 0.5rem;
+            /* Spacing between list items */
+        }
+
+        /* Nested lists */
+        ul ul,
+        ol ol {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+
+        /* Chart container */
+        .chart-container {
+            width: 100%;
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Footer styles - Simple and centered */
+        footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: #777;
+            text-align: center;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+            background-color: #f0f0f0; /* Slightly different background for footer */
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html#hero">
+            <img src="data/Almera Logo 2.jpg" alt="ALMERA Logo">
+            <span>ALMERA</span>
+        </a>
+    </header>
+
+    <main>
+        <!-- No nav-buttons section as requested -->
+
+        <section id="history-content">
+            <h1>History of the ALMERA Network</h1>
+
+            <h2>Background</h2>
+            <p>ALMERA emerged from efforts following Chernobyl accident. In 1991, participants of the IAEA Co-ordinated Research Project (CRP) recognized the need to maintain a network of specialized laboratories for radionuclide contamination assessment and emergency response.</p>
+
+            <h2>Origins</h2>
+            <p>
+                <strong>1991: </strong>At the 2nd IAEA Research Coordination Meetings (RCM) of the CRP expressed interest to maintain the network of monitoring laboratories assembled for assistance with the International Chernobyl Project. “MARENA” CRP was established:
+            </p>
+            <ul>
+                <li>to provide assessments of radionuclide contamination in food and the environment and in case of a radiological emergency</li>
+                <li>to conduct intercomparison and testing of technologies, employing standard reference materials and procedures and field measurements at significantly contaminated areas</li>
+                <li>to conduct training of Member State laboratory personnel through fellowships, special courses and workshops.</li>
+            </ul>
+
+            <p>
+                <strong>1994:</strong> RCM in Abu Dhabi, United Arab Emirates:
+            </p>
+            <ul>
+                <li>Participants recommended establishing a core group of laboratories, expandable to address capability gaps. The laboratories present at this RCM could form the required core.</li>
+                <li>Suggested the IAEA coordinate the network. </li>
+            </ul>
+            <p>
+                <strong>1995:</strong> The IAEA established the ALMERA Network.</p>
+
+            <p>
+                The lecturer for the Webinar series is Mr Alexander Mauring, Gamma Spectrometry Specialist at IAEAs Terrestrial Laboratory in Seibersdorf and Scientific Coordinator of the ALMERA Network.</p>
+
+
+            <h2>Coordination Meetings</h2>
+            <ul>
+                <li><strong>1997:</strong> 1st Coordination Meeting (Vienna, Austria). It was attended by 38 participants from 15 countries, most of which were European members, due to difficulties in contact update and limited funds.</li>
+                <li><strong>2005:</strong> 2nd Coordination Meeting (Trieste, Italy). UN Secretariat provided the funds and organisation for this meeting. Proposals included the creation of regional sub-groups with focal points and the organisation of annual coordination meetings</li>
+                <li><strong>2006: </strong> 3rd Coordination Meeting held (Daejeon, Republic of Korea). A new structure of the network proposed by the IAEA was discussed and approved.</li>
+                <li><strong>2007-Present:</strong> Ever since then, Coordination Meetings have been organized annually (virtually for 2020 and 2021).</li>
+                <li><strong>Click <a href="meetings.html">here</a></strong> to learn more about ALMERA Coordination Meetings.</li>
+            </ul>
+
+            <h2>Founding Members</h2>
+
+            <p>As per the <strong>Appendix III</strong>, <a href="https://inis.iaea.org/records/dcf9b-2an66">“Report of the second research co-ordination meeting on the co-ordinated research programme: rapid instrumental and separation methods for monitoring radionuclides in food and environmental samples”, page 27</a></p>
+
+            <!-- Corrected nested ul structure -->
+            <ul>
+                <li><strong>Ministry of Agriculture Fisheries and Food Fisheries Laboratory</strong>
+                    <ul>
+                        <li>Pakefield Road, Lowestoft, Suffolk NR33 OHR, United Kingdom</li>
+                    </ul>
+                </li>
+                <li><strong>Atominstitut der Oesterreichischen Universitäten</strong>
+                    <ul>
+                        <li>Schüttelstre. 115, A-1020 Vienna, Austria</li>
+                    </ul>
+                </li>
+                <li><strong>Instituto de Radioproteçao e Dosimetria, Commissao Nacional de Energia Nuclear (CNEN)</strong>
+                    <ul>
+                        <li>Av. das Americas Km 11.5, Rio de Janeiro, CEP 22700 Barra de Tijuca, Brazil</li>
+                    </ul>
+                </li>
+                <li><strong>Swedish Radiation Protection Institute, Division of Chemistry</strong>
+                    <ul>
+                        <li>P.O. Box 60204, S-104 01 Stockholm, Sweden</li>
+                    </ul>
+                </li>
+                <li><strong>Battelle Pacific Northwest Laboratories</strong>
+                    <ul>
+                        <li>P.O. Box 999, Richland, WA 99352, United States of America</li>
+                    </ul>
+                </li>
+                <li><strong>Jozef Stefan Institute, Nuclear Chemistry Department</strong>
+                    <ul>
+                        <li>P.O. Box 100, Jamova 39, YU-61111, Ljubljana, Yugoslavia (now Slovenia)</li>
+                    </ul>
+                </li>
+                <li><strong>National Institute for Radiation Hygiene</strong>
+                    <ul>
+                        <li>P.O. Box 55, N-1345 Osteras, Norway</li>
+                    </ul>
+                </li>
+                <li><strong>Sofia University, Faculty of Physics, Department of Applied Nuclear Physics and Nuclear Energy</strong>
+                    <ul>
+                        <li>A. Ivanov 5, Sofia-1126, Bulgaria</li>
+                    </ul>
+                </li>
+                <li><strong>Atomic Energy Research Institute of the Central Research Institute for Physics, Health Physics Department</strong>
+                    <ul>
+                        <li>P.O. Box 49, H-1525 Budapest, Hungary</li>
+                    </ul>
+                </li>
+                <li><strong>Institute of Atomic Energy, Radiometrology Centre</strong>
+                    <ul>
+                        <li>P.O. Box 275, Beijing, People’s Republic of China</li>
+                    </ul>
+                </li>
+                <li><strong>Bhabha Atomic Research Centre Head, Env. Studies Section, H.P. Division</strong>
+                    <ul>
+                        <li>Trombay, Bombay - 400 085, India</li>
+                    </ul>
+                </li>
+                <li><strong>AECL-Research Company, Chalk River Laboratories</strong>
+                    <ul>
+                        <li>Chalk River, Ontario, K0J 1J0, Canada</li>
+                    </ul>
+                </li>
+                <li><strong>Nuclear Research Center Karlsruhe</strong>
+                    <ul>
+                        <li>P.O. Box 3640, BFE, Building 325, D-W 7500, Karlsruhe 1, Germany</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2>ALMERA Amount of Labs from From 2013 - 2025</h2>
+            <details open>
+                <summary>2013 vs. 2025 Comparison</summary>
+                <p>Number of laboratories in each country has increased from 2013 to 2025.</p>
+                <div id="ALMERA_Labs_History-chart-container" class="chart-container"></div>
+                <script src="js/ALMERALabsHistory.js"></script>
+                <p>The comparison of ALMERA laboratory counts between 2013 and 2025 reveals a clear trend of global expansion and strengthened network capacity. Several key member states, including China, the United States, Poland, and France, experienced substantial growth, notably increasing their laboratory participation from 3-4 facilities to 6-8 within the twelve-year period.</p>
+                <p>While many countries consistently maintained a single laboratory presence, the overall upward trajectory across the network highlights ALMERA's enhanced reach and the increasing national engagement in its mission.</p>
+            </details>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
+    </footer>
+
+    <!-- Removed unused scripts -->
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="js/MembersTable.js"></script>
+    <!-- Removed all Update_Shortcuts scripts as their functionality is removed -->
+    <!-- Removed Welcome_Page_Style.js as it's no longer used -->
+
+    <script>
+        // Removed all mobile menu JavaScript as the functionality is removed.
+        // Dummy functions are no longer needed as the scripts are removed.
+    </script>
+
+</body>
+
+</html>
