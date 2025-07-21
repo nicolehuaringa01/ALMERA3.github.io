@@ -9,7 +9,7 @@
   <script src="https://unpkg.com/topojson-client@3"></script>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/Welcome_Page_Style.css">
+  <link rel="stylesheet" href="css/Non-Main.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
@@ -47,7 +47,6 @@
 
 <body class="antialiased">
 
-
 <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
         <a href="index.html#hero" class="flex items-center space-x-3 group"> <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
         </a>
@@ -64,32 +63,38 @@
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
         <div id="mobile-nav-placeholder"></div>
     </div>
-    <div class="pt-20 md:pt-24"></div>
 
-<main class="container mx-auto px-4 md:px-8 py-12"> 
-    <section class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
-        <h1 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">ALMERA Coordination Meetings</h1>
+  <div class="content-wrapper">
+
+<main class="mx-auto px-4 md:px-8 py-12 max-w-screen-lg">
+    <section>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+      ALMERA Coordination Meetings</h1>
     
-    <div class="flex justify-center">
-    <img src="Screenshot 2025-06-09 112242.png" width="700" height="400">
-    </div>
+      <div style="text-align: center;">
+      <img src="Screenshot 2025-06-09 112242.png" width="700" height="400" class="block mb-4 mx-auto">
+      </div>
  
- <div class="flex justify-center">
-    <i>21st Coordination Meeting (2024) in Rabat, Morocco.</i>
-</div>
+      <div class="flex justify-center">
+      <i>21st Coordination Meeting (2024) in Rabat, Morocco.</i>
+      </div>
 
-<p class="mb-6 text-lg text-gray-700">
-        The <strong>Annual Coordination Meetings</strong> of the ALMERA network take place usually in October or November to assess the network's status and to define its future activities. The host is rotated among different regional groups on the network. IAEA may partially subsidize participation to increase interaction between laboratories. The minutes, outcomes and recommendations of the meeting will be published in newsletters..
-        </p>
- 
- <h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Upcoming Meeting</h2>
-        <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
- <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">22nd ALMERA Coordination Meeting, Munich, Germany.</h3>
+      <p class="mb-6 text-lg text-gray-700">
+      The <strong>Annual Coordination Meetings</strong> of the ALMERA network take place usually in October or November to assess the network's status and to define its future activities. The host is rotated among different regional groups on the network. IAEA may partially subsidize participation to increase interaction between laboratories. The minutes, outcomes and recommendations of the meeting will be published in newsletters..</p>
+
+      <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">
+      Upcoming Meeting</h2>
         
+      <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
+        
+      <h3 class="text-xl md:text-2xl font-medium text-gray-800 mb-4">
+      22nd ALMERA Coordination Meeting, Munich, Germany.</h3>
+        
+      <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">
+      Past Annual Coordination Meetings</h2>
 
-<h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Past Annual Coordination Meetings</h2>
-<div style="overflow-x:auto" class="mb-12">
-    <table class="sortable-theme-bootstrap w-full border-collapse font-sans" id="meeting-table">
+      <div style="overflow-x:auto" class="mb-12">
+      <table class="sortable-theme-bootstrap w-full border-collapse font-sans" id="meeting-table">
         <thead>
             <tr class="bg-gray-100">
                 <th class="table-header-cell">Year</th>
@@ -282,7 +287,8 @@
 </div>
 
 
-<h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Past Regional Meetings</h2>
+      <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">
+      Past Regional Meetings</h2>
 
 
 <div style="overflow-x:auto" class="mb-12">
@@ -335,12 +341,10 @@
 
 <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
   
-<script src="js/MembersTable.js"></script>
 <script src="js/Update_Shortcuts/load_navigation.js"></script>
 <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
 <script src="js/Update_Shortcuts/load_response_count.js"></script>
 <script src="js/Update_Shortcuts/scroll_to_top.js"></script>
-<script src="js/Welcome_Page_Style.js"></script>
 
 </body>
 </html>
