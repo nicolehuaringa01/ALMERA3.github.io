@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
+  
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>ALMERA Structure</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
-  <script src="https://unpkg.com/topojson-client@3"></script>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/Welcome_Page_Style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>ALMERA Structure</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Non-Main.css">
+    
   <style>
         #almera-members-map-container {
             width: 100%; /* Or set a fixed width like 960px */
@@ -41,12 +41,11 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
   </style>
-  
 </head>
 
 <body class="antialiased">
 
-  <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
+    <header class="fixed top-0 left-0 w-full bg-blue-900 text-white p-4 shadow-xl z-50 flex items-center justify-between">
         <a href="index.html#hero" class="flex items-center space-x-3 group"> <span class="text-xl md:text-2xl font-extrabold tracking-wide">ALMERA</span>
         </a>
 
@@ -59,51 +58,54 @@
         </button>
     </header>
 
-  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
         <div id="mobile-nav-placeholder"></div>
     </div>
-    <div class="pt-20 md:pt-24"></div>
-
-   <main class="container mx-auto px-4 md:px-8 py-12">
-    <section class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
-      <h1 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">ALMERA Network Structure</h1>
-
-      <p class="mb-6 text-lg text-gray-700">
-
-      <div id="labs-geographic-chart"></div>
-      <script src="js/1.Geographic_and_Institutional_Coverage/1.2LabsGeographic.js"></script>
-
-      <h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Central Coordination</h2>
-        <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
-
-      <p class="mb-6 text-lg text-gray-700">
-        Based at the <strong>IAEA's Marine Environmental Laboratories in Monaco</strong>.</p>
-        
-      <p class="mb-6 text-lg text-gray-700">Responsibilities include: </p>
-      
-      <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
-      <li>Coordinating the global network and developing medium/long-term targets </li>
-      <li>Ensuring results are SI-traceable</li>
-      <li>Evaluating lab performance through PTs and ILCs </li>
-      <li>Organizing annual coordination meetings and reporting their outcomes and recommendations </li>
-      <li>Disseminating relevant information to members (for example) meeting reports, guidelines for sample design, sample collection and treatment, etc. </li>
-      </ul>
-
-<h2 class="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Regional Groups</h2>
-
-<p> To enhance collaboration, ALMERA is subdivided into regional groups, with their respective coordinating centre:
-</p>
-
-  <img src="Structure.png" width="700" height="400">
   
+    <div class="content-wrapper">
 
- <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
-          <li>Laboratories must select their regional group; otherwise, IAEA assigns based on geography.</li>
-          <li>Laboratories can switch groups at any moment for any reason.</li>
-          <li>Participation in activities across regions is allowed, but each laboratory should formally belong to one group for organizational efficiency.</li>
-          <li>Countries with multiple laboratories may assign them to different regional groups.</li>
-          <li>Coordinating centres in each group should rotate every five years.</li>
- </ul>
+     <main class="mx-auto px-4 md:px-8 py-12 max-w-screen-lg">
+        <section>
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            ALMERA Network Structure</h1>
+
+          <p class="mb-6 text-lg text-gray-700">
+
+          <div id="labs-geographic-chart"></div>
+            <script src="js/1.Geographic_and_Institutional_Coverage/1.2LabsGeographic.js"></script>
+
+          <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">
+          Central Coordination</h2>
+
+          <p class="mb-6 text-lg text-gray-700">
+          Based at the <strong>IAEA's Marine Environmental Laboratories in Monaco</strong>.</p>
+        
+          <p class="mb-6 text-lg text-gray-700">
+          Responsibilities include: </p>
+      
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
+              <li>Coordinating the global network and developing medium/long-term targets </li>
+              <li>Ensuring results are SI-traceable</li>
+              <li>Evaluating lab performance through PTs and ILCs </li>
+              <li>Organizing annual coordination meetings and reporting their outcomes and recommendations </li>
+              <li>Disseminating relevant information to members (for example) meeting reports, guidelines for sample design, sample collection and treatment, etc. </li>
+            </ul>
+
+          <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">
+          Regional Groups</h2>
+
+          <p class="mb-6 text-lg text-gray-700">
+          To enhance collaboration, ALMERA is subdivided into regional groups, with their respective coordinating centre: </p>
+
+          <img src="Structure.png" width="700" height="400" class="block mb-4 mx-auto">
+
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">  
+              <li>Laboratories must select their regional group; otherwise, IAEA assigns based on geography.</li>
+              <li>Laboratories can switch groups at any moment for any reason.</li>
+              <li>Participation in activities across regions is allowed, but each laboratory should formally belong to one group for organizational efficiency.</li>
+              <li>Countries with multiple laboratories may assign them to different regional groups.</li>
+              <li>Coordinating centres in each group should rotate every five years.</li>
+           </ul>
 
 </section>
 </main>
