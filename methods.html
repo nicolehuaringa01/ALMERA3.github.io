@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
     <script src="https://unpkg.com/topojson-client@3"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/Welcome_Page_Style.css">
+    <link rel="stylesheet" href="css/Non-Main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
@@ -33,21 +33,20 @@
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-40 hidden md:hidden">
         <div id="mobile-nav-placeholder"></div>
     </div>
-    <div class="pt-20 md:pt-24"></div>
+    <div class="content-wrapper">
 
-    <main class="container mx-auto px-4 md:px-8 py-12">
-        <section class="bg-white p-8 md:p-12 rounded-xl shadow-2xl mb-12 scroll-reveal">
-            <h1 class="text-3xl md:text-4xl font-bold mb-6 border-b-2 pb-4 text-[var(--color-primary-dark)] border-[var(--color-primary-light)]">Validated Analytical Methods</h1>
+    <main class="mx-auto px-4 md:px-8 py-12 max-w-screen-lg">
+            <section>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                    Validated Analytical Methods</h1>
 
-            <p class="mb-6 text-lg text-gray-700">
-                Tested and validated analytical procedures are important tools for the production of reliable, comparable and ‘fit for purpose’ analytical measurements. However, finding and choosing a procedure can be a challenge due to a wide variety of technologies available and the rapidity of developments in the field.
-            </p>
+                <p class="mb-6 text-lg text-gray-700">
+                Tested and validated analytical procedures are important tools for the production of reliable, comparable and ‘fit for purpose’ analytical measurements. However, finding and choosing a procedure can be a challenge due to a wide variety of technologies available and the rapidity of developments in the field.</p>
 
-            <p class="mb-6 text-lg text-gray-700">
-                Therefore, since 2004 the IAEA’s programme related to ALMERA has included activities aimed towards the development of a set of procedures for determination of radionuclides in environmental samples. It is intended that as these are developed, they will be made available to laboratories wishing to use procedures that have been validated by a large number of laboratories and therefore could be regarded as having been widely tested.
-            </p>
+                <p class="mb-6 text-lg text-gray-700">
+                Therefore, since 2004 the IAEA’s programme related to ALMERA has included activities aimed towards the development of a set of procedures for determination of radionuclides in environmental samples. It is intended that as these are developed, they will be made available to laboratories wishing to use procedures that have been validated by a large number of laboratories and therefore could be regarded as having been widely tested.</p>
 
-            <p class="mb-6 text-lg text-gray-700">
+                <p class="mb-6 text-lg text-gray-700">
                 The following table reports the most recent outcomes of ALMERA’s activities aimed towards the development of a set of procedures for determination of radionuclides in environmental samples, both for routine environmental monitoring and emergency monitoring. The number between brackets is related to the corresponding IAEA publication available for download below the table.</p>
 
             <table class="meeting-table">
@@ -123,40 +122,35 @@
                 </tbody>
             </table>
 
-
-            <hr class="my-8 border-t-2 border-gray-200">
-
-            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">Legend:</h3>
+            <h3 class="text-xl md:text-2xl font-medium text-gray-800 mt-4 mb-4">
+                Legend:</h3>
+                
             <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
                 <li><strong>O</strong>: Routine procedure for environmental monitoring</li>
                 <li><strong>O</strong>: Rapid method for emergency monitoring</li>
             </ul>
 
             <ol>
-                <li>A procedure for the rapid determination of Pu isotopes and Am-241 in soil and sediment samples by alpha spectrometry, IAEA Analytical Quality in Nuclear Applications Series No. 11, 2009 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-11_web.pdf">download report (pdf)</a>)</li>
-                <li>A procedure for the determination of Po-210 in water samples by alpha spectrometry, IAEA Analytical Quality in Nuclear Applications Series No. 12, 2009 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-12_web.pdf">download report (pdf)</a>)</li>
-                <li>A Procedure for the Sequential Determination of Radionuclides in Phosphogypsum: Liquid Scintillation Counting and Alpha Spectrometry for 210Po, 210Pb, 226Ra, Th and U Radioisotopes, IAEA Analytical Quality in Nuclear Applications Series No. 34, 2014 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-34_web.pdf">download report (pdf)</a>)</li>
-                <li>A Procedure for the Sequential Determination of Radionuclides in Environmental Samples: Liquid Scintillation Counting and Alpha Spectrometry for 90Sr, 241Am and Pu Radioisotopes, IAEA Analytical Quality in Nuclear Applications Series No. 37, 2014 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-37_web.pdf">download report (pdf)</a>)</li>
-                <li>A Procedure for the Rapid Determination of 226Ra and 228Ra in Drinking Water by Liquid Scintillation Counting, IAEA Analytical Quality in Nuclear Applications Series No. 39, 2014 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-39_web.pdf">download report (pdf)</a>)</li>
-                <li>Rapid Simultaneous Determination of 89Sr and 90Sr in Milk: A Procedure Using Cerenkov and Scintillation Counting, IAEA Analytical Quality in Nuclear Applications Series No. 27, 2013 (download report (pdf))</li>
+                <li>1. A procedure for the rapid determination of Pu isotopes and Am-241 in soil and sediment samples by alpha spectrometry, IAEA Analytical Quality in Nuclear Applications Series No. 11, 2009 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-11_web.pdf">download report (pdf)</a>)</li>
+                <li>2. A procedure for the determination of Po-210 in water samples by alpha spectrometry, IAEA Analytical Quality in Nuclear Applications Series No. 12, 2009 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-12_web.pdf">download report (pdf)</a>)</li>
+                <li>3. A Procedure for the Sequential Determination of Radionuclides in Phosphogypsum: Liquid Scintillation Counting and Alpha Spectrometry for 210Po, 210Pb, 226Ra, Th and U Radioisotopes, IAEA Analytical Quality in Nuclear Applications Series No. 34, 2014 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-34_web.pdf">download report (pdf)</a>)</li>
+                <li>4. A Procedure for the Sequential Determination of Radionuclides in Environmental Samples: Liquid Scintillation Counting and Alpha Spectrometry for 90Sr, 241Am and Pu Radioisotopes, IAEA Analytical Quality in Nuclear Applications Series No. 37, 2014 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-37_web.pdf">download report (pdf)</a>)</li>
+                <li>5. A Procedure for the Rapid Determination of 226Ra and 228Ra in Drinking Water by Liquid Scintillation Counting, IAEA Analytical Quality in Nuclear Applications Series No. 39, 2014 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-39_web.pdf">download report (pdf)</a>)</li>
+                <li>6. Rapid Simultaneous Determination of 89Sr and 90Sr in Milk: A Procedure Using Cerenkov and Scintillation Counting, IAEA Analytical Quality in Nuclear Applications Series No. 27, 2013 (download report (pdf))</li>
             </ol>
 
             <p class="mb-6 text-lg text-gray-700">
-                The following review report is also available as an IAEA Analytical Quality in Nuclear Applications Series document:
-            </p>
+                The following review report is also available as an IAEA Analytical Quality in Nuclear Applications Series document:</p>
             
             <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
-                <li>Determination of radium isotopes in environmental samples, Analytical Quality in Nuclear Applications Series No. 19, 2010 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-19_web.pdf">download report (pdf)</a>)</li>
-            </ul>
+                <li>Determination of radium isotopes in environmental samples, Analytical Quality in Nuclear Applications Series No. 19, 2010 (<a href="http://www-pub.iaea.org/MTCD/Publications/PDF/IAEA-AQ-19_web.pdf">download report (pdf)</a>)</li></ul>
 
             <p class="mb-6 text-lg text-gray-700">
-                Bibliographic references of related ALMERA publications in journals are given below:
-            </p>
+                Bibliographic references of related ALMERA publications in journals are given below:</p>
 
             <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">Reviews</h3>
 
             <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
-
                 <li>Determination of 210Po in environmental materials: A review of analytical methodology, Applied Radiation and Isotopes, 65, 267-279 (2007)</li>
                 <li>Determination of Pu isotope concentrations and isotope ratio by ICP-MS: a review of analytical methodology, Journal of Analytical. Atomic Spectrometry, 22, 827-841 (2007)</li>
                 <li>Determination of Pu isotopes by alpha-spectrometry: a review of analytical methodology, Journal of Radioanalytical and. Nuclear Chemistry, 283, 203-223 (2010)</li>
@@ -166,8 +160,10 @@
                 <li>239+240Pu from “contaminant” to soil erosion tracer: Where do we stand?, Earth-Science Reviews, 172, 107-123 (2017) (<a href="https://nucleus.iaea.org/rpst/ReferenceProducts/ALMERA/Validated_analytical_methods/Paper_ESR_Pitois.pdf">download (pdf)</a>)</li>
             </ul>
 
-            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-accent-green-dark)]">Research articles:</h3>
-            <ul>
+            <h3 class="text-xl md:text-2xl font-medium text-gray-800 mb-4">
+                Research articles:</h3>
+                
+            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
                 <li>Development and application of an on-line sequential injection system for the separation of Pu, 210Po and 210Pb from environmental samples, Applied Radiation and Isotopes, 66, 223-230 (2008)</li>
                 <li>Quantification of measurement uncertainty in the sequential determination of 210Pb and 210Po by liquid scintillation counting and alpha-particle spectrometry, Accreditation and Quality Assurance, 13, 691-701 (2008)</li>
                 <li>Method validation of a procedure for determination of 210Po in water using DDTC solvent extraction and Sr-resin, Journal of Radioanalytical and. Nuclear Chemistry, 279, 639-646 (2009)</li>
@@ -189,12 +185,10 @@
 
     <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
 
-    <script src="js/MembersTable.js"></script>
     <script src="js/Update_Shortcuts/load_navigation.js"></script>
     <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
     <script src="js/Update_Shortcuts/load_response_count.js"></script>
     <script src="js/Update_Shortcuts/scroll_to_top.js"></script>
-    <script src="js/Welcome_Page_Style.js"></script>
 
 </body>
 
