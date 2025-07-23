@@ -12,23 +12,16 @@
     --color-accent-green-light: #b0c99d; /* Lighter green for subtle accents */
 }
 
-/* --- Frutiger Bold Condensed Font Definition --- */
-/* IMPORTANT: You need to replace 'path/to/your/font-files/' with the actual
-   path where you host your Frutiger Bold Condensed font files.
-   Ensure you have the necessary licenses to use this commercial font. */
+
 @font-face {
-    font-family: 'Frutiger Bold Condensed';
-    src: url('path/to/your/font-files/Frutiger-BoldCondensed.woff2') format('woff2'),
-         url('path/to/your/font-files/Frutiger-BoldCondensed.woff') format('woff'),
-         url('path/to/your/font-files/Frutiger-BoldCondensed.ttf') format('truetype');
-    font-weight: 700; /* Assuming 'Bold' corresponds to 700 */
+    font-family: Roboto;
+    font-weight: 700; 
     font-style: normal;
-    font-display: swap; /* Ensures text remains visible during font loading */
+    font-display: swap;
 }
 
 body {
-    /* Prioritize Frutiger Bold Condensed, fallback to Inter, then generic sans-serif */
-    font-family: 'Frutiger Bold Condensed', 'Inter', sans-serif;
+    font-family: Roboto;
     @apply bg-gray-50 text-gray-800 leading-relaxed;
     scroll-behavior: smooth; /* Smooth scrolling for anchor links */
     padding-top: 64px; /* Space for fixed header */
@@ -45,27 +38,6 @@ body {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-}
-
-/* Glassmorphism Effect for Cards/Elements */
-.glassmorphism {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* Scroll-Reveal Animation */
-.scroll-reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.scroll-reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Custom scrollbar for aesthetic purposes (optional) */
@@ -136,8 +108,6 @@ section {
   border-radius: 0;
   padding: 2rem 0;
 }
-
-
 
 /* Heading styles */
 h1 {
