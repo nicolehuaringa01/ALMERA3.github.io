@@ -10,6 +10,7 @@
     --color-accent-green: #859d69; /* New accent green */
     --color-accent-green-dark: #6e8055; /* Darker green for hover states */
     --color-accent-green-light: #b0c99d; /* Lighter green for subtle accents */
+    --color-text-light: #6a6a6a; /* Or another light gray/blue color */
 }
 
 
