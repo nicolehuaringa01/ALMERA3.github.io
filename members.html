@@ -42,6 +42,37 @@
             z-index: 1001;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+
+        /* Add a style for sortable headers to indicate interactivity */
+        .sortable-header {
+            cursor: pointer;
+            position: relative;
+            padding-right: 20px; /* Space for the sort indicator */
+        }
+
+        .sortable-header::after {
+            content: '';
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #ccc; /* Default indicator color */
+            opacity: 0.5;
+        }
+
+        .sortable-header.asc::after {
+            border-top: none;
+            border-bottom: 5px solid var(--color-primary-dark);
+            opacity: 1;
+        }
+
+        .sortable-header.desc::after {
+            border-bottom: none;
+            border-top: 5px solid var(--color-primary-dark);
+            opacity: 1;
+        }
         /* Make sure all other custom styles are also included,
            especially the :root variables and body/header/main/footer styles. */
     </style>
@@ -91,17 +122,22 @@
                     List of ALMERA Network Laboratories
                 </h2>
 
+                <div class="mb-4">
+                    <input type="text" id="table-search" placeholder="Search by Member State or Laboratory..."
+                           class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
                 <div style="overflow-x:auto" class="mb-12">
                     <table class="meeting-table">
                         <thead>
                             <tr>
-                                <th>Member State</th>
-                                <th>Laboratory</th>
-                                <th>Address</th>
+                                <th class="sortable-header" data-sort="state">Member State</th>
+                                <th class="sortable-header" data-sort="lab">Laboratory</th>
+                                <th class="sortable-header" data-sort="address">Address</th>
                             </tr>
                         </thead>
                         <tbody id="table-body-content">
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
 
@@ -121,4 +157,5 @@
     </footer>
 
 </body>
+
 </html>
