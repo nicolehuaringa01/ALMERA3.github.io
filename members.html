@@ -47,41 +47,53 @@
             /* Above header if possible */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-
-        /* Table styles - Convert these to Tailwind where possible, or keep as custom CSS if complex */
-        table.sortable-theme-bootstrap {
+        table.meeting-table {
             width: 100%;
             border-collapse: collapse;
-            /* font-family: sans-serif; -- Will be overridden by body font-family from Welcome_Page_Style.css */
+            font-family: 'Inter', sans-serif;
             margin-bottom: 2rem;
+            @apply shadow-lg rounded-lg overflow-hidden;
         }
 
-        table.sortable-theme-bootstrap thead {
-            background-color: #f2f2f2;
-            /* Use your color variables here if you want to integrate */
+        table.meeting-table th,
+        table.meeting-table td {
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            text-align: center;
+            @apply text-gray-700;
         }
 
-        table.sortable-theme-bootstrap th,
-        table.sortable-theme-bootstrap td {
-            border: 1px solid #ccc;
-            /* Use your color variables here */
-            padding: 10px;
-            vertical-align: top;
-            text-align: left;
+        table.meeting-table thead {
+            background-color: var(--color-primary-lighter);
         }
 
-        table.sortable-theme-bootstrap th {
-            font-weight: bold;
-            background-color: #e8e8e8;
-            /* Use your color variables here */
-            cursor: pointer;
-            background-color: #f9f9f9;
-            /* Use your color variables here */
+        table.meeting-table th {
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            text-transform: uppercase;
+            font-size: 0.9rem;
         }
 
-        table.sortable-theme-bootstrap tr:nth-child(even) {
-            background-color: #fafafa;
-            /* Use your color variables here */
+        table.meeting-table tbody tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        table.meeting-table tbody tr:hover {
+            background-color: #f0f0f0;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        table.meeting-table a {
+            color: var(--color-accent-green);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s ease-in-out, text-decoration-color 0.2s ease-in-out;
+            font-weight: 500;
+        }
+
+        table.meeting-table a:hover {
+            color: var(--color-accent-green-dark);
+            text-decoration-color: transparent;
         }
     </style>
 </head>
@@ -129,12 +141,12 @@
                 List of ALMERA Network Laboratories</h2>
 
             <div style="overflow-x:auto" class="mb-12">
-                <table class="sortable-theme-bootstrap w-full border-collapse font-sans" id="almera-members-table">
+                <table class="meeting-table">
                     <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border border-gray-300 p-3 text-left font-bold bg-gray-200 cursor-pointer">Member State</th>
-                            <th class="border border-gray-300 p-3 text-left font-bold bg-gray-200 cursor-pointer">Laboratory</th>
-                            <th class="border border-gray-300 p-3 text-left font-bold bg-gray-200 cursor-pointer">Address</th>
+                        <tr>
+                            <th>Member State</th>
+                            <th>Laboratory</th>
+                            <th>Address</th>
                         </tr>
                     </thead>
                     <tbody id="table-body-content">
