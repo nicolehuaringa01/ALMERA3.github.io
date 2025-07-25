@@ -12,23 +12,21 @@
     <link rel="stylesheet" href="css/Non-Main.css">
 
     <style>
+        /* All your existing <style> block CSS should be here.
+           (I'm omitting it for brevity as you said you might have moved it to Non-Main.css,
+           but ensure it's present either here or in the linked CSS file) */
         #almera-members-map-container {
             width: 100%;
-            /* Or set a fixed width like 960px */
             height: 500px;
-            /* Fixed height as per Observable code */
             margin-top: 1rem;
             border: 1px solid #ddd;
             border-radius: 8px;
             overflow: hidden;
-            /* Ensures content stays within bounds */
         }
 
         #almera-members-map-container canvas {
             display: block;
-            /* Remove extra space below canvas */
             width: 100%;
-            /* Make canvas fill its container */
             height: 100%;
         }
 
@@ -39,14 +37,13 @@
             color: white;
             border-radius: 4px;
             pointer-events: none;
-            /* Allows clicks/hovers to pass through */
             font-size: 12px;
             display: none;
-            /* Hidden by default */
             z-index: 1001;
-            /* Above header if possible */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+        /* Make sure all other custom styles are also included,
+           especially the :root variables and body/header/main/footer styles. */
     </style>
 </head>
 
@@ -71,50 +68,52 @@
 
     <div class="content-wrapper">
 
-    <main class="mx-auto px-4 md:px-8 py-12 max-w-screen-lg">
-        <section id="members">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                ALMERA Network Laboratories</h1>
-            <p class="mb-6 text-lg text-gray-700">
-                As of <strong class="text-[var(--color-primary-dark)]">July 2025</strong> the ALMERA network consists of <strong class="text-[var(--color-primary-dark)]"><strong id="response-count">Loading...</strong></strong> laboratories representing <strong class="text-[var(--color-primary-dark)]">90</strong> member states. Two additional laboratories from the IAEA Physical and Chemical Sciences division include the Terrestrial Environmental Radiochemistry (TERC) laboratory in Seibersdorf, Austria, and the Marine Environmental Laboratories in Monaco (Central Coordinator).
-            </p>
-            <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
-                <li>Laboratories must be nominated by their respective governments via the Permanent Mission to the International Atomic Energy Agency (IAEA).</li>
-                <li>Membership is open to multiple laboratories per country with no nomination deadline.</li>
-            </ul>
+        <main class="mx-auto px-4 md:px-8 py-12 max-w-screen-lg">
+            <section id="members">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                    ALMERA Network Laboratories
+                </h1>
+                <p class="mb-6 text-lg text-gray-700">
+                    As of <strong class="text-[var(--color-primary-dark)]">July 2025</strong> the ALMERA network consists of <strong class="text-[var(--color-primary-dark)]" id="response-count">Loading...</strong> laboratories representing <strong class="text-[var(--color-primary-dark)]">90</strong> member states. Two additional laboratories from the IAEA Physical and Chemical Sciences division include the Terrestrial Environmental Radiochemistry (TERC) laboratory in Seibersdorf, Austria, and the Marine Environmental Laboratories in Monaco (Central Coordinator).
+                </p>
+                <ul class="list-disc list-inside space-y-2 mb-6 text-lg text-gray-700">
+                    <li>Laboratories must be nominated by their respective governments via the Permanent Mission to the International Atomic Energy Agency (IAEA).</li>
+                    <li>Membership is open to multiple laboratories per country with no nomination deadline.</li>
+                </ul>
 
-            <h3 class="text-xl md:text-2xl font-medium text-gray-800 mb-4">
-                Map of ALMERA Network Members</h3>
-            <div id="almera-members-map-container"></div>
-            <script src=js/1.Geographic_and_Institutional_Coverage/1.1ALMERA_Members_Map.js></script>
+                <h3 class="text-xl md:text-2xl font-medium text-gray-800 mb-4">
+                    Map of ALMERA Network Members
+                </h3>
+                <div id="almera-members-map-container"></div>
+                <script src="js/1.Geographic_and_Institutional_Coverage/1.1ALMERA_Members_Map.js"></script>
 
-            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mt-8 mb-5">
-                List of ALMERA Network Laboratories</h2>
+                <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mt-8 mb-5">
+                    List of ALMERA Network Laboratories
+                </h2>
 
-            <div style="overflow-x:auto" class="mb-12">
-                <table class="meeting-table">
-                    <thead>
-                        <tr>
-                            <th>Member State</th>
-                            <th>Laboratory</th>
-                            <th>Address</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body-content">
-                    </tbody>
-                </table>
-            </div>
+                <div style="overflow-x:auto" class="mb-12">
+                    <table class="meeting-table">
+                        <thead>
+                            <tr>
+                                <th>Member State</th>
+                                <th>Laboratory</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-content">
+                        </tbody>
+                    </table>
+                </div>
 
-        </section>
-    </main>
+            </section>
+        </main>
 
-    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+    </div> <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
     <script src="js/MembersTable.js"></script>
     <script src="js/Update_Shortcuts/load_navigation.js"></script>
     <script src="js/Update_Shortcuts/load_mobile_navigation.js"></script>
     <script src="js/Update_Shortcuts/load_response_count.js"></script>
     <script src="js/Update_Shortcuts/scroll_to_top.js"></script>
-
     <footer class="bg-gray-900 text-gray-300 py-8 text-center text-sm shadow-inner">
         <div class="px-4">
             <p>&copy; 2025 ALMERA Network. All rights reserved.</p>
