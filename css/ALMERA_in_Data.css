@@ -32,34 +32,28 @@ a:hover {
 }
 
 header {
-    background: #0256b3;
-    color: #fff;
+    background: var(--color-primary); /* Use variable */
+    color: var(--color-text-light); /* Use variable */
     padding: 1rem 2rem;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px var(--color-shadow-light); /* Stronger, more modern shadow */
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centers content horizontally */
     align-items: center;
-}
-
-header a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    cursor: pointer;
+    min-height: 64px; /* Ensure a consistent height */
 }
 
 header h1 {
     margin: 0;
-    /* Remove default h1 margin */
-    font-size: 1.6rem;
+    font-size: 1.8rem; /* Slightly larger for prominence */
     font-weight: 700;
-    text-align: left;
+    text-align: center; /* Center the title for visual balance within its flex container */
+    letter-spacing: -0.5px; /* Subtle tightening for modern look */
 }
 
 /* Container for the sidebar and main content */
@@ -76,266 +70,316 @@ header h1 {
     top: 64px;
     left: 0;
     width: 250px;
-    /* Desired width of the sidebar */
     height: calc(100vh - 64px);
-    /* Full height of viewport minus header height */
-    background: #fff;
-    padding: 1rem 0.5rem;
-    /* Adjust padding for links */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    background: var(--color-background-card); /* Use variable for background */
+    padding: 1.5rem 0.5rem; /* More top/bottom padding for breathing room */
+    box-shadow: 2px 0 8px var(--color-shadow-light); /* Consistent shadow */
     display: flex;
     flex-direction: column;
-    /* Stack items vertically */
     align-items: flex-start;
-    /* Align links to the left */
     overflow-y: auto;
-    /* Enable scrolling for the nav if content overflows */
     z-index: 998;
     box-sizing: border-box;
 }
 
 .nav-buttons a {
-    background: #f0f0f0;
-    /* Lighter background for nav links */
-    color: #333;
-    /* Darker text for better contrast */
+    background: transparent; /* Start with transparent background */
+    color: var(--color-text-dark); /* Darker text */
     text-decoration: none;
-    margin: 4px 0;
-    /* Vertical margin between links */
-    padding: 10px 15px;
-    /* Padding inside links */
-    border-radius: 4px;
+    margin: 2px 0; /* Reduced vertical margin */
+    padding: 12px 20px; /* Increased padding for clickability */
+    border-radius: 6px; /* Slightly more rounded */
     font-weight: 500;
-    /* Slightly lighter weight */
-    transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
-    width: 100%;
-    /* Make links fill the nav width */
+    transition: background 0.3s ease, color 0.3s ease;
+    width: calc(100% - 1rem); /* Account for padding in nav-buttons container */
     box-sizing: border-box;
-    /* Include padding in width */
     text-align: left;
-    /* Align text to the left */
 }
 
 .nav-buttons a:hover {
-    background: #e0e0e0;
-    /* Hover effect */
-    color: #0256b3;
-    /* Highlight text color */
-    transform: none;
-    /* No translateY on hover for sidebar links */
+    background: var(--color-background-light); /* Subtle background on hover */
+    color: var(--color-primary-dark); /* Highlight text color */
 }
 
+.nav-buttons a.active-nav-link { /* Style for the active/current page link */
+    background: var(--color-primary); /* Solid highlight */
+    color: var(--color-text-light); /* White text for contrast */
+    font-weight: 600; /* Bolder for active state */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Subtle shadow for active item */
+}
+
+.nav-buttons a.active-nav-link:hover {
+    background: var(--color-primary-dark); /* Darker primary on hover for active */
+    color: var(--color-text-light);
+}
 main {
     flex-grow: 1;
-    /* Allows main to take up remaining horizontal space */
     margin-left: 250px;
-    /* Push main content to the right by nav width */
-    max-width: 1100px;
-    /* Max width for the actual content */
+    max-width: 1200px; /* Slightly wider max-width for modern screens */
     margin-right: auto;
-    /* To help center the content within the available space */
     margin-top: 2rem;
-    /* Top margin for content */
-    padding: 0 1.5rem;
-    /* Internal padding */
+    padding: 0 2rem; /* Increased side padding for content */
     box-sizing: border-box;
 }
 
 section {
-    background: #fff;
-    border-radius: 10px;
+    background: var(--color-background-card); /* Use variable */
+    border-radius: 12px; /* Slightly more rounded corners for sections */
     margin-bottom: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem 2rem;
+    box-shadow: 0 6px 18px var(--color-shadow-medium); /* Softer, deeper shadow */
+    padding: 2rem 2.5rem; /* More padding inside sections */
 }
 
 h2 {
-    color: #0256b3;
-    font-size: 1.4rem;
+    color: var(--color-primary); /* Use variable */
+    font-size: 1.6rem; /* Slightly larger heading */
     margin-top: 0;
+    margin-bottom: 1.5rem; /* Add space below heading */
+    padding-bottom: 0.5rem; /* Add a subtle underline effect */
+    border-bottom: 1px solid var(--color-border-light); /* Subtle separator */
+    letter-spacing: -0.2px;
 }
 
+/* For generic paragraphs within sections */
+section p {
+    font-size: 1.05rem; /* Slightly larger text for readability */
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+/* Strong text within paragraphs */
+section p strong {
+    color: var(--color-primary-dark); /* Make strong text stand out more */
+}
 iframe {
     width: 100%;
     border: none;
-    border-radius: 8px;
-    height: 480px;
-    /* Keep this height for Observable embeds */
-    margin-top: 1rem;
+    border-radius: 10px; /* Consistent rounded corners */
+    height: 500px; /* Slightly adjusted, ensure it fits content well */
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Add a subtle shadow to iframes */
+}
+
+/* Custom styles for the map and tooltip */
+#almera-members-map-container {
+    width: 100%;
+    height: 550px; /* Slightly increased map height for more impact */
+    margin-top: 1.5rem;
+    border: 1px solid var(--color-border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Consistent shadow */
+}
+
+#almera-members-map-container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.map-tooltip {
+    position: absolute;
+    padding: 10px 14px; /* More padding */
+    background: rgba(0, 0, 0, 0.85); /* Slightly darker tooltip background */
+    color: white;
+    border-radius: 6px; /* Consistent rounded corners */
+    pointer-events: none;
+    font-size: 13px; /* Slightly larger font */
+    display: none;
+    z-index: 1001;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Stronger tooltip shadow */
+}
+
+/* For the dynamic chart display */
+#chart-display-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px; /* Increased gap between charts */
+    justify-content: center;
+    margin-top: 25px; /* More space above */
+    max-width: 960px; /* Adjusted max width slightly */
+    margin-left: auto;
+    margin-right: auto;
+}
+#chart-display-container svg {
+    border: 1px solid #eee;
+    border-radius: 10px; /* Consistent rounded corners */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Consistent shadow */
 }
 
 footer {
     text-align: center;
-    padding: 1.5rem;
-    background: #f1f3f5;
-    color: #777;
-    font-size: 0.9rem;
+    padding: 2rem; /* More padding for footer */
+    background: #e9ecef; /* Slightly darker/more prominent footer background */
+    color: #555; /* Slightly darker text */
+    font-size: 0.85rem; /* Slightly smaller for subtle feel */
     margin-left: 250px;
     box-sizing: border-box;
     width: calc(100% - 250px);
-    /* Adjust width to span remaining space */
+}
+
+#topBtn {
+    display: none;
+    position: fixed;
+    bottom: 30px; /* Slightly higher from bottom */
+    right: 30px; /* Slightly further from right */
+    z-index: 1002; /* Higher z-index to ensure it's always on top */
+    background: var(--color-primary); /* Use variable */
+    color: white;
+    border: none;
+    padding: 14px 18px; /* Slightly larger button */
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px; /* Larger arrow */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); /* More prominent shadow */
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Add transform to transition */
+}
+
+#topBtn:hover {
+    background: var(--color-primary-dark); /* Use variable */
+    transform: translateY(-3px); /* Subtle lift on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
 /* Accordion */
 details {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background: #fdfdfd;
-    transition: background 0.3s ease;
+    border: 1px solid var(--color-border-light);
+    border-radius: 10px; /* Consistent rounding */
+    padding: 1.2rem 1.5rem; /* More balanced padding */
+    margin-bottom: 1.2rem; /* Consistent spacing */
+    background: var(--color-background-card);
+    transition: background 0.3s ease, box-shadow 0.3s ease; /* Add box-shadow to transition */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03); /* Lighter shadow for details */
 }
 
 details:hover {
-    background: #f8f9fa;
+    background: #fdfdfd; /* Very subtle background change */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06); /* Slightly more pronounced shadow on hover */
 }
 
 summary {
     font-weight: 600;
     cursor: pointer;
     position: relative;
-    padding-right: 20px;
+    padding-right: 30px; /* More space for the toggle icon */
+    color: var(--color-primary-dark); /* Make summary text more prominent */
+    font-size: 1.1rem; /* Slightly larger font for summary */
+    list-style: none; /* Hide default browser triangle */
+}
+
+summary::marker {
+    display: none; /* Hide default marker in most browsers */
 }
 
 summary::after {
     content: "▼";
     position: absolute;
-    right: 0;
+    right: 5px; /* Adjust icon position */
+    top: 50%;
+    transform: translateY(-50%);
     transition: transform 0.3s ease;
+    font-size: 0.9em; /* Adjust icon size relative to summary text */
+    color: #666; /* Softer color for the icon */
 }
 
 details[open] summary::after {
-    content: "▲";
+    transform: translateY(-50%) rotate(180deg); /* Rotate icon when open */
+    content: "▲"; /* Change icon to up arrow */
 }
 
-#topBtn {
-    display: none;
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    z-index: 1000;
-    background: #0256b3;
-    color: white;
-    border: none;
-    padding: 12px 16px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease;
-    right: 25px;
-    /* Ensure it's not affected by left margin */
+.breadcrumbs {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 1.5rem; /* More space below breadcrumbs */
+    padding-left: 0.5rem; /* Align with main content */
 }
 
-#topBtn:hover {
-    background: #01488f;
+.breadcrumbs a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumbs a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    margin: 0 8px; /* Space between items */
+    color: #aaa; /* Lighter color for separators */
 }
 
 /* Basic responsiveness for smaller screens (optional but recommended) */
 @media (max-width: 768px) {
+    body {
+        padding-top: 0; /* No fixed header on small screens */
+    }
+
+    header {
+        position: relative; /* Make header flow with content */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Keep a subtle shadow */
+    }
+
+    .content-wrapper {
+        flex-direction: column; /* Stack sidebar and main vertically */
+        min-height: auto; /* Remove min-height calculation */
+    }
+
     .nav-buttons {
         position: relative;
-        /* Make nav flow with content on small screens */
         width: 100%;
         height: auto;
-        top: 0;
-        /* No longer fixed below header if header itself is not fixed */
+        top: auto;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        /* Shadow at bottom */
         padding: 0.8rem 1rem;
-        flex-direction: row;
-        /* Back to horizontal for small screens */
-        flex-wrap: wrap;
+        flex-direction: row; /* Horizontal layout for nav items */
+        flex-wrap: wrap; /* Allow wrapping */
         justify-content: center;
+        margin-bottom: 1rem; /* Add some space below the horizontal nav */
     }
 
     .nav-buttons a {
         width: auto;
-        flex-grow: 1;
-        /* Allow items to grow */
+        flex-basis: calc(50% - 10px); /* Two columns on small screens, adjust as needed */
         text-align: center;
         margin: 5px;
-    }
-
-    .content-wrapper {
-        flex-direction: column;
-        /* Stack content vertically */
-        margin-left: 0;
-        /* Remove left margin */
+        font-size: 0.95rem; /* Slightly smaller font for nav items */
+        padding: 8px 12px;
     }
 
     main {
         margin-left: 0;
-        /* Remove left margin for main content */
-        margin-top: 1rem;
-        /* Adjust top margin for main content */
+        margin-top: 1.5rem; /* Adjust top margin for main content */
+        padding: 0 1rem; /* Reduced side padding on small screens */
+    }
+
+    section {
+        padding: 1.5rem 1.5rem; /* Adjust section padding for small screens */
+        margin-bottom: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.4rem; /* Smaller headings on small screens */
     }
 
     footer {
         margin-left: 0;
         width: 100%;
+        padding: 1.5rem;
     }
 
-    body {
-        padding-top: 0;
-        /* No padding needed if header isn't fixed anymore */
-    }
-
-    header {
-        position: relative;
-        /* Make header flow with content on small screens */
+    #topBtn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 14px; /* Smaller button */
+        font-size: 16px; /* Smaller arrow */
     }
 }
 
-/* Custom styles for the map and tooltip */
-#almera-members-map-container {
-    width: 100%;
-    /* Or set a fixed width like 960px */
-    height: 500px;
-    /* Fixed height as per Observable code */
-    margin-top: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    /* Ensures content stays within bounds */
-}
-
-#almera-members-map-container canvas {
-    display: block;
-    /* Remove extra space below canvas */
-    width: 100%;
-    /* Make canvas fill its container */
-    height: 100%;
-}
-
-.map-tooltip {
-    position: absolute;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    border-radius: 4px;
-    pointer-events: none;
-    /* Allows clicks/hovers to pass through */
-    font-size: 12px;
-    display: none;
-    /* Hidden by default */
-    z-index: 1001;
-    /* Above header if possible */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-/* For the dynamic chart display */
-    #chart-display-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center; /* Center charts if multiple are selected */
-        margin-top: 20px;
-        max-width: 928px; /* Constrain width to align with charts */
-        margin-left: auto; /* Center the container */
-        margin-right: auto;
+/* Very small screens (e.g., old phones) */
+@media (max-width: 480px) {
+    .nav-buttons a {
+        flex-basis: calc(100% - 10px); /* Stack nav items vertically on very small screens */
     }
-    #chart-display-container svg {
-        border: 1px solid #eee;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
+}
