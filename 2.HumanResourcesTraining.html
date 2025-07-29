@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Human Resources and Training</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
-    <script src="https://unpkg.com/topojson-client@3"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/ALMERA_in_Data.css">
 </head>
@@ -19,19 +16,8 @@
 </header>
 
 <div class="content-wrapper">
-<nav class="nav-buttons">
-        <a href="1.GeographicInstitutionalCoverage.html">1. Geographic & Institutional Coverage</a>
-        <a href="2.HumanResourcesTraining.html">2. Human Resources and Training</a>
-        <a href="3.LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
-        <a href="4.AnalyticalMethodDevelopmentImplementation.html">4. Method Development</a>
-        <a href="5.RadionuclidesMeasured.html">5. Radionuclides Measured</a>
-        <a href="6.QualityManagementReporting.html">6. Quality Management</a>
-        <a href="7.EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
-        <a href="8.NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
-        <a href="9.RequestedFutureActivities.html">9. Future Activities</a>
-    </nav>
-
-<main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+    <div id="navigation-placeholder"></div>
+    <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
        <h2>2. Human Resources and Training</h2>
     
     <section class="text-lg text-gray-700 leading-relaxed space-y-4">
@@ -45,7 +31,6 @@
           <li>The majority of the laboratories fall within the 1-5 and 6-10 trained professional categories, suggesting that most labs operate with a relatively small team of trained professionals.</li>
           </ul>
     <div id="human-resources-chart-container" class="chart-container"></div>
-    <script src="js/2.Human_Resources_and_Training/2.1FullTimeTrainedProfessionals.js"></script>
     </details>
   </section>
 
@@ -55,22 +40,16 @@
       <summary>Availaibility of Training Programmes and Evaluation Systems</summary>
     <p>2. Does the laboratory have a programme for regular staff training?</p>
       <div id="staff-training-chart-container" class="chart-container"></div>
-      <script src="js/2.Human_Resources_and_Training/2.2RegularStaffTrainingProgramAvailability.js"></script>
     <p>3. Does the laboratory have a training programme for new personnel?</p>
       <div id="new-staff-training-chart-container" class="chart-container"></div>
-      <script src="js/2.Human_Resources_and_Training/2.3NewStaffTrainingProgramAvailaibity.js"></script>
     <p>4. Does the laboratory have systems to evaluate the training programme?</p>
       <div id="training-program-chart-container" class="chart-container"></div>
-      <script src="js/2.Human_Resources_and_Training/2.4TrainingProgramEvaluationSystems.js"></script>
     <p>5. Is the laboratory able to host training courses?</p>
       <div id="host-courses-chart-container" class="chart-container"></div>
-      <script src="js/2.Human_Resources_and_Training/2.5AbleToHostTrainingCourses.js"></script>
     <p>6. Training Hosting Capacity</p>
       <div id="training-hosting-capacity-chart-container" class="chart-container"></div>
-      <script src="js/2.Human_Resources_and_Training/2.6TrainingHostingCapacity.js"></script>
     <p>7. Is the laboratory able to host trainees from other laboratories?</p>
       <div id="host-external-trainees-chart-container" class="chart-container"></div>
-      <script src="js/2.Human_Resources_and_Training/2.7HostTraineesExternalLabs.js"></script>
     </details>
   </section>
 
@@ -86,32 +65,29 @@
       <script src="js/2.Human_Resources_and_Training/2.9ALMERACMsHostingCapacity.js"></script>
     </details>
   </section>
-
 </main>
-
-</div> <button id="topBtn" onclick="topFunction()">↑</button>
+</div> 
+    
+<button id="topBtn">↑</button>
 
 <footer>
   &copy; 2025 ALMERA Network
 </footer>
 
-<script>
-    // Scroll to Top button (ensure this is only in one place, either here or utility.js)
-    const topBtn = document.getElementById("topBtn");
-    // Ensure topBtn exists before adding event listeners
-    if (topBtn) {
-        window.onscroll = () => {
-            topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
-        };
-        // It's good practice to assign onclick directly, rather than inline in HTML
-        topBtn.onclick = topFunction;
-    }
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
 
-    function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
-</script>
+<script src="js/2.Human_Resources_and_Training/2.1FullTimeTrainedProfessionals.js"></script>
+<script src="js/2.Human_Resources_and_Training/2.2RegularStaffTrainingProgramAvailability.js"></script>
+<script src="js/2.Human_Resources_and_Training/2.3NewStaffTrainingProgramAvailaibity.js"></script>
+<script src="js/2.Human_Resources_and_Training/2.4TrainingProgramEvaluationSystems.js"></script>
+<script src="js/2.Human_Resources_and_Training/2.5AbleToHostTrainingCourses.js"></script>
+<script src="js/2.Human_Resources_and_Training/2.6TrainingHostingCapacity.js"></script>
+<script src="js/2.Human_Resources_and_Training/2.7HostTraineesExternalLabs.js"></script>
+
+<script src="js/utility.js"></script>
+<script src="js/Update_Shortcuts/ALMERA_in_Data/load_navigation.js"></script>
 
 </body>
 </html>
