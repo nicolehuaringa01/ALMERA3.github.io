@@ -26,8 +26,5 @@ function loadHTML(selector, filePath) {
 
 // Load the navigation when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // This path is relative to the HTML file that calls it.
-    // Ensure 'includes/navigation.html' is correct based on your previous directory setup.
-    // If your HTML files are in the root and 'includes' is a subfolder, this is generally correct.
-    loadHTML('#navigation-placeholder', 'includes/navigation.html');
+    loadHTML('#navigation-placeholder', 'js/Update_Shortcuts/ALMERA_in_Data/navigation.html');
 });
