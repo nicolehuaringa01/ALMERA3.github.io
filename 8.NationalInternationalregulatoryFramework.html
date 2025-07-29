@@ -1,88 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Environmental Monitoring</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
-    <script src="https://unpkg.com/topojson-client@3"></script>
     <link rel="stylesheet" href="css/ALMERA_in_Data.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<header>
-    <a href="stats.html">
-        <h1>ALMERA in Data (2025)</h1>
-    </a>
-</header>
+    <header>
+        <a href="stats.html">
+            <h1>ALMERA in Data (2025)</h1>
+        </a>
+    </header>
 
-<div class="content-wrapper">
-    <nav class="nav-buttons">
-        <a href="1.GeographicInstitutionalCoverage.html">1. Geographic & Institutional Coverage</a>
-        <a href="2.HumanResourcesTraining.html">2. Human Resources and Training</a>
-        <a href="3.LaboratoryEquipmentTechnicalCapabilities.html">3. Equipment & Technical Capabilities</a>
-        <a href="4.AnalyticalMethodDevelopmentImplementation.html">4. Method Development</a>
-        <a href="5.RadionuclidesMeasured.html">5. Radionuclides Measured</a>
-        <a href="6.QualityManagementReporting.html">6. Quality Management</a>
-        <a href="7.EnvironmentalMonitoringCapabilities.html">7. Environmental Monitoring</a>
-        <a href="8.NationalInternationalregulatoryFramework.html">8. Regulatory Framework</a>
-        <a href="9.RequestedFutureActivities.html">9. Future Activities</a>
-    </nav>
+    <div class="content-wrapper">
+        <div id="navigation-placeholder"></div>
+        <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+            <h2>8. Regulatory Framework</h2>
+            <section>
+                <details open>
+                    <summary>3. Does the country have national regulatory limits for radioactivity in food, drinking water, and/or atmospheric aerosols and deposition?</summary>
+                    <div id="National_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_Deposition-chart-container" class="chart-container"></div>
+                </details>
+            </section>
 
-    <main>
-        <h2>8. Regulatory Framework</h2>
-        <section>
-            <details open>
-                <summary>3. Does the country have national regulatory limits for radioactivity in food, drinking water, and/or atmospheric aerosols and deposition?</summary>
-                <div id="National_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_Deposition-chart-container" class="chart-container"></div>
-                <script src="js/8.RegulatoryFramework/8.3National_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_Deposition.js"></script>
-            </details>
-        </section>
+            <section>
+                <details open>
+                    <summary>5. Is there a national monitoring programme for radioactivity in nationally-produced food? </summary>
+                    <div id="National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food-chart-container" class="chart-container"></div>
+                </details>
+            </section>
 
-        <section>
-            <details open>
-                <summary>5. Is there a national monitoring programme for radioactivity in nationally-produced food? </summary>
-                <div id="National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food-chart-container" class="chart-container"></div>
-                <script src="js/8.RegulatoryFramework/8.5National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food.js"></script>
-            </details>
-        </section>
+            <section>
+                <details open>
+                    <summary>6. Is there a national monitoring programme for radioactivity in imported food?</summary>
+                    <div id="National_Monitoring_Programme_for_Radioactivity_in_Imported_Food-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+        </main>
+    </div>
 
-        <section>
-            <details open>
-                <summary>6. Is there a national monitoring programme for radioactivity in imported food?</summary>
-                <div id="National_Monitoring_Programme_for_Radioactivity_in_Imported_Food-chart-container" class="chart-container"></div>
-                <script src="js/8.RegulatoryFramework/8.6National_Monitoring_Programme_for_Radioactivity_in_Imported_Food.js"></script>
-            </details>
-        </section>
-        
-        
-        
-    </main>
-</div> <button id="topBtn" onclick="topFunction()">↑</button>
+    <button id="topBtn">↑</button>
 
-<footer>
-    &copy; 2025 ALMERA Network
-</footer>
+    <footer>
+        &copy; 2025 ALMERA Network
+    </footer>
 
-<script>
-    // Scroll to Top button (ensure this is only in one place, either here or utility.js)
-    const topBtn = document.getElementById("topBtn");
-    // Ensure topBtn exists before adding event listeners
-    if (topBtn) {
-        window.onscroll = () => {
-            topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
-        };
-        // It's good practice to assign onclick directly, rather than inline in HTML
-        topBtn.onclick = topFunction;
-    }
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
 
-    function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
-</script>
+    <script src="js/8.RegulatoryFramework/8.3National_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_Deposition.js"></script>
+    <script src="js/8.RegulatoryFramework/8.5National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food.js"></script>
+    <script src="js/8.RegulatoryFramework/8.6National_Monitoring_Programme_for_Radioactivity_in_Imported_Food.js"></script>
+
+    <script src="js/utility.js"></script>
+    <script src="js/Update_Shortcuts/ALMERA_in_Data/load_navigation.js"></script>
 
 </body>
+
 </html>
