@@ -22,7 +22,7 @@ async function initializeALMERAMap() {
   // Fetch data concurrently
   let data, land50m;
   try {
-    data = await d3.csv(csvDataPath);
+    data = await d3.csv(csvDataPath1);
     console.log("ALMERA Survey Data loaded:", data.length, "records");
 
     const worldAtlas = await d3.json(landTopojsonPath);
