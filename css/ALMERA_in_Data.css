@@ -9,8 +9,6 @@
     --color-border-light: #ddd;
     --color-shadow-light: rgba(0, 0, 0, 0.1);
     --color-shadow-medium: rgba(0, 0, 0, 0.05);
-
-    /* New variables for Navigation colors */
     --color-nav-link-normal: #e0e0e0; /* A light grey for non-hovered nav links */
     --color-nav-link-hover: #c0c0c0; /* A dark grey for hovered nav links */
 }
@@ -56,8 +54,8 @@ header {
 }
 
 header a { /* Specific style for header's link - ensure consistency */
-    text-decoration: none;
-    color: inherit; /* This means it inherits from header, which is --color-text-light */
+    text-decoration: none !important;
+    color: inherit !important; /* This means it inherits from header, which is --color-text-light */
     display: block;
     cursor: pointer;
 }
@@ -68,10 +66,8 @@ header h1 {
     font-weight: 700;
     text-align: center;
     letter-spacing: -0.5px;
-    /* --- START OF HEADER H1 CHANGES --- */
     color: var(--color-text-light) !important; /* Force white color */
     text-decoration: none !important; /* Force no underline */
-    /* --- END OF HEADER H1 CHANGES --- */
 }
 
 
