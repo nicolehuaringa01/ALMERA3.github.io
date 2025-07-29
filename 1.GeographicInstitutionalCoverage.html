@@ -112,5 +112,49 @@
     }
 </script>
 
+<script>
+        // Function to load HTML content into a placeholder
+        function loadHTML(selector, filePath) {
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    document.querySelector(selector).innerHTML = html;
+
+                    // Optional: Add logic to highlight the current page's nav link
+                    const currentPath = window.location.pathname.split('/').pop();
+                    const navLinks = document.querySelectorAll('#navigation-placeholder .nav-buttons a');
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === currentPath) {
+                            link.classList.add('active-nav-link'); // Add a class for styling
+                        }
+                    });
+                })
+                .catch(e => console.error('Error loading navigation:', e));
+        }
+
+        // Load the navigation when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHTML('#navigation-placeholder', 'includes/navigation.html');
+        });
+
+        // Scroll to Top button logic (keep this as you had it, or move to utility.js)
+        const topBtn = document.getElementById("topBtn");
+        if (topBtn) {
+            window.onscroll = () => {
+                topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
+            };
+            topBtn.onclick = topFunction;
+        }
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    
 </body>
 </html>
