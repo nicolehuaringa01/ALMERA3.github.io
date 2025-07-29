@@ -9,60 +9,76 @@
     --color-border-light: #ddd;
     --color-shadow-light: rgba(0, 0, 0, 0.1);
     --color-shadow-medium: rgba(0, 0, 0, 0.05);
+
+    /* New variables for Navigation colors */
+    --color-nav-link-normal: #e0e0e0; /* A light grey for non-hovered nav links */
+    --color-nav-link-hover: #c0c0c0; /* A dark grey for hovered nav links */
 }
 
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
-    background: var(--color-background-light); /* Use variable */
-    color: var(--color-text-dark); /* Use variable */
+    background: var(--color-background-light);
+    color: var(--color-text-dark);
     line-height: 1.6;
     padding-top: 64px;
-    font-size: 16px; /* Explicit base font size for consistency *
+    font-size: 16px; /* Explicit base font size for consistency */
+    -webkit-font-smoothing: antialiased; /* Smoother font rendering on macOS/iOS */
+    -moz-osx-font-smoothing: grayscale; /* Smoother font rendering on macOS/iOS */
 }
+
 a {
     color: var(--color-primary);
     text-decoration: none;
-    transition: color 0.3s ease; /* Smooth transition for all links */
+    transition: color 0.3s ease;
 }
 
 a:hover {
     color: var(--color-primary-dark);
-    text-decoration: underline; /* Clearer hover state */
+    text-decoration: underline;
 }
 
 header {
-    background: var(--color-primary); /* Use variable */
-    color: var(--color-text-light); /* Use variable */
+    background: var(--color-primary);
+    color: var(--color-text-light);
     padding: 1rem 2rem;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0 2px 8px var(--color-shadow-light); /* Stronger, more modern shadow */
+    box-shadow: 0 2px 8px var(--color-shadow-light);
     box-sizing: border-box;
     display: flex;
-    justify-content: center; /* Centers content horizontally */
+    justify-content: center;
     align-items: center;
-    min-height: 64px; /* Ensure a consistent height */
+    min-height: 64px;
+}
+
+header a { /* Specific style for header's link - ensure consistency */
+    text-decoration: none;
+    color: inherit; /* This means it inherits from header, which is --color-text-light */
+    display: block;
+    cursor: pointer;
 }
 
 header h1 {
     margin: 0;
-    font-size: 1.8rem; /* Slightly larger for prominence */
+    font-size: 1.8rem;
     font-weight: 700;
-    text-align: center; /* Center the title for visual balance within its flex container */
-    letter-spacing: -0.5px; /* Subtle tightening for modern look */
+    text-align: center;
+    letter-spacing: -0.5px;
+    /* --- START OF HEADER H1 CHANGES --- */
+    color: var(--color-text-light) !important; /* Force white color */
+    text-decoration: none !important; /* Force no underline */
+    /* --- END OF HEADER H1 CHANGES --- */
 }
+
 
 /* Container for the sidebar and main content */
 .content-wrapper {
     display: flex;
-    /* Use flexbox to lay out sidebar and main content horizontally */
     min-height: calc(100vh - 64px);
-    /* Adjust min-height to push footer down */
-    /* No margin-left here, main will handle its own margin */
 }
 
 .nav-buttons {
@@ -71,9 +87,9 @@ header h1 {
     left: 0;
     width: 250px;
     height: calc(100vh - 64px);
-    background: var(--color-background-card); /* Use variable for background */
-    padding: 1.5rem 0.5rem; /* More top/bottom padding for breathing room */
-    box-shadow: 2px 0 8px var(--color-shadow-light); /* Consistent shadow */
+    background: var(--color-background-card);
+    padding: 1.5rem 0.5rem;
+    box-shadow: 2px 0 8px var(--color-shadow-light);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -83,92 +99,95 @@ header h1 {
 }
 
 .nav-buttons a {
-    background: transparent; /* Start with transparent background */
-    color: var(--color-text-dark); /* Darker text */
+    /* --- START OF NAV BUTTON CHANGES --- */
+    background: var(--color-nav-link-normal); /* Slightly greyer background */
+    color: var(--color-text-dark); /* Keep dark text for contrast */
+    /* --- END OF NAV BUTTON CHANGES --- */
     text-decoration: none;
-    margin: 2px 0; /* Reduced vertical margin */
-    padding: 12px 20px; /* Increased padding for clickability */
-    border-radius: 6px; /* Slightly more rounded */
+    margin: 2px 0;
+    padding: 12px 20px;
+    border-radius: 6px;
     font-weight: 500;
     transition: background 0.3s ease, color 0.3s ease;
-    width: calc(100% - 1rem); /* Account for padding in nav-buttons container */
+    width: calc(100% - 1rem);
     box-sizing: border-box;
     text-align: left;
 }
 
 .nav-buttons a:hover {
-    background: var(--color-background-light); /* Subtle background on hover */
+    /* --- START OF NAV BUTTON HOVER CHANGES --- */
+    background: var(--color-nav-link-hover); /* Dark grey on hover */
+    /* --- END OF NAV BUTTON HOVER CHANGES --- */
     color: var(--color-primary-dark); /* Highlight text color */
 }
 
-.nav-buttons a.active-nav-link { /* Style for the active/current page link */
-    background: var(--color-primary); /* Solid highlight */
-    color: var(--color-text-light); /* White text for contrast */
-    font-weight: 600; /* Bolder for active state */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Subtle shadow for active item */
+.nav-buttons a.active-nav-link {
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .nav-buttons a.active-nav-link:hover {
-    background: var(--color-primary-dark); /* Darker primary on hover for active */
+    background: var(--color-primary-dark);
     color: var(--color-text-light);
 }
+
 main {
     flex-grow: 1;
     margin-left: 250px;
-    max-width: 1200px; /* Slightly wider max-width for modern screens */
+    max-width: 1200px;
     margin-right: auto;
     margin-top: 2rem;
-    padding: 0 2rem; /* Increased side padding for content */
+    padding: 0 2rem;
     box-sizing: border-box;
 }
 
 section {
-    background: var(--color-background-card); /* Use variable */
-    border-radius: 12px; /* Slightly more rounded corners for sections */
+    background: var(--color-background-card);
+    border-radius: 12px;
     margin-bottom: 2rem;
-    box-shadow: 0 6px 18px var(--color-shadow-medium); /* Softer, deeper shadow */
-    padding: 2rem 2.5rem; /* More padding inside sections */
+    box-shadow: 0 6px 18px var(--color-shadow-medium);
+    padding: 2rem 2.5rem;
 }
 
 h2 {
-    color: var(--color-primary); /* Use variable */
-    font-size: 1.6rem; /* Slightly larger heading */
+    color: var(--color-primary);
+    font-size: 1.6rem;
     margin-top: 0;
-    margin-bottom: 1.5rem; /* Add space below heading */
-    padding-bottom: 0.5rem; /* Add a subtle underline effect */
-    border-bottom: 1px solid var(--color-border-light); /* Subtle separator */
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border-light);
     letter-spacing: -0.2px;
 }
 
-/* For generic paragraphs within sections */
 section p {
-    font-size: 1.05rem; /* Slightly larger text for readability */
+    font-size: 1.05rem;
     line-height: 1.7;
     margin-bottom: 1rem;
 }
 
-/* Strong text within paragraphs */
 section p strong {
-    color: var(--color-primary-dark); /* Make strong text stand out more */
+    color: var(--color-primary-dark);
 }
+
 iframe {
     width: 100%;
     border: none;
-    border-radius: 10px; /* Consistent rounded corners */
-    height: 500px; /* Slightly adjusted, ensure it fits content well */
+    border-radius: 10px;
+    height: 500px;
     margin-top: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Add a subtle shadow to iframes */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Custom styles for the map and tooltip */
 #almera-members-map-container {
     width: 100%;
-    height: 550px; /* Slightly increased map height for more impact */
+    height: 550px;
     margin-top: 1.5rem;
     border: 1px solid var(--color-border-light);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Consistent shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 #almera-members-map-container canvas {
@@ -179,40 +198,39 @@ iframe {
 
 .map-tooltip {
     position: absolute;
-    padding: 10px 14px; /* More padding */
-    background: rgba(0, 0, 0, 0.85); /* Slightly darker tooltip background */
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.85);
     color: white;
-    border-radius: 6px; /* Consistent rounded corners */
+    border-radius: 6px;
     pointer-events: none;
-    font-size: 13px; /* Slightly larger font */
+    font-size: 13px;
     display: none;
     z-index: 1001;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Stronger tooltip shadow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* For the dynamic chart display */
 #chart-display-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px; /* Increased gap between charts */
+    gap: 25px;
     justify-content: center;
-    margin-top: 25px; /* More space above */
-    max-width: 960px; /* Adjusted max width slightly */
+    margin-top: 25px;
+    max-width: 960px;
     margin-left: auto;
     margin-right: auto;
 }
 #chart-display-container svg {
     border: 1px solid #eee;
-    border-radius: 10px; /* Consistent rounded corners */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Consistent shadow */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 footer {
     text-align: center;
-    padding: 2rem; /* More padding for footer */
-    background: #e9ecef; /* Slightly darker/more prominent footer background */
-    color: #555; /* Slightly darker text */
-    font-size: 0.85rem; /* Slightly smaller for subtle feel */
+    padding: 2rem;
+    background: #e9ecef;
+    color: #555;
+    font-size: 0.85rem;
     margin-left: 250px;
     box-sizing: border-box;
     width: calc(100% - 250px);
@@ -221,77 +239,77 @@ footer {
 #topBtn {
     display: none;
     position: fixed;
-    bottom: 30px; /* Slightly higher from bottom */
-    right: 30px; /* Slightly further from right */
-    z-index: 1002; /* Higher z-index to ensure it's always on top */
-    background: var(--color-primary); /* Use variable */
+    bottom: 30px;
+    right: 30px;
+    z-index: 1002;
+    background: var(--color-primary);
     color: white;
     border: none;
-    padding: 14px 18px; /* Slightly larger button */
+    padding: 14px 18px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 20px; /* Larger arrow */
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); /* More prominent shadow */
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Add transform to transition */
+    font-size: 20px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 #topBtn:hover {
-    background: var(--color-primary-dark); /* Use variable */
-    transform: translateY(-3px); /* Subtle lift on hover */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    background: var(--color-primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Accordion */
 details {
     border: 1px solid var(--color-border-light);
-    border-radius: 10px; /* Consistent rounding */
-    padding: 1.2rem 1.5rem; /* More balanced padding */
-    margin-bottom: 1.2rem; /* Consistent spacing */
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.2rem;
     background: var(--color-background-card);
-    transition: background 0.3s ease, box-shadow 0.3s ease; /* Add box-shadow to transition */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03); /* Lighter shadow for details */
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
 details:hover {
-    background: #fdfdfd; /* Very subtle background change */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06); /* Slightly more pronounced shadow on hover */
+    background: #fdfdfd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
 }
 
 summary {
     font-weight: 600;
     cursor: pointer;
     position: relative;
-    padding-right: 30px; /* More space for the toggle icon */
-    color: var(--color-primary-dark); /* Make summary text more prominent */
-    font-size: 1.1rem; /* Slightly larger font for summary */
-    list-style: none; /* Hide default browser triangle */
+    padding-right: 30px;
+    color: var(--color-primary-dark);
+    font-size: 1.1rem;
+    list-style: none;
 }
 
 summary::marker {
-    display: none; /* Hide default marker in most browsers */
+    display: none;
 }
 
 summary::after {
     content: "▼";
     position: absolute;
-    right: 5px; /* Adjust icon position */
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
     transition: transform 0.3s ease;
-    font-size: 0.9em; /* Adjust icon size relative to summary text */
-    color: #666; /* Softer color for the icon */
+    font-size: 0.9em;
+    color: #666;
 }
 
 details[open] summary::after {
-    transform: translateY(-50%) rotate(180deg); /* Rotate icon when open */
-    content: "▲"; /* Change icon to up arrow */
+    transform: translateY(-50%) rotate(180deg);
+    content: "▲";
 }
 
 .breadcrumbs {
     font-size: 0.9rem;
     color: #777;
-    margin-bottom: 1.5rem; /* More space below breadcrumbs */
-    padding-left: 0.5rem; /* Align with main content */
+    margin-bottom: 1.5rem;
+    padding-left: 0.5rem;
 }
 
 .breadcrumbs a {
@@ -306,24 +324,24 @@ details[open] summary::after {
 }
 
 .breadcrumbs span {
-    margin: 0 8px; /* Space between items */
-    color: #aaa; /* Lighter color for separators */
+    margin: 0 8px;
+    color: #aaa;
 }
 
 /* Basic responsiveness for smaller screens (optional but recommended) */
 @media (max-width: 768px) {
     body {
-        padding-top: 0; /* No fixed header on small screens */
+        padding-top: 0;
     }
 
     header {
-        position: relative; /* Make header flow with content */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Keep a subtle shadow */
+        position: relative;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .content-wrapper {
-        flex-direction: column; /* Stack sidebar and main vertically */
-        min-height: auto; /* Remove min-height calculation */
+        flex-direction: column;
+        min-height: auto;
     }
 
     .nav-buttons {
@@ -333,34 +351,34 @@ details[open] summary::after {
         top: auto;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         padding: 0.8rem 1rem;
-        flex-direction: row; /* Horizontal layout for nav items */
-        flex-wrap: wrap; /* Allow wrapping */
+        flex-direction: row;
+        flex-wrap: wrap;
         justify-content: center;
-        margin-bottom: 1rem; /* Add some space below the horizontal nav */
+        margin-bottom: 1rem;
     }
 
     .nav-buttons a {
         width: auto;
-        flex-basis: calc(50% - 10px); /* Two columns on small screens, adjust as needed */
+        flex-basis: calc(50% - 10px);
         text-align: center;
         margin: 5px;
-        font-size: 0.95rem; /* Slightly smaller font for nav items */
+        font-size: 0.95rem;
         padding: 8px 12px;
     }
 
     main {
         margin-left: 0;
-        margin-top: 1.5rem; /* Adjust top margin for main content */
-        padding: 0 1rem; /* Reduced side padding on small screens */
+        margin-top: 1.5rem;
+        padding: 0 1rem;
     }
 
     section {
-        padding: 1.5rem 1.5rem; /* Adjust section padding for small screens */
+        padding: 1.5rem 1.5rem;
         margin-bottom: 1.5rem;
     }
 
     h2 {
-        font-size: 1.4rem; /* Smaller headings on small screens */
+        font-size: 1.4rem;
     }
 
     footer {
@@ -372,14 +390,14 @@ details[open] summary::after {
     #topBtn {
         bottom: 20px;
         right: 20px;
-        padding: 10px 14px; /* Smaller button */
-        font-size: 16px; /* Smaller arrow */
+        padding: 10px 14px;
+        font-size: 16px;
     }
 }
 
 /* Very small screens (e.g., old phones) */
 @media (max-width: 480px) {
     .nav-buttons a {
-        flex-basis: calc(100% - 10px); /* Stack nav items vertically on very small screens */
+        flex-basis: calc(100% - 10px);
     }
 }
