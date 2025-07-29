@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Geographic and Institutional Coverage</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
-    <script src="https://unpkg.com/topojson-client@3"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/ALMERA_in_Data.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -27,7 +24,6 @@
                 <summary>1. Geographic Coverage of ALMERA Laboratories</summary>
                 <p>This map visualizes the global distribution of ALMERA laboratories, colored by geographic region. Hover over a point to see laboratory details, or click to pin the tooltip.</p>
                 <div id="almera-members-map-container"></div>
-                <script src="js/1.Geographic_and_Institutional_Coverage/1.1ALMERA_Members_Map.js"></script>
             </details>
         </section>
 
@@ -36,7 +32,6 @@
                 <summary>2. Number of Laboratories per Geographic Region (Bar Chart)</summary>
                 <p>In 2025, there were <strong>200</strong> ALMERA laboratories globally, most located in Europe, Asia Pacific, and the Americas.</p>
                 <div id="labs-geographic-chart"></div>
-                <script src="js/1.Geographic_and_Institutional_Coverage/1.2LabsGeographic.js"></script>
             </details>
         </section>
 
@@ -45,7 +40,6 @@
                 <summary>3. Affiliation of ALMERA Labs</summary>
                 <p>Labs selected multiple affiliations; each counted individually in the survey.</p>
                 <div id="affiliation-chart-container" class="chart-container"></div>
-                <script src="js/1.Geographic_and_Institutional_Coverage/1.3Affiliation.js"></script>
             </details>
         </section>
 
@@ -54,7 +48,6 @@
                 <summary>4. Sector Activities Reported</summary>
                 <p>Labs often operate in multiple sectors, such as Food Control and Environmental Monitoring.</p>
                 <div id="sector-chart-container" class="chart-container"></div>
-                <script src="js/1.Geographic_and_Institutional_Coverage/1.4Sector.js"></script>
             </details>
         </section>
 
@@ -63,7 +56,6 @@
                 <summary>5. Target Users Identified</summary>
                 <p>Labs may serve Academia, Industry, and others, counted per selection.</p>
                 <div id="target-chart-container" class="chart-container"></div>
-                <script src="js/1.Geographic_and_Institutional_Coverage/1.5Target.js"></script>
             </details>
         </section>
 
@@ -71,64 +63,31 @@
             <details open>
                 <summary>6. Scope and Source Interests</summary>
                 <div id="scope-chart-container" class="chart-container"></div>
-                <script src="js/1.Geographic_and_Institutional_Coverage/1.6Scope.js"></script>
             </details>
         </section>
-    </main> </div>
+    </main>
+</div>
 
-<button id="topBtn" onclick="topFunction()">↑</button>
+<button id="topBtn">↑</button>
 
-<div id="map-page-tooltip" class="map-tooltip"></div> <footer>
+<div id="map-page-tooltip" class="map-tooltip"></div>
+<footer>
     &copy; 2025 ALMERA Network
 </footer>
 
-<script>
-    // Moved the top button and loadHTML logic into a single script block for better organization
-    // and ensured topBtn logic uses the correct ID once loaded.
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
 
-    // Function to load HTML content into a placeholder
-    function loadHTML(selector, filePath) {
-        fetch(filePath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(html => {
-                document.querySelector(selector).innerHTML = html;
+<script src="js/1.Geographic_and_Institutional_Coverage/1.1ALMERA_Members_Map.js"></script>
+<script src="js/1.Geographic_and_Institutional_Coverage/1.2LabsGeographic.js"></script>
+<script src="js/1.Geographic_and_Institutional_Coverage/1.3Affiliation.js"></script>
+<script src="js/1.Geographic_and_Institutional_Coverage/1.4Sector.js"></script>
+<script src="js/1.Geographic_and_Institutional_Coverage/1.5Target.js"></script>
+<script src="js/1.Geographic_and_Institutional_Coverage/1.6Scope.js"></script>
 
-                // Optional: Add logic to highlight the current page's nav link
-                const currentPath = window.location.pathname.split('/').pop();
-                const navLinks = document.querySelectorAll('#navigation-placeholder .nav-buttons a');
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === currentPath) {
-                        link.classList.add('active-nav-link'); // Add a class for styling
-                    }
-                });
-            })
-            .catch(e => console.error('Error loading navigation:', e));
-    }
-
-    // Load the navigation when the DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        loadHTML('#navigation-placeholder', 'js/Update_Shortcuts/ALMERA_in_Data/navigation.html');
-    });
-
-    // Scroll to Top button logic (consolidated and made more robust)
-    const topBtn = document.getElementById("topBtn");
-    if (topBtn) { // Ensure topBtn exists before adding listeners
-        window.onscroll = () => {
-            topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
-        };
-        topBtn.onclick = topFunction; // Assign directly
-    }
-
-    function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
-</script>
+<script src="js/utility.js"></script>
+<script src="js/Update_Shortcuts/ALMERA_in_Data/load_navigation.js"></script>
 
 </body>
 </html>
