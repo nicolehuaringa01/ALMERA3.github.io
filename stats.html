@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALMERA Requested Future Activities</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
     <link rel="stylesheet" href="css/ALMERA_in_Data.css">
 </head>
 <body>
@@ -17,8 +16,8 @@
 </header>
 
 <div class="content-wrapper">
-   <div id="navigation-placeholder"></div>
-   <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+    <div id="navigation-placeholder"></div>
+    <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
         <div class="breadcrumbs">
             <a href="index.html">Home</a>
             <span>&gt;</span>
@@ -26,29 +25,26 @@
         </div>
 
         <h2>ALMERA in Data (2025)</h2>
-    <section class="text-lg text-gray-700 leading-relaxed space-y-4">
-        <p>Welcome to the <strong>ALMERA in Data</strong> platform, designed to provide comprehensive insights derived from the ALMERA network's capabilities survey.</p>
+        <section class="text-lg text-gray-700 leading-relaxed space-y-4">
+            <p>Welcome to the <strong>ALMERA in Data</strong> platform, designed to provide comprehensive insights derived from the ALMERA network's capabilities survey.</p>
 
-        <p>The <strong>2025 survey round</strong> successfully concluded with <a href="members.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline"><strong class="text-[var(--color-primary-dark)]"><strong id="response-count">Loading...</strong></strong></a> submitted responses.</p>
+            <p>The <strong>2025 survey round</strong> successfully concluded with <a href="members.html" class="text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] underline"><strong class="text-[var(--color-primary-dark)]"><strong id="response-count">Loading...</strong></strong></a> submitted responses.</p>
 
-        <p>It is important to note that while 200 laboratories were invited, not all participating laboratories provided responses for every survey question, which may influence the comprehensiveness of certain data points.</p>
-    </section>
-</main>
-</div> <button id="topBtn" onclick="topFunction()">↑</button>
+            <p>It is important to note that while 200 laboratories were invited, not all participating laboratories provided responses for every survey question, which may influence the comprehensiveness of certain data points.</p>
+        </section>
+    </main>
+</div>
 
-<footer>
+<button id="topBtn">↑</button> <footer>
     &copy; 2025 ALMERA Network
 </footer>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
 <script src="https://unpkg.com/topojson-client@3"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-
-<script src="js/Update_Shortcuts/load_response_count.js"></script>
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script> <script src="js/Update_Shortcuts/load_response_count.js"></script>
 <script src="js/utility.js"></script>
 <script src="js/Update_Shortcuts/ALMERA_in_Data/load_navigation.js"></script>
-    
+
 </body>
 </html>
