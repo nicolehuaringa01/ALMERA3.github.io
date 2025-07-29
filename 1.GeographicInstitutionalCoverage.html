@@ -20,31 +20,24 @@
 
 <div class="content-wrapper">
     <div id="navigation-placeholder"></div>
-</div>
-
     <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
-       <h2>1. Geographic & Institutional Coverage</h2>
-       <section class="text-lg text-gray-700 leading-relaxed space-y-4">
+        <h2>1. Geographic & Institutional Coverage</h2>
+        <section class="text-lg text-gray-700 leading-relaxed space-y-4">
             <details open>
                 <summary>1. Geographic Coverage of ALMERA Laboratories</summary>
                 <p>This map visualizes the global distribution of ALMERA laboratories, colored by geographic region. Hover over a point to see laboratory details, or click to pin the tooltip.</p>
-                <!-- This is where the JavaScript map will be inserted -->
                 <div id="almera-members-map-container"></div>
-                <!-- IMPORTANT: Place the script AFTER the div it targets -->
                 <script src="js/1.Geographic_and_Institutional_Coverage/1.1ALMERA_Members_Map.js"></script>
                 <div id="almera-members-map-container1"></div>
                 <script src="js/1.Geographic_and_Institutional_Coverage/fake_map"></script>
             </details>
         </section>
 
-        <!-- Other sections for different charts (keeping iframes as they are for now) -->
         <section>
             <details open>
                 <summary>2. Number of Laboratories per Geographic Region (Bar Chart)</summary>
                 <p>In 2025, there were <strong>200</strong> ALMERA laboratories globally, most located in Europe, Asia Pacific, and the Americas.</p>
-                <!-- This is where the bar chart from LabsGeographic.js will be inserted -->
                 <div id="labs-geographic-chart"></div>
-                <!-- Ensure LabsGeographic.js still has the correct path -->
                 <script src="js/1.Geographic_and_Institutional_Coverage/1.2LabsGeographic.js"></script>
             </details>
         </section>
@@ -83,26 +76,54 @@
                 <script src="js/1.Geographic_and_Institutional_Coverage/1.6Scope.js"></script>
             </details>
         </section>
-    </main>
-</div>
+    </main> </div>
+
 <button id="topBtn" onclick="topFunction()">↑</button>
 
-<div id="map-page-tooltip" class="map-tooltip"></div> <!-- Tooltip for the map -->
-
-<footer>
+<div id="map-page-tooltip" class="map-tooltip"></div> <footer>
     &copy; 2025 ALMERA Network
 </footer>
 
 <script>
-    window.onscroll = function() {scrollFunction()};
+    // Moved the top button and loadHTML logic into a single script block for better organization
+    // and ensured topBtn logic uses the correct ID once loaded.
 
-    function scrollFunction() {
-        var topBtn = document.getElementById("topBtn");
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            if (topBtn) topBtn.style.display = "block";
-        } else {
-            if (topBtn) topBtn.style.display = "none";
-        }
+    // Function to load HTML content into a placeholder
+    function loadHTML(selector, filePath) {
+        fetch(filePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(html => {
+                document.querySelector(selector).innerHTML = html;
+
+                // Optional: Add logic to highlight the current page's nav link
+                const currentPath = window.location.pathname.split('/').pop();
+                const navLinks = document.querySelectorAll('#navigation-placeholder .nav-buttons a');
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('active-nav-link'); // Add a class for styling
+                    }
+                });
+            })
+            .catch(e => console.error('Error loading navigation:', e));
+    }
+
+    // Load the navigation when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        loadHTML('#navigation-placeholder', 'includes/navigation.html'); // Corrected path to 'includes/navigation.html' based on previous suggestion
+    });
+
+    // Scroll to Top button logic (consolidated and made more robust)
+    const topBtn = document.getElementById("topBtn");
+    if (topBtn) { // Ensure topBtn exists before adding listeners
+        window.onscroll = () => {
+            topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
+        };
+        topBtn.onclick = topFunction; // Assign directly
     }
 
     function topFunction() {
@@ -111,49 +132,5 @@
     }
 </script>
 
-<script>
-        // Function to load HTML content into a placeholder
-        function loadHTML(selector, filePath) {
-            fetch(filePath)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(html => {
-                    document.querySelector(selector).innerHTML = html;
-
-                    // Optional: Add logic to highlight the current page's nav link
-                    const currentPath = window.location.pathname.split('/').pop();
-                    const navLinks = document.querySelectorAll('#navigation-placeholder .nav-buttons a');
-                    navLinks.forEach(link => {
-                        if (link.getAttribute('href') === currentPath) {
-                            link.classList.add('active-nav-link'); // Add a class for styling
-                        }
-                    });
-                })
-                .catch(e => console.error('Error loading navigation:', e));
-        }
-
-        // Load the navigation when the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            loadHTML('#navigation-placeholder', 'js/Update_Shortcuts/ALMERA_in_Data/navigation.html');
-        });
-
-        // Scroll to Top button logic (keep this as you had it, or move to utility.js)
-        const topBtn = document.getElementById("topBtn");
-        if (topBtn) {
-            window.onscroll = () => {
-                topBtn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
-            };
-            topBtn.onclick = topFunction;
-        }
-        function topFunction() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
-    </script>
-    
 </body>
 </html>
