@@ -1,10 +1,34 @@
+:root {
+    --color-primary: #0256b3; /* IAEA blue, or your brand primary color */
+    --color-primary-dark: #01488f; /* Darker shade for hover/active */
+    --color-accent: #00a896; /* A contrasting accent color for highlights (e.g., green/teal) */
+    --color-text-dark: #333;
+    --color-text-light: #fff;
+    --color-background-light: #f9fafb;
+    --color-background-card: #fff;
+    --color-border-light: #ddd;
+    --color-shadow-light: rgba(0, 0, 0, 0.1);
+    --color-shadow-medium: rgba(0, 0, 0, 0.05);
+}
+
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
-    background: #f9fafb;
-    color: #333;
+    background: var(--color-background-light); /* Use variable */
+    color: var(--color-text-dark); /* Use variable */
     line-height: 1.6;
     padding-top: 64px;
+    font-size: 16px; /* Explicit base font size for consistency *
+}
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth transition for all links */
+}
+
+a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline; /* Clearer hover state */
 }
 
 header {
