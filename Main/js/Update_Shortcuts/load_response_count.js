@@ -1,6 +1,6 @@
 // Function to fetch and parse the CSV and update the response count
 async function loadAndCountResponses() {
-    const csvFilePath = '../../../data/Observable2020Survey.csv'; // Relative path to your CSV
+    const csvFilePath = '../data/Observable2020Survey.csv'; // Relative path to your CSV
     const responseCountElement = document.getElementById('response-count');
 
     // Optional: Display a loading message initially
