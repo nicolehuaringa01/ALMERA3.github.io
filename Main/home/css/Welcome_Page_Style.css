@@ -1,4 +1,4 @@
-/* Custom CSS for advanced effects not easily done with pure Tailwind */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 /* Define CSS variables for the new color palette */
 :root {
@@ -12,23 +12,9 @@
     --color-accent-green-light: #b0c99d; /* Lighter green for subtle accents */
 }
 
-/* --- Frutiger Bold Condensed Font Definition --- */
-/* IMPORTANT: You need to replace 'path/to/your/font-files/' with the actual
-   path where you host your Frutiger Bold Condensed font files.
-   Ensure you have the necessary licenses to use this commercial font. */
-@font-face {
-    font-family: 'Frutiger Bold Condensed';
-    src: url('path/to/your/font-files/Frutiger-BoldCondensed.woff2') format('woff2'),
-         url('path/to/your/font-files/Frutiger-BoldCondensed.woff') format('woff'),
-         url('path/to/your/font-files/Frutiger-BoldCondensed.ttf') format('truetype');
-    font-weight: 700; /* Assuming 'Bold' corresponds to 700 */
-    font-style: normal;
-    font-display: swap; /* Ensures text remains visible during font loading */
-}
-
 body {
-    /* Prioritize Frutiger Bold Condensed, fallback to Inter, then generic sans-serif */
-    font-family: 'Frutiger Bold Condensed', 'Inter', sans-serif;
+    /* Prioritize Roboto, fallback to Inter (if you still use it), then generic sans-serif */
+    font-family: 'Roboto', 'Inter', sans-serif; /* <-- UPDATED LINE */
     @apply bg-gray-50 text-gray-800 leading-relaxed;
     scroll-behavior: smooth; /* Smooth scrolling for anchor links */
     padding-top: 64px; /* Space for fixed header */
