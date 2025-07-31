@@ -1,4 +1,4 @@
-// js/5.Radionuclides_measured/5.1Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs
+// ALMERA_in_Data/5.Radionuclides_measured/5.1Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs.js
 
 const csvDataPath1 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Consistent CSV path
 const topojsonPath1 = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
