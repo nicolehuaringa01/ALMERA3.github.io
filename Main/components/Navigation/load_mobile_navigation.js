@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
     if (mobileNavPlaceholder && mobileMenuButton && mobileMenuOverlay) {
-        fetch('../js/Update_Shortcuts/mobile_navigation.html')
+        fetch('../components/Navigation/mobile_navigation.html')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Failed to load mobile navigation: ${response.statusText}`);
