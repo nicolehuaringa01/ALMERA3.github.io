@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navPlaceholder = document.getElementById('main-nav-placeholder');
 
     if (navPlaceholder) {
-        fetch('../js/Update_Shortcuts/navbar.html')
+        fetch('navbar.html')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
