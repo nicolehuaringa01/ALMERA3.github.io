@@ -1,4 +1,4 @@
-// js/Update_Shortcuts/ALMERA_in_Data/load_navigation.js
+// ALMERA_in_Data/components/navigation/load_navigation.js
 
 // Function to load HTML content into a placeholder
 function loadHTML(selector, filePath) {
@@ -26,5 +26,5 @@ function loadHTML(selector, filePath) {
 
 // Load the navigation when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    loadHTML('#navigation-placeholder', 'js/Update_Shortcuts/ALMERA_in_Data/navigation.html');
+    loadHTML('#navigation-placeholder', 'navigation.html');
 });
