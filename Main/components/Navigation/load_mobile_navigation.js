@@ -1,4 +1,4 @@
-// js/Update_Shortcuts/load_mobile_navigation.js
+// Main/components/Navigation/load_mobile_navigation.js
 document.addEventListener('DOMContentLoaded', function() {
     const mobileNavPlaceholder = document.getElementById('mobile-nav-placeholder');
     const mobileMenuButton = document.getElementById('mobile-menu-button');
