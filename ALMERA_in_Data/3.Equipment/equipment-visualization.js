@@ -1,4 +1,4 @@
-//equipment-visualization.js
+//ALMERA_in_Data/3.Equipment/equipment-visualization.js
 
 
 d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
