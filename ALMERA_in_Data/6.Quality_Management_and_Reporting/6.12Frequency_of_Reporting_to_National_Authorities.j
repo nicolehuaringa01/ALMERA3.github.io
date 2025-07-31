@@ -1,4 +1,4 @@
-// js/6.Quality_Management_and_Reporting/6.12Frequency_of_Reporting_to_National_Authorities.js
+// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.12Frequency_of_Reporting_to_National_Authorities.js
 
 
 // IMPORTANT: Verify this path carefully!
