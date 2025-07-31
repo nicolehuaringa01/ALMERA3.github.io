@@ -26,5 +26,5 @@ function loadHTML(selector, filePath) {
 
 // Load the navigation when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    loadHTML('#navigation-placeholder', 'navigation.html');
+    loadHTML('#navigation-placeholder', '../components/navigation/navigation.html');
 });
