@@ -1,9 +1,5 @@
-// js/6.Quality_Management_and_Reporting/6.10Calibration_Method_Used_for_Gamma_Spectrometers.js
+// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.10Calibration_Method_Used_for_Gamma_Spectrometers.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the HTML file that loads this JS.
-// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
-// (e.g., https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable2020Survey.csv)
 const csvDataPath10 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
 
 // This function processes the raw data to count Calibration_Method_Used_for_Gamma_Spectrometerss
