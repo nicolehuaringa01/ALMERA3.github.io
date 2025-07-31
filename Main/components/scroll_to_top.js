@@ -1,3 +1,4 @@
+// /Main/components/scroll_to_top.js
 document.addEventListener('DOMContentLoaded', function() {
     const topBtn = document.getElementById("topBtn");
 
