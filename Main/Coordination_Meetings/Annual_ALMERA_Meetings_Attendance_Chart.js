@@ -1,4 +1,4 @@
-// Main/Coordination_Meetings/Annual_ALMERA_Meetings_Attendance_Chart.js
+// Main/Coordination_Meetings/Annual_ALMERA_Meetings_Attendance_Line_Chart.js
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Define the path to your CSV file
@@ -10,12 +10,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Check if the chart container exists in the HTML
     if (!chartContainer) {
         console.error("Chart container element #annual-attendance-chart-container not found.");
+        // Display an error message directly on the page if the container is missing
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
         errorDiv.textContent = 'Error: Chart container not found in HTML for Annual Meetings Attendance chart.';
         document.body.appendChild(errorDiv);
-        return;
+        return; // Stop execution if the container is not found
     }
 
     let rawData;
@@ -23,45 +24,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Load the CSV data using D3.js
         rawData = await d3.csv(csvFilePath2);
         console.log("Raw CSV data loaded for attendance chart:", rawData);
-
-        // --- NEW DEBUGGING: Log actual CSV headers ---
-        if (rawData.length > 0) {
-            console.log("Actual CSV Headers (from first row):", Object.keys(rawData[0]));
-        } else {
-            console.warn("CSV data is empty, cannot inspect headers.");
-        }
-        // --- END NEW DEBUGGING ---
-
     } catch (error) {
         console.error("Error loading CSV data for attendance chart:", error);
+        // Display an error message in the container if CSV loading fails
         chartContainer.innerHTML = "<p style='color: red; text-align: center;'>Failed to load attendance data. Please check the console for details and ensure the CSV path is correct.</p>";
-        return;
+        return; // Stop execution if data cannot be loaded
     }
 
-    // Define the column names we need from the CSV (ensure these match exactly)
+    // Define the column names we need from the CSV
     const yearColumn = "Year";
     const participantsColumn = "Participants";
 
     // Process the data: filter out invalid entries and convert types
-    const processedData = rawData.map((d, index) => {
-        // Access columns with .trim() in case of subtle whitespace in headers
-        const rawYear = d[yearColumn.trim()];
-        const rawParticipants = d[participantsColumn.trim()];
-
-        const year = +rawYear; // Convert Year to a number
-        // Convert Participants to a number. Handle cases where it might be '-' or empty.
-        const participants = (rawParticipants === '—' || rawParticipants === '') ? null : +rawParticipants;
-
-        // --- NEW DEBUGGING: Log processing for each row ---
-        if (isNaN(year)) {
-            console.warn(`Row ${index + 1}: Year '${rawYear}' is not a valid number.`);
-        }
-        if (participants === null) {
-            console.warn(`Row ${index + 1}: Participants '${rawParticipants}' is missing or invalid ('—').`);
-        } else if (isNaN(participants)) {
-            console.warn(`Row ${index + 1}: Participants '${rawParticipants}' is not a valid number.`);
-        }
-        // --- END NEW DEBUGGING ---
+    // Sort data by year to ensure the line chart is drawn correctly
+    const processedData = rawData.map(d => {
+        const year = +d[yearColumn.trim()]; // Convert Year to a number, trim potential whitespace
+        // Convert Participants to a number. Handle cases where it might be '—' or empty.
+        const participants = (d[participantsColumn.trim()] === '—' || d[participantsColumn.trim()] === '') ? null : +d[participantsColumn.trim()];
 
         // Only return valid entries for plotting
         if (!isNaN(year) && participants !== null && !isNaN(participants)) {
@@ -71,15 +50,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             };
         }
         return null; // Return null for invalid rows
-    }).filter(d => d !== null); // Filter out the null entries
+    }).filter(d => d !== null) // Filter out the null entries
+      .sort((a, b) => a.year - b.year); // Sort by year for correct line progression
 
-    console.log("Processed data for attendance chart (after filtering invalid rows):", processedData);
+    console.log("Processed and sorted data for attendance chart:", processedData);
 
     // Check if there's any valid data to display
     if (processedData.length === 0) {
         console.warn("No valid data found for Annual Meetings Attendance chart after processing.");
         chartContainer.innerHTML = "<p style='text-align: center; color: #666;'>No attendance data to display for the chart.</p>";
-        return;
+        return; // Stop if no valid data
     }
 
     // Function to render the chart, allowing for redraw on resize
@@ -87,13 +67,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         chartContainer.innerHTML = ''; // Clear existing chart to redraw
 
         // Define chart dimensions
-        const height = 300; // Fixed height for the chart
-        const marginTop = 30;
+        const height = 350; // Adjusted height for better visualization
+        const marginTop = 40; // More space for title
         const marginRight = 20;
-        const marginBottom = 50;
-        const marginLeft = 60;
+        const marginBottom = 60; // More space for x-axis label and ticks
+        const marginLeft = 70; // More space for y-axis label and ticks
 
-        // Create the bar chart using Observable Plot
+        // Create the line chart using Observable Plot
         const chart = Plot.plot({
             width: currentWidth,
             height: height,
@@ -104,52 +84,56 @@ document.addEventListener('DOMContentLoaded', async () => {
             x: {
                 label: "Year",
                 tickFormat: "d", // Format years as integers
-                // Dynamically set domain based on processed data to ensure all years are visible
-                domain: [d3.min(processedData, d => d.year) - 1, d3.max(processedData, d => d.year) + 1],
-                nice: true // Make ticks "nice" numbers
+                domain: [d3.min(processedData, d => d.year) - 1, d3.max(processedData, d => d.year) + 1], // Extend domain slightly
+                nice: true, // Make ticks "nice" numbers
+                // Custom tick generation to ensure all years are shown if possible, or a reasonable subset
+                ticks: processedData.map(d => d.year)
             },
             y: {
                 label: "Number of Participants",
-                // Dynamically set domain based on processed data
-                domain: [0, d3.max(processedData, d => d.participants) * 1.1],
+                domain: [0, d3.max(processedData, d => d.participants) * 1.15], // Start from 0, extend slightly above max for dots and labels
                 nice: true // Make ticks "nice" numbers
             },
-            color: {
-                range: ["#4285F4"], // A nice blue color for the bars
-                legend: false // No legend needed for a single color
-            },
             marks: [
-                // Create bar marks for each year's participants
-                Plot.barY(processedData, {
+                // Line mark
+                Plot.line(processedData, {
                     x: "year",
                     y: "participants",
-                    fill: "#4285F4", // Bar color
-                    title: d => `Year: ${d.year}\nParticipants: ${d.participants}` // Tooltip on hover
+                    stroke: "black", // Black line as in example
+                    strokeWidth: 3 // Thicker line
                 }),
-                // Add text labels on top of each bar
-                Plot.text(processedData, {
+                // Dot marks for each data point
+                Plot.dot(processedData, {
                     x: "year",
                     y: "participants",
-                    text: d => d.participants, // Display participant count
-                    dy: -10, // Offset text slightly above the bar
-                    fill: "black", // Text color
-                    fontWeight: "bold"
+                    r: 6, // Radius of dots
+                    fill: "black", // Black dots as in example
+                    title: d => `Year: ${d.year}\nParticipants: ${d.participants}` // Tooltip
                 }),
-                Plot.axisX(), // X-axis with years
-                Plot.axisY() // Y-axis with participant count
+                Plot.axisX({
+                    tickSize: 6, // Length of tick marks
+                    tickPadding: 10 // Padding between tick marks and labels
+                }),
+                Plot.axisY({
+                    tickSize: 6,
+                    tickPadding: 10
+                })
             ],
             style: {
                 fontFamily: "Inter, sans-serif",
-                fontSize: "12px",
+                fontSize: "14px", // Slightly larger font for readability
                 background: "#f9f9f9", // Light background for the chart area
                 borderRadius: "8px",
-                padding: "10px"
-            }
+                padding: "15px", // More padding around the chart
+                boxShadow: "0 4px 8px rgba(0,0,0,0.1)" // Subtle shadow
+            },
+            // Add a title to the plot
+            caption: "Annual Meeting Attendance Over Years"
         });
 
         // Append the generated chart (SVG element) to the container
         chartContainer.appendChild(chart);
-        console.log("Annual Meetings Attendance chart appended to DOM.");
+        console.log("Annual Meetings Attendance Line Chart appended to DOM.");
     };
 
     // Initial render of the chart
