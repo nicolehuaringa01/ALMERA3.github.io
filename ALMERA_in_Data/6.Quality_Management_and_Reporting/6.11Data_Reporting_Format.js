@@ -1,4 +1,4 @@
-// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.11Data_Reporting_FormatChart.js
+// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.11Data_Reporting_Format.js
 
 // IMPORTANT: Verify this path carefully!
 // This path is relative to the HTML file that loads this JS.
