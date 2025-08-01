@@ -1,4 +1,4 @@
-// js/7.3Only_Authorised_to_Carry_Out_Radionuclide_Analysis_for_Radioactivity_Monitoring.js
+// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.3Only_Authorised_to_Carry_Out_Radionuclide_Analysis_for_Radioactivity_Monitoring.js
 
 const csvDataPath3 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
