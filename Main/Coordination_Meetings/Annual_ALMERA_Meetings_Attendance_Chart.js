@@ -1,3 +1,5 @@
+// Main/Coordination_Meetings/Annual_ALMERA_Meetings_Attendance_Chart.js
+
 document.addEventListener('DOMContentLoaded', async () => {
     // Define the path to your CSV file
     const csvFilePath2 = '../../data/Past_Annual_ALMERA_Coordination_Meetings.csv';
@@ -8,13 +10,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Check if the chart container exists in the HTML
     if (!chartContainer) {
         console.error("Chart container element #annual-attendance-chart-container not found.");
-        // Display an error message directly on the page if the container is missing
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
         errorDiv.textContent = 'Error: Chart container not found in HTML for Annual Meetings Attendance chart.';
         document.body.appendChild(errorDiv);
-        return; // Stop execution if the container is not found
+        return;
     }
 
     let rawData;
@@ -22,22 +23,45 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Load the CSV data using D3.js
         rawData = await d3.csv(csvFilePath2);
         console.log("Raw CSV data loaded for attendance chart:", rawData);
+
+        // --- NEW DEBUGGING: Log actual CSV headers ---
+        if (rawData.length > 0) {
+            console.log("Actual CSV Headers (from first row):", Object.keys(rawData[0]));
+        } else {
+            console.warn("CSV data is empty, cannot inspect headers.");
+        }
+        // --- END NEW DEBUGGING ---
+
     } catch (error) {
         console.error("Error loading CSV data for attendance chart:", error);
-        // Display an error message in the container if CSV loading fails
         chartContainer.innerHTML = "<p style='color: red; text-align: center;'>Failed to load attendance data. Please check the console for details and ensure the CSV path is correct.</p>";
-        return; // Stop execution if data cannot be loaded
+        return;
     }
 
-    // Define the column names we need from the CSV
+    // Define the column names we need from the CSV (ensure these match exactly)
     const yearColumn = "Year";
     const participantsColumn = "Participants";
 
     // Process the data: filter out invalid entries and convert types
-    const processedData = rawData.map(d => {
-        const year = +d[yearColumn]; // Convert Year to a number
+    const processedData = rawData.map((d, index) => {
+        // Access columns with .trim() in case of subtle whitespace in headers
+        const rawYear = d[yearColumn.trim()];
+        const rawParticipants = d[participantsColumn.trim()];
+
+        const year = +rawYear; // Convert Year to a number
         // Convert Participants to a number. Handle cases where it might be '-' or empty.
-        const participants = d[participantsColumn] === '—' || d[participantsColumn] === '' ? null : +d[participantsColumn];
+        const participants = (rawParticipants === '—' || rawParticipants === '') ? null : +rawParticipants;
+
+        // --- NEW DEBUGGING: Log processing for each row ---
+        if (isNaN(year)) {
+            console.warn(`Row ${index + 1}: Year '${rawYear}' is not a valid number.`);
+        }
+        if (participants === null) {
+            console.warn(`Row ${index + 1}: Participants '${rawParticipants}' is missing or invalid ('—').`);
+        } else if (isNaN(participants)) {
+            console.warn(`Row ${index + 1}: Participants '${rawParticipants}' is not a valid number.`);
+        }
+        // --- END NEW DEBUGGING ---
 
         // Only return valid entries for plotting
         if (!isNaN(year) && participants !== null && !isNaN(participants)) {
@@ -49,13 +73,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         return null; // Return null for invalid rows
     }).filter(d => d !== null); // Filter out the null entries
 
-    console.log("Processed data for attendance chart:", processedData);
+    console.log("Processed data for attendance chart (after filtering invalid rows):", processedData);
 
     // Check if there's any valid data to display
     if (processedData.length === 0) {
         console.warn("No valid data found for Annual Meetings Attendance chart after processing.");
         chartContainer.innerHTML = "<p style='text-align: center; color: #666;'>No attendance data to display for the chart.</p>";
-        return; // Stop if no valid data
+        return;
     }
 
     // Function to render the chart, allowing for redraw on resize
@@ -80,12 +104,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             x: {
                 label: "Year",
                 tickFormat: "d", // Format years as integers
-                domain: [d3.min(processedData, d => d.year) - 1, d3.max(processedData, d => d.year) + 1], // Extend domain slightly
+                // Dynamically set domain based on processed data to ensure all years are visible
+                domain: [d3.min(processedData, d => d.year) - 1, d3.max(processedData, d => d.year) + 1],
                 nice: true // Make ticks "nice" numbers
             },
             y: {
                 label: "Number of Participants",
-                domain: [0, d3.max(processedData, d => d.participants) * 1.1], // Start from 0, extend slightly above max
+                // Dynamically set domain based on processed data
+                domain: [0, d3.max(processedData, d => d.participants) * 1.1],
                 nice: true // Make ticks "nice" numbers
             },
             color: {
