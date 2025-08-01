@@ -1,4 +1,4 @@
-// js/7.6Gamma_Dose_Rate_Monitoring_Network_Availability.js
+// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.6Gamma_Dose_Rate_Monitoring_Network_Availability.js
 
 const csvDataPath6 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
