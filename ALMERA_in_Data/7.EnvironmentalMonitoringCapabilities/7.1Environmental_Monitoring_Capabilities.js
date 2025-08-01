@@ -1,4 +1,4 @@
-// js/7.1Environmental_Monitoring_Capabilities.js
+// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.1Environmental_Monitoring_Capabilities.js
 
 // IMPORTANT: Verify this path carefully!
 // This path is relative to the HTML file that loads this JS.
