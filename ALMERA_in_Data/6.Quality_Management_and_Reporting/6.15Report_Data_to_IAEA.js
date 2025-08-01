@@ -1,4 +1,4 @@
-// js/6.15Report_Data_to_IAEA.js
+// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.15Report_Data_to_IAEA.js
 
 const csvDataPath15 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
