@@ -1,4 +1,4 @@
-// js/7.5Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country.js
+// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.5Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country.js
 
 const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
