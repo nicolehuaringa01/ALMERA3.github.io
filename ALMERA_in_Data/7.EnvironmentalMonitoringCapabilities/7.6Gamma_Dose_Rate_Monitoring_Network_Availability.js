@@ -1,4 +1,4 @@
-// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.6Gamma_Dose_Rate_Monitoring_Network_Availability.js
+// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.6Gamma_Dose_Rate_Monitoring_Network_Availability
 
 const csvDataPath6 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
@@ -22,35 +22,6 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
     try {
         data = await d3.csv(csvDataPath6);
         console.log("Gamma_Dose_Rate_Monitoring_Network_Availability CSV data loaded successfully. Number of records:", data.length);
-        if (data.length > 0) {
-            const actualColumns = Object.keys(data[0]);
-            console.log("--- DEBUGGING COLUMN NAMES ---");
-            console.log("Expected Column:", Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn);
-            console.log("Type of Expected Column:", typeof Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn);
-            console.log("Length of Expected Column:", Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn.length);
-
-            console.log("Actual Columns Found:", actualColumns);
-            console.log("Number of Actual Columns Found:", actualColumns.length);
-
-            // Find the exact match or similar-looking columns
-            const foundMatch = actualColumns.find(col => col === Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn);
-            if (foundMatch) {
-                console.log("Exact Match Found! This is good:", foundMatch);
-            } else {
-                console.log("No exact match found for the expected column.");
-                console.log("Checking for similar columns:");
-                actualColumns.forEach(col => {
-                    console.log(`- CSV Column: '${col}' (Length: ${col.length})`);
-                    if (col.includes("gamma dose rate monitoring network")) {
-                         console.log(`  -> This column contains "gamma dose rate monitoring network"`);
-                    }
-                });
-            }
-            console.log("--- END DEBUGGING COLUMN NAMES ---");
-
-        } else {
-            console.warn("CSV data loaded, but it's empty. Cannot inspect columns.");
-        }
     } catch (error) {
         console.error("Error loading Gamma_Dose_Rate_Monitoring_Network_Availability CSV data:", error);
         container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Gamma_Dose_Rate_Monitoring_Network_Availability data. Please check the console for details and ensure the CSV path is correct.</p>";
@@ -58,7 +29,7 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
     }
 
     // --- Data Processing ---
-    const Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn = "7.6 Is there a gamma dose rate monitoring network operational in the country?";
+    const Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn = "7.5 Is there an environmental monitoring network of automatic monitors for gamma-ray spectrometry of aerosols and/or for gaseous iodine in the laboratory's country?";
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -117,7 +88,7 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Gaamma Dose Rate Monitoring Network Availability",
+                label: "Automatic monitors for gamma-ray spectrometry of aerosols and/or gasouse iodine in the country",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
