@@ -22,6 +22,35 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
     try {
         data = await d3.csv(csvDataPath6);
         console.log("Gamma_Dose_Rate_Monitoring_Network_Availability CSV data loaded successfully. Number of records:", data.length);
+        if (data.length > 0) {
+            const actualColumns = Object.keys(data[0]);
+            console.log("--- DEBUGGING COLUMN NAMES ---");
+            console.log("Expected Column:", Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn);
+            console.log("Type of Expected Column:", typeof Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn);
+            console.log("Length of Expected Column:", Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn.length);
+
+            console.log("Actual Columns Found:", actualColumns);
+            console.log("Number of Actual Columns Found:", actualColumns.length);
+
+            // Find the exact match or similar-looking columns
+            const foundMatch = actualColumns.find(col => col === Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn);
+            if (foundMatch) {
+                console.log("Exact Match Found! This is good:", foundMatch);
+            } else {
+                console.log("No exact match found for the expected column.");
+                console.log("Checking for similar columns:");
+                actualColumns.forEach(col => {
+                    console.log(`- CSV Column: '${col}' (Length: ${col.length})`);
+                    if (col.includes("gamma dose rate monitoring network")) {
+                         console.log(`  -> This column contains "gamma dose rate monitoring network"`);
+                    }
+                });
+            }
+            console.log("--- END DEBUGGING COLUMN NAMES ---");
+
+        } else {
+            console.warn("CSV data loaded, but it's empty. Cannot inspect columns.");
+        }
     } catch (error) {
         console.error("Error loading Gamma_Dose_Rate_Monitoring_Network_Availability CSV data:", error);
         container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Gamma_Dose_Rate_Monitoring_Network_Availability data. Please check the console for details and ensure the CSV path is correct.</p>";
