@@ -29,7 +29,7 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
     }
 
     // --- Data Processing ---
-    const Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn = "7.5 Is there an environmental monitoring network of automatic monitors for gamma-ray spectrometry of aerosols and/or for gaseous iodine in the laboratory's country?";
+    const Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn = "7.6 Is there a gamma dose rate monitoring network operational in the country?";
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
