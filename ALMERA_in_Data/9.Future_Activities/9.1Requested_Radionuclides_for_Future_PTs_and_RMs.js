@@ -1,4 +1,4 @@
-// js/9.Future_Activities/9.1Requested_Radionuclides_for_Future_PTs_and_RMs.js
+// ALMERA_in_Data/9.Future_Activities/9.1Requested_Radionuclides_for_Future_PTs_and_RMs.js
 
 const csvDataPath1 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Consistent CSV path
 const topojsonPath1 = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
