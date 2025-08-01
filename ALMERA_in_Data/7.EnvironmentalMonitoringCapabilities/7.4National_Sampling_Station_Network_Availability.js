@@ -1,4 +1,4 @@
-// js/7.4National_Sampling_Station_Network_Availability.js
+// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.4National_Sampling_Station_Network_Availability.js
 
 const csvDataPath4 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
