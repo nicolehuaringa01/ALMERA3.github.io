@@ -204,12 +204,8 @@ const renderListView = () => {
         }
     }
 
-    // Sort labs alphabetically by country, then by lab name
-    labsForList.sort((a, b) => {
-        const countryCompare = a.country.localeCompare(b.country);
-        if (countryCompare !== 0) return countryCompare;
-        return a.name.localeCompare(b.name);
-    });
+    // Sort labs alphabetically by country (Member State)
+    labsForList.sort((a, b) => a.country.localeCompare(b.country));
 
     ul.selectAll("li")
         .data(labsForList)
@@ -363,7 +359,7 @@ async function renderMapView() {
         .attr("fill", "#0b5394") // Dark blue for dots
         .attr("stroke", "#0b5394")
         .append("title")
-        .text(d => `${d.name} (${d.city ? d.city + ', ' : ''}${d.country})\n${selectedEquipment}: ${d.equipmentCount} systems`); // Tooltip with bolded count
+        .text(d => `${d.name} (${d.city ? d.city + ', ' : ''}${d.country}) - ${selectedEquipment}: ${d.equipmentCount} systems`); // Tooltip with bolded count. Note: Native tooltips do not support HTML bolding.
 
     // Add a legend for the dot size
     const legendData = [1, Math.ceil(maxEquipmentCount / 2), maxEquipmentCount].filter(d => d > 0);
