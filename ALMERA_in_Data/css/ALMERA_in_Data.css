@@ -216,7 +216,21 @@ iframe {
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-
+#chart-container, #lab-map-container {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+#lab-map-container {
+    min-height: 500px; /* Ensure space for the map even when empty */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
 footer {
     text-align: center;
     padding: 2rem;
