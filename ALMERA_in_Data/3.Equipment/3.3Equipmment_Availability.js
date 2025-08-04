@@ -157,7 +157,7 @@ const createPieChart = (onClickHandler) => {
 };
 
 /**
- * Renders the list view for selected equipment.
+ * Renders the list view for selected equipment, grouped by Member State.
  */
 const renderListView = () => {
     const container = d3.select("#lab-info-display-container");
@@ -175,42 +175,32 @@ const renderListView = () => {
         return;
     }
 
-    const ul = container.append("ul").style("list-style", "none").style("padding-left", "0");
-
-    // Prepare a flat list of labs for sorting and display
-    const labsForList = [];
-    for (const [memberState, labsMap] of stateMap.entries()) {
-        for (const [labName, count] of labsMap.entries()) {
-             // Find the full row data to get other details like City
-            const row = allSurveyData.find(r =>
-                normalizeString(r["1.1 Name of Laboratory"]) === normalizeString(labName) &&
-                normalizeString(r["1.3 Member State"]) === normalizeString(memberState)
-            );
-            if (row) {
-                labsForList.push({
-                    name: labName,
-                    country: memberState,
-                    city: row["City"], // Assuming 'City' column exists
-                    equipmentCount: count
-                });
-            } else {
-                labsForList.push({
-                    name: labName,
-                    country: memberState,
-                    city: 'N/A',
-                    equipmentCount: count
-                });
-            }
-        }
+    // Get total number of distinct labs across all states for the heading
+    let totalLabs = 0;
+    for (const labsMap of stateMap.values()) {
+        totalLabs += labsMap.size;
     }
 
-    // Sort labs alphabetically by country (Member State)
-    labsForList.sort((a, b) => a.country.localeCompare(b.country));
+    const mainDiv = container.append("div"); // A main div to contain the entire list structure
 
-    ul.selectAll("li")
-        .data(labsForList)
-        .join("li")
-        .html(d => `<strong>${d.name}</strong> (${d.city ? d.city + ', ' : ''}${d.country}) - ${selectedEquipment}: <strong>${d.equipmentCount}</strong> systems`);
+    mainDiv.append("h3").html(`Labs with <strong>${selectedEquipment}</strong> (${totalLabs} total)`);
+
+    // Sort states alphabetically
+    const sortedStates = Array.from(stateMap.keys()).sort((a, b) => a.localeCompare(b));
+
+    sortedStates.forEach(state => {
+        const labsMap = stateMap.get(state);
+        // Sort labs within each state alphabetically by lab name
+        const sortedLabs = Array.from(labsMap.entries()).sort((a, b) => a[0].localeCompare(b[0])); // [labName, count]
+
+        const stateDiv = mainDiv.append("div");
+        stateDiv.append("h4").text(state); // Member State as a sub-heading
+
+        const ul = stateDiv.append("ul").style("list-style", "none").style("padding-left", "20px"); // Adjust padding as needed
+        sortedLabs.forEach(([lab, count]) => {
+            ul.append("li").html(`${lab} (<strong style='font-weight: bold;'>${count}</strong>)`); // Lab name and bolded count
+        });
+    });
 };
 
 
@@ -359,7 +349,7 @@ async function renderMapView() {
         .attr("fill", "#0b5394") // Dark blue for dots
         .attr("stroke", "#0b5394")
         .append("title")
-        .text(d => `${d.name} (${d.city ? d.city + ', ' : ''}${d.country}) - ${selectedEquipment}: ${d.equipmentCount} systems`); // Tooltip with bolded count. Note: Native tooltips do not support HTML bolding.
+        .text(d => `${d.name} (${d.city ? d.city + ', ' : ''}${d.country})\n${selectedEquipment}: ${d.equipmentCount} systems`); // Tooltip with bolded count. Note: Native tooltips do not support HTML bolding.
 
     // Add a legend for the dot size
     const legendData = [1, Math.ceil(maxEquipmentCount / 2), maxEquipmentCount].filter(d => d > 0);
