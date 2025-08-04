@@ -95,10 +95,8 @@ header h1 {
 }
 
 .nav-buttons a {
-    /* --- START OF NAV BUTTON CHANGES --- */
     background: var(--color-nav-link-normal); /* Slightly greyer background */
     color: var(--color-text-dark); /* Keep dark text for contrast */
-    /* --- END OF NAV BUTTON CHANGES --- */
     text-decoration: none;
     margin: 2px 0;
     padding: 12px 20px;
@@ -111,9 +109,7 @@ header h1 {
 }
 
 .nav-buttons a:hover {
-    /* --- START OF NAV BUTTON HOVER CHANGES --- */
     background: var(--color-nav-link-hover); /* Dark grey on hover */
-    /* --- END OF NAV BUTTON HOVER CHANGES --- */
     color: var(--color-primary-dark); /* Highlight text color */
 }
 
@@ -302,26 +298,41 @@ details[open] summary::after {
 }
 
 .breadcrumbs {
-    font-size: 0.9rem;
-    color: #777;
+    font-size: 1.1rem; /* Larger font size */
+    font-weight: bold; /* Make it bold */
+    color: #000; /* Black color for maximum visibility */
     margin-bottom: 1.5rem;
-    padding-left: 0.5rem;
+    padding: 0.5rem 1rem; /* Add padding to make its box visible */
+    background-color: #ffcc00; /* Bright yellow background for debugging */
+    border: 2px solid #cc0000; /* Red border for debugging */
+    z-index: 100; /* Ensure it's on top of other content */
+    position: relative; /* Needed for z-index to work */
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Vertically align */
+    flex-wrap: wrap; /* Allow wrapping on small screens */
 }
 
 .breadcrumbs a {
-    color: #555;
+    color: #0000ff; /* Bright blue for links */
     text-decoration: none;
     transition: color 0.3s ease;
+    padding: 0 0.25rem; /* Small padding around links */
 }
 
 .breadcrumbs a:hover {
-    color: var(--color-primary);
+    color: #0000aa;
     text-decoration: underline;
 }
 
 .breadcrumbs span {
-    margin: 0 8px;
-    color: #aaa;
+    margin: 0 0.5rem; /* Adjust spacing around separator */
+    color: #555; /* Darker separator */
+}
+
+/* Style for the current page in breadcrumbs */
+.breadcrumbs span:last-child {
+    font-weight: 700; /* Make current page bold */
+    color: #000; /* Darker color for current page */
 }
 
 /* Basic responsiveness for smaller screens (optional but recommended) */
