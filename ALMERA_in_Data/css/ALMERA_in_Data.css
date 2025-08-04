@@ -216,21 +216,51 @@ iframe {
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-#chart-container, #lab-map-container {
-    margin-bottom: 30px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-#lab-map-container {
-    min-height: 500px; /* Ensure space for the map even when empty */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
+#chart-container, #lab-info-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #lab-info-display-container {
+            min-height: 500px; /* Ensure space for the map/list even when empty */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%; /* Ensure it takes full width of its parent */
+        }
+        #lab-info-display-container p {
+            font-size: 1.1em;
+            color: #555;
+            text-align: center;
+        }
+        #lab-info-display-container ul {
+            width: 100%;
+            max-height: 500px; /* Limit height for scrollability in list view */
+            overflow-y: auto; /* Enable scrolling for long lists */
+        }
+        #lab-info-display-container li {
+            padding: 5px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        #lab-info-display-container li:last-child {
+            border-bottom: none;
+        }
+        .view-options {
+            margin-bottom: 15px;
+            text-align: right; /* Align checkbox to the right */
+        }
+        .view-options label {
+            margin-left: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        em {
+            color: #777;
+        }
 footer {
     text-align: center;
     padding: 2rem;
