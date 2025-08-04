@@ -1,4 +1,4 @@
-// ALMERA_in_Data/3.Equipment/3.3Equipmment_Availability.js
+// ALMERA_in_Data/3.Equipment/equipment-visualization.js
 
 // Global variables to store processed data and selected state
 let allSurveyData; // Will hold the loaded CSV data
@@ -6,6 +6,7 @@ let equipmentCountsData;
 let topEquipmentData;
 let equipmentToLabsMapData;
 let selectedEquipment = null; // Emulates Observable's mutable state for selected equipment
+let currentView = 'map'; // 'map' or 'list' - default view
 
 // Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
 function normalizeString(str) {
@@ -156,21 +157,83 @@ const createPieChart = (onClickHandler) => {
 };
 
 /**
- * Updates the map display of labs based on the selected equipment.
+ * Renders the list view for selected equipment.
  */
-async function updateMapForSelectedEquipment() {
-    const mapContainer = d3.select("#lab-map-container"); // Container for the map
-    mapContainer.html(""); // Clear previous content
+const renderListView = () => {
+    const container = d3.select("#lab-info-display-container");
+    container.html(""); // Clear previous content
 
     if (!selectedEquipment) {
-        mapContainer.append("p").html("<em>Click on a pie chart slice to see labs with that equipment on the map.</em>");
+        container.append("p").html("<em>Click on a pie chart slice to see related labs in a list.</em>");
         return;
     }
 
     const stateMap = equipmentToLabsMapData.get(selectedEquipment);
 
     if (!stateMap || stateMap.size === 0) {
-        mapContainer.append("p").html(`No labs found for <strong>${selectedEquipment}</strong>.`);
+        container.append("p").html(`No labs found for <strong>${selectedEquipment}</strong>.`);
+        return;
+    }
+
+    const ul = container.append("ul").style("list-style", "none").style("padding-left", "0");
+
+    // Prepare a flat list of labs for sorting and display
+    const labsForList = [];
+    for (const [memberState, labsMap] of stateMap.entries()) {
+        for (const [labName, count] of labsMap.entries()) {
+             // Find the full row data to get other details like City
+            const row = allSurveyData.find(r =>
+                normalizeString(r["1.1 Name of Laboratory"]) === normalizeString(labName) &&
+                normalizeString(r["1.3 Member State"]) === normalizeString(memberState)
+            );
+            if (row) {
+                labsForList.push({
+                    name: labName,
+                    country: memberState,
+                    city: row["City"], // Assuming 'City' column exists
+                    equipmentCount: count
+                });
+            } else {
+                labsForList.push({
+                    name: labName,
+                    country: memberState,
+                    city: 'N/A',
+                    equipmentCount: count
+                });
+            }
+        }
+    }
+
+    // Sort labs alphabetically by country, then by lab name
+    labsForList.sort((a, b) => {
+        const countryCompare = a.country.localeCompare(b.country);
+        if (countryCompare !== 0) return countryCompare;
+        return a.name.localeCompare(b.name);
+    });
+
+    ul.selectAll("li")
+        .data(labsForList)
+        .join("li")
+        .html(d => `<strong>${d.name}</strong> (${d.city ? d.city + ', ' : ''}${d.country}) - ${selectedEquipment}: <strong>${d.equipmentCount}</strong> systems`);
+};
+
+
+/**
+ * Updates the map display of labs based on the selected equipment.
+ */
+async function renderMapView() {
+    const container = d3.select("#lab-info-display-container");
+    container.html(""); // Clear previous content
+
+    if (!selectedEquipment) {
+        container.append("p").html("<em>Click on a pie chart slice to see related labs on the map.</em>");
+        return;
+    }
+
+    const stateMap = equipmentToLabsMapData.get(selectedEquipment);
+
+    if (!stateMap || stateMap.size === 0) {
+        container.append("p").html(`No labs found for <strong>${selectedEquipment}</strong>.`);
         return;
     }
 
@@ -202,7 +265,7 @@ async function updateMapForSelectedEquipment() {
 
     if (!foundLongColumn || !foundLatColumn || !foundNameColumn || !foundStateColumn || !foundCityColumn) {
         console.error("Map Error: Missing required columns (Long, Lat, 1.1 Name of Laboratory, 1.3 Member State, City) in CSV.");
-        mapContainer.append("p").html("<span style='color:red;'>Error: Geographic data or lab details missing in CSV. Cannot display map.</span>");
+        container.append("p").html("<span style='color:red;'>Error: Geographic data or lab details missing in CSV. Cannot display map.</span>");
         return;
     }
 
@@ -238,12 +301,12 @@ async function updateMapForSelectedEquipment() {
     }
 
     if (labsForMap.length === 0) {
-        mapContainer.append("p").html(`No labs with valid geographic data found for <strong>${selectedEquipment}</strong>.`);
+        container.append("p").html(`No labs with valid geographic data found for <strong>${selectedEquipment}</strong>.`);
         return;
     }
 
     // --- Map Rendering Logic ---
-    const width = mapContainer.node().clientWidth; // Make map responsive to its container width
+    const width = container.node().clientWidth; // Make map responsive to its container width
     const height = 500;
     const topojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json"; // Path to world TopoJSON
 
@@ -252,7 +315,7 @@ async function updateMapForSelectedEquipment() {
         world = await d3.json(topojsonPath);
     } catch (error) {
         console.error("Error loading TopoJSON data:", error);
-        mapContainer.append("p").html("<span style='color:red;'>Error: Failed to load world map data from CDN. Check network connection or CDN availability.</span>");
+        container.append("p").html("<span style='color:red;'>Error: Failed to load world map data from CDN. Check network connection or CDN availability.</span>");
         return;
     }
 
@@ -279,7 +342,6 @@ async function updateMapForSelectedEquipment() {
 
     // Scale for dot radius based on equipment count
     const maxEquipmentCount = d3.max(labsForMap, d => d.equipmentCount);
-    // Ensure domain starts at 1 to prevent issues with log/sqrt scales if values are 0 or less
     const radiusScale = d3.scaleSqrt()
                             .domain([1, maxEquipmentCount || 1]) // Handle case where max is 0 or undefined
                             .range([4, 20]); // Min and Max radius for dots
@@ -301,7 +363,43 @@ async function updateMapForSelectedEquipment() {
         .attr("fill", "#0b5394") // Dark blue for dots
         .attr("stroke", "#0b5394")
         .append("title")
-        .text(d => `${d.name} (${d.city}, ${d.country})\n${selectedEquipment}: ${d.equipmentCount} systems`);
+        .text(d => `${d.name} (${d.city ? d.city + ', ' : ''}${d.country})\n${selectedEquipment}: ${d.equipmentCount} systems`); // Tooltip with bolded count
+
+    // Add a legend for the dot size
+    const legendData = [1, Math.ceil(maxEquipmentCount / 2), maxEquipmentCount].filter(d => d > 0);
+    const legendX = 20; // X position for the legend
+    const legendY = height - 120; // Y position for the legend
+
+    const legendGroup = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", `translate(${legendX}, ${legendY})`);
+
+    legendGroup.append("text")
+        .attr("x", 0)
+        .attr("y", -10)
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold")
+        .text("Equipment Count");
+
+    legendGroup.selectAll(".legend-circle")
+        .data(legendData)
+        .enter().append("circle")
+        .attr("class", "legend-circle")
+        .attr("cx", d => 0)
+        .attr("cy", d => -radiusScale(d) - 10) // Position based on radius
+        .attr("r", d => radiusScale(d))
+        .attr("fill", "#0b5394")
+        .attr("stroke", "#0b5394");
+
+    legendGroup.selectAll(".legend-text")
+        .data(legendData)
+        .enter().append("text")
+        .attr("class", "legend-text")
+        .attr("x", 25)
+        .attr("y", d => -radiusScale(d) - 10)
+        .attr("dy", "0.35em")
+        .attr("font-size", "10px")
+        .text(d => d);
 
     // Zoom behavior
     svg.call(d3.zoom()
@@ -314,8 +412,19 @@ async function updateMapForSelectedEquipment() {
         })
     );
 
-    mapContainer.node().appendChild(svg.node());
+    container.node().appendChild(svg.node());
 }
+
+/**
+ * Updates the display based on the current view selection.
+ */
+const updateLabInfoDisplay = () => {
+    if (currentView === 'map') {
+        renderMapView();
+    } else {
+        renderListView();
+    }
+};
 
 // --- Data Loading and Initialization ---
 d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
@@ -329,18 +438,24 @@ d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
     // Define a common click handler for the pie chart
     const pieChartClickHandler = (equipmentName) => {
         selectedEquipment = equipmentName;
-        updateMapForSelectedEquipment(); // Update the map when a slice is clicked
+        updateLabInfoDisplay(); // Update the display based on current view
     };
 
     // Render the pie chart
     const pieChartSvg = createPieChart(pieChartClickHandler);
     d3.select("#chart-container").node().appendChild(pieChartSvg);
 
-    // Initial call to update the map, showing instructions initially
-    updateMapForSelectedEquipment();
+    // Attach event listener to the view toggle checkbox
+    d3.select("#view-toggle").on("change", function() {
+        currentView = this.checked ? 'list' : 'map';
+        updateLabInfoDisplay(); // Re-render based on new view
+    });
+
+    // Initial call to update the lab info display, showing instructions initially
+    updateLabInfoDisplay();
 
 }).catch(error => {
     console.error("Error loading CSV data:", error);
     d3.select("#chart-container").html("<p style='color: red;'>Failed to load data. Please check the CSV file path and content.</p>");
-    d3.select("#lab-map-container").html("<p style='color: red;'>Failed to load map data.</p>");
+    d3.select("#lab-info-display-container").html("<p style='color: red;'>Failed to load map/list data.</p>");
 });
