@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Path to your CSV file. Adjust this path if your CSV is located elsewhere.
             // Assuming 'members.html' is in a subfolder and 'data' is at the project root.
-            const csvFilePath = '../../data/ALMERA_Labs.csv';
+            const csvFilePath = '../../data/Observable2020Survey.csv';
 
             const response = await fetch(csvFilePath);
             if (!response.ok) {
