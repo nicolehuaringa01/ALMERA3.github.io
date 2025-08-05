@@ -118,6 +118,36 @@
                 <div id="almera-members-map-container"></div>
                 <script src="../../ALMERA_in_Data/1.Geographic_and_Institutional_Coverage/1.1ALMERA_Members_Map.js"></script>
 
+                <!-- NEW SECTION FOR ALMERA STATISTICS -->
+                <section id="almera-stats" class="mt-8">
+                    <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">
+                        ALMERA Network Statistics
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-medium text-gray-800">Total Labs Processed</h3>
+                            <p id="stat-total-labs" class="text-3xl font-bold text-blue-700">Loading...</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-medium text-gray-800">Average Distance Between Labs</h3>
+                            <p id="stat-avg-distance" class="text-3xl font-bold text-blue-700">Loading...</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-medium text-gray-800">Shortest Distance Between Two Labs</h3>
+                            <p id="stat-shortest-distance" class="text-xl font-bold text-blue-700">Loading...</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-medium text-gray-800">Longest Distance Between Two Labs</h3>
+                            <p id="stat-longest-distance" class="text-xl font-bold text-blue-700">Loading...</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg shadow-sm md:col-span-2 lg:col-span-1">
+                            <h3 class="text-lg font-medium text-gray-800">Country with Most Labs</h3>
+                            <p id="stat-most-labs-country" class="text-3xl font-bold text-blue-700">Loading...</p>
+                        </div>
+                    </div>
+                </section>
+                <!-- END NEW SECTION -->
+
                 <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mt-8 mb-5">
                     List of ALMERA Network Laboratories
                 </h2>
@@ -146,6 +176,7 @@
 
     </div> <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
     <script src="MembersTable.js"></script>
+    <script src="distance_stats.js"></script>
     
     <script src="../components/Navigation/load_navigation.js"></script>
     <script src="../components/Navigation/load_mobile_navigation.js"></script>
