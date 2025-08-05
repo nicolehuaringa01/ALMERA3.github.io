@@ -3,9 +3,10 @@
  *
  * This script calculates and displays various statistics about the ALMERA network laboratories, including:
  * - Total number of labs processed.
- * - Average distance between all possible pairs of labs.
+ * - Average distance between all possible pairs of labs (overall network density).
  * - Shortest distance between any two labs.
- * - The "most remote" lab (the lab with the largest average distance to all other labs).
+ * - The "most remote" lab (the lab whose *closest* neighbor is the furthest away,
+ * aligning with the "Point Nemo" analogy).
  * - The country with the most labs.
  *
  * It expects a CSV file with 'Lat', 'Long', and '1.3 Member State' columns.
@@ -61,24 +62,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         document.getElementById('stat-total-labs').textContent = labs.length;
                         document.getElementById('stat-avg-distance').textContent = 'N/A';
                         document.getElementById('stat-shortest-distance').textContent = 'N/A';
-                        document.getElementById('stat-most-remote-lab').textContent = 'N/A'; // Updated ID
+                        document.getElementById('stat-most-remote-lab').textContent = 'N/A';
                         document.getElementById('stat-most-labs-country').textContent = 'N/A';
                         return;
                     }
 
                     let totalPairwiseDistance = 0;
                     let pairwiseDistanceCount = 0;
-                    let shortestDistance = Infinity;
-                    let shortestPair = null;
+                    let shortestOverallDistance = Infinity;
+                    let shortestOverallPair = null;
 
-                    let mostRemoteLab = null;
-                    let maxAvgDistanceToOthers = 0;
+                    let mostRemoteLab = null; // This will store the lab that is "most remote"
+                    let maxMinDistance = 0; // This will store the largest minimum distance found
 
-                    // Calculate pairwise distances and average distance to others for each lab
+                    // Calculate pairwise distances and find the most remote lab (based on closest neighbor)
                     for (let i = 0; i < labs.length; i++) {
                         const currentLab = labs[i];
-                        let sumDistancesFromCurrentLab = 0;
-                        let countDistancesFromCurrentLab = 0;
+                        let minDistanceToAnyOtherLab = Infinity;
+                        let closestNeighbor = null;
 
                         for (let j = 0; j < labs.length; j++) {
                             if (i === j) continue; // Don't calculate distance to itself
@@ -93,25 +94,27 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (i < j) { // Only count each pair once for overall stats
                                 totalPairwiseDistance += distance;
                                 pairwiseDistanceCount++;
-                                if (distance < shortestDistance) {
-                                    shortestDistance = distance;
-                                    shortestPair = { lab1: currentLab, lab2: otherLab, distance: distance };
+                                if (distance < shortestOverallDistance) {
+                                    shortestOverallDistance = distance;
+                                    shortestOverallPair = { lab1: currentLab, lab2: otherLab, distance: distance };
                                 }
                             }
 
-                            // For calculating average distance from currentLab to all others
-                            sumDistancesFromCurrentLab += distance;
-                            countDistancesFromCurrentLab++;
+                            // For finding the closest neighbor to the currentLab
+                            if (distance < minDistanceToAnyOtherLab) {
+                                minDistanceToAnyOtherLab = distance;
+                                closestNeighbor = otherLab;
+                            }
                         }
 
-                        const avgDistanceFromCurrentLab = countDistancesFromCurrentLab > 0
-                            ? sumDistancesFromCurrentLab / countDistancesFromCurrentLab
-                            : 0;
-
-                        // Check for the most remote lab
-                        if (avgDistanceFromCurrentLab > maxAvgDistanceToOthers) {
-                            maxAvgDistanceToOthers = avgDistanceFromCurrentLab;
-                            mostRemoteLab = { lab: currentLab, avgDistance: avgDistanceFromCurrentLab };
+                        // After checking all other labs for currentLab, see if it's the most remote
+                        if (minDistanceToAnyOtherLab > maxMinDistance) {
+                            maxMinDistance = minDistanceToAnyOtherLab;
+                            mostRemoteLab = {
+                                lab: currentLab,
+                                closestNeighbor: closestNeighbor,
+                                minDistance: minDistanceToAnyOtherLab
+                            };
                         }
                     }
 
@@ -135,22 +138,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Display the statistics in the HTML
                     document.getElementById('stat-total-labs').textContent = labs.length;
                     document.getElementById('stat-avg-distance').textContent = `${overallAverageDistance.toFixed(2)} km`;
-                    document.getElementById('stat-shortest-distance').textContent = shortestPair
-                        ? `${shortestPair.distance.toFixed(2)} km (between ${shortestPair.lab1.name}, ${shortestPair.lab1.country} and ${shortestPair.lab2.name}, ${shortestPair.lab2.country})`
+                    document.getElementById('stat-shortest-distance').textContent = shortestOverallPair
+                        ? `${shortestOverallPair.distance.toFixed(2)} km (between ${shortestOverallPair.lab1.name}, ${shortestOverallPair.lab1.country} and ${shortestOverallPair.lab2.name}, ${shortestOverallPair.lab2.country})`
                         : 'N/A';
                     document.getElementById('stat-most-remote-lab').textContent = mostRemoteLab
-                        ? `${mostRemoteLab.lab.name}, ${mostRemoteLab.lab.country} (Avg. ${mostRemoteLab.avgDistance.toFixed(2)} km to others)`
-                        : 'N/A'; // Updated ID and content
+                        ? `${mostRemoteLab.lab.name}, ${mostRemoteLab.lab.country} (Closest lab: ${mostRemoteLab.closestNeighbor.name}, ${mostRemoteLab.closestNeighbor.country} at ${mostRemoteLab.minDistance.toFixed(2)} km)`
+                        : 'N/A';
                     document.getElementById('stat-most-labs-country').textContent = mostLabsCountry;
 
                     console.log('ALMERA Network Statistics:');
                     console.log(`Total Labs Processed: ${labs.length}`);
-                    console.log(`Overall Average Distance Between Labs: ${overallAverageDistance.toFixed(2)} km`);
-                    if (shortestPair) {
-                        console.log(`Shortest Distance: ${shortestPair.distance.toFixed(2)} km between ${shortestPair.lab1.name} (${shortestPair.lab1.country}) and ${shortestPair.lab2.name} (${shortestPair.lab2.country})`);
+                    console.log(`Overall Average Distance Between Labs (Network Density): ${overallAverageDistance.toFixed(2)} km`);
+                    if (shortestOverallPair) {
+                        console.log(`Shortest Distance Between Any Two Labs: ${shortestOverallPair.distance.toFixed(2)} km between ${shortestOverallPair.lab1.name} (${shortestOverallPair.lab1.country}) and ${shortestOverallPair.lab2.name} (${shortestOverallPair.lab2.country})`);
                     }
                     if (mostRemoteLab) {
-                        console.log(`Most Remote Lab: ${mostRemoteLab.lab.name} (${mostRemoteLab.lab.country}) with an average distance of ${mostRemoteLab.avgDistance.toFixed(2)} km to other labs.`);
+                        console.log(`Most Remote Lab (Point Nemo style): ${mostRemoteLab.lab.name} (${mostRemoteLab.lab.country}). Its closest neighbor is ${mostRemoteLab.closestNeighbor.name} (${mostRemoteLab.closestNeighbor.country}) at ${mostRemoteLab.minDistance.toFixed(2)} km.`);
                     }
                     console.log(`Country with Most Labs: ${mostLabsCountry}`);
                 },
@@ -159,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('stat-total-labs').textContent = 'Error';
                     document.getElementById('stat-avg-distance').textContent = 'Error';
                     document.getElementById('stat-shortest-distance').textContent = 'Error';
-                    document.getElementById('stat-most-remote-lab').textContent = 'Error'; // Updated ID
+                    document.getElementById('stat-most-remote-lab').textContent = 'Error';
                     document.getElementById('stat-most-labs-country').textContent = 'Error';
                 }
             });
@@ -168,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('stat-total-labs').textContent = 'Error';
             document.getElementById('stat-avg-distance').textContent = 'Error';
             document.getElementById('stat-shortest-distance').textContent = 'Error';
-            document.getElementById('stat-most-remote-lab').textContent = 'Error'; // Updated ID
+            document.getElementById('stat-most-remote-lab').textContent = 'Error';
             document.getElementById('stat-most-labs-country').textContent = 'Error';
         }
     }
