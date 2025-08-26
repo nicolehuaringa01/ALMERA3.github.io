@@ -36,121 +36,127 @@ async function initializeALMERAMap() {
     .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
     .range(["#d10000", "#009d28", "#0083b4", "#9942b2", "#ddb100"]);
 
-  const projection = d3.geoEqualEarth().fitSize([width, height], ({ type: "Sphere" }));
+  const projection = d3.geoEqualEarth().fitSize([width, height], { type: "Sphere" });
   const path = d3.geoPath(projection, context);
 
   const tooltip = d3.select("#map-page-tooltip");
-
   let selectedPoint = null;
+  let zoomTransform = d3.zoomIdentity; // keep track of zoom/pan
 
+  // Convert data to points once
+  const basePoints = data.map(d => {
+    const coords = [+d.Long, +d.Lat];
+    if (isNaN(coords[0]) || isNaN(coords[1])) return null;
+    const projected = projection(coords);
+    if (!projected) return null;
+    const [x, y] = projected;
+    return {
+      x,
+      y,
+      color: colorScale(d["1.4 Geographic Region"]?.trim().toUpperCase() || "UNKNOWN"),
+      info: d["1.1 Name of Laboratory"] || "Laboratory Name Missing",
+      city: d["City"] || "Unknown City",
+      memberState: d["1.3 Member State"] || "No Member State"
+    };
+  }).filter(p => p !== null);
+
+  // Clustering function
   function clusterPoints(points, radius) {
     const clusters = [];
     points.forEach(point => {
-      let addedToCluster = false;
-      clusters.forEach(cluster => {
-        if (isNaN(point.x) || isNaN(point.y) || isNaN(cluster.x) || isNaN(cluster.y)) return;
+      let added = false;
+      for (const cluster of clusters) {
         const dx = point.x - cluster.x;
         const dy = point.y - cluster.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < radius) {
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < radius) {
           cluster.points.push(point);
           cluster.x = (cluster.x * (cluster.points.length - 1) + point.x) / cluster.points.length;
           cluster.y = (cluster.y * (cluster.points.length - 1) + point.y) / cluster.points.length;
-          addedToCluster = true;
+          added = true;
+          break;
         }
-      });
-      if (!addedToCluster) {
+      }
+      if (!added) {
         clusters.push({ x: point.x, y: point.y, points: [point] });
       }
     });
     return clusters;
   }
 
-  function render(land) {
+  function render() {
+    context.save();
     context.clearRect(0, 0, width, height);
+    context.translate(zoomTransform.x, zoomTransform.y);
+    context.scale(zoomTransform.k, zoomTransform.k);
 
-    // Draw ocean background
-    context.beginPath();
-    path({ type: "Sphere" });
-    context.fillStyle = "#e6f2ff";
-    context.fill();
-
-    // Graticule
+    // Draw graticule
     context.beginPath();
     d3.geoPath(projection, context)(d3.geoGraticule10());
     context.strokeStyle = "#e0e0e0";
-    context.lineWidth = 0.5;
+    context.lineWidth = 0.5 / zoomTransform.k;
     context.stroke();
 
     // Land
     context.beginPath();
-    path(land);
+    path(land50m);
     context.fillStyle = "#cccccc";
     context.fill();
 
-    const points = data.map(d => {
-      const coords = [+d.Long, +d.Lat];
-      if (isNaN(coords[0]) || isNaN(coords[1])) return null;
-      const projected = projection(coords);
-      if (!projected) return null;
-      const [x, y] = projected;
-      return {
-        x,
-        y,
-        color: colorScale(d["1.4 Geographic Region"]?.trim().toUpperCase() || "UNKNOWN"),
-        info: d["1.1 Name of Laboratory"] || "Laboratory Name Missing",
-        city: d["City"] || "Unknown City",
-        memberState: d["1.3 Member State"] || "No Member State"
-      };
-    }).filter(p => p !== null);
-
-    const clusters = clusterPoints(points, 15);
+    // Cluster radius shrinks as you zoom in
+    const clusterRadius = 15 / zoomTransform.k;
+    const clusters = clusterPoints(basePoints, clusterRadius);
 
     clusters.forEach(cluster => {
       if (cluster.points.length > 1) {
         context.beginPath();
-        context.arc(cluster.x, cluster.y, 10, 0, 2 * Math.PI);
+        context.arc(cluster.x, cluster.y, 10 / zoomTransform.k, 0, 2 * Math.PI);
         context.fillStyle = "gray";
         context.fill();
         context.strokeStyle = "white";
-        context.lineWidth = 1;
+        context.lineWidth = 1 / zoomTransform.k;
         context.stroke();
 
         context.fillStyle = "white";
         context.textAlign = "center";
         context.textBaseline = "middle";
-        context.font = "bold 10px sans-serif";
+        context.font = `${10 / zoomTransform.k}px sans-serif`;
         context.fillText(cluster.points.length, cluster.x, cluster.y);
       } else {
-        const point = cluster.points[0];
+        const p = cluster.points[0];
         context.beginPath();
-        context.arc(point.x, point.y, 5, 0, 2 * Math.PI);
-        context.fillStyle = point.color;
+        context.arc(p.x, p.y, 5 / zoomTransform.k, 0, 2 * Math.PI);
+        context.fillStyle = p.color;
         context.fill();
         context.strokeStyle = "white";
-        context.lineWidth = 0.5;
+        context.lineWidth = 0.5 / zoomTransform.k;
         context.stroke();
       }
     });
 
-    return clusters; // return clusters instead of points
+    context.restore();
+    return clusters;
   }
 
-  let renderedClusters = render(land50m);
+  let renderedClusters = render();
 
+  // Tooltip interaction
   d3.select(canvas)
     .on("mousemove", event => {
       if (selectedPoint) return;
-      const [mouseX, mouseY] = d3.pointer(event);
-      const hoveredCluster = renderedClusters.find(c => {
-        const radius = (c.points.length > 1) ? 10 : 5;
-        const dx = mouseX - c.x;
-        const dy = mouseY - c.y;
+      const [mx, my] = d3.pointer(event);
+      const inv = zoomTransform.invert([mx, my]);
+
+      const hovered = renderedClusters.find(c => {
+        const radius = (c.points.length > 1 ? 10 : 5) / zoomTransform.k;
+        const dx = inv[0] - c.x;
+        const dy = inv[1] - c.y;
         return Math.sqrt(dx * dx + dy * dy) <= radius;
       });
-      if (hoveredCluster) {
-        if (hoveredCluster.points.length === 1) {
-          const p = hoveredCluster.points[0];
+
+      if (hovered) {
+        if (hovered.points.length === 1) {
+          const p = hovered.points[0];
           tooltip
             .style("left", `${event.pageX + 10}px`)
             .style("top", `${event.pageY + 10}px`)
@@ -165,7 +171,7 @@ async function initializeALMERAMap() {
             .style("left", `${event.pageX + 10}px`)
             .style("top", `${event.pageY + 10}px`)
             .style("display", "block")
-            .html(`<strong>${hoveredCluster.points.length} laboratories</strong>`);
+            .html(`<strong>${hovered.points.length} laboratories</strong>`);
         }
       } else {
         tooltip.style("display", "none");
@@ -173,68 +179,24 @@ async function initializeALMERAMap() {
     })
     .on("mouseout", () => {
       if (!selectedPoint) tooltip.style("display", "none");
-    })
-    .on("click", event => {
-      const [mouseX, mouseY] = d3.pointer(event);
-      const clickedCluster = renderedClusters.find(c => {
-        const radius = (c.points.length > 1) ? 10 : 5;
-        const dx = mouseX - c.x;
-        const dy = mouseY - c.y;
-        return Math.sqrt(dx * dx + dy * dy) <= radius;
-      });
-      if (clickedCluster) {
-        if (selectedPoint === clickedCluster) {
-          selectedPoint = null;
-          tooltip.style("display", "none");
-        } else {
-          selectedPoint = clickedCluster;
-          if (clickedCluster.points.length === 1) {
-            const p = clickedCluster.points[0];
-            tooltip
-              .style("left", `${event.pageX + 10}px`)
-              .style("top", `${event.pageY + 10}px`)
-              .style("display", "block")
-              .html(`
-                <strong>${p.info}</strong><br>
-                📍 ${p.city}<br>
-                🌍 ${p.memberState}
-              `);
-          } else {
-            tooltip
-              .style("left", `${event.pageX + 10}px`)
-              .style("top", `${event.pageY + 10}px`)
-              .style("display", "block")
-              .html(`<strong>${clickedCluster.points.length} laboratories</strong>`);
-          }
-        }
-      } else {
-        selectedPoint = null;
-        tooltip.style("display", "none");
-      }
     });
 
-  // Zoom/pan using context transforms instead of mutating projection
+  // Zoom
   const zoom = d3.zoom()
     .scaleExtent([1, 20])
     .on("zoom", (event) => {
-      const transform = event.transform;
-      context.save();
-      context.clearRect(0, 0, width, height);
-      context.translate(transform.x, transform.y);
-      context.scale(transform.k, transform.k);
-      renderedClusters = render(land50m);
-      context.restore();
+      zoomTransform = event.transform;
+      renderedClusters = render();
     });
 
-  d3.select(canvas)
-    .call(zoom)
-    .on("dblclick.zoom", null);
+  d3.select(canvas).call(zoom).on("dblclick.zoom", null);
 
+  // Resize
   window.addEventListener('resize', () => {
     const newWidth = container.clientWidth;
     canvas.width = newWidth;
     projection.fitSize([newWidth, height], { type: "Sphere" });
-    renderedClusters = render(land50m);
+    renderedClusters = render();
   });
 }
 
