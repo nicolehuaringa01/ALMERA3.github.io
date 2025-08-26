@@ -191,7 +191,7 @@ d3.select(canvas)
 
   // Zoom
   const zoom = d3.zoom()
-    .scaleExtent([1, 20])
+    .scaleExtent([1, 32])
     .on("zoom", (event) => {
       zoomTransform = event.transform;
       renderedClusters = render();
