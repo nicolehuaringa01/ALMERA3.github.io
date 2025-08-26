@@ -141,45 +141,53 @@ async function initializeALMERAMap() {
   let renderedClusters = render();
 
   // Tooltip interaction
-  d3.select(canvas)
-    .on("mousemove", event => {
-      if (selectedPoint) return;
-      const [mx, my] = d3.pointer(event);
-      const inv = zoomTransform.invert([mx, my]);
+d3.select(canvas)
+  .on("mousemove", event => {
+    if (selectedPoint) return;
+    const [mx, my] = d3.pointer(event);
+    const inv = zoomTransform.invert([mx, my]);
 
-      const hovered = renderedClusters.find(c => {
-        const radius = (c.points.length > 1 ? 10 : 5) / zoomTransform.k;
-        const dx = inv[0] - c.x;
-        const dy = inv[1] - c.y;
-        return Math.sqrt(dx * dx + dy * dy) <= radius;
-      });
+    const hovered = renderedClusters.find(c => {
+      // Visible radius (changes with zoom)
+      const visibleRadius = (c.points.length > 1 ? 10 : 5) / zoomTransform.k;
+      // Add a fixed padding in screen space (not scaled by zoom)
+      const hoverPadding = 6; 
+      const dx = inv[0] - c.x;
+      const dy = inv[1] - c.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
 
-      if (hovered) {
-        if (hovered.points.length === 1) {
-          const p = hovered.points[0];
-          tooltip
-            .style("left", `${event.pageX + 10}px`)
-            .style("top", `${event.pageY + 10}px`)
-            .style("display", "block")
-            .html(`
-              <strong>${p.info}</strong><br>
-              📍 ${p.city}<br>
-              🌍 ${p.memberState}
-            `);
-        } else {
-          tooltip
-            .style("left", `${event.pageX + 10}px`)
-            .style("top", `${event.pageY + 10}px`)
-            .style("display", "block")
-            .html(`<strong>${hovered.points.length} laboratories</strong>`);
-        }
-      } else {
-        tooltip.style("display", "none");
-      }
-    })
-    .on("mouseout", () => {
-      if (!selectedPoint) tooltip.style("display", "none");
+      // Scale padding back into map space (so it's consistent regardless of zoom)
+      const effectiveRadius = visibleRadius + hoverPadding / zoomTransform.k;
+
+      return dist <= effectiveRadius;
     });
+
+    if (hovered) {
+      if (hovered.points.length === 1) {
+        const p = hovered.points[0];
+        tooltip
+          .style("left", `${event.pageX + 10}px`)
+          .style("top", `${event.pageY + 10}px`)
+          .style("display", "block")
+          .html(`
+            <strong>${p.info}</strong><br>
+            📍 ${p.city}<br>
+            🌍 ${p.memberState}
+          `);
+      } else {
+        tooltip
+          .style("left", `${event.pageX + 10}px`)
+          .style("top", `${event.pageY + 10}px`)
+          .style("display", "block")
+          .html(`<strong>${hovered.points.length} laboratories</strong>`);
+      }
+    } else {
+      tooltip.style("display", "none");
+    }
+  })
+  .on("mouseout", () => {
+    if (!selectedPoint) tooltip.style("display", "none");
+  });
 
   // Zoom
   const zoom = d3.zoom()
