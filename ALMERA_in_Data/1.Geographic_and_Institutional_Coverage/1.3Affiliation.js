@@ -95,6 +95,9 @@ async function initializeAffiliationChart() {
     // --- Calculate total and percentages for the tooltip ---
     const totalAffiliationsCount = d3.sum(topAffiliation, d => d.value);
 
+    // Count only laboratories that actually responded (non-empty affiliation column)
+    const labsThatAnswered = rawData.filter(d => d[affiliationColumn] && d[affiliationColumn].trim() !== "").length;
+
     // Add percentage to each affiliation object in topAffiliation
     topAffiliation.forEach(d => {
         d.percent = (totalAffiliationsCount > 0) ? (d.value / totalAffiliationsCount) : 0;
@@ -161,8 +164,8 @@ async function initializeAffiliationChart() {
         .text(d => d);
 
     svg.append("text")
-        .attr("x", -width / 2 + 10)   // push to left edge
-        .attr("y", -height / 2 + 20)  // push down from top
+        .attr("x", -width / 2 + 10) 
+        .attr("y", -height / 2 + 20)
         .attr("text-anchor", "start")
         .attr("font-size", "12px")
         .attr("font-weight", "bold")
@@ -170,11 +173,10 @@ async function initializeAffiliationChart() {
 
     svg.append("text")
         .attr("x", -width / 2 + 10)
-        .attr("y", -height / 2 + 40)  // a little lower than the first line
+        .attr("y", -height / 2 + 40)
         .attr("text-anchor", "start")
         .attr("font-size", "12px")
-        .text(`Total laboratories: ${rawData.length.toLocaleString("en-US")}`);
-
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
     // Append the SVG to the designated container
     container.appendChild(svg.node());
