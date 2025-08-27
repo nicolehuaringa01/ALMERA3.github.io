@@ -136,7 +136,7 @@ async function initializeAffiliationChart() {
             .attr("fill", d => color(d.data.name))
             .attr("d", arc)
         .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
+            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`);
 
     // Add a legend.
     const legend = svg.append("g")
@@ -159,6 +159,14 @@ async function initializeAffiliationChart() {
         .attr("y", 9)
         .attr("dy", "0.35em")
         .text(d => d);
+    
+    svg.append("text")
+        .attr("x", 0)
+        .attr("y", height / 2 - 20)  // push it near the bottom
+        .attr("text-anchor", "middle")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold")
+        .text(`Total responses: ${totalAffiliationsCount.toLocaleString("en-US")}`);
 
     // Append the SVG to the designated container
     container.appendChild(svg.node());
