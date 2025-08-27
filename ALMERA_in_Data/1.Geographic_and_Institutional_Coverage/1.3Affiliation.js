@@ -159,14 +159,22 @@ async function initializeAffiliationChart() {
         .attr("y", 9)
         .attr("dy", "0.35em")
         .text(d => d);
-    
+
     svg.append("text")
-        .attr("x", 0)
-        .attr("y", height / 2 - 20)  // push it near the bottom
-        .attr("text-anchor", "middle")
+        .attr("x", -width / 2 + 10)   // push to left edge
+        .attr("y", -height / 2 + 20)  // push down from top
+        .attr("text-anchor", "start")
         .attr("font-size", "12px")
         .attr("font-weight", "bold")
         .text(`Total responses: ${totalAffiliationsCount.toLocaleString("en-US")}`);
+
+    svg.append("text")
+        .attr("x", -width / 2 + 10)
+        .attr("y", -height / 2 + 40)  // a little lower than the first line
+        .attr("text-anchor", "start")
+        .attr("font-size", "12px")
+        .text(`Total laboratories: ${rawData.length.toLocaleString("en-US")}`);
+
 
     // Append the SVG to the designated container
     container.appendChild(svg.node());
