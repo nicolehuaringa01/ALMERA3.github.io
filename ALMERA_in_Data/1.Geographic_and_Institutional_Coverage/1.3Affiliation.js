@@ -1,9 +1,4 @@
-// js/1.3AffiliationChart.js
-
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the HTML file that loads this JS.
-// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
-// (e.g., https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable2020Survey.csv)
+// ALMERA3.github.io/ALMERA_in_Data/1.Geographic_and_Institutional_Coverage/1.3Affiliation.js
 const csvDataPath3 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
 
 // This function processes the raw data to count affiliations
