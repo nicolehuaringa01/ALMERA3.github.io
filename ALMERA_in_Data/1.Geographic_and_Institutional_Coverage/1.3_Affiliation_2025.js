@@ -160,8 +160,8 @@ async function initializeAffiliationChart() {
         .range(d3.schemeTableau10);
 
     // Pick which chart to render:
-    // renderBarChart(container, topAffiliation, labsThatAnswered, color);
-    renderStackedBar(container, topAffiliation, labsThatAnswered, color);
+    renderBarChart(container, topAffiliation, labsThatAnswered, color);
+    // renderStackedBar(container, topAffiliation, labsThatAnswered, color);
 }
 
 // Run
