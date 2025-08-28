@@ -96,13 +96,15 @@ function renderBarChart(container, topAffiliation, labsThatAnswered, color) {
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft(y));
 
-    // Total labs that answered
-    svg.append("text")
-        .attr("x", -width / 2 + 10)
-        .attr("y", -height / 2 + 40)
-        .attr("text-anchor", "start")
-        .attr("font-size", "12px")
-        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+    // Total labs that answered (top-left corner)
+svg.append("text")
+    .attr("x", margin.left)          // left margin
+    .attr("y", margin.top - 20)      // a bit above the bars
+    .attr("text-anchor", "start")
+    .attr("font-size", "14px")
+    .attr("font-weight", "bold")
+    .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+
 
     // Legend
     const legend = svg.append("g")
