@@ -117,7 +117,7 @@ async function initializesectorChart() {
     try { rawData = await d3.csv(csvDataPath3); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const sectorColumn = "1.12 Sector";
+    const sectorColumn = "1.12 Type/Sector in which the laboratory falls";
     if (!rawData[0] || !rawData[0][sectorColumn]) {
         return container.innerHTML = `<p style='color:red'>Missing "${sectorColumn}" column.</p>`;
     }
