@@ -38,11 +38,9 @@ function getTopAffiliations(affiliationCounts, numTop = 6) {
     return top;
 }
 
-// --- Visualization Options ---
-
-// Option 1: Bar Chart with Reference Line
+// Bar Chart without Reference Line, but with Percentages
 function renderBarChart(container, topAffiliation, labsThatAnswered, color) {
-    const width = 928, height = 500, margin = {top: 50, right: 30, bottom: 50, left: 150};
+    const width = 928, height = 500, margin = {top: 50, right: 30, bottom: 50, left: 200};
     const svg = d3.create("svg")
         .attr("width", width).attr("height", height)
         .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
@@ -57,6 +55,7 @@ function renderBarChart(container, topAffiliation, labsThatAnswered, color) {
         .range([margin.top, height - margin.bottom])
         .padding(0.1);
 
+    // Bars
     svg.append("g")
         .selectAll("rect")
         .data(topAffiliation)
@@ -67,7 +66,25 @@ function renderBarChart(container, topAffiliation, labsThatAnswered, color) {
             .attr("height", y.bandwidth())
             .attr("fill", d => color(d.name))
         .append("title")
-            .text(d => `${d.name}: ${d.value} labs`);
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.name}: ${d.value} labs (${pct}%)`;
+            });
+
+    // Percent + counts labels at end of bars
+    svg.append("g")
+        .selectAll("text.value")
+        .data(topAffiliation)
+        .join("text")
+            .attr("class", "value")
+            .attr("x", d => x(d.value) + 5)
+            .attr("y", d => y(d.name) + y.bandwidth() / 2)
+            .attr("dominant-baseline", "middle")
+            .attr("fill", "black")
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.value} (${pct}%)`;
+            });
 
     // X axis
     svg.append("g")
@@ -79,50 +96,9 @@ function renderBarChart(container, topAffiliation, labsThatAnswered, color) {
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft(y));
 
-    // Reference line for labs that answered
-    svg.append("line")
-        .attr("x1", x(labsThatAnswered)).attr("x2", x(labsThatAnswered))
-        .attr("y1", margin.top).attr("y2", height - margin.bottom)
-        .attr("stroke", "red").attr("stroke-dasharray", "4 2")
-        .attr("stroke-width", 2);
-
-    svg.append("text")
-        .attr("x", x(labsThatAnswered)).attr("y", margin.top - 10)
-        .attr("fill", "red").attr("text-anchor", "middle")
-        .text(`Labs that answered: ${labsThatAnswered}`);
-
-    container.appendChild(svg.node());
-}
-
-// Option 2: 100% Stacked Bar (Proportions)
-function renderStackedBar(container, topAffiliation, labsThatAnswered, color) {
-    const width = 928, height = 200, margin = {top: 40, right: 30, bottom: 40, left: 30};
-    const svg = d3.create("svg")
-        .attr("width", width).attr("height", height)
-        .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
-
-    const total = d3.sum(topAffiliation, d => d.value);
-    let cumulative = 0;
-
-    svg.append("g")
-        .selectAll("rect")
-        .data(topAffiliation)
-        .join("rect")
-            .attr("x", d => {
-                const prev = cumulative / total * (width - margin.left - margin.right) + margin.left;
-                cumulative += d.value;
-                return prev;
-            })
-            .attr("y", margin.top)
-            .attr("width", d => (d.value / total) * (width - margin.left - margin.right))
-            .attr("height", height - margin.top - margin.bottom)
-            .attr("fill", d => color(d.name))
-        .append("title")
-            .text(d => `${d.name}: ${(d.value/total*100).toFixed(1)}% (${d.value} labs)`);
-
     // Legend
     const legend = svg.append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top - 20})`);
+        .attr("transform", `translate(${margin.left}, ${margin.top - 30})`);
     topAffiliation.forEach((d, i) => {
         const g = legend.append("g").attr("transform", `translate(${i*150},0)`);
         g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
@@ -159,9 +135,7 @@ async function initializeAffiliationChart() {
         .domain(topAffiliation.map(d => d.name))
         .range(d3.schemeTableau10);
 
-    // Pick which chart to render:
     renderBarChart(container, topAffiliation, labsThatAnswered, color);
-    // renderStackedBar(container, topAffiliation, labsThatAnswered, color);
 }
 
 // Run
