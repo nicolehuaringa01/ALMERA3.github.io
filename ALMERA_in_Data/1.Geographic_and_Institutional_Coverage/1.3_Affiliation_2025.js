@@ -1,168 +1,107 @@
-// ALMERA3.github.io/ALMERA_in_Data/1.Geographic_and_Institutional_Coverage/1.3_Affiliation_2025.js
-const csvDataPath3 = "/ALMERA3.github.io/data/ALMERA_Capabilities_Survey_2025_TEST.csv";
+// Assuming your CSV has: LabID, Affiliation (with multiple affiliations possible per lab)
 
-// --- Data Processing Functions (unchanged) ---
-function getAffiliationCounts(data, affiliationColumn) {
-    const counts = new Map();
-    for (const row of data) {
-        if (row[affiliationColumn]) {
-            const affiliations = row[affiliationColumn]
-                .split(/;|\r?\n/)   // split on ";" OR newlines
-                .map(d => d.trim())
-                .filter(d => d.length > 0);
-            for (const aff of affiliations) {
-                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1);
-            }
-        }
-    }
-    let result = [];
-    let otherCount = 0;
-    for (const [name, value] of counts.entries()) {
-        if (value === 1) otherCount += 1;
-        else result.push({ name, value });
-    }
-    if (otherCount > 0) result.push({ name: "Other", value: otherCount });
-    return result;
-}
+// Count affiliations
+const affiliationCounts = d3.rollup(
+  data.flatMap(d => d.Affiliation.split(";").map(a => a.trim())), 
+  v => v.length,
+  d => d
+);
 
-function getTopAffiliations(affiliationCounts, numTop = 6) {
-    let top = affiliationCounts
-        .slice()
-        .sort((a, b) => d3.descending(a.value, b.value))
-        .slice(0, numTop);
-    const other = affiliationCounts.find(d => d.name === "Other");
-    if (other && !top.some(d => d.name === "Other")) {
-        top.push(other);
-        top.sort((a, b) => d3.descending(a.value, b.value));
-    }
-    return top;
-}
+// Total labs (all in CSV)
+const totalLabs = new Set(data.map(d => d.LabID)).size;
 
-// --- Visualization Options ---
+// Labs that answered at least one affiliation
+const labsThatAnswered = new Set(
+  data.filter(d => d.Affiliation && d.Affiliation.trim() !== "")
+      .map(d => d.LabID)
+).size;
 
-// Option 1: Bar Chart with Reference Line
-function renderBarChart(container, topAffiliation, labsThatAnswered, color) {
-    const width = 928, height = 500, margin = {top: 50, right: 30, bottom: 50, left: 150};
-    const svg = d3.create("svg")
-        .attr("width", width).attr("height", height)
-        .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
+// Total affiliations selected (can be > labsThatAnswered)
+const totalAffiliationsCount = Array.from(affiliationCounts.values())
+  .reduce((a, b) => a + b, 0);
 
-    const x = d3.scaleLinear()
-        .domain([0, d3.max(topAffiliation, d => d.value)])
-        .nice()
-        .range([margin.left, width - margin.right]);
+// --- Chart setup ---
+const margin = { top: 60, right: 30, bottom: 50, left: 120 };
+const width = 700 - margin.left - margin.right;
+const height = 500 - margin.top - margin.bottom;
 
-    const y = d3.scaleBand()
-        .domain(topAffiliation.map(d => d.name))
-        .range([margin.top, height - margin.bottom])
-        .padding(0.1);
+const svg = d3.select("#chart")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    svg.append("g")
-        .selectAll("rect")
-        .data(topAffiliation)
-        .join("rect")
-            .attr("x", margin.left)
-            .attr("y", d => y(d.name))
-            .attr("width", d => x(d.value) - margin.left)
-            .attr("height", y.bandwidth())
-            .attr("fill", d => color(d.name))
-        .append("title")
-            .text(d => `${d.name}: ${d.value} labs`);
+// Scales
+const x = d3.scaleBand()
+  .domain(Array.from(affiliationCounts.keys()))
+  .range([0, width])
+  .padding(0.2);
 
-    // X axis
-    svg.append("g")
-        .attr("transform", `translate(0,${height - margin.bottom})`)
-        .call(d3.axisBottom(x));
+const y = d3.scaleLinear()
+  .domain([0, d3.max(Array.from(affiliationCounts.values())) * 1.2])
+  .nice()
+  .range([height, 0]);
 
-    // Y axis
-    svg.append("g")
-        .attr("transform", `translate(${margin.left},0)`)
-        .call(d3.axisLeft(y));
+// Bars
+svg.selectAll("rect")
+  .data(Array.from(affiliationCounts.entries()))
+  .enter().append("rect")
+  .attr("x", d => x(d[0]))
+  .attr("y", d => y(d[1]))
+  .attr("width", x.bandwidth())
+  .attr("height", d => height - y(d[1]))
+  .attr("fill", "#69b3a2");
 
-    // Reference line for labs that answered
-    svg.append("line")
-        .attr("x1", x(labsThatAnswered)).attr("x2", x(labsThatAnswered))
-        .attr("y1", margin.top).attr("y2", height - margin.bottom)
-        .attr("stroke", "red").attr("stroke-dasharray", "4 2")
-        .attr("stroke-width", 2);
+// Axes
+svg.append("g")
+  .attr("transform", `translate(0,${height})`)
+  .call(d3.axisBottom(x));
 
-    svg.append("text")
-        .attr("x", x(labsThatAnswered)).attr("y", margin.top - 10)
-        .attr("fill", "red").attr("text-anchor", "middle")
-        .text(`Labs that answered: ${labsThatAnswered}`);
+svg.append("g")
+  .call(d3.axisLeft(y));
 
-    container.appendChild(svg.node());
-}
+// --- Red reference lines ---
+// Thick line for all labs
+svg.append("line")
+  .attr("x1", 0)
+  .attr("x2", width)
+  .attr("y1", y(totalLabs))
+  .attr("y2", y(totalLabs))
+  .attr("stroke", "red")
+  .attr("stroke-width", 3)
+  .attr("stroke-dasharray", "5,3");
 
-// Option 2: 100% Stacked Bar (Proportions)
-function renderStackedBar(container, topAffiliation, labsThatAnswered, color) {
-    const width = 928, height = 200, margin = {top: 40, right: 30, bottom: 40, left: 30};
-    const svg = d3.create("svg")
-        .attr("width", width).attr("height", height)
-        .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
+// Thinner line for labs that answered
+svg.append("line")
+  .attr("x1", 0)
+  .attr("x2", width)
+  .attr("y1", y(labsThatAnswered))
+  .attr("y2", y(labsThatAnswered))
+  .attr("stroke", "red")
+  .attr("stroke-width", 1.5)
+  .attr("stroke-dasharray", "2,2");
 
-    const total = d3.sum(topAffiliation, d => d.value);
-    let cumulative = 0;
+// --- Labels for totals ---
+svg.append("text")
+  .attr("x", 0)
+  .attr("y", -20)
+  .attr("text-anchor", "start")
+  .attr("font-size", "12px")
+  .attr("font-weight", "bold")
+  .text(`Total responses: ${totalAffiliationsCount.toLocaleString("en-US")}`);
 
-    svg.append("g")
-        .selectAll("rect")
-        .data(topAffiliation)
-        .join("rect")
-            .attr("x", d => {
-                const prev = cumulative / total * (width - margin.left - margin.right) + margin.left;
-                cumulative += d.value;
-                return prev;
-            })
-            .attr("y", margin.top)
-            .attr("width", d => (d.value / total) * (width - margin.left - margin.right))
-            .attr("height", height - margin.top - margin.bottom)
-            .attr("fill", d => color(d.name))
-        .append("title")
-            .text(d => `${d.name}: ${(d.value/total*100).toFixed(1)}% (${d.value} labs)`);
+svg.append("text")
+  .attr("x", 0)
+  .attr("y", -5)
+  .attr("text-anchor", "start")
+  .attr("font-size", "12px")
+  .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
-    // Legend
-    const legend = svg.append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top - 20})`);
-    topAffiliation.forEach((d, i) => {
-        const g = legend.append("g").attr("transform", `translate(${i*150},0)`);
-        g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
-        g.append("text").attr("x", 20).attr("y", 12).text(d.name);
-    });
+svg.append("text")
+  .attr("x", 0)
+  .attr("y", 10)
+  .attr("text-anchor", "start")
+  .attr("font-size", "12px")
+  .text(`Total laboratories in network: ${totalLabs.toLocaleString("en-US")}`);
 
-    container.appendChild(svg.node());
-}
-
-// --- Main Init ---
-async function initializeAffiliationChart() {
-    const container = document.getElementById("affiliation-chart-container");
-    if (!container) return;
-
-    let rawData;
-    try { rawData = await d3.csv(csvDataPath3); }
-    catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
-
-    const affiliationColumn = "1.11 Affiliation";
-    if (!rawData[0] || !rawData[0][affiliationColumn]) {
-        return container.innerHTML = `<p style='color:red'>Missing "${affiliationColumn}" column.</p>`;
-    }
-
-    const affiliationCounts = getAffiliationCounts(rawData, affiliationColumn);
-    let topAffiliation = getTopAffiliations(affiliationCounts, 6);
-
-    if (topAffiliation.length === 0) {
-        return container.innerHTML = "<p>No data to display.</p>";
-    }
-
-    const labsThatAnswered = rawData.filter(d => d[affiliationColumn] && d[affiliationColumn].trim() !== "").length;
-
-    const color = d3.scaleOrdinal()
-        .domain(topAffiliation.map(d => d.name))
-        .range(d3.schemeTableau10);
-
-    // Pick which chart to render:
-    renderBarChart(container, topAffiliation, labsThatAnswered, color);
-    // renderStackedBar(container, topAffiliation, labsThatAnswered, color);
-}
-
-// Run
-document.addEventListener("DOMContentLoaded", initializeAffiliationChart);
