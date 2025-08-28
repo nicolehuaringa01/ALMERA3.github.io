@@ -38,21 +38,32 @@ function getTopsectors(sectorCounts, numTop = 13) {
     }
     return top;
 }
-// Bar Chart without Reference Line, but with Percentages
 function renderBarChart(container, topsector, labsThatAnswered, color) {
-    const width = 928, height = 500, margin = {top: 100, right: 30, bottom: 50, left: 50}; // move bars lower & smaller left margin
+    const width = 928, height = 500;
+
+    // Define vertical space for each section
+    const legendHeight = 40;
+    const totalLabsHeight = 30;
+    const topMargin = legendHeight + totalLabsHeight + 20; // extra padding above bars
+    const bottomMargin = 50;
+    const leftMargin = 50;
+    const rightMargin = 30;
+
     const svg = d3.create("svg")
-        .attr("width", width).attr("height", height)
+        .attr("width", width)
+        .attr("height", height)
         .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
 
+    // X scale for bars
     const x = d3.scaleLinear()
         .domain([0, d3.max(topsector, d => d.value)])
         .nice()
-        .range([margin.left, width - margin.right]);
+        .range([leftMargin, width - rightMargin]);
 
+    // Y scale for bars
     const y = d3.scaleBand()
         .domain(topsector.map(d => d.name))
-        .range([margin.top, height - margin.bottom])
+        .range([topMargin, height - bottomMargin])
         .padding(0.2);
 
     // Bars
@@ -60,9 +71,9 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
         .selectAll("rect")
         .data(topsector)
         .join("rect")
-            .attr("x", margin.left)
+            .attr("x", leftMargin)
             .attr("y", d => y(d.name))
-            .attr("width", d => x(d.value) - margin.left)
+            .attr("width", d => x(d.value) - leftMargin)
             .attr("height", y.bandwidth())
             .attr("fill", d => color(d.name))
         .append("title")
@@ -88,34 +99,35 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
 
     // X axis
     svg.append("g")
-        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .attr("transform", `translate(0,${height - bottomMargin})`)
         .call(d3.axisBottom(x));
 
     // Y axis (no labels)
     svg.append("g")
-        .attr("transform", `translate(${margin.left},0)`)
-        .call(d3.axisLeft(y).tickFormat('')); // hide tick labels
+        .attr("transform", `translate(${leftMargin},0)`)
+        .call(d3.axisLeft(y).tickFormat(''));
 
-    // Total labs that answered (top-left corner)
-    svg.append("text")
-        .attr("x", margin.left)          
-        .attr("y", margin.top - 40)      
-        .attr("text-anchor", "start")
-        .attr("font-size", "14px")
-        .attr("font-weight", "bold")
-        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
-
-    // Legend on top
+    // Legend (top band)
     const legend = svg.append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top - 70})`); // move above bars and total labs text
+        .attr("transform", `translate(${leftMargin}, 20)`); // 20px padding from top
     topsector.forEach((d, i) => {
         const g = legend.append("g").attr("transform", `translate(${i * 150}, 0)`);
         g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
         g.append("text").attr("x", 20).attr("y", 12).text(d.name).attr("font-size", "12px");
     });
 
+    // Total labs (middle band)
+    svg.append("text")
+        .attr("x", leftMargin)
+        .attr("y", legendHeight + 20) // below legend
+        .attr("text-anchor", "start")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+
     container.appendChild(svg.node());
 }
+
 // --- Main Init ---
 async function initializesectorChart() {
     const container = document.getElementById("sector-chart-container");
