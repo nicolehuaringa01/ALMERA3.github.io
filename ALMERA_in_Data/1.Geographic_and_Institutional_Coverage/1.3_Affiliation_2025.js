@@ -105,16 +105,6 @@ svg.append("text")
     .attr("font-weight", "bold")
     .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
-
-    // Legend
-    const legend = svg.append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top - 30})`);
-    topAffiliation.forEach((d, i) => {
-        const g = legend.append("g").attr("transform", `translate(${i*150},0)`);
-        g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
-        g.append("text").attr("x", 20).attr("y", 12).text(d.name);
-    });
-
     container.appendChild(svg.node());
 }
 
