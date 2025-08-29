@@ -118,7 +118,7 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
 
      // Legend (middle band)
     const legend = svg.append("g")
-        .attr("transform", `translate(${leftMargin}, 20)`); // 20px padding from top
+        .attr("transform", `translate(${leftMargin})`);
     topsector.forEach((d, i) => {
         const g = legend.append("g").attr("transform", `translate(${i * 150}, 0)`);
         g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
