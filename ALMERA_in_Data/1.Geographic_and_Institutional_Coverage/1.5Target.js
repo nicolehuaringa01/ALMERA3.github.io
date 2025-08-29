@@ -1,36 +1,36 @@
-// ALMERA3.github.io/ALMERA_in_Data/1.Geographic_and_Institutional_Coverage/1.5Target.js
+// ALMERA3.github.io/ALMERA_in_Data/1.Geographic_and_Institutional_Coverage/1.5target.js
 const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
 // --- Data Processing Functions (unchanged) ---
-function getTargetCounts(data, TargetColumn) {
+function gettargetCounts(data, targetColumn) {
     const counts = new Map();
     for (const row of data) {
-        if (row[TargetColumn]) {
-            const Targets = row[TargetColumn]
+        if (row[targetColumn]) {
+            const targets = row[targetColumn]
                 .split(/;|\r?\n/)   // split on ";" OR newlines
                 .map(d => d.trim())
                 .filter(d => d.length > 0);
-            for (const aff of Targets) {
-                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure Target string is not empty after trimming
+            for (const aff of targets) {
+                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure target string is not empty after trimming
             }
         }
     }
     let result = [];
     let otherCount = 0;
     for (const [name, value] of counts.entries()) {
-        if (value === 1) otherCount += 1; // Targets with only one occurrence go into "Other"
+        if (value === 1) otherCount += 1; // targets with only one occurrence go into "Other"
         else result.push({ name, value });
         }
     if (otherCount > 0) result.push({ name: "Other", value: otherCount });
     return result;
 }
 
-function getTopTargets(TargetCounts, numTop = 9) {
-    let top = TargetCounts
+function getToptargets(targetCounts, numTop = 9) {
+    let top = targetCounts
         .slice()
         .sort((a, b) => d3.descending(a.value, b.value))
         .slice(0, numTop);
-    const other = TargetCounts.find(d => d.name === "Other");
+    const other = targetCounts.find(d => d.name === "Other");
     if (other && !top.some(d => d.name === "Other")) {
         top.push(other); // Add "Other" if it wasn't already in the top N
         // You might want to re-sort 'top' after adding 'Other' if its position matters
@@ -38,7 +38,7 @@ function getTopTargets(TargetCounts, numTop = 9) {
     }
     return top;
 }
-function renderBarChart(container, topTarget, labsThatAnswered, color) {
+function renderBarChart(container, toptarget, labsThatAnswered, color) {
     const width = 928, height = 500;
 
     // Define vertical space for each section
@@ -56,20 +56,20 @@ function renderBarChart(container, topTarget, labsThatAnswered, color) {
 
     // X scale for bars
     const x = d3.scaleLinear()
-        .domain([0, d3.max(topTarget, d => d.value)])
+        .domain([0, d3.max(toptarget, d => d.value)])
         .nice()
         .range([leftMargin, width - rightMargin]);
 
     // Y scale for bars
     const y = d3.scaleBand()
-        .domain(topTarget.map(d => d.name))
+        .domain(toptarget.map(d => d.name))
         .range([topMargin, height - bottomMargin])
         .padding(0.2);
 
     // Bars
     svg.append("g")
         .selectAll("rect")
-        .data(topTarget)
+        .data(toptarget)
         .join("rect")
             .attr("x", leftMargin)
             .attr("y", d => y(d.name))
@@ -85,7 +85,7 @@ function renderBarChart(container, topTarget, labsThatAnswered, color) {
     // Percent + counts labels at end of bars
     svg.append("g")
         .selectAll("text.value")
-        .data(topTarget)
+        .data(toptarget)
         .join("text")
             .attr("class", "value")
             .attr("x", d => x(d.value) + 5)
@@ -119,7 +119,7 @@ function renderBarChart(container, topTarget, labsThatAnswered, color) {
     // Legend (middle band)
     const legend = svg.append("g")
         .attr("transform", `translate(${leftMargin}, ${totalLabsHeight + 20})`); // Positioned below the total labs text
-    topTarget.forEach((d, i) => {
+    toptarget.forEach((d, i) => {
         const g = legend.append("g").attr("transform", `translate(${i * 150}, 0)`);
         g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
         g.append("text").attr("x", 20).attr("y", 12).text(d.name).attr("font-size", "12px");
@@ -129,7 +129,7 @@ function renderBarChart(container, topTarget, labsThatAnswered, color) {
 }
 
 // --- Main Init ---
-async function initializeTargetChart() {
+async function initializetargetChart() {
     const container = document.getElementById("target-chart-container");
     if (!container) return;
 
@@ -137,26 +137,26 @@ async function initializeTargetChart() {
     try { rawData = await d3.csv(csvDataPath5); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const TargetColumn = "1.13 Target users of laboratory's analytical services";
-    if (!rawData[0] || !rawData[0][TargetColumn]) {
-        return container.innerHTML = `<p style='color:red'>Missing "${TargetColumn}" column.</p>`;
+    const targetColumn = "1.13 target users of laboratory's analytical services";
+    if (!rawData[0] || !rawData[0][targetColumn]) {
+        return container.innerHTML = `<p style='color:red'>Missing "${targetColumn}" column.</p>`;
     }
 
-    const TargetCounts = getTargetCounts(rawData, TargetColumn);
-    let topTarget = getTopTargets(TargetCounts, 6);
+    const targetCounts = gettargetCounts(rawData, targetColumn);
+    let toptarget = getToptargets(targetCounts, 6);
 
-    if (topTarget.length === 0) {
+    if (toptarget.length === 0) {
         return container.innerHTML = "<p>No data to display.</p>";
     }
 
-    const labsThatAnswered = rawData.filter(d => d[TargetColumn] && d[TargetColumn].trim() !== "").length;
+    const labsThatAnswered = rawData.filter(d => d[targetColumn] && d[targetColumn].trim() !== "").length;
 
     const color = d3.scaleOrdinal()
-        .domain(topTarget.map(d => d.name))
+        .domain(toptarget.map(d => d.name))
         .range(d3.schemeTableau10);
 
-    renderBarChart(container, topTarget, labsThatAnswered, color);
+    renderBarChart(container, toptarget, labsThatAnswered, color);
 }
 
 // Run
-document.addEventListener("DOMContentLoaded", initializeTargetChart);
+document.addEventListener("DOMContentLoaded", initializetargetChart);
