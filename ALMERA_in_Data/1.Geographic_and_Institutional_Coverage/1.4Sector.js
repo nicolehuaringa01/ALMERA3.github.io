@@ -42,8 +42,8 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
     const width = 928, height = 500;
 
     // Define vertical space for each section
-    const legendHeight = 30;
-    const totalLabsHeight = 40;
+    const legendHeight = 40;
+    const totalLabsHeight = 30;
     const topMargin = legendHeight + totalLabsHeight + 20; // extra padding above bars
     const bottomMargin = 50;
     const leftMargin = 50;
@@ -110,16 +110,15 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
     // Total labs (top band)
     svg.append("text")
         .attr("x", leftMargin)
-        .attr("y", totalLabsHeight)
+        .attr("y", 20) // Moved to the top, 20px from the top of the SVG
         .attr("text-anchor", "start")
         .attr("font-size", "14px")
         .attr("font-weight", "bold")
         .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
-     // Legend (middle band)
+    // Legend (middle band)
     const legend = svg.append("g")
-        .attr("transform", `translate(${leftMargin})`);
-        .attr("y", legendHeight)
+        .attr("transform", `translate(${leftMargin}, ${totalLabsHeight + 20})`); // Positioned below the total labs text
     topsector.forEach((d, i) => {
         const g = legend.append("g").attr("transform", `translate(${i * 150}, 0)`);
         g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
