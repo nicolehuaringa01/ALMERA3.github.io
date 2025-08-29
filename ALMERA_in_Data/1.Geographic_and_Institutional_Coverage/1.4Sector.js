@@ -136,7 +136,6 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
     
     container.appendChild(svg.node());
 }
-
 // --- Main Init ---
 async function initializesectorChart() {
     const container = document.getElementById("sector-chart-container");
