@@ -1,47 +1,32 @@
-// js/scopeChart.js
+// ALMERA3.github.io/ALMERA_in_Data/1.Geographic_and_Institutional_Coverage/1.6Scope.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the HTML file that loads this JS.
-// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
-// (e.g., https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable2020Survey.csv)
-const csvDataPath6 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
+const csvDataPath6 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
-// This function processes the raw data to count scopes
 function getscopeCounts(data, scopeColumn) {
     const counts = new Map();
-
     for (const row of data) {
         if (row[scopeColumn]) {
-            // Split by semicolon as per your Observable notebook's implicit logic
-            const scopes = row[scopeColumn].split(";").map(d => d.trim());
+            const scopes = row[scopeColumn]
+                .split(/;|\r?\n/)   // split on ";" OR newlines
+                .map(d => d.trim())
+                .filter(d => d.length > 0);
             for (const aff of scopes) {
-                if (aff) { // Ensure scope string is not empty after trimming
-                    counts.set(aff, (counts.get(aff) || 0) + 1);
-                }
+                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure scope string is not empty after trimming
             }
         }
     }
-
     let result = [];
     let otherCount = 0;
-
     for (const [name, value] of counts.entries()) {
-        if (value === 1) { // scopes with only one occurrence go into "Other"
-            otherCount += 1;
-        } else {
-            result.push({ name, value });
+        if (value === 1) otherCount += 1; // scopes with only one occurrence go into "Other"
+        else result.push({ name, value });
         }
-    }
-
-    if (otherCount > 0) {
-        result.push({ name: "Other", value: otherCount });
-    }
-
+    if (otherCount > 0) result.push({ name: "Other", value: otherCount });
     return result;
 }
 
 // This function selects the top N scopes, including "Other" if present
-function getTopscopes(scopeCounts, numTop = 12) {
+function getTopscopes(scopeCounts, numTop = 2) {
     let top = scopeCounts
         .slice() // Create a shallow copy to sort without modifying original
         .sort((a, b) => d3.descending(a.value, b.value)) // Sort by value descending
@@ -58,132 +43,124 @@ function getTopscopes(scopeCounts, numTop = 12) {
     return top;
 }
 
+function renderBarChart(container, topscope, labsThatAnswered, color) {
+    const width = 928, height = 500;
 
-async function initializescopeChart() {
-    const container = document.getElementById("scope-chart-container");
-    if (!container) {
-        console.error("scope chart container element #scope-chart-container not found.");
-        return;
-    }
+    // Define vertical space for each section
+    const legendHeight = 40;
+    const totalLabsHeight = 30;
+    const topMargin = legendHeight + totalLabsHeight + 20; // extra padding above bars
+    const bottomMargin = 50;
+    const leftMargin = 50;
+    const rightMargin = 30;
 
-    // Set dimensions for the chart
-    const width = 928;
-    const height = Math.min(width, 500);
-
-    let rawData;
-    try {
-        rawData = await d3.csv(csvDataPath6);
-        console.log("scope CSV raw data loaded:", rawData.length, "records");
-    } catch (error) {
-        console.error("Error loading scope CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load scope data. Check console for details (e.g., CSV path).</p>";
-        return;
-    }
-
-    // --- Data Processing using the new functions ---
-    const scopeColumn = "1.14 Scope of radioactivity measurements/monitoring programme and sources of interest"; // User-provided column name
-    if (!rawData[0] || !rawData[0][scopeColumn]) {
-        console.error(`Error: CSV data missing required column "${scopeColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
-        container.innerHTML = `<p style='color: red;'>Error: Missing "${scopeColumn}" column in CSV data.</p>`;
-        return;
-    }
-
-    const scopeCounts = getscopeCounts(rawData, scopeColumn);
-    const topscope = getTopscopes(scopeCounts, 6); // Get top 6 scopes
-
-    if (topscope.length === 0) {
-        console.warn("No valid scope data found after processing.");
-        container.innerHTML = "<p style='text-align: center;'>No scope data to display after filtering/processing.</p>";
-        return;
-    }
-
-     // --- Calculate total and percentages for the tooltip ---
-    const totalscopesCount = d3.sum(topscope, d => d.value);
-
-    // Add percentage to each scope object in topscope
-    topscope.forEach(d => {
-        d.percent = (totalscopesCount > 0) ? (d.value / totalscopesCount) : 0;
-    });
-
-    console.log("Processed topscope data with percentages:", topscope);
-
-    // --- Chart Rendering Logic ---
-
-    // Create the color scale.
-    const color = d3.scaleOrdinal()
-        .domain(topscope.map(d => d.name))
-        .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topscope.length).reverse());
-
-    // Create the pie layout and arc generator.
-    const pie = d3.pie()
-        .sort(null) // Do not sort, use the pre-sorted topscope
-        .value(d => d.value);
-
-    const arc = d3.arc()
-        .innerRadius(0)
-        .outerRadius(Math.min(width, height) / 2 - 1);
-
-    const arcs = pie(topscope);
-
-    // Create the SVG container.
     const svg = d3.create("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("viewBox", [-width / 2, -height / 2, width, height]) // Center the view
-        .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif;"); // General styling
+        .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
 
-    // Add a scope path for each value.
+    // X scale for bars
+    const x = d3.scaleLinear()
+        .domain([0, d3.max(topscope, d => d.value)])
+        .nice()
+        .range([leftMargin, width - rightMargin]);
+
+    // Y scale for bars
+    const y = d3.scaleBand()
+        .domain(topscope.map(d => d.name))
+        .range([topMargin, height - bottomMargin])
+        .padding(0.2);
+
+    // Bars
     svg.append("g")
-        .attr("stroke", "white")
-        .selectAll("path")
-        .data(arcs)
-        .join("path")
-            .attr("fill", d => color(d.data.name))
-            .attr("d", arc)
-        .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
+        .selectAll("rect")
+        .data(topscope)
+        .join("rect")
+            .attr("x", leftMargin)
+            .attr("y", d => y(d.name))
+            .attr("width", d => x(d.value) - leftMargin)
+            .attr("height", y.bandwidth())
+            .attr("fill", d => color(d.name))
+        .append("title")
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.name}: ${d.value} labs (${pct}%)`;
+            });
 
-    // Add a legend.
+    // Percent + counts labels at end of bars
+    svg.append("g")
+        .selectAll("text.value")
+        .data(topscope)
+        .join("text")
+            .attr("class", "value")
+            .attr("x", d => x(d.value) + 5)
+            .attr("y", d => y(d.name) + y.bandwidth() / 2)
+            .attr("dominant-baseline", "middle")
+            .attr("fill", "black")
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.value} (${pct}%)`;
+            });
+
+    // X axis
+    svg.append("g")
+        .attr("transform", `translate(0,${height - bottomMargin})`)
+        .call(d3.axisBottom(x));
+
+    // Y axis (no labels)
+    svg.append("g")
+        .attr("transform", `translate(${leftMargin},0)`)
+        .call(d3.axisLeft(y).tickFormat(''));
+
+    // Total labs (top band)
+    svg.append("text")
+        .attr("x", leftMargin)
+        .attr("y", 20) // Moved to the top, 20px from the top of the SVG
+        .attr("text-anchor", "start")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+
+    // Legend (middle band)
     const legend = svg.append("g")
-        .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`) // Position adjusted for clarity
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-        .selectAll("g")
-        .data(color.domain())
-        .join("g")
-            .attr("transform", (d, i) => `translate(0, ${i * 20})`);
-
-    legend.append("rect")
-        .attr("x", 0)
-        .attr("width", 18)
-        .attr("height", 18)
-        .attr("fill", color);
-
-    legend.append("text")
-        .attr("x", 24)
-        .attr("y", 9)
-        .attr("dy", "0.35em")
-        .text(d => d);
-
-    // Append the SVG to the designated container
-    container.appendChild(svg.node());
-    console.log("scope chart appended to DOM.");
-
-    // Handle responsiveness: redraw on window resize
-    window.addEventListener('resize', () => {
-        const newWidth = container.clientWidth;
-        const newHeight = Math.min(newWidth, 500);
-        svg.attr("width", newWidth)
-           .attr("height", newHeight)
-           .attr("viewBox", [-newWidth / 2, -newHeight / 2, newWidth, newHeight]);
-
-        arc.outerRadius(Math.min(newWidth, newHeight) / 2 - 1);
-        svg.selectAll("path").attr("d", arc);
-
-        // Reposition legend (optional, could be static)
-        legend.attr("transform", `translate(${newWidth / 2 - 200}, ${-newHeight / 2 + 20})`);
+        .attr("transform", `translate(${leftMargin}, ${totalLabsHeight + 20})`); // Positioned below the total labs text
+    topscope.forEach((d, i) => {
+        const g = legend.append("g").attr("transform", `translate(${i * 150}, 0)`);
+        g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
+        g.append("text").attr("x", 20).attr("y", 12).text(d.name).attr("font-size", "12px");
     });
+    
+    container.appendChild(svg.node());
 }
 
-// Initialize the chart when the DOM is fully loaded
+// --- Main Init ---
+async function initializescopeChart() {
+    const container = document.getElementById("scope-chart-container");
+    if (!container) return;
+
+    let rawData;
+    try { rawData = await d3.csv(csvDataPath6); }
+    catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
+    const scopeColumn = "1.14 Scope of radioactivity measurements/monitoring programme and sources of interest";
+    if (!rawData[0] || !rawData[0][scopeColumn]) {
+        return container.innerHTML = `<p style='color:red'>Missing "${scopeColumn}" column.</p>`;
+    }
+
+    const scopeCounts = getscopeCounts(rawData, scopeColumn);
+    let topscope = getTopscopes(scopeCounts, 6);
+
+    if (topscope.length === 0) {
+        return container.innerHTML = "<p>No data to display.</p>";
+    }
+
+    const labsThatAnswered = rawData.filter(d => d[scopeColumn] && d[scopeColumn].trim() !== "").length;
+
+    const color = d3.scaleOrdinal()
+        .domain(topscope.map(d => d.name))
+        .range(d3.schemeTableau10);
+
+    renderBarChart(container, topscope, labsThatAnswered, color);
+}
+
+// Run
 document.addEventListener("DOMContentLoaded", initializescopeChart);
