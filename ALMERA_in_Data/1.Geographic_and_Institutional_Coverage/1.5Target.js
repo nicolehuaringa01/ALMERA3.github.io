@@ -137,7 +137,7 @@ async function initializetargetChart() {
     try { rawData = await d3.csv(csvDataPath5); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const targetColumn = "1.13 target users of laboratory's analytical services";
+    const targetColumn = "1.13 Target users of laboratory's analytical services";
     if (!rawData[0] || !rawData[0][targetColumn]) {
         return container.innerHTML = `<p style='color:red'>Missing "${targetColumn}" column.</p>`;
     }
