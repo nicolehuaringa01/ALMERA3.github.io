@@ -25,7 +25,7 @@ function getsectorCounts(data, sectorColumn) {
     return result;
 }
 
-function getTopsectors(sectorCounts, numTop = 13) {
+function getTopsectors(sectorCounts, numTop = 9) {
     let top = sectorCounts
         .slice()
         .sort((a, b) => d3.descending(a.value, b.value))
