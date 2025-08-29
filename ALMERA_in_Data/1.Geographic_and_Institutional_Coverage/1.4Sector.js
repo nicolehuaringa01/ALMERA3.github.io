@@ -142,7 +142,7 @@ async function initializesectorChart() {
     if (!container) return;
 
     let rawData;
-    try { rawData = await d3.csv(csvDataPath3); }
+    try { rawData = await d3.csv(csvDataPath4); } // Corrected: changed csvDataPath3 to csvDataPath4
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
     const sectorColumn = "1.12 Type/Sector in which the laboratory falls";
@@ -165,6 +165,5 @@ async function initializesectorChart() {
 
     renderBarChart(container, topsector, labsThatAnswered, color);
 }
-
 // Run
 document.addEventListener("DOMContentLoaded", initializesectorChart);
