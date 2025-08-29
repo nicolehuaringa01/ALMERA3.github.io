@@ -110,19 +110,19 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
     // Total labs (top band)
     svg.append("text")
         .attr("x", leftMargin)
-        .attr("y", 20) // Moved to the top, 20px from the top of the SVG
+        .attr("y", 20)
         .attr("text-anchor", "start")
         .attr("font-size", "14px")
         .attr("font-weight", "bold")
         .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
-    // Legend (middle band)
+    // Legend (middle band) - Corrected
     const legend = svg.append("g")
-        .attr("transform", `translate(${leftMargin}, ${totalLabsHeight + 20})`); // Positioned below the total labs text
+        .attr("transform", `translate(${leftMargin}, ${totalLabsHeight + 20})`);
 
     const itemsPerLine = 5;
-    const itemSpacingX = 150; // Horizontal spacing
-    const itemSpacingY = 30;  // Vertical spacing
+    const itemSpacingX = 150;
+    const itemSpacingY = 30;
     
     topsector.forEach((d, i) => {
         const xPos = (i % itemsPerLine) * itemSpacingX;
