@@ -143,7 +143,7 @@ async function initializesectorChart() {
     }
 
     const sectorCounts = getsectorCounts(rawData, sectorColumn);
-    let topsector = getTopsectors(sectorCounts, 6);
+    let topsector = getTopsectors(sectorCounts, 9);
 
     if (topsector.length === 0) {
         return container.innerHTML = "<p>No data to display.</p>";
