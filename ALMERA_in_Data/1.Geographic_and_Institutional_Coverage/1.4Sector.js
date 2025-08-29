@@ -42,8 +42,8 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
     const width = 928, height = 500;
 
     // Define vertical space for each section
-    const legendHeight = 40;
-    const totalLabsHeight = 30;
+    const legendHeight = 30;
+    const totalLabsHeight = 40;
     const topMargin = legendHeight + totalLabsHeight + 20; // extra padding above bars
     const bottomMargin = 50;
     const leftMargin = 50;
@@ -107,7 +107,16 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
         .attr("transform", `translate(${leftMargin},0)`)
         .call(d3.axisLeft(y).tickFormat(''));
 
-    // Legend (top band)
+    // Total labs (top band)
+    svg.append("text")
+        .attr("x", leftMargin)
+        .attr("y", totalLabsHeight)
+        .attr("text-anchor", "start")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+
+     // Legend (middle band)
     const legend = svg.append("g")
         .attr("transform", `translate(${leftMargin}, 20)`); // 20px padding from top
     topsector.forEach((d, i) => {
@@ -115,16 +124,7 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
         g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
         g.append("text").attr("x", 20).attr("y", 12).text(d.name).attr("font-size", "12px");
     });
-
-    // Total labs (middle band)
-    svg.append("text")
-        .attr("x", leftMargin)
-        .attr("y", legendHeight + 20) // below legend
-        .attr("text-anchor", "start")
-        .attr("font-size", "14px")
-        .attr("font-weight", "bold")
-        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
-
+    
     container.appendChild(svg.node());
 }
 
