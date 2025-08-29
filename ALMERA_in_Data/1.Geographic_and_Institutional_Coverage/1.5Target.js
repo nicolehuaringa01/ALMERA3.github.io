@@ -130,7 +130,7 @@ function renderBarChart(container, topTarget, labsThatAnswered, color) {
 
 // --- Main Init ---
 async function initializeTargetChart() {
-    const container = document.getElementById("Target-chart-container");
+    const container = document.getElementById("target-chart-container");
     if (!container) return;
 
     let rawData;
