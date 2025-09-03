@@ -10,8 +10,19 @@ function getscopeCounts(data, scopeColumn) {
                 .split(/;|\r?\n/)   // split on ";" OR newlines
                 .map(d => d.trim())
                 .filter(d => d.length > 0);
+            
+            // Check if the current lab selected both options
+            const hasAnthropogenic = scopes.includes("Anthropogenic");
+            const hasNORM = scopes.includes("NORM");
+
+            // If both are present, create a new "Both" category
+            if (hasAnthropogenic && hasNORM) {
+                counts.set("Both", (counts.get("Both") || 0) + 1);
+            }
+
+            // Continue with the original logic to count each individual option
             for (const aff of scopes) {
-                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure scope string is not empty after trimming
+                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1);
             }
         }
     }
