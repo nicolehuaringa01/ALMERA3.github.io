@@ -119,7 +119,7 @@ async function initializeHumanResourcesChart() {
             color: {
                 legend: true, // Display a legend for colors
                 label: "Geographic Region",
-                domain: Object.keys(regionColors).sort(), // Explicit domain order for the legend
+                domain: Object.keys(regionColors), // Explicit domain order for the legend
                 range: Object.values(regionColors) // Corresponding colors for the legend
             },
             marks: [
@@ -127,7 +127,11 @@ async function initializeHumanResourcesChart() {
                     x: "range",
                     y: "count",
                     fill: "region", // Fill bars based on region
-                    title: d => `${d.count} labs` // Tooltip text
+                    title: d => `${d.count} labs`, // Tooltip text
+                    sort: {
+                        fill: "region",
+                        order: ["AFRICA", "ASIA PACIFIC", "EUROPE", "MIDDLE EAST", "NORTH AND LATIN AMERICA"]
+                    }
                 }),
                 Plot.ruleY([0]) // Draw a baseline at y=0
             ],
