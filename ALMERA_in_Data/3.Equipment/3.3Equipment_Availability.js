@@ -41,61 +41,6 @@ const calculateEquipmentCounts = () => {
     return Array.from(counts.entries()).map(([name, value]) => ({ name, value }));
 };
 /**
- * Creates a map from Equipment to a nested map of MemberState to LabName to Count,
- * from the new multi-column data format.
- * @returns {Map<string, Map<string, Map<string, number>>>} The mapping.
- */
-const createEquipmentToLabsMap = () => {
-    // Map of column names to a clean equipment name
-    const equipmentColumns = {
-        "3.2 Number of Systems": "Gross Alpha Counters",
-        "3.3 Number of Systems": "Gross beta counters",
-        "3.4 Number of Systems": "Gamma-ray spectrometry system",
-        "3.5 Number of Systems": "Alpha spectrometry system",
-        "3.6 Number of Systems": "Liquid scintillation counter",
-        "3.7 Number of Systems": "Mass spectrometry",
-    };
-    
-    // Map: EquipmentName -> Map<MemberState, Map<LabName, count>>
-    const map = new Map();
-
-    for (const row of allSurveyData) {
-        const labName = row["1.1 Name of Laboratory"];
-        const memberState = row["1.3 Member State"];
-
-        if (!labName || !memberState) continue;
-
-        for (const [column, name] of Object.entries(equipmentColumns)) {
-            const value = parseInt(row[column]);
-            if (!isNaN(value) && value > 0) {
-                if (!map.has(name)) {
-                    map.set(name, new Map());
-                }
-                const stateMap = map.get(name);
-
-                if (!stateMap.has(memberState)) {
-                    stateMap.set(memberState, new Map());
-                }
-                stateMap.get(memberState).set(labName, value);
-            }
-        }
-    }
-    return map;
-};
-
-/**
- * Gets the top N most frequently measured equipments.
- * @param {number} n - The number of top equipments to retrieve.
- * @returns {Array<Object>} Sorted array of top equipments.
- */
-const getTopEquipments = (n = 7) => { // Default to 7 for pie chart, can be adjusted
-    return equipmentCountsData
-        .slice() // Create a copy to avoid mutating the original array
-        .sort((a, b) => d3.descending(a.value, b.value))
-        .slice(0, n);
-};
-
-/**
  * Creates a map from Equipment to a nested map of MemberState to LabName to Count.
  * @returns {Map<string, Map<string, Map<string, number>>>} The mapping.
  */
@@ -134,6 +79,18 @@ const createEquipmentToLabsMap = () => {
         }
     }
     return map;
+};
+
+/**
+ * Gets the top N most frequently measured equipments.
+ * @param {number} n - The number of top equipments to retrieve.
+ * @returns {Array<Object>} Sorted array of top equipments.
+ */
+const getTopEquipments = (n = 7) => { // Default to 7 for pie chart, can be adjusted
+    return equipmentCountsData
+        .slice() // Create a copy to avoid mutating the original array
+        .sort((a, b) => d3.descending(a.value, b.value))
+        .slice(0, n);
 };
 
 /**
