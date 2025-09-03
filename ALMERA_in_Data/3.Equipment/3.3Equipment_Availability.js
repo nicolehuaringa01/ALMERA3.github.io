@@ -1,4 +1,4 @@
-// ALMERA_in_Data/3.Equipment/3.3Equipment_Availability_2020.js
+// ALMERA_in_Data/3.Equipment/3.3Equipment_Availability.js
 
 // Global variables to store processed data and selected state
 let allSurveyData; // Will hold the loaded CSV data
@@ -250,7 +250,6 @@ async function renderMapView() {
         const targetLat = normalizeString("Lat");
         const targetName = normalizeString("1.1 Name of Laboratory");
         const targetState = normalizeString("1.3 Member State");
-        const targetCity = normalizeString("City");
 
         for (let i = 0; i < headers.length; i++) {
             if (normalizedHeaders[i] === targetLong) foundLongColumn = headers[i];
