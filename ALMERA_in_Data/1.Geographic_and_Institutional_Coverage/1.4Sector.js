@@ -41,12 +41,10 @@ function getTopsectors(sectorCounts, numTop = 9) {
 function renderBarChart(container, topsector, labsThatAnswered, color) {
     const width = 928, height = 500;
 
-    // Define vertical space for each section
-    const legendHeight = 40;
-    const totalLabsHeight = 30;
-    const topMargin = legendHeight + totalLabsHeight + 20; // extra padding above bars
+    // Adjust vertical space since we are removing the legend
+    const topMargin = 50; 
     const bottomMargin = 50;
-    const leftMargin = 50;
+    const leftMargin = 200; // Increased margin for long labels
     const rightMargin = 30;
 
     const svg = d3.create("svg")
@@ -102,10 +100,10 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
         .attr("transform", `translate(0,${height - bottomMargin})`)
         .call(d3.axisBottom(x));
 
-    // Y axis (no labels)
+    // Y axis (now with labels!)
     svg.append("g")
         .attr("transform", `translate(${leftMargin},0)`)
-        .call(d3.axisLeft(y).tickFormat(''));
+        .call(d3.axisLeft(y)); // Corrected: removed `.tickFormat('')`
 
     // Total labs (top band)
     svg.append("text")
@@ -116,23 +114,7 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
         .attr("font-weight", "bold")
         .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
-    // Legend (middle band) - Corrected
-    const legend = svg.append("g")
-        .attr("transform", `translate(${leftMargin}, ${totalLabsHeight + 20})`);
-
-    const itemsPerLine = 5;
-    const itemSpacingX = 150;
-    const itemSpacingY = 30;
-    
-    topsector.forEach((d, i) => {
-        const xPos = (i % itemsPerLine) * itemSpacingX;
-        const yPos = Math.floor(i / itemsPerLine) * itemSpacingY;
-        
-        const g = legend.append("g").attr("transform", `translate(${xPos}, ${yPos})`);
-        
-        g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
-        g.append("text").attr("x", 20).attr("y", 12).text(d.name).attr("font-size", "12px");
-    });
+    // The legend section has been completely removed.
     
     container.appendChild(svg.node());
 }
@@ -142,7 +124,7 @@ async function initializesectorChart() {
     if (!container) return;
 
     let rawData;
-    try { rawData = await d3.csv(csvDataPath4); } // Corrected: changed csvDataPath3 to csvDataPath4
+    try { rawData = await d3.csv(csvDataPath4); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
     const sectorColumn = "1.12 Type/Sector in which the laboratory falls";
@@ -151,7 +133,7 @@ async function initializesectorChart() {
     }
 
     const sectorCounts = getsectorCounts(rawData, sectorColumn);
-    let topsector = sectorCounts; // This line has been changed to use the full data
+    let topsector = sectorCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
 
     if (topsector.length === 0) {
         return container.innerHTML = "<p>No data to display.</p>";
