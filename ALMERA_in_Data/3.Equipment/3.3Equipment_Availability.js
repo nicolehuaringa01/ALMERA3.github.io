@@ -250,6 +250,7 @@ async function renderMapView() {
         const targetLat = normalizeString("Lat");
         const targetName = normalizeString("1.1 Name of Laboratory");
         const targetState = normalizeString("1.3 Member State");
+        const targetCity = normalizeString("City");
 
         for (let i = 0; i < headers.length; i++) {
             if (normalizedHeaders[i] === targetLong) foundLongColumn = headers[i];
