@@ -41,41 +41,44 @@ const calculateEquipmentCounts = () => {
     return Array.from(counts.entries()).map(([name, value]) => ({ name, value }));
 };
 /**
- * Creates a map from Equipment to a nested map of MemberState to LabName to Count.
+ * Creates a map from Equipment to a nested map of MemberState to LabName to Count,
+ * from the new multi-column data format.
  * @returns {Map<string, Map<string, Map<string, number>>>} The mapping.
  */
 const createEquipmentToLabsMap = () => {
+    // Map of column names to a clean equipment name
+    const equipmentColumns = {
+        "3.2 Number of Systems": "Gross Alpha Counters",
+        "3.3 Number of Systems": "Gross beta counters",
+        "3.4 Number of Systems": "Gamma-ray spectrometry system",
+        "3.5 Number of Systems": "Alpha spectrometry system",
+        "3.6 Number of Systems": "Liquid scintillation counter",
+        "3.7 Number of Systems": "Mass spectrometry",
+        "3.8 Number of Systems": "Other equipment"
+    };
+    
     // Map: EquipmentName -> Map<MemberState, Map<LabName, count>>
     const map = new Map();
 
     for (const row of allSurveyData) {
-        const equipmentRaw = row["Equipment total"];
         const labName = row["1.1 Name of Laboratory"];
         const memberState = row["1.3 Member State"];
 
-        if (!equipmentRaw || !labName || !memberState) continue;
+        if (!labName || !memberState) continue;
 
-        const equipments = equipmentRaw.split(";").map(e => e.trim()).filter(e => e);
+        for (const [column, name] of Object.entries(equipmentColumns)) {
+            const value = parseInt(row[column]);
+            if (!isNaN(value) && value > 0) {
+                if (!map.has(name)) {
+                    map.set(name, new Map());
+                }
+                const stateMap = map.get(name);
 
-        // Count equipment occurrences within this specific lab's row
-        const counts = {};
-        for (const equipment of equipments) {
-            if (!counts[equipment]) counts[equipment] = 0;
-            counts[equipment]++;
-        }
-
-        for (const [equipment, count] of Object.entries(counts)) {
-            if (!map.has(equipment)) {
-                map.set(equipment, new Map());
+                if (!stateMap.has(memberState)) {
+                    stateMap.set(memberState, new Map());
+                }
+                stateMap.get(memberState).set(labName, value);
             }
-
-            const stateMap = map.get(equipment);
-
-            if (!stateMap.has(memberState)) {
-                stateMap.set(memberState, new Map());
-            }
-
-            stateMap.get(memberState).set(labName, count); // Store the count
         }
     }
     return map;
