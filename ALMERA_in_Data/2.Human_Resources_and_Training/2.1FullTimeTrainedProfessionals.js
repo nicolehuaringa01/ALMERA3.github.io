@@ -42,13 +42,13 @@ async function initializeHumanResourcesChart() {
         { label: "21+", min: 21, max: Infinity }
     ];
 
-    // Define the colors for each geographic region
+    // Corrected: Reordered the colors to match your desired sorting order
     const regionColors = {
-        "AFRICA": "#9942b2",
         "ASIA PACIFIC": "#0083b4",
+        "AFRICA": "#9942b2",
+        "EUROPE": "#d10000",
         "MIDDLE EAST": "#ddb100",
-        "NORTH AND LATIN AMERICA": "#009d28",
-        "EUROPE": "#d10000"
+        "NORTH AND LATIN AMERICA": "#009d28"
     };
 
     // Define the column names from your CSV
@@ -126,11 +126,12 @@ async function initializeHumanResourcesChart() {
                 Plot.barY(chartData, {
                     x: "range",
                     y: "count",
-                    fill: "region", // Fill bars based on region
+                    fill: "region",
                     title: d => `${d.count} labs`, // Tooltip text
+                    // Corrected: Added the sort property with your specified order
                     sort: {
                         fill: "region",
-                        order: ["AFRICA", "ASIA PACIFIC", "EUROPE", "MIDDLE EAST", "NORTH AND LATIN AMERICA"]
+                        order: ["ASIA PACIFIC", "AFRICA", "EUROPE", "MIDDLE EAST", "NORTH AND LATIN AMERICA"]
                     }
                 }),
                 Plot.ruleY([0]) // Draw a baseline at y=0
