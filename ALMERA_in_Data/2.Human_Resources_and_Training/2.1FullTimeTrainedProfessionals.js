@@ -1,10 +1,5 @@
-// js/HumanResourcesChart.js
+//ALMERA_in_Data/2.Human_Resources_and_Training/2.1FullTimeTrainedProfessionals.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the root of your GitHub Pages project.
-// Based on your previous successful path, this assumes:
-// - Your GitHub Pages are serving from 'https://nicolehuaringa01.github.io/ALMERA3.github.io/'
-// - Your CSV file is located at '/ALMERA3.github.io/data/Observable2020Survey.csv'
 const csvDataPath1 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
 async function initializeHumanResourcesChart() {
@@ -124,7 +119,7 @@ async function initializeHumanResourcesChart() {
             color: {
                 legend: true, // Display a legend for colors
                 label: "Geographic Region",
-                domain: Object.keys(regionColors), // Explicit domain order for the legend
+                domain: Object.keys(regionColors).sort(), // Explicit domain order for the legend
                 range: Object.values(regionColors) // Corresponding colors for the legend
             },
             marks: [
