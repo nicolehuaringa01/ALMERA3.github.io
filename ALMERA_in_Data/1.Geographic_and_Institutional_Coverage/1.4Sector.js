@@ -42,7 +42,7 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
     const width = 928, height = 500;
 
     // Adjust vertical space since we are removing the legend
-    const topMargin = 50; 
+    const topMargin = 50;
     const bottomMargin = 50;
     const leftMargin = 200; // Increased margin for long labels
     const rightMargin = 30;
@@ -103,7 +103,7 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
     // Y axis (now with labels!)
     svg.append("g")
         .attr("transform", `translate(${leftMargin},0)`)
-        .call(d3.axisLeft(y)); // Corrected: removed `.tickFormat('')`
+        .call(d3.axisLeft(y)); // Corrected: removed `.tickFormat('')` to show labels
 
     // Total labs (top band)
     svg.append("text")
@@ -114,8 +114,8 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
         .attr("font-weight", "bold")
         .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
-    // The legend section has been completely removed.
-    
+    // The entire legend section has been completely removed from here.
+
     container.appendChild(svg.node());
 }
 // --- Main Init ---
