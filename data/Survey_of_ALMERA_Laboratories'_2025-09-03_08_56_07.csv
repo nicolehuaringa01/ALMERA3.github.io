@@ -1,0 +1,84 @@
+﻿Submission Date,Lat,Long,City,Unique Code ID,1.1 Name of Laboratory,1.2 Physical Address,1.3 Member State,1.4 Geographic Region,1.5 Phone Number,1.6 Head of Laboratory,1.7 Contact Person,1.8 Contact Person E-mail,1.9 Proficiency Test Contact Person (if different than Contact Person),1.10 Proficiency Test Contact E-mail,1.11 Affiliation,1.12 Type/Sector in which the laboratory falls,1.13 Target users of laboratory's analytical services,1.14 Scope of radioactivity measurements/monitoring programme and sources of interest,2.1 What is the number of full-time trained professionals in the laboratory?,2.1 What are their areas of expertise?,2.2 Does the laboratory have a programme for regular staff training?,2.3 Does the laboratory have a training programme for new personnel?,2.4 Does the laboratory have systems to evaluate the training programme?,2.5 State in what areas the laboratory needs assistance to help it achieve its training objectives.,2.6 Able to host training courses?,2.6 Specify the maximum number of participants for practical training,2.7 Able to host trainees from other laboratories?,"2.7 In which areas can you provide training, and how many months can you accommodate trainees each year?",2.8 Able to host ALMERA coordination meetings?,2.8 State the maximum number of participants,3.1 Does the laboratory have field survey capabilities?,3.1 Which of the following field survey capabilities are available at your facility? (Select all that apply),Select the equipment available in your laboratory.,3.2 Number of Systems,3.2 Model,3.2 Radionuclides analysed,3.2 Matrices,3.2 Evaluation Software,3.3 Number of Systems,3.3 Model,3.3 Radionuclides analysed,3.3 Matrices,3.3 Evaluation Software,3.4 Number of Systems,3.4 Model,3.4 Radionuclides analysed,3.4 Matrices,3.4 Evaluation Software,3.5 Number of Systems,3.5 Model,3.5 Radionuclides analysed,3.5 Matrices,3.5 Evaluation Software,3.6 Number of Systems,3.6 Model,3.6 Radionuclides analysed,3.6 Matrices,3.6 Evaluation Software,3.7 Number of Systems,3.7 Model,3.7 Radionuclides analysed,3.7 Matrices,3.7 Evaluation Software,Would you like to report other equipment?,3.8 Type of Equipment,3.8 Number of Systems,3.8 Model,3.8 Radionuclides analysed,3.8 Matrices,3.8 Evaluation Software,3.9 Type of Equipment,3.9 Number of Systems,3.9 Model,3.9 Radionuclides analysed,3.9 Matrices,3.9 Evaluation Software,4.1 Has the laboratory been involved in development of routine and/or rapid analytical methods?,4.1 What methods have been developed?,4.1 What methods are under development?,4.1 What are the plans for future development of routine methods?,4.1 What are the plans for future development of rapid methods?,5.1 Radionuclides measured by the laboratory,"5.1.1 If your laboratory is measuring H-3, please select operations/analyses performed:",5.1.2 OBT,5.1.3 TFWT,5.2 MDA (Minimum Detectable Activity) for analysed radionuclides,5.3 Radioanalytical methods used to analyse the samples collected for monitoring purposes,6.1 Has the laboratory implemented a quality management system?,6.2 State the basis of the QMS programme,"6.3 If the laboratory is accredited against ISO 17025, specify year of accreditation.",6.4 Has the laboratory participated in national proficiency testing exercises?,6.4 State which national PT scheme/s.,6.5 Has the laboratory participated in international proficiency testing exercises?,6.5 What is the name of the PT scheme/s?,"6.5 When did the lab start participating in PT schemes, and how often does it participate?",6.6 What standards or reference samples are used in the laboratory?,6.7 Has the laboratory established internal QA/QC procedures for measurement validation and to check equipment performance?,6.7 Specify the procedures.,6.8 What uncertainty and characteristic limit calculations are used by the lab?,6.9 What decay data library is used?,6.10 What is the method used for the calibration of gamma spectrometer/s?,6.11 What format is used by the laboratory to report data?,6.12 What is the frequency with which results are reported to national authorities?,6.13 Is routine monitoring data reported to a regional or international database?,6.13 Which database(s) is the routine monitoring data reported to? (Select all that apply),6.14 Does the laboratory report data in emergency situations?,6.14 To which authority is the data reported? (Select all that apply),"6.15 Is the laboratory authorized to report data to the IAEA ALMERA coordination, if requested?","6.16 Is the laboratory part of another network in addition to ALMERA? (e.g. Ring of 5, RANET, PROCORAD, etc.)",6.16 Select other networks in addition to ALMERA that the laboratory is member of.,7.1  What environmental radioactivity monitoring tasks is the laboratory/institution authorised or appointed to perform? Please select all that apply.,7.2 Is the institution only authorised/appointed to collect environmental samples for environmental radioactivity monitoring or research purposes?,7.3 Is the institution only authorised/appointed to carry out analytical measurements of radionuclides in environmental samples for monitoring or research purposes?,7.4 Is there a network of sampling stations established in the country?,7.4 How many environmental sampling stations are there in the country?,7.5 Is there an environmental monitoring network of automatic monitors for gamma-ray spectrometry of aerosols and/or for gaseous iodine in the laboratory's country?,7.5 State the name of network/s.,7.6 Is there a gamma dose rate monitoring network operational in the country?,7.6 What is the number of stations included in the network?,7.7 Are the laboratory's measurement results transmitted automatically to a data centre?,7.7 To which data centre are the results being transmitted?,7.8 Additional environmental monitoring programmes for radioactivity established in the country,8.1 Are there any major gaps in the national environmental monitoring programme?,8.2 Who is the regulatory authority responsible for environmental monitoring in your country?,"8.3 Does the country have national regulatory limits for radioactivity in food, drinking water, and/or atmospheric aerosols and deposition?",8.3 Select the applicable standards from the list below:,8.4 Who is the regulatory authority responsible for controlling radioactivity in food in your country?,8.5 Is there a national monitoring programme for radioactivity in nationally-produced food?,8.6 Is there a national monitoring programme for radioactivity in imported food?,9.1 Requested radionuclides and matrices for future PTs and RMs,9.2 Requested activities to be organised by the ALMERA network,General Comments regarding ALMERA and/or this survey.,"Lab Photos, if possible","To help facilitate recognition and networking among ALMERA members during the upcoming meeting, you may choose to upload a photo of yourself and your team. These photos will be linked to your laboratory and will only be accessible within the ALMERA network. (OPTIONAL)"
+"Sep 2, 2025",40.74180685,-111.8903776,The Capitol,Test123,"Analytical Radiometrics Center of Panem,
+The University","12 Heavensbee Ave, 
+The Capitol 10001, 
+Panem",Other,NORTH AND LATIN AMERICA,Tel: +00 123 456 789,Dr Volumnia Gaul,Mr Casca Highbottom,cascahighbottom@gov.pn,Ms Lysistrata Vickers,lysistrata.vickers@gov.pn,"Academia
+Industry","Environmental Monitoring
+Public Health","Government/Authorities
+Research","NORM (Naturally-Occurring Radioactive Materials)
+Anthropogenic",15,"10 chemical engineers, 3 chemists, 2 biologists",Yes,Yes,Yes,Staffing and Statistical Challenges,Yes,48,Yes,24,Yes,300,Yes,"In-Situ gamma dose rate radiometry
+Gamma spectrometry","Gross alpha counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s",23,model,3.2,3.2,3.2,,,,,,4,3.4,3.4,3.4,3.4,45,3.5,3.5,3.5,3.5,,,,,,,,,,,No,,,,,,,,,,,,,No,,,,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): >100, Total Annual Sample Throughput (routine): No, Estimated total sample throughput (rapid): >50
+Radionuclide: C-14, Matrix: Air, Accredited (routine): >100, Total Annual Sample Throughput (routine): Yes, Estimated total sample throughput (rapid): >50
+Radionuclide: Sr-90, Matrix: Milk, Accredited (routine): >100, Total Annual Sample Throughput (routine): No, Estimated total sample throughput (rapid): >50","Enrichment performed
+OBT
+TFWT","Radionuclide: I-131, Matrix: Water, Accredited (routine): >100, Total Annual Sample Throughput (routine): No, Estimated total sample throughput (rapid): >50
+Radionuclide: Cs-137, Matrix: Water, Accredited (routine): >100, Total Annual Sample Throughput (routine): Yes, Estimated total sample throughput (rapid): >50","Radionuclide: Ra-226, Matrix: Water, Accredited (routine): >150, Total Annual Sample Throughput (routine): No, Estimated total sample throughput (rapid): >10
+Radionuclide: Pu-240, Matrix: Air, Accredited (routine): >100, Total Annual Sample Throughput (routine): Yes, Estimated total sample throughput (rapid): >50","Radionuclide: H-3, Matrix: Water, MDA for routine method: 30 Bq/L, MDA for rapid method: 67 Bq/L
+Radionuclide: Sr-90, Matrix: milk, MDA for routine method: 7 Bq/kg, MDA for rapid method: N/A","Alpha spectrometry
+Gross Alpha/Beta
+Mass spectrometry",Yes,ISO 17025,2012,Yes,Many national PT schemes,Yes,ALMERA,All the time,All of them,Yes,Many procedures,"ISO 11929
+EURACHEM","Nucléide-LARA
+BIPM (Bureau International des Poids et Mesures)","Experimental
+Genie 2000","Paper reports
+PDF files
+Database","Quarterly
+Monthly
+Upon request",Yes,"The European Union
+MARIS
+Ring of Five",Yes,National authorities,Yes,Yes,"RANET
+PROCORAD","Countrywide,  on a regular basis
+For  marine monitoring
+For NORM  industry",Yes,Yes,Yes,10,Yes,Many networks,Yes,123,Yes,"EC Ispra
+National authorities
+EURDEP",Many environmental programmes,No,idk,Yes,"Limits conform to WHO recommendations
+Limits follow Codex Alimentarius guidelines",idk,Yes,Yes,Many,Many,Good survey,https://eu.jotform.com/uploads/ALMERANetworkContactPoint/251043905634049/6326330732918281717/Screenshot%202025-01-28%20160032.png,https://eu.jotform.com/uploads/ALMERANetworkContactPoint/251043905634049/6326330732918281717/Screenshot%202025-04-09%20133630.png
+"Aug 27, 2025",38.91558913,-77.00731676,Washington DC,Test123,"Analytical Radiometrics Center of Panem,
+The University","12 Heavensbee Ave, 
+The Capitol 10001, 
+Panem",Other,NORTH AND LATIN AMERICA,Tel: +00 123 456 789,Dr Volumnia Gaul,Mr Casca Highbottom,cascahighbottom@gov.pn,Ms Lysistrata Vickers,lysistrata.vickers@gov.pn,"Academia
+Government
+Private
+something","Analytical
+Environmental Research
+Food Control
+Public Health
+Water Resources",Government/Authorities,"NORM (Naturally-Occurring Radioactive Materials)
+Anthropogenic",15,"10 chemical engineers, 3 chemists, 2 biologists",Yes,Yes,Yes,Staffing and Statistical Challenges,Yes,48,Yes,24,Yes,300,No,,"Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s",,,,,,,good model,good radionuclides,idk,123,,qweqwe,asdasd,asdasd,asdasd,,asdads,asdasd,asdasdasd,asdasdasd,,,,,,,,,,,Yes,3,,asdasd,asdasdasd,asdasdasd,asdasd,asdasd,,asdasd,asdasd,asdasd,adasdasd,Yes,any methiods,adasdas,dasdasda,sdasd,,Enrichment performed,,,,"Alpha spectrometry
+Liquid Scintillation Counting
+Mass spectrometry",Yes,ISO 17025,2210,No,,Yes,"ALMERA
+BfS (Bundesamt für Strahlenschutz)
+EC JRC (European Commission Joint Research Centre)
+IAEA Marine
+IAEA Worldwide
+MAPEP (Mixed Analyte Performance Evaluation Program)
+NPL (UK's National Physical Laboratory)
+PROCORAD (Association for the PROmotion of Quality COntrol in RADiotoxicological Analysis)",Participates in the annual ALMERA PT (since 2008) and the International Reference System (SIR) PT every four years (approximately),All of them,Yes,"Shewhart charts for HPGe detectors and balances, intra-laboratory comparisons","Guide for Uncertainty Measurement (GUM)
+EURACHEM
+Internal operational procedures","DDEP (Decay Data Evaluation Project)
+Nucléide-LARA
+Genie 2000
+BIPM (Bureau International des Poids et Mesures)
+LNHB (Laboratoire National Henri Becquerel)
+all of them","GESPECOR
+ISOCS","Paper reports
+Excel files
+PDF files
+Database
+LIMS","Annually
+Quarterly
+Monthly
+Upon request
+Not Applicable",No,,No,,Yes,Yes,"RANET
+Ring of Five","Around  nuclear facilities
+Countrywide,  on a regular basis
+Discharges from the nuclear facilities (NPPs, waste repositories)
+For  existing exposure situations (e.g. for uranium legacy sites)",Yes,Yes,Yes,"Our laboratory does not sample. We receive samples from about: 9 air sampling stations (3 sample once a month, the rest every three months); 32 water sampling stations (every three months); 24 soil sampling stations (every three months); 12 sediment sampling stations (every three months).",No,,Yes,123,Yes,"EC Ispra
+IRMIS
+National authorities
+IAEA",asdasd,Perhaps more types of food could be analyzed,Nuclear Regulatory Authority,Yes,"Limits conform to EU standards
+Limits conform to WHO recommendations
+Limits follow Codex Alimentarius guidelines",Nuclear Regulatory Authority,Yes,No,Cs-137 in water; I-131 in water; Th-232 in soil; Th-232 in sediment; Ra-226 in soil; Ra-226 in sediment,Training Workshops; Proficiency Test; ALMERA Coordination Meeting,It would be good to present more projects to the IAEA from ALMERA,https://eu.jotform.com/uploads/ALMERANetworkContactPoint/251043905634049/6321154642917425235/Screenshot%202025-01-28%20160032.png,
