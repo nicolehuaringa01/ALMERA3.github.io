@@ -1,6 +1,6 @@
 // ALMERA3.github.io/ALMERA_in_Data/1.Geographic_and_Institutional_Coverage/1.6Scope_2020.js
 
-const csvDataPath6 = "/ALMERA3.github.io/data/2020_ALMERA_Survey_Capabilities.csv";
+const csvDataPath6 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 function getscopeCounts(data, scopeColumn) {
     const counts = new Map();
