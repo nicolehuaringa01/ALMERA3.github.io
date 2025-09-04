@@ -1,5 +1,5 @@
 // ALMERA3.github.io/ALMERA_in_Data/1.Geographic_and_Institutional_Coverage/1.3Affiliation.js
-const csvDataPath3 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
+const csvDataPath3 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv"; // User-provided path
 
 // This function processes the raw data to count affiliations
 function getAffiliationCounts(data, affiliationColumn) {
