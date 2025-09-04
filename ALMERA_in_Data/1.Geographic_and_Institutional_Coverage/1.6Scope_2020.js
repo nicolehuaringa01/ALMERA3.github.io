@@ -18,11 +18,11 @@ function getscopeCounts(data, scopeColumn) {
             // If both are present, create a new "Both" category
             if (hasAnthropogenic && hasNORM) {
                 counts.set("Both", (counts.get("Both") || 0) + 1);
-            }
-
-            // Continue with the original logic to count each individual option
-            for (const aff of scopes) {
-                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1);
+            } else {
+                // Continue with the original logic to count each individual option
+                for (const aff of scopes) {
+                    if (aff) counts.set(aff, (counts.get(aff) || 0) + 1);
+                }
             }
         }
     }
@@ -31,7 +31,7 @@ function getscopeCounts(data, scopeColumn) {
     for (const [name, value] of counts.entries()) {
         if (value === 1) otherCount += 1; // scopes with only one occurrence go into "Other"
         else result.push({ name, value });
-        }
+    }
     if (otherCount > 0) result.push({ name: "Other", value: otherCount });
     return result;
 }
@@ -138,7 +138,9 @@ function renderBarChart(container, topscope, labsThatAnswered, color) {
     topscope.forEach((d, i) => {
         const g = legend.append("g").attr("transform", `translate(${i * 150}, 0)`);
         g.append("rect").attr("width", 15).attr("height", 15).attr("fill", color(d.name));
-        g.append("text").attr("x", 20).attr("y", 12).text(d.name).attr("font-size", "12px");
+        g.append("text").attr("x", 20).attr("y", 12)
+          .text(d.name === "NORM (Naturally-Occurring Radioactive Materials)" ? "NORM" : d.name)
+          .attr("font-size", "12px");
     });
     
     container.appendChild(svg.node());
