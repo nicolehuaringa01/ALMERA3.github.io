@@ -95,6 +95,8 @@ async function renderTrainingHostingCapacityHistogram() {
     const y = d3.scaleLinear()
         .domain([0, d3.max(nonEmptyBins, d => d.length)]).nice()
         .range([height - margin.bottom, margin.top]);
+    
+    const labsThatAnswered = rawData.filter(d => d[trainingCapacityColumnName] && d[trainingCapacityColumnName].trim() !== "").length;
 
     // Create SVG element
     const svg = container.append("svg")
@@ -157,6 +159,13 @@ async function renderTrainingHostingCapacityHistogram() {
         .style("font-size", "16px")
         .style("font-weight", "bold")
         .text("Distribution of Training Hosting Capacity");
+
+    svg.append("text")
+        .attr("x", -width / 2 + 10)
+        .attr("y", -height / 2 + 40)
+        .attr("text-anchor", "start")
+        .attr("font-size", "12px")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 }
 
 // Call the function to render the chart when the script loads
