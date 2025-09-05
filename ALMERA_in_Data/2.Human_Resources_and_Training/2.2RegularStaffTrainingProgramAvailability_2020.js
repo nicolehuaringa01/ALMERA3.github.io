@@ -62,8 +62,8 @@ async function initializeStaffTrainingChart() {
     const totalResponsesDiv = document.createElement('div');
     totalResponsesDiv.textContent = `Total responses: ${total}`;
     totalResponsesDiv.style.fontWeight = 'bold';
-    totalResponsesDiv.style.textAlign = 'center';
-    totalResponsesDiv.style.paddingBottom = '10px';
+    totalResponsesDiv.style.textAlign = 'left';
+    totalResponsesDiv.style.paddingBottom = '5px';
     container.innerHTML = ''; // Clear container first
     container.appendChild(totalResponsesDiv);
 
