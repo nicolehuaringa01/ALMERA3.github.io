@@ -115,6 +115,18 @@ async function initializeStaffTrainingChart() {
                     dx: 0, // No horizontal offset
                 }),
                 Plot.ruleX([0]) // Vertical baseline at x=0
+            // Add a text mark for the "Total responses" label
+            Plot.text([
+                { label: `Total responses: ${total}` }
+            ], {
+                // Position the text at the top of the chart
+                x: currentWidth / 2, 
+                y: 15,
+                text: d => d.label,
+                fontSize: 14,
+                fontWeight: "bold",
+                textAnchor: "middle"
+            })
             ],
             // Adjusted margins for better layout given height and label offset
             marginTop: 10,
