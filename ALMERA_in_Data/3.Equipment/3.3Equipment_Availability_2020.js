@@ -1,4 +1,4 @@
-// ALMERA_in_Data/3.Equipment/3.3Equipment_Availability_2020.js
+// ALMERA_in_Data/3.Equipment/3.3Equipment_Availability.js
 
 // Global variables to store processed data and selected state
 let allSurveyData; // Will hold the loaded CSV data
@@ -425,7 +425,7 @@ const updateLabInfoDisplay = () => {
 };
 
 // --- Data Loading and Initialization ---
-d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv").then(data => {
+d3.csv("/ALMERA3.github.io/data/Survey_of_ALMERA_Laboratories'_2025-09-03_08_56_07.csv").then(data => {
     allSurveyData = data; // Assign loaded data to the global variable
 
     // Process data using the helper functions
