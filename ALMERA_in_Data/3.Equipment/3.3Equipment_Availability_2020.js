@@ -413,7 +413,7 @@ const updateLabInfoDisplay = () => {
 };
 
 // --- Data Loading and Initialization ---
-d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
+d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv").then(data => {
     allSurveyData = data; // Assign loaded data to the global variable
 
     // Process data using the helper functions
