@@ -65,21 +65,32 @@ async function initializeStaffTrainingChart() {
         return;
     }
 
-    // Prepare data for plotting (answer, percentage, and count)
+    // Create the "Total responses" div and prepend it to the container.
+    const totalResponsesDiv = document.createElement('div');
+    totalResponsesDiv.textContent = `Total responses: ${total}`;
+    totalResponsesDiv.style.fontWeight = 'bold';
+    totalResponsesDiv.style.textAlign = 'left';
+    totalResponsesDiv.style.paddingBottom = '5px';
+    container.innerHTML = ''; // Clear container first
+    container.appendChild(totalResponsesDiv);
+
     const chartData = Object.entries(ALMERACMS).map(([answer, count]) => ({
         answer,
         percent: count / total,
         count
     }));
 
-    console.log("Processed Staff Training chartData:", chartData);
+    console.log("Processed New Staff Training chartData:", chartData);
 
     // --- Chart Rendering ---
 
     // Function to create and append the plot, allowing for redraw on resize
     const renderPlot = (currentWidth) => {
-        container.innerHTML = ''; // Clear existing chart
-
+        const existingPlot = container.querySelector('svg');
+        if (existingPlot) {
+            existingPlot.remove();
+        }
+        
         const StaffTrainingPlot = Plot.plot({
             width: currentWidth,
             height: height,
@@ -91,7 +102,8 @@ async function initializeStaffTrainingChart() {
                 label: "Availability of training programme for new staff",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
-                domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
+                domain: [0, 1],
+                tickFormat: d => `${Math.round(d * 100)}`
             },
             color: {
                 domain: ["Yes", "No"], // Explicit domain for color mapping
@@ -127,7 +139,7 @@ async function initializeStaffTrainingChart() {
             }
         });
         container.appendChild(StaffTrainingPlot);
-        console.log("Staff Training chart appended to DOM.");
+        console.log("New Staff Training chart appended to DOM.");
     };
 
     // Initial render
