@@ -1,11 +1,6 @@
-// js/2.4TrainingProgramEvaluationSystems.js
+// ALMERA_in_Data/2.Human_Resources_and_Training/2.5AbleToHostTrainingCourses.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the root of your GitHub Pages project.
-// Based on your previous successful path, this assumes:
-// - Your GitHub Pages are serving from 'https://nicolehuaringa01.github.io/ALMERA3.github.io/'
-// - Your CSV file is located at '/ALMERA3.github.io/data/Observable2020Survey.csv'
-const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
 async function initializeHostTrainingChart() {
     const container = document.getElementById("host-courses-chart-container");
