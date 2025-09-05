@@ -1,8 +1,8 @@
 // ALMERA_in_Data/2.Huamn_Resources_and_Training/2.9ALMERACMsHostingCapacity_2020.js
 
-const csvDataPath9 = "/ALMERA3.github.io/data/2020_ALMERA_Survey_Capabilities.csv"; // User-provided path
+const csvDataPath9 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
-const ALMERACMsHostingCapacityColumnName = "If 'yes' above, state the maximum number of participants";
+const ALMERACMsHostingCapacityColumnName = "2.8 State the maximum number of participants";
 
 // Helper function to normalize strings for robust column matching
 function normalizeString(str) {
