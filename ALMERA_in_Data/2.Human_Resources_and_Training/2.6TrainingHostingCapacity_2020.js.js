@@ -2,7 +2,7 @@
 
 const csvDataPath_6 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
-const trainingCapacityColumnName = "If 'yes' above, specify the maximum number of participants for practical training";
+const trainingCapacityColumnName = "2.6 Specify the maximum number of participants for practical training";
 
 // Helper function to normalize strings for robust column matching
 function normalizeString(str) {
