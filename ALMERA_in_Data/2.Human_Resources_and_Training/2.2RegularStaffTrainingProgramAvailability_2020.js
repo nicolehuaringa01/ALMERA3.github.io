@@ -96,7 +96,8 @@ async function initializeStaffTrainingChart() {
                 label: "Availability of training programme for regular staff",
                 labelAnchor: "center",
                 labelOffset: 40,
-                domain: [0, 1]
+                domain: [0, 1],
+                tickFormat: d => `${Math.round(d * 100)}%`
             },
             color: {
                 domain: ["Yes", "No"],
