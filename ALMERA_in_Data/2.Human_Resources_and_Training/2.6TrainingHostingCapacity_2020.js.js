@@ -1,6 +1,6 @@
 // js/2.Human_Resources_and_Training/2.6TrainingHostingCapacity_2020.js
 
-const csvDataPath_6 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath_6 = "/ALMERA3.github.io/data/2020_ALMERA_Survey_Capabilities.csv";
 
 const trainingCapacityColumnName = "If 'yes' above, specify the maximum number of participants for practical training";
 
