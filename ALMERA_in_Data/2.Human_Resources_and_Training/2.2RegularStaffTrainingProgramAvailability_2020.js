@@ -114,7 +114,7 @@ async function initializeStaffTrainingChart() {
                 Plot.text(chartData, {
                     y: () => "All Labs",
                     x: d => d.percent / 2 + (d.answer === "Yes" ? 0 : chartData.find(c => c.answer === "Yes").percent),
-                    text: d => `${(d.percent * 100).toFixed(0)}%`,
+                    text: d => `${(d.percent * 100).toFixed(0)}`,
                     fill: "white",
                     fontWeight: "bold",
                     dx: 0,
