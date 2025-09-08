@@ -2,6 +2,12 @@
 
 const csvDataPath13 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
+// Helper function to normalize strings for robust column matching
+function normalizeString(str) {
+    if (typeof str !== 'string') return '';
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' ');
+}
+
 async function initializeYNFieldSurveyChart() {
     const container = document.getElementById("YNFieldSurvey-chart-container");
     if (!container) {
@@ -31,21 +37,33 @@ async function initializeYNFieldSurveyChart() {
     // --- Data Processing ---
     const YNFieldSurveyColumn = "3.1 Does the laboratory have field survey capabilities?";
 
+    // Find the exact column name in the loaded data using normalization
+    let foundColumn = null;
+    const normalizedTargetColumn = normalizeString(YNFieldSurveyColumn);
+    if (data.length > 0) {
+        for (const header of Object.keys(data[0])) {
+            if (normalizeString(header) === normalizedTargetColumn) {
+                foundColumn = header;
+                break;
+            }
+        }
+    }
+
+    if (!foundColumn) {
+        console.error(`Column "${YNFieldSurveyColumn}" not found in CSV.`);
+        console.error("Available headers (normalized):", data.length > 0 ? Object.keys(data[0]).map(normalizeString) : "No data rows to inspect headers.");
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Data column "${YNFieldSurveyColumn}" not found.</p>`;
+        return;
+    }
+
     // Initialize counts for Yes/No
     const ALMERACMS = {
         "Yes": 0,
         "No": 0
     };
 
-    // Validate if the required column exists
-    if (data.length === 0 || !data[0][YNFieldSurveyColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${YNFieldSurveyColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for YNFieldSurvey chart. Check column name.</p>`;
-        return;
-    }
-
     data.forEach(d => {
-        let answer = d[YNFieldSurveyColumn];
+        let answer = d[foundColumn];
         if (typeof answer === "string") {
             // Trim whitespace and take only the first part if semi-colon separated
             answer = answer.trim().split(";")[0];
