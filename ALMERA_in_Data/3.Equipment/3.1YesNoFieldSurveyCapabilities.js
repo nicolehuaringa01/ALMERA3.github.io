@@ -3,7 +3,7 @@
 const csvDataPath13 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
 async function initializeYNFieldSurveyChart() {
-    const container = document.getElementById("YNFieldSurvey-courses-chart-container");
+    const container = document.getElementById("YNFieldSurvey-chart-container");
     if (!container) {
         console.error("YNFieldSurvey training chart container element #YNFieldSurvey-chart-container not found.");
         const errorDiv = document.createElement('div');
@@ -81,7 +81,7 @@ async function initializeYNFieldSurveyChart() {
         count
     }));
 
-    console.log("Processed YNFieldSurvey Courses chartData:", chartData);
+    console.log("Processed YNFieldSurvey chartData:", chartData);
 
     // --- Chart Rendering ---
 
