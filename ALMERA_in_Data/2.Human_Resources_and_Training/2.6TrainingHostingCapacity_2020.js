@@ -96,7 +96,7 @@ async function renderTrainingHostingCapacityHistogram() {
         .domain([0, d3.max(nonEmptyBins, d => d.length)]).nice()
         .range([height - margin.bottom, margin.top]);
     
-    const labsThatAnswered = rawData.filter(d => d[trainingCapacityColumnName] && d[trainingCapacityColumnName].trim() !== "").length;
+    const labsThatAnswered = data.filter(d => d[foundColumn] && d[foundColumn].trim() !== "").length;
 
     // Create SVG element
     const svg = container.append("svg")
