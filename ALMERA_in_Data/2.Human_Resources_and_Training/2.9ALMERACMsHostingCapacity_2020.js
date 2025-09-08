@@ -169,7 +169,6 @@ async function renderALMERACMsHostingCapacityHistogram() {
         .style("font-weight", "bold")
         .text(`Total responses: ${labsThatAnswered}`);
 }
-}
 
 // Call the function to r the chart when the script loads
 renderALMERACMsHostingCapacityHistogram();
