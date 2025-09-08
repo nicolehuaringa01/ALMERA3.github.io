@@ -161,11 +161,11 @@ async function renderTrainingHostingCapacityHistogram() {
         .text("Distribution of Training Hosting Capacity");
 
     svg.append("text")
-        .attr("x", -width / 2 + 10)
-        .attr("y", -height / 2 + 40)
+        .attr("x", margin.left)
+        .attr("y", margin.top - 15)
         .attr("text-anchor", "start")
-        .attr("font-size", "12px")
-        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+        .style("font-size", "12px")
+        .text(`Total laboratories that answered: ${labsThatAnswered}`);
 }
 
 // Call the function to render the chart when the script loads
