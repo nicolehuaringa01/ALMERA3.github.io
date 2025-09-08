@@ -164,8 +164,9 @@ async function renderTrainingHostingCapacityHistogram() {
         .attr("x", margin.left)
         .attr("y", margin.top - 15)
         .attr("text-anchor", "start")
-        .style("font-size", "12px")
-        .text(`Total laboratories that answered: ${labsThatAnswered}`);
+        .style("font-size", "16px")
+        .style("font-weight", "bold")
+        .text(`Total responses: ${labsThatAnswered}`);
 }
 
 // Call the function to render the chart when the script loads
