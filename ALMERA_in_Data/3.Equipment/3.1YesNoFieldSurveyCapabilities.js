@@ -5,7 +5,7 @@ const csvDataPath13 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 async function initializeYNFieldSurveyChart() {
     const container = document.getElementById("YNFieldSurvey-chart-container");
     if (!container) {
-        console.error("YNFieldSurvey training chart container element #YNFieldSurvey-chart-container not found.");
+        console.error("YNFieldSurvey chart container element #YNFieldSurvey-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
@@ -29,7 +29,7 @@ async function initializeYNFieldSurveyChart() {
     }
 
     // --- Data Processing ---
-    const trainingColumn = "3.1 Does the laboratory have field survey capabilities?";
+    const YNFieldSurveyColumn = "3.1 Does the laboratory have field survey capabilities?";
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -38,14 +38,14 @@ async function initializeYNFieldSurveyChart() {
     };
 
     // Validate if the required column exists
-    if (data.length === 0 || !data[0][trainingColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${trainingColumn}").`);
+    if (data.length === 0 || !data[0][YNFieldSurveyColumn]) {
+        console.error(`Error: CSV data is empty or missing expected column ("${YNFieldSurveyColumn}").`);
         container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for YNFieldSurvey chart. Check column name.</p>`;
         return;
     }
 
     data.forEach(d => {
-        let answer = d[trainingColumn];
+        let answer = d[YNFieldSurveyColumn];
         if (typeof answer === "string") {
             // Trim whitespace and take only the first part if semi-colon separated
             answer = answer.trim().split(";")[0];
