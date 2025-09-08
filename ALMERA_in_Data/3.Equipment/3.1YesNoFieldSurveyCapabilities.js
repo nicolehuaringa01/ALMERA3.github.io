@@ -29,7 +29,7 @@ async function initializeYNFieldSurveyChart() {
     }
 
     // --- Data Processing ---
-    const trainingColumn = '3.1 Does the laboratory have field survey capabilities?';
+    const trainingColumn = "3.1 Does the laboratory have field survey capabilities?";
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
