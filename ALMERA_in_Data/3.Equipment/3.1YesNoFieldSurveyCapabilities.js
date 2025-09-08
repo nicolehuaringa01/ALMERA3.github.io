@@ -35,7 +35,7 @@ async function initializeYNFieldSurveyChart() {
     }
 
     // --- Data Processing ---
-    const YNFieldSurveyColumn = "3.1 Does the laboratory have field survey capabilities?";
+    const YNFieldSurveyColumn = "3.1 Does the laboratory have field survey capabilities?	";
 
     // Find the exact column name in the loaded data using normalization
     let foundColumn = null;
