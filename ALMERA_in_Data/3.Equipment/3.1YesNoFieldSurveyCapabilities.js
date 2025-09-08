@@ -91,7 +91,7 @@ async function initializeYNFieldSurveyChart() {
         if (existingPlot) {
             existingPlot.remove();
         }
-        const HostTrainingPlot = Plot.plot({
+        const YNFieldSurveyPlot = Plot.plot({
             width: currentWidth,
             height: height,
             y: {
@@ -138,7 +138,7 @@ async function initializeYNFieldSurveyChart() {
                 fontSize: "14px"
             }
         });
-        container.appendChild(HostTrainingPlot);
+        container.appendChild(YNFieldSurveyPlot);
         console.log("YNFieldSurvey chart appended to DOM.");
     };
 
@@ -156,4 +156,4 @@ async function initializeYNFieldSurveyChart() {
 }
 
 // Initialize the chart when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", initializeHostTrainingChart);
+document.addEventListener("DOMContentLoaded", initializeYNFieldSurveyChart);
