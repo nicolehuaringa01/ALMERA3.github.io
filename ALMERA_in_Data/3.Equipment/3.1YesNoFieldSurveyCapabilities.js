@@ -1,6 +1,6 @@
 // ALMERA_in_Data/3.Equipment/3.1YesNoFieldSurveyCapabilities.js
 
-const csvDataPath13 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath13 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 // Helper function to normalize strings for robust column matching
 function normalizeString(str) {
