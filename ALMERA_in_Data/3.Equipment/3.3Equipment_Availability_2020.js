@@ -349,12 +349,9 @@ async function renderMapView() {
         .style("pointer-events", "none")
         .style("opacity", 0);
 
-    const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
-        .domain(labsForMap.map(d => d.country));
-
     let pinnedCircle = null;
 
-    // Draw lab dots
+    // Draw lab dots with a single color
     g.selectAll("circle")
         .data(labsForMap)
         .join("circle")
@@ -366,8 +363,8 @@ async function renderMapView() {
             const projected = projection([d.longitude, d.latitude]);
             return projected ? projected[1] : -1000;
         })
-        .attr("r", 7) // Fixed radius for dots
-        .attr("fill", d => colorScale(d.country))
+        .attr("r", 7) // Fixed radius for all dots
+        .attr("fill", "#0b5394") // Single dark blue color
         .attr("stroke", "black")
         .attr("stroke-width", 1)
         .style("cursor", "pointer")
