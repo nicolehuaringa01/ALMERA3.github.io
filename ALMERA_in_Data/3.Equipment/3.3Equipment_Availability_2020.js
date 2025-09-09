@@ -338,81 +338,101 @@ async function renderMapView() {
         .attr("stroke", "#9fc5e8") // Border color
         .attr("d", path);
 
-    // Scale for dot radius based on equipment count
-    const maxEquipmentCount = d3.max(labsForMap, d => d.equipmentCount);
-    const radiusScale = d3.scaleSqrt()
-                            .domain([1, maxEquipmentCount || 1]) // Handle case where max is 0 or undefined
-                            .range([4, 20]); // Min and Max radius for dots
+    // Create a new div for the tooltip that is not part of the SVG
+    const tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("padding", "8px")
+        .style("background", "rgba(0, 0, 0, 0.7)")
+        .style("color", "white")
+        .style("border-radius", "4px")
+        .style("pointer-events", "none")
+        .style("opacity", 0);
+
+    const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+        .domain(labsForMap.map(d => d.country));
+
+    let pinnedCircle = null;
 
     // Draw lab dots
     g.selectAll("circle")
         .data(labsForMap)
-        .enter()
-        .append("circle")
+        .join("circle")
         .attr("cx", d => {
             const projected = projection([d.longitude, d.latitude]);
-            return projected ? projected[0] : -1000; // Handle null projection gracefully
+            return projected ? projected[0] : -1000;
         })
         .attr("cy", d => {
             const projected = projection([d.longitude, d.latitude]);
-            return projected ? projected[1] : -1000; // Handle null projection gracefully
+            return projected ? projected[1] : -1000;
         })
-        .attr("r", d => radiusScale(d.equipmentCount)) // Use scaled radius
-        .attr("fill", "#0b5394") // Dark blue for dots
-        .attr("stroke", "#0b5394")
-        .append("title")
-        .text(d => `${d.name} (${d.city ? d.city + ', ' : ''}${d.country})\n${selectedEquipment}: ${d.equipmentCount} systems`); // Tooltip with bolded count. Note: Native tooltips do not support HTML bolding.
-
-    // Add a legend for the dot size
-    const legendData = [1, Math.ceil(maxEquipmentCount / 2), maxEquipmentCount].filter(d => d > 0);
-    const legendX = 20; // X position for the legend
-    const legendY = height - 120; // Y position for the legend
-
-    const legendGroup = svg.append("g")
-        .attr("class", "legend")
-        .attr("transform", `translate(${legendX}, ${legendY})`);
-
-    legendGroup.append("text")
-        .attr("x", 0)
-        .attr("y", -10)
-        .attr("font-size", "12px")
-        .attr("font-weight", "bold")
-        .text("Equipment Count");
-
-    legendGroup.selectAll(".legend-circle")
-        .data(legendData)
-        .enter().append("circle")
-        .attr("class", "legend-circle")
-        .attr("cx", d => 0)
-        .attr("cy", d => -radiusScale(d) - 10) // Position based on radius
-        .attr("r", d => radiusScale(d))
-        .attr("fill", "#0b5394")
-        .attr("stroke", "#0b5394");
-
-    legendGroup.selectAll(".legend-text")
-        .data(legendData)
-        .enter().append("text")
-        .attr("class", "legend-text")
-        .attr("x", 25)
-        .attr("y", d => -radiusScale(d) - 10)
-        .attr("dy", "0.35em")
-        .attr("font-size", "10px")
-        .text(d => d);
+        .attr("r", 7) // Fixed radius for dots
+        .attr("fill", d => colorScale(d.country))
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
+        .style("cursor", "pointer")
+        .on("mouseover", function(event, d) {
+            if (pinnedCircle && pinnedCircle.datum() === d) return;
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("r", 10);
+            tooltip.style("opacity", 1)
+                .html(`<strong>${d.name}</strong><br>${d.city ? d.city + ', ' : ''}${d.country}<br><strong>${selectedEquipment}:</strong> ${d.equipmentCount}`);
+        })
+        .on("mousemove", function(event) {
+            tooltip.style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 15) + "px");
+        })
+        .on("mouseout", function(event, d) {
+            if (pinnedCircle && pinnedCircle.datum() === d) return;
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("r", 7);
+            tooltip.style("opacity", 0);
+        })
+        .on("click", function(event, d) {
+            event.stopPropagation(); // Prevents map click from unpinning
+            if (pinnedCircle && pinnedCircle.datum() === d) {
+                // Unpin
+                pinnedCircle.classed("pinned", false).attr("r", 7);
+                pinnedCircle = null;
+                tooltip.style("opacity", 0);
+            } else {
+                // Unpin previous, pin new
+                if (pinnedCircle) {
+                    pinnedCircle.classed("pinned", false).attr("r", 7);
+                }
+                pinnedCircle = d3.select(this);
+                pinnedCircle.classed("pinned", true).attr("r", 10);
+                tooltip.style("opacity", 1)
+                    .html(`<strong>${d.name}</strong><br>${d.city ? d.city + ', ' : ''}${d.country}<br><strong>${selectedEquipment}:</strong> ${d.equipmentCount}`)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 15) + "px");
+            }
+        });
+    
+    // Unpin when clicking on the map background
+    svg.on("click", () => {
+        if (pinnedCircle) {
+            pinnedCircle.classed("pinned", false).attr("r", 7);
+            pinnedCircle = null;
+            tooltip.style("opacity", 0);
+        }
+    });
 
     // Zoom behavior
     svg.call(d3.zoom()
-        .scaleExtent([1, 8]) // Allow zooming from 1x to 8x
+        .scaleExtent([1, 8])
         .on("zoom", (event) => {
-            g.attr("transform", event.transform); // Apply zoom transform to the group
-            // Adjust radius based on zoom scale to keep visual size relatively consistent
-            g.selectAll("circle")
-                .attr("r", d => radiusScale(d.equipmentCount) / event.transform.k);
+            g.attr("transform", event.transform);
+            g.selectAll("circle").attr("r", 7 / event.transform.k);
         })
     );
 
     container.node().appendChild(svg.node());
 }
-
 /**
  * Updates the display based on the current view selection.
  */
