@@ -107,6 +107,8 @@ const createPieChart = (onClickHandler) => {
 
     const totalEquipmentsCount = d3.sum(topEquipmentData, d => d.value);
 
+    const labsThatAnswered = rawData.filter(d => d[equipmentColumns] && d[equipmentColumns].trim() !== "").length;
+
     topEquipmentData.forEach(d => {
         d.percent = (totalEquipmentsCount > 0) ? (d.value / totalEquipmentsCount) : 0;
     });
@@ -164,6 +166,21 @@ const createPieChart = (onClickHandler) => {
         .attr("y", 9)
         .attr("dy", "0.35em")
         .text(d => d);
+
+    svg.append("text")
+        .attr("x", -width / 2 + 10) 
+        .attr("y", -height / 2 + 20)
+        .attr("text-anchor", "start")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold")
+        .text(`Total responses: ${totalEquipmentsCount.toLocaleString("en-US")}`);
+
+    svg.append("text")
+        .attr("x", -width / 2 + 10)
+        .attr("y", -height / 2 + 40)
+        .attr("text-anchor", "start")
+        .attr("font-size", "12px")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
     return svg.node();
 };
