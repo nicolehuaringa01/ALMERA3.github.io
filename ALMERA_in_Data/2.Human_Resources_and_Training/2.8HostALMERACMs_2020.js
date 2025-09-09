@@ -2,10 +2,16 @@
 
 const csvDataPath8 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
+// Helper function to normalize strings for robust column matching
+function normalizeString(str) {
+    if (typeof str !== 'string') return '';
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' ');
+}
+
 async function initializeHostALMERACMsChart() {
     const container = document.getElementById("host-almera-cms-chart-container");
     if (!container) {
-      console.error("Host training chart container element #host-almera-cms-chart-container not found.");
+        console.error("Host training chart container element #host-almera-cms-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
@@ -31,21 +37,33 @@ async function initializeHostALMERACMsChart() {
     // --- Data Processing ---
     const hostALMERACMsColumn = '2.8 Able to host ALMERA coordination meetings?';
 
+    // Find the exact column name in the loaded data using normalization
+    let foundColumn = null;
+    const normalizedTargetColumn = normalizeString(hostALMERACMsColumn);
+    if (data.length > 0) {
+        for (const header of Object.keys(data[0])) {
+            if (normalizeString(header) === normalizedTargetColumn) {
+                foundColumn = header;
+                break;
+            }
+        }
+    }
+
+    // This is the key fix: Check if the normalized column was found
+    if (!foundColumn) {
+        console.error(`Error: CSV data is empty or missing expected column ("${hostALMERACMsColumn}").`);
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for host almera cms chart. Check column name.</p>`;
+        return;
+    }
+
     // Initialize counts for Yes/No
     const ALMERACMS = {
         "Yes": 0,
         "No": 0
     };
 
-    // Validate if the required column exists
-    if (data.length === 0 || !data[0][hostALMERACMsColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${hostALMERACMsColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for host almera cms chart. Check column name.</p>`;
-        return;
-    }
-
     data.forEach(d => {
-        let answer = d[hostALMERACMsColumn];
+        let answer = d[foundColumn];
         if (typeof answer === "string") {
             // Trim whitespace and take only the first part if semi-colon separated
             answer = answer.trim().split(";")[0];
@@ -91,7 +109,7 @@ async function initializeHostALMERACMsChart() {
         if (existingPlot) {
             existingPlot.remove();
         }
-        
+
         const HostALMERACMsPlot = Plot.plot({
             width: currentWidth,
             height: height,
