@@ -96,6 +96,8 @@ async function initializeFieldSurveyCapabilitiesChart() {
     // --- Calculate total and percentages for the tooltip ---
     const totalFieldSurveyCapabilitiessCount = d3.sum(topFieldSurveyCapabilities, d => d.value);
 
+    const labsThatAnswered = rawData.filter(d => d[affiliationColumn] && d[affiliationColumn].trim() !== "").length;
+
     // Add percentage to each FieldSurveyCapabilities object in topFieldSurveyCapabilities
     topFieldSurveyCapabilities.forEach(d => {
         d.percent = (totalFieldSurveyCapabilitiessCount > 0) ? (d.value / totalFieldSurveyCapabilitiessCount) : 0;
@@ -159,6 +161,21 @@ async function initializeFieldSurveyCapabilitiesChart() {
         .attr("y", 9)
         .attr("dy", "0.35em")
         .text(d => d);
+
+    svg.append("text")
+        .attr("x", -width / 2 + 10) 
+        .attr("y", -height / 2 + 20)
+        .attr("text-anchor", "start")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold")
+        .text(`Total responses: ${totalAffiliationsCount.toLocaleString("en-US")}`);
+
+    svg.append("text")
+        .attr("x", -width / 2 + 10)
+        .attr("y", -height / 2 + 40)
+        .attr("text-anchor", "start")
+        .attr("font-size", "12px")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
     // Append the SVG to the designated container
     container.appendChild(svg.node());
