@@ -86,10 +86,11 @@ async function initializeInternal_QAQC_ProceduresChart() {
     // --- Chart Rendering ---
 
     // Function to create and append the plot, allowing for redraw on resize
-    const renderPlot = (currentWidth) => {
+   const renderPlot = (currentWidth) => {
         const existingPlot = container.querySelector('svg');
         if (existingPlot) {
             existingPlot.remove();
+        }
 
         const Internal_QAQC_ProceduresPlot = Plot.plot({
             width: currentWidth,
