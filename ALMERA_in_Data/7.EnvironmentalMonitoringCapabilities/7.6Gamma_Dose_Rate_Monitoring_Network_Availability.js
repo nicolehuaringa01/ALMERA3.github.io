@@ -65,6 +65,15 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
         return;
     }
 
+    // Create the "Total responses" div and prepend it to the container.
+    const totalResponsesDiv = document.createElement('div');
+    totalResponsesDiv.textContent = `Total responses: ${total}`;
+    totalResponsesDiv.style.fontWeight = 'bold';
+    totalResponsesDiv.style.textAlign = 'left';
+    totalResponsesDiv.style.paddingBottom = '5px';
+    container.innerHTML = ''; // Clear container first
+    container.appendChild(totalResponsesDiv);
+
     // Prepare data for plotting (answer, percentage, and count)
     const chartData = Object.entries(ALMERACMS).map(([answer, count]) => ({
         answer,
@@ -78,7 +87,10 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
 
     // Function to create and append the plot, allowing for redraw on resize
     const renderPlot = (currentWidth) => {
-        container.innerHTML = ''; // Clear existing chart
+        const existingPlot = container.querySelector('svg');
+        if (existingPlot) {
+            existingPlot.remove();
+        }
 
         const Gamma_Dose_Rate_Monitoring_Network_AvailabilityPlot = Plot.plot({
             width: currentWidth,
@@ -91,7 +103,8 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
                 label: "Automatic monitors for gamma-ray spectrometry of aerosols and/or gasouse iodine in the country",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
-                domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
+                domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
+                tickFormat: d => `${Math.round(d * 100)}`
             },
             color: {
                 domain: ["Yes", "No"], // Explicit domain for color mapping
