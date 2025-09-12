@@ -79,7 +79,7 @@
                 d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json").then(topojson.feature),
                 d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/sphere.json").then(topojson.feature),
                 // Corrected the CSV file path to a relative URL
-                d3.csv("data/2020_ALMERA_Capabilities_Survey.csv")
+                d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";)
             ]);
 
             if (!land || !sphere || !data) {
