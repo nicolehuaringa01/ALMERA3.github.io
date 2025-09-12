@@ -372,7 +372,7 @@ async function renderMapView() {
             const projected = projection([d.longitude, d.latitude]);
             return projected ? projected[1] : -1000;
         })
-        .attr("r", 7)
+        .attr("r", 3)
         .attr("fill", "#0b5394")
         .attr("stroke", "black")
         .attr("stroke-width", 1)
