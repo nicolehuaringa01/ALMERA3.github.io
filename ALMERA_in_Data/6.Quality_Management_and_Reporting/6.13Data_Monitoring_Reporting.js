@@ -1,6 +1,6 @@
 // ALMERA_in_Data/6.Quality_Management_and_Reporting/6.13Data_Monitoring_Reporting
 
-const csvDataPath13 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath13 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeData_Monitoring_ReportingChart() {
     const container = document.getElementById("Data_Monitoring_Reporting-chart-container");
