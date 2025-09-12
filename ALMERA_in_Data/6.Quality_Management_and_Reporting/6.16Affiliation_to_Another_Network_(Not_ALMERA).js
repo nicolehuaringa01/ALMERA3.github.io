@@ -1,6 +1,6 @@
 // ALMERA_in_Data/6.Quality_Management_and_Reporting/6.16Affiliation_to_Another_Network.js
 
-const csvDataPath16 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath16 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 // Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
 function normalizeString(str) {
