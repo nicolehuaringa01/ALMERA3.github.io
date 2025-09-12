@@ -107,7 +107,7 @@ const createPieChart = (onClickHandler) => {
 
     const totalEquipmentsCount = d3.sum(topEquipmentData, d => d.value);
 
-    const labsThatAnswered = rawData.filter(d => d[equipmentColumns] && d[equipmentColumns].trim() !== "").length;
+    const labsThatAnswered = allSurveyData.filter(d => d[equipmentColumns] && d[equipmentColumns].trim() !== "").length;
 
     topEquipmentData.forEach(d => {
         d.percent = (totalEquipmentsCount > 0) ? (d.value / totalEquipmentsCount) : 0;
