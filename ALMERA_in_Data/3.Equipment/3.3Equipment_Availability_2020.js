@@ -382,7 +382,7 @@ async function renderMapView() {
             d3.select(this)
                 .transition()
                 .duration(200)
-                .attr("r", 10);
+                .attr("r", 5);
             tooltip.style("opacity", 1)
                 .html(`<strong>${d.name}</strong><br>${d.city ? d.city + ', ' : ''}${d.country}<br><strong>${selectedEquipment}:</strong> ${d.equipmentCount}`);
         })
@@ -395,21 +395,21 @@ async function renderMapView() {
             d3.select(this)
                 .transition()
                 .duration(200)
-                .attr("r", 7);
+                .attr("r", 3);
             tooltip.style("opacity", 0);
         })
         .on("click", function(event, d) {
             event.stopPropagation();
             if (pinnedCircle && pinnedCircle.datum() === d) {
-                pinnedCircle.classed("pinned", false).attr("r", 7);
+                pinnedCircle.classed("pinned", false).attr("r", 3);
                 pinnedCircle = null;
                 tooltip.style("opacity", 0);
             } else {
                 if (pinnedCircle) {
-                    pinnedCircle.classed("pinned", false).attr("r", 7);
+                    pinnedCircle.classed("pinned", false).attr("r", 3);
                 }
                 pinnedCircle = d3.select(this);
-                pinnedCircle.classed("pinned", true).attr("r", 10);
+                pinnedCircle.classed("pinned", true).attr("r", 5);
                 tooltip.style("opacity", 1)
                     .html(`<strong>${d.name}</strong><br>${d.city ? d.city + ', ' : ''}${d.country}<br><strong>${selectedEquipment}:</strong> ${d.equipmentCount}`)
                     .style("left", (event.pageX + 10) + "px")
@@ -419,7 +419,7 @@ async function renderMapView() {
 
     svg.on("click", () => {
         if (pinnedCircle) {
-            pinnedCircle.classed("pinned", false).attr("r", 7);
+            pinnedCircle.classed("pinned", false).attr("r", 3);
             pinnedCircle = null;
             tooltip.style("opacity", 0);
         }
@@ -429,7 +429,7 @@ async function renderMapView() {
         .scaleExtent([1, 8])
         .on("zoom", (event) => {
             g.attr("transform", event.transform);
-            g.selectAll("circle").attr("r", 7 / event.transform.k);
+            g.selectAll("circle").attr("r", 3 / event.transform.k);
         })
     );
 
