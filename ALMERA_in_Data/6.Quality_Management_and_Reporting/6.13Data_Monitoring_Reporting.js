@@ -90,7 +90,7 @@ async function initializeData_Monitoring_ReportingChart() {
         const existingPlot = container.querySelector('svg');
         if (existingPlot) {
             existingPlot.remove();
-
+        }
         const Data_Monitoring_ReportingPlot = Plot.plot({
             width: currentWidth,
             height: height,
