@@ -362,60 +362,62 @@ async function renderMapView() {
     let pinnedCircle = null;
 
     g.selectAll("circle")
-        .data(labsForMap)
-        .join("circle")
-        .attr("cx", d => {
-            const projected = projection([d.longitude, d.latitude]);
-            return projected ? projected[0] : -1000;
-        })
-        .attr("cy", d => {
-            const projected = projection([d.longitude, d.latitude]);
-            return projected ? projected[1] : -1000;
-        })
-        .attr("r", 3)
-        .attr("fill", "#0b5394")
-        .attr("stroke", "black")
-        .attr("stroke-width", 1)
-        .style("cursor", "pointer")
-        .on("mouseover", function(event, d) {
-            if (pinnedCircle && pinnedCircle.datum() === d) return;
-            d3.select(this)
-                .transition()
-                .duration(200)
-                .attr("r", 5);
-            tooltip.style("opacity", 1)
-                .html(`<strong>${d.name}</strong><br>${d.city ? d.city + ', ' : ''}${d.country}<br><strong>${selectedEquipment}:</strong> ${d.equipmentCount}`);
-        })
-        .on("mousemove", function(event) {
-            tooltip.style("left", (event.pageX + 10) + "px")
-                .style("top", (event.pageY - 15) + "px");
-        })
-        .on("mouseout", function(event, d) {
-            if (pinnedCircle && pinnedCircle.datum() === d) return;
-            d3.select(this)
-                .transition()
-                .duration(200)
-                .attr("r", 3);
+    .data(labsForMap)
+    .join("circle")
+    // Use a function to set the initial radius based on the initial zoom level
+    .attr("r", d => 3 / d3.zoomTransform(svg.node()).k)
+    .attr("cx", d => {
+        const projected = projection([d.longitude, d.latitude]);
+        return projected ? projected[0] : -1000;
+    })
+    .attr("cy", d => {
+        const projected = projection([d.longitude, d.latitude]);
+        return projected ? projected[1] : -1000;
+    })
+    .attr("fill", "#0b5394")
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
+    .style("cursor", "pointer")
+    .on("mouseover", function(event, d) {
+        if (pinnedCircle && pinnedCircle.datum() === d) return;
+        d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("r", 5 / d3.zoomTransform(svg.node()).k); // Scale the radius based on zoom
+        tooltip.style("opacity", 1)
+            .html(`<strong>${d.name}</strong><br>${d.city ? d.city + ', ' : ''}${d.country}<br><strong>${selectedEquipment}:</strong> ${d.equipmentCount}`);
+    })
+    .on("mousemove", function(event) {
+        tooltip.style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 15) + "px");
+    })
+    .on("mouseout", function(event, d) {
+        if (pinnedCircle && pinnedCircle.datum() === d) return;
+        d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("r", 3 / d3.zoomTransform(svg.node()).k); // Scale the radius back to the base size
+        tooltip.style("opacity", 0);
+    })
+    .on("click", function(event, d) {
+        event.stopPropagation();
+        const currentZoom = d3.zoomTransform(svg.node()).k;
+        if (pinnedCircle && pinnedCircle.datum() === d) {
+            pinnedCircle.classed("pinned", false).attr("r", 3 / currentZoom);
+            pinnedCircle = null;
             tooltip.style("opacity", 0);
-        })
-        .on("click", function(event, d) {
-            event.stopPropagation();
-            if (pinnedCircle && pinnedCircle.datum() === d) {
-                pinnedCircle.classed("pinned", false).attr("r", 3);
-                pinnedCircle = null;
-                tooltip.style("opacity", 0);
-            } else {
-                if (pinnedCircle) {
-                    pinnedCircle.classed("pinned", false).attr("r", 3);
-                }
-                pinnedCircle = d3.select(this);
-                pinnedCircle.classed("pinned", true).attr("r", 5);
-                tooltip.style("opacity", 1)
-                    .html(`<strong>${d.name}</strong><br>${d.city ? d.city + ', ' : ''}${d.country}<br><strong>${selectedEquipment}:</strong> ${d.equipmentCount}`)
-                    .style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY - 15) + "px");
+        } else {
+            if (pinnedCircle) {
+                pinnedCircle.classed("pinned", false).attr("r", 3 / currentZoom);
             }
-        });
+            pinnedCircle = d3.select(this);
+            pinnedCircle.classed("pinned", true).attr("r", 5 / currentZoom);
+            tooltip.style("opacity", 1)
+                .html(`<strong>${d.name}</strong><br>${d.city ? d.city + ', ' : ''}${d.country}<br><strong>${selectedEquipment}:</strong> ${d.equipmentCount}`)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 15) + "px");
+        }
+    });
 
     svg.on("click", () => {
         if (pinnedCircle) {
