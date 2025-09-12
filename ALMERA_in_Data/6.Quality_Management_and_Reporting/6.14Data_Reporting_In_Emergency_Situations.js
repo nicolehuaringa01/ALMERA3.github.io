@@ -1,6 +1,6 @@
 // ALMERA_in_Data/6.Quality_Management_and_Reporting/6.14Data_Reporting_In_Emergency_Situations
 
-const csvDataPath14 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath14 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeData_Reporting_In_Emergency_SituationsChart() {
     const container = document.getElementById("Data_Reporting_In_Emergency_Situations-chart-container");
