@@ -41,7 +41,7 @@ const calculateMost_Frequently_Measured_Radionuclides_in_ALMERA_LabsCounts = (ra
  * @param {number} n - The number of top Most_Frequently_Measured_Radionuclides_in_ALMERA_Labss to retrieve.
  * @returns {Array<Object>} Sorted array of top Most_Frequently_Measured_Radionuclides_in_ALMERA_Labss.
  */
-const getTopMost_Frequently_Measured_Radionuclides_in_ALMERA_Labss = (n = 20) => {
+const getTopMost_Frequently_Measured_Radionuclides_in_ALMERA_Labss = (n = 100) => {
     return Most_Frequently_Measured_Radionuclides_in_ALMERA_LabsCountsData
         .slice() // Create a copy to avoid mutating the original array
         .sort((a, b) => d3.descending(a.value, b.value))
