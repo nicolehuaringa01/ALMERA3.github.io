@@ -1,6 +1,6 @@
 // ALMERA_in_Data/4.Methods/4.1MethodAndRoutineDevelopment.js
 
-const csvDataPath1 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath1 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeMethodAndRoutineDevelopmentChart() {
     const container = document.getElementById("MethodAndRoutineDevelopment-chart-container");
@@ -65,6 +65,15 @@ async function initializeMethodAndRoutineDevelopmentChart() {
         return;
     }
 
+    // Create the "Total responses" div and prepend it to the container.
+    const totalResponsesDiv = document.createElement('div');
+    totalResponsesDiv.textContent = `Total responses: ${total}`;
+    totalResponsesDiv.style.fontWeight = 'bold';
+    totalResponsesDiv.style.textAlign = 'left';
+    totalResponsesDiv.style.paddingBottom = '5px';
+    container.innerHTML = ''; // Clear container first
+    container.appendChild(totalResponsesDiv);
+
     // Prepare data for plotting (answer, percentage, and count)
     const chartData = Object.entries(ALMERACMS).map(([answer, count]) => ({
         answer,
@@ -78,7 +87,11 @@ async function initializeMethodAndRoutineDevelopmentChart() {
 
     // Function to create and append the plot, allowing for redraw on resize
     const renderPlot = (currentWidth) => {
-        container.innerHTML = ''; // Clear existing chart
+        const existingPlot = container.querySelector('svg');
+        if (existingPlot) {
+            existingPlot.remove();
+        }
+
 
         const MethodAndRoutineDevelopmentPlot = Plot.plot({
             width: currentWidth,
@@ -91,7 +104,8 @@ async function initializeMethodAndRoutineDevelopmentChart() {
                 label: "Participation in Development of Analytical Methods ",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
-                domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
+                domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
+                tickFormat: d => `${Math.round(d * 100)}`
             },
             color: {
                 domain: ["Yes", "No"], // Explicit domain for color mapping
