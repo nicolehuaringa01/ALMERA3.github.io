@@ -1,6 +1,6 @@
 // ALMERA_in_Data/6.Quality_Management_and_Reporting/6.7Internal_QAQC_Procedures.js
 
-const csvDataPath7 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath7 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 
 async function initializeInternal_QAQC_ProceduresChart() {
     const container = document.getElementById("Internal_QAQC_Procedures-chart-container");
@@ -65,6 +65,15 @@ async function initializeInternal_QAQC_ProceduresChart() {
         return;
     }
 
+     // Create the "Total responses" div and prepend it to the container.
+    const totalResponsesDiv = document.createElement('div');
+    totalResponsesDiv.textContent = `Total responses: ${total}`;
+    totalResponsesDiv.style.fontWeight = 'bold';
+    totalResponsesDiv.style.textAlign = 'left';
+    totalResponsesDiv.style.paddingBottom = '5px';
+    container.innerHTML = ''; // Clear container first
+    container.appendChild(totalResponsesDiv);
+
     // Prepare data for plotting (answer, percentage, and count)
     const chartData = Object.entries(ALMERACMS).map(([answer, count]) => ({
         answer,
@@ -78,7 +87,9 @@ async function initializeInternal_QAQC_ProceduresChart() {
 
     // Function to create and append the plot, allowing for redraw on resize
     const renderPlot = (currentWidth) => {
-        container.innerHTML = ''; // Clear existing chart
+        const existingPlot = container.querySelector('svg');
+        if (existingPlot) {
+            existingPlot.remove();
 
         const Internal_QAQC_ProceduresPlot = Plot.plot({
             width: currentWidth,
@@ -91,7 +102,8 @@ async function initializeInternal_QAQC_ProceduresChart() {
                 label: "Established internal QA/QC procedures",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
-                domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
+                domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
+                tickFormat: d => `${Math.round(d * 100)}`
             },
             color: {
                 domain: ["Yes", "No"], // Explicit domain for color mapping
