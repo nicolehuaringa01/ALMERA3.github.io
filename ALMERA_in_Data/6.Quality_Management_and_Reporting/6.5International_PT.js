@@ -90,6 +90,7 @@ async function initializeInternational_PTChart() {
         const existingPlot = container.querySelector('svg');
         if (existingPlot) {
             existingPlot.remove();
+        }
 
         const International_PTPlot = Plot.plot({
             width: currentWidth,
