@@ -73,11 +73,13 @@
             canvas.height = height;
 
             // --- Data Loading ---
-            // Load map and data files asynchronously. Update the CSV path to your file.
+            // Load map and data files asynchronously. The URLs for the map data have been updated to be more reliable.
+            // Be sure to verify the path to your CSV file.
             const [land, sphere, data] = await Promise.all([
-                d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json").then(topojson.feature, err => { console.error("Error loading land data:", err); return null; }),
-                d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/sphere.json").then(topojson.feature, err => { console.error("Error loading sphere data:", err); return null; }),
-                d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
+                d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json").then(topojson.feature),
+                d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/sphere.json").then(topojson.feature),
+                // Corrected the CSV file path to a relative URL
+                d3.csv("data/2020_ALMERA_Capabilities_Survey.csv")
             ]);
 
             if (!land || !sphere || !data) {
@@ -191,12 +193,12 @@
             searchBar.addEventListener("input", function() {
                 const query = this.value.toLowerCase();
                 filteredData = data.filter(d =>
-                    (d["Member State"] && d["Member State"].toLowerCase().includes(query)) ||
-                    (d["Laboratory Name"] && d["Laboratory Name"].toLowerCase().includes(query)) ||
+                    (d["1.3 Member State"] && d["1.3 Member State"].toLowerCase().includes(query)) ||
+                    (d["1.1 Name of Laboratory"] && d["1.1 Name of Laboratory"].toLowerCase().includes(query)) ||
                     (d["Geographic Region"] && d["Geographic Region"].toLowerCase().includes(query)) ||
-                    (d["Contact Person"] && d["Contact Person"].toLowerCase().includes(query)) ||
+                    (d["1.7 Contact Person"] && d["1.7 Contact Person"].toLowerCase().includes(query)) ||
                     (d["City"] && d["City"].toLowerCase().includes(query)) ||
-                    (d["Radionuclides"] && d["Radionuclides"].toLowerCase().includes(query))
+                    (d["5.2 Radionuclides measured by laboratory"] && d["5.2 Radionuclides measured by laboratory"].toLowerCase().includes(query))
                 );
                 renderedPoints = render();
             });
@@ -226,7 +228,6 @@
                         <hr class="my-1 border-gray-600">
                         🧑‍💼 ${hoveredPoint.contact}<br>
                         📧 ${hoveredPoint.email}<br>
-                        📞 ${hoveredPoint.telephone}<br>
                         <hr class="my-1 border-gray-600">
                         <span class="font-semibold">Radionuclides:</span><br>
                         ${hoveredPoint.radionuclides.split(';').join('<br>')}
@@ -259,7 +260,6 @@
                         <hr class="my-1 border-gray-600">
                         🧑‍💼 ${clickedPoint.contact}<br>
                         📧 ${clickedPoint.email}<br>
-                        📞 ${clickedPoint.telephone}<br>
                         <hr class="my-1 border-gray-600">
                         <span class="font-semibold">Radionuclides:</span><br>
                         ${clickedPoint.radionuclides.split(';').join('<br>')}
