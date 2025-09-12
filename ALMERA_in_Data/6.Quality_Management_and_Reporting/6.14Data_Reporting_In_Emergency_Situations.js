@@ -90,6 +90,7 @@ async function initializeData_Reporting_In_Emergency_SituationsChart() {
         const existingPlot = container.querySelector('svg');
         if (existingPlot) {
             existingPlot.remove();
+        }
 
         const Data_Reporting_In_Emergency_SituationsPlot = Plot.plot({
             width: currentWidth,
