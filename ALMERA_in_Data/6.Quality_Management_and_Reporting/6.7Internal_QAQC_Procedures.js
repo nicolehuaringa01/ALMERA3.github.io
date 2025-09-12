@@ -1,6 +1,6 @@
 // ALMERA_in_Data/6.Quality_Management_and_Reporting/6.7Internal_QAQC_Procedures.js
 
-const csvDataPath7 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath7 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeInternal_QAQC_ProceduresChart() {
     const container = document.getElementById("Internal_QAQC_Procedures-chart-container");
