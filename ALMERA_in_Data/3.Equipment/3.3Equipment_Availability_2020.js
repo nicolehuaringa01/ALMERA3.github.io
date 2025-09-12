@@ -8,6 +8,17 @@ let equipmentToLabsMapData;
 let selectedEquipment = null; // Emulates Observable's mutable state for selected equipment
 let currentView = 'map'; // 'map' or 'list' - default view
 
+// GLOBAL: Map of column names to a clean equipment name
+const equipmentColumns = {
+    "3.2 Number of Systems": "Gross Alpha Counters",
+    "3.3 Number of Systems": "Gross beta counters",
+    "3.4 Number of Systems": "Gamma-ray spectrometry system",
+    "3.5 Number of Systems": "Alpha spectrometry system",
+    "3.6 Number of Systems": "Liquid scintillation counter",
+    "3.7 Number of Systems": "Mass spectrometry",
+    "3.8 Number of Systems": "Other equipment"
+};
+
 // Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
 function normalizeString(str) {
     if (typeof str !== 'string') return '';
@@ -19,16 +30,6 @@ function normalizeString(str) {
  * @returns {Array<Object>} An array of objects, { name: string, value: number }.
  */
 const calculateEquipmentCounts = () => {
-    // Map of column names to a clean equipment name
-    const equipmentColumns = {
-        "3.2 Number of Systems": "Gross Alpha Counters",
-        "3.3 Number of Systems": "Gross beta counters",
-        "3.4 Number of Systems": "Gamma-ray spectrometry system",
-        "3.5 Number of Systems": "Alpha spectrometry system",
-        "3.6 Number of Systems": "Liquid scintillation counter",
-        "3.7 Number of Systems": "Mass spectrometry",
-    };
-
     const counts = new Map();
     for (const row of allSurveyData) {
         for (const [column, name] of Object.entries(equipmentColumns)) {
@@ -46,17 +47,6 @@ const calculateEquipmentCounts = () => {
  * @returns {Map<string, Map<string, Map<string, number>>>} The mapping.
  */
 const createEquipmentToLabsMap = () => {
-    // Map of column names to a clean equipment name
-    const equipmentColumns = {
-        "3.2 Number of Systems": "Gross Alpha Counters",
-        "3.3 Number of Systems": "Gross beta counters",
-        "3.4 Number of Systems": "Gamma-ray spectrometry system",
-        "3.5 Number of Systems": "Alpha spectrometry system",
-        "3.6 Number of Systems": "Liquid scintillation counter",
-        "3.7 Number of Systems": "Mass spectrometry",
-        "3.8 Number of Systems": "Other equipment"
-    };
-    
     // Map: EquipmentName -> Map<MemberState, Map<LabName, count>>
     const map = new Map();
 
@@ -107,7 +97,16 @@ const createPieChart = (onClickHandler) => {
 
     const totalEquipmentsCount = d3.sum(topEquipmentData, d => d.value);
 
-    const labsThatAnswered = allSurveyData.filter(d => d[equipmentColumns] && d[equipmentColumns].trim() !== "").length;
+    // --- THIS IS THE FIX ---
+    // Count labs that answered at least one of the equipment columns
+    const labsThatAnswered = allSurveyData.filter(d => {
+        for (const col of Object.keys(equipmentColumns)) {
+            if (d[col] && d[col].trim() !== "" && parseInt(d[col]) > 0) {
+                return true;
+            }
+        }
+        return false;
+    }).length;
 
     topEquipmentData.forEach(d => {
         d.percent = (totalEquipmentsCount > 0) ? (d.value / totalEquipmentsCount) : 0;
@@ -141,7 +140,7 @@ const createPieChart = (onClickHandler) => {
         .attr("fill", d => color(d.data.name))
         .attr("d", arc)
         .on("click", (event, d) => {
-            onClickHandler(d.data.name); // Call the handler to update selectedEquipment
+            onClickHandler(d.data.name);
         })
         .append("title")
         .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} systems)`);
@@ -168,7 +167,7 @@ const createPieChart = (onClickHandler) => {
         .text(d => d);
 
     svg.append("text")
-        .attr("x", -width / 2 + 10) 
+        .attr("x", -width / 2 + 10)
         .attr("y", -height / 2 + 20)
         .attr("text-anchor", "start")
         .attr("font-size", "12px")
@@ -190,7 +189,7 @@ const createPieChart = (onClickHandler) => {
  */
 const renderListView = () => {
     const container = d3.select("#lab-info-display-container");
-    container.html(""); // Clear previous content
+    container.html("");
 
     if (!selectedEquipment) {
         container.append("p").html("<em>Click on a pie chart slice to see related labs in a list.</em>");
@@ -204,30 +203,27 @@ const renderListView = () => {
         return;
     }
 
-    // Get total number of distinct labs across all states for the heading
     let totalLabs = 0;
     for (const labsMap of stateMap.values()) {
         totalLabs += labsMap.size;
     }
 
-    const mainDiv = container.append("div"); // A main div to contain the entire list structure
+    const mainDiv = container.append("div");
 
     mainDiv.append("h3").html(`Labs with <strong>${selectedEquipment}</strong> (${totalLabs} total)`);
 
-    // Sort states alphabetically
     const sortedStates = Array.from(stateMap.keys()).sort((a, b) => a.localeCompare(b));
 
     sortedStates.forEach(state => {
         const labsMap = stateMap.get(state);
-        // Sort labs within each state alphabetically by lab name
-        const sortedLabs = Array.from(labsMap.entries()).sort((a, b) => a[0].localeCompare(b[0])); // [labName, count]
+        const sortedLabs = Array.from(labsMap.entries()).sort((a, b) => a[0].localeCompare(b[0]));
 
         const stateDiv = mainDiv.append("div");
-        stateDiv.append("h4").text(state); // Member State as a sub-heading
+        stateDiv.append("h4").text(state);
 
-        const ul = stateDiv.append("ul").style("list-style", "none").style("padding-left", "20px"); // Adjust padding as needed
+        const ul = stateDiv.append("ul").style("list-style", "none").style("padding-left", "20px");
         sortedLabs.forEach(([lab, count]) => {
-            ul.append("li").html(`${lab} (<strong style='font-weight: bold;'>${count}</strong>)`); // Lab name and bolded count
+            ul.append("li").html(`${lab} (<strong style='font-weight: bold;'>${count}</strong>)`);
         });
     });
 };
@@ -238,7 +234,7 @@ const renderListView = () => {
  */
 async function renderMapView() {
     const container = d3.select("#lab-info-display-container");
-    container.html(""); // Clear previous content
+    container.html("");
 
     if (!selectedEquipment) {
         container.append("p").html("<em>Click on a pie chart slice to see related labs on the map.</em>");
@@ -252,7 +248,6 @@ async function renderMapView() {
         return;
     }
 
-    // Robustly find column names for geographic data and lab details
     let foundLongColumn = null;
     let foundLatColumn = null;
     let foundNameColumn = null;
@@ -301,10 +296,10 @@ async function renderMapView() {
                     labsForMap.push({
                         name: labName,
                         country: memberState,
-                        city: city, // Include city for tooltip
+                        city: city,
                         longitude: longitude,
                         latitude: latitude,
-                        equipmentCount: count // Include equipment count
+                        equipmentCount: count
                     });
                 } else {
                     console.warn(`Skipping lab ${labName} (${memberState}) due to invalid Long/Lat: ${row[foundLongColumn]}, ${row[foundLatColumn]}`);
@@ -321,9 +316,9 @@ async function renderMapView() {
     }
 
     // --- Map Rendering Logic ---
-    const width = container.node().clientWidth; // Make map responsive to its container width
+    const width = container.node().clientWidth;
     const height = 500;
-    const topojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json"; // Path to world TopoJSON
+    const topojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
 
     let world;
     try {
@@ -340,22 +335,20 @@ async function renderMapView() {
     const path = d3.geoPath().projection(projection);
 
     const svg = d3.create("svg")
-        .attr("width", "100%") // Make SVG responsive to its container width
+        .attr("width", "100%")
         .attr("height", height)
-        .attr("viewBox", `0 0 ${width} ${height}`) // Maintain aspect ratio
+        .attr("viewBox", `0 0 ${width} ${height}`)
         .style("background", "white")
-        .style("display", "block"); // Ensure it behaves like a block element
+        .style("display", "block");
 
-    const g = svg.append("g"); // Group for zoomable content
+    const g = svg.append("g");
 
-    // Draw continents
     g.append("path")
         .datum(land)
-        .attr("fill", "#9fc5e8") // Light blue for land
-        .attr("stroke", "#9fc5e8") // Border color
+        .attr("fill", "#9fc5e8")
+        .attr("stroke", "#9fc5e8")
         .attr("d", path);
 
-    // Create a new div for the tooltip that is not part of the SVG
     const tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("position", "absolute")
@@ -368,7 +361,6 @@ async function renderMapView() {
 
     let pinnedCircle = null;
 
-    // Draw lab dots with a single color
     g.selectAll("circle")
         .data(labsForMap)
         .join("circle")
@@ -380,8 +372,8 @@ async function renderMapView() {
             const projected = projection([d.longitude, d.latitude]);
             return projected ? projected[1] : -1000;
         })
-        .attr("r", 7) // Fixed radius for all dots
-        .attr("fill", "#0b5394") // Single dark blue color
+        .attr("r", 7)
+        .attr("fill", "#0b5394")
         .attr("stroke", "black")
         .attr("stroke-width", 1)
         .style("cursor", "pointer")
@@ -407,14 +399,12 @@ async function renderMapView() {
             tooltip.style("opacity", 0);
         })
         .on("click", function(event, d) {
-            event.stopPropagation(); // Prevents map click from unpinning
+            event.stopPropagation();
             if (pinnedCircle && pinnedCircle.datum() === d) {
-                // Unpin
                 pinnedCircle.classed("pinned", false).attr("r", 7);
                 pinnedCircle = null;
                 tooltip.style("opacity", 0);
             } else {
-                // Unpin previous, pin new
                 if (pinnedCircle) {
                     pinnedCircle.classed("pinned", false).attr("r", 7);
                 }
@@ -426,8 +416,7 @@ async function renderMapView() {
                     .style("top", (event.pageY - 15) + "px");
             }
         });
-    
-    // Unpin when clicking on the map background
+
     svg.on("click", () => {
         if (pinnedCircle) {
             pinnedCircle.classed("pinned", false).attr("r", 7);
@@ -436,7 +425,6 @@ async function renderMapView() {
         }
     });
 
-    // Zoom behavior
     svg.call(d3.zoom()
         .scaleExtent([1, 8])
         .on("zoom", (event) => {
@@ -460,30 +448,25 @@ const updateLabInfoDisplay = () => {
 
 // --- Data Loading and Initialization ---
 d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv").then(data => {
-    allSurveyData = data; // Assign loaded data to the global variable
+    allSurveyData = data;
 
-    // Process data using the helper functions
     equipmentCountsData = calculateEquipmentCounts();
-    topEquipmentData = getTopEquipments(7); // Get top 7 for the pie chart
+    topEquipmentData = getTopEquipments(7);
     equipmentToLabsMapData = createEquipmentToLabsMap();
 
-    // Define a common click handler for the pie chart
     const pieChartClickHandler = (equipmentName) => {
         selectedEquipment = equipmentName;
-        updateLabInfoDisplay(); // Update the display based on current view
+        updateLabInfoDisplay();
     };
 
-    // Render the pie chart
     const pieChartSvg = createPieChart(pieChartClickHandler);
     d3.select("#chart-container").node().appendChild(pieChartSvg);
 
-    // Attach event listener to the view toggle checkbox
     d3.select("#view-toggle").on("change", function() {
         currentView = this.checked ? 'list' : 'map';
-        updateLabInfoDisplay(); // Re-render based on new view
+        updateLabInfoDisplay();
     });
 
-    // Initial call to update the lab info display, showing instructions initially
     updateLabInfoDisplay();
 
 }).catch(error => {
