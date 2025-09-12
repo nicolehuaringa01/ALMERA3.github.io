@@ -1,6 +1,6 @@
 // ALMERA_in_Data/6.Quality_Management_and_Reporting/6.5International_PT.js
 
-const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath5 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeInternational_PTChart() {
     const container = document.getElementById("International_PT-chart-container");
