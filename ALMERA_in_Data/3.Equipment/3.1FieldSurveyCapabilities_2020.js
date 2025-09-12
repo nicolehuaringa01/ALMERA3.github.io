@@ -2,17 +2,17 @@
 
 const csvDataPath1 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
-// This function processes the raw data to count FieldSurveyCapabilitiess
-function getFieldSurveyCapabilitiesCounts(data, FieldSurveyCapabilitiesColumn) {
+// This function processes the raw data to count FieldSurveyCapabilities
+function getFieldSurveyCapabilitiesCounts(data, capabilitiesColumn) {
     const counts = new Map();
 
     for (const row of data) {
-        if (row[FieldSurveyCapabilitiesColumn]) {
+        if (row[capabilitiesColumn]) {
             // Split by semicolon as per your Observable notebook's implicit logic
-            const FieldSurveyCapabilitiess = row[FieldSurveyCapabilitiesColumn].split(";").map(d => d.trim());
-            for (const aff of FieldSurveyCapabilitiess) {
-                if (aff) { // Ensure FieldSurveyCapabilities string is not empty after trimming
-                    counts.set(aff, (counts.get(aff) || 0) + 1);
+            const capabilities = row[capabilitiesColumn].split(";").map(d => d.trim());
+            for (const cap of capabilities) {
+                if (cap) { // Ensure capability string is not empty after trimming
+                    counts.set(cap, (counts.get(cap) || 0) + 1);
                 }
             }
         }
@@ -22,7 +22,7 @@ function getFieldSurveyCapabilitiesCounts(data, FieldSurveyCapabilitiesColumn) {
     let otherCount = 0;
 
     for (const [name, value] of counts.entries()) {
-        if (value === 1) { // FieldSurveyCapabilitiess with only one occurrence go into "Other"
+        if (value === 1) { // Capabilities with only one occurrence go into "Other"
             otherCount += 1;
         } else {
             result.push({ name, value });
@@ -36,18 +36,17 @@ function getFieldSurveyCapabilitiesCounts(data, FieldSurveyCapabilitiesColumn) {
     return result;
 }
 
-// This function selects the top N FieldSurveyCapabilitiess, including "Other" if present
-function getTopFieldSurveyCapabilitiess(FieldSurveyCapabilitiesCounts, numTop = 6) {
-    let top = FieldSurveyCapabilitiesCounts
+// This function selects the top N capabilities, including "Other" if present
+function getTopFieldSurveyCapabilities(capabilityCounts, numTop = 6) {
+    let top = capabilityCounts
         .slice() // Create a shallow copy to sort without modifying original
         .sort((a, b) => d3.descending(a.value, b.value)) // Sort by value descending
         .slice(0, numTop); // Take the top N
 
     // Ensure "Other" is included if it's one of the top N or if it exists and wasn't in top N
-    const other = FieldSurveyCapabilitiesCounts.find(d => d.name === "Other");
+    const other = capabilityCounts.find(d => d.name === "Other");
     if (other && !top.some(d => d.name === "Other")) {
         top.push(other); // Add "Other" if it wasn't already in the top N
-        // You might want to re-sort 'top' after adding 'Other' if its position matters
         top.sort((a, b) => d3.descending(a.value, b.value));
     }
 
@@ -77,15 +76,15 @@ async function initializeFieldSurveyCapabilitiesChart() {
     }
 
     // --- Data Processing using the new functions ---
-    const FieldSurveyCapabilitiesColumn = "3.1 Which of the following field survey capabilities are available at your facility? (Select all that apply)"; // User-provided column name
-    if (!rawData[0] || !rawData[0][FieldSurveyCapabilitiesColumn]) {
-        console.error(`Error: CSV data missing required column "${FieldSurveyCapabilitiesColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
-        container.innerHTML = `<p style='color: red;'>Error: Missing "${FieldSurveyCapabilitiesColumn}" column in CSV data.</p>`;
+    const capabilitiesColumn = "3.1 Which of the following field survey capabilities are available at your facility? (Select all that apply)"; // User-provided column name
+    if (!rawData[0] || !rawData[0][capabilitiesColumn]) {
+        console.error(`Error: CSV data missing required column "${capabilitiesColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
+        container.innerHTML = `<p style='color: red;'>Error: Missing "${capabilitiesColumn}" column in CSV data.</p>`;
         return;
     }
 
-    const FieldSurveyCapabilitiesCounts = getFieldSurveyCapabilitiesCounts(rawData, FieldSurveyCapabilitiesColumn);
-    const topFieldSurveyCapabilities = getTopFieldSurveyCapabilitiess(FieldSurveyCapabilitiesCounts, 6); // Get top 6 FieldSurveyCapabilitiess
+    const FieldSurveyCapabilitiesCounts = getFieldSurveyCapabilitiesCounts(rawData, capabilitiesColumn);
+    const topFieldSurveyCapabilities = getTopFieldSurveyCapabilities(FieldSurveyCapabilitiesCounts, 6); // Get top 6 capabilities
 
     if (topFieldSurveyCapabilities.length === 0) {
         console.warn("No valid FieldSurveyCapabilities data found after processing.");
@@ -94,13 +93,16 @@ async function initializeFieldSurveyCapabilitiesChart() {
     }
 
     // --- Calculate total and percentages for the tooltip ---
-    const totalFieldSurveyCapabilitiessCount = d3.sum(topFieldSurveyCapabilities, d => d.value);
+    const totalFieldSurveyCapabilitiesCount = d3.sum(topFieldSurveyCapabilities, d => d.value);
+    
+    // --- THIS IS THE FIX ---
+    const totalCount = d3.sum(FieldSurveyCapabilitiesCounts, d => d.value);
 
-    const labsThatAnswered = rawData.filter(d => d[FieldSurveyCapabilitiesColumn] && d[FieldSurveyCapabilitiesColumn].trim() !== "").length;
+    const labsThatAnswered = rawData.filter(d => d[capabilitiesColumn] && d[capabilitiesColumn].trim() !== "").length;
 
-    // Add percentage to each FieldSurveyCapabilities object in topFieldSurveyCapabilities
+    // Add percentage to each capability object in topFieldSurveyCapabilities
     topFieldSurveyCapabilities.forEach(d => {
-        d.percent = (totalFieldSurveyCapabilitiessCount > 0) ? (d.value / totalFieldSurveyCapabilitiessCount) : 0;
+        d.percent = (totalFieldSurveyCapabilitiesCount > 0) ? (d.value / totalFieldSurveyCapabilitiesCount) : 0;
     });
 
     console.log("Processed topFieldSurveyCapabilities data with percentages:", topFieldSurveyCapabilities);
@@ -139,7 +141,7 @@ async function initializeFieldSurveyCapabilitiesChart() {
             .attr("fill", d => color(d.data.name))
             .attr("d", arc)
         .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
+            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`);
     // Add a legend.
     const legend = svg.append("g")
         .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`) // Position adjusted for clarity
@@ -162,13 +164,14 @@ async function initializeFieldSurveyCapabilitiesChart() {
         .attr("dy", "0.35em")
         .text(d => d);
 
+    // --- THIS IS THE FIX ---
     svg.append("text")
-        .attr("x", -width / 2 + 10) 
+        .attr("x", -width / 2 + 10)
         .attr("y", -height / 2 + 20)
         .attr("text-anchor", "start")
         .attr("font-size", "12px")
         .attr("font-weight", "bold")
-        .text(`Total responses: ${FieldSurveyCapabilitiesCounts.toLocaleString("en-US")}`);
+        .text(`Total responses: ${totalCount.toLocaleString("en-US")}`);
 
     svg.append("text")
         .attr("x", -width / 2 + 10)
