@@ -29,7 +29,7 @@ async function initializeMethodAndRoutineDevelopmentChart() {
     }
 
     // --- Data Processing ---
-    const MethodAndRoutineDevelopmentColumn = '4.1 Has the laboratory been involved in development of routine and/or rapid analytical methods in preparedness for radiological emergency?';
+    const MethodAndRoutineDevelopmentColumn = '4.1 Has the laboratory been involved in development of routine and/or rapid analytical methods?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
