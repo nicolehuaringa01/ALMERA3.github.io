@@ -28,6 +28,7 @@
     <div id="chart-container" class="space-y-4">
         <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800">Interactive ALMERA Laboratories</h1>
         <input type="text" id="search-bar" placeholder="Search by Radionuclide, Laboratory, Member State, or City..." class="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+        <p id="result-count" class="text-sm text-gray-600 text-center"></p>
         <div id="map-container" class="relative w-full aspect-[2/1] bg-gray-200 rounded-lg overflow-hidden">
             <canvas id="map-canvas" class="w-full h-full"></canvas>
             <div id="tooltip" class="absolute z-10"></div>
@@ -43,6 +44,7 @@
             const context = canvas.getContext("2d");
             const tooltip = document.getElementById("tooltip");
             const searchBar = document.getElementById("search-bar");
+            const resultCountEl = document.getElementById("result-count");
             const mapContainer = document.getElementById("map-container");
 
             const width = container.clientWidth;
@@ -58,7 +60,7 @@
             ]);
 
             if (!land || !data) {
-                console.error("Failed to load all required data. Please ensure 'land-50m.json' and '2020_ALMERA_Capabilities_Survey.csv' are in the same folder as this HTML file.");
+                console.error("Failed to load all required data. Please ensure 'land-50m.json' and '2020_ALMERA_Capabilities_Survey.csv' are in the correct location.");
                 container.innerHTML = "<p class='text-red-500 text-center'>Failed to load map or data. Please check the console for details.</p>";
                 return;
             }
@@ -156,8 +158,13 @@
                 return pts;
             }
 
-            // Initial render with all data
+            // Initial render with all data and update result count
             points = render();
+            updateResultCount();
+
+            function updateResultCount() {
+                resultCountEl.textContent = `${filteredData.length} results found.`;
+            }
 
             // --- Event Listeners ---
             
@@ -173,6 +180,7 @@
                     (d["5.2 Radionuclides measured by laboratory"] && d["5.2 Radionuclides measured by laboratory"].toLowerCase().includes(query))
                 );
                 points = render();
+                updateResultCount();
             });
 
             // Mouse events for tooltips
@@ -192,7 +200,7 @@
 
                 if (hoveredPoint) {
                     tooltip.style.display = "block";
-                    // Fix: Position tooltip relative to the map container
+                    // Position tooltip relative to the map container
                     const mapRect = mapContainer.getBoundingClientRect();
                     tooltip.style.left = `${event.clientX - mapRect.left + 10}px`;
                     tooltip.style.top = `${event.clientY - mapRect.top + 10}px`;
@@ -226,7 +234,7 @@
                 if (clickedPoint) {
                     selectedPoint = clickedPoint;
                     tooltip.style.display = "block";
-                    // Fix: Position tooltip relative to the map container
+                    // Position tooltip relative to the map container
                     const mapRect = mapContainer.getBoundingClientRect();
                     tooltip.style.left = `${event.clientX - mapRect.left + 10}px`;
                     tooltip.style.top = `${event.clientY - mapRect.top + 10}px`;
@@ -243,7 +251,7 @@
                         ${clickedPoint.radionuclides.split(';').join('<br>')}
                     `;
                 } else {
-                    // Fix: Unpin the tooltip when clicking an empty area
+                    // Unpin the tooltip when clicking an empty area
                     selectedPoint = null;
                     tooltip.style.display = "none";
                 }
@@ -256,7 +264,7 @@
                 canvas.height = newWidth / 2;
                 projection.fitSize([canvas.width, canvas.height], land);
                 path = d3.geoPath(projection, context);
-                render();
+                points = render();
             });
 
             // Handle zooming
@@ -278,3 +286,4 @@
     </script>
 </body>
 </html>
+
