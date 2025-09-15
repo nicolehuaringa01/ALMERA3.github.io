@@ -43,6 +43,7 @@
             const context = canvas.getContext("2d");
             const tooltip = document.getElementById("tooltip");
             const searchBar = document.getElementById("search-bar");
+            const mapContainer = document.getElementById("map-container");
 
             const width = container.clientWidth;
             const height = width / 2; // Maintain a 2:1 aspect ratio
@@ -70,6 +71,7 @@
             // Create a color scale for the Geographic Region, matching the screenshot
             const colorScale = d3.scaleOrdinal()
                 .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
+                // Fix the domain name to the correct column name
                 .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]);
 
             // Define the geographic projection
@@ -103,8 +105,6 @@
             function render() {
                 // Clear the canvas
                 context.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Removed the code for drawing the circular background behind the map.
                 
                 // Draw the land with a color that matches the screenshot
                 context.beginPath();
@@ -117,7 +117,8 @@
                     const [x, y] = projection([+d.Long, +d.Lat]) || [];
                     return {
                         x, y,
-                        color: colorScale(d["Geographic Region"] || "black"),
+                        // Fix the geographic region column name
+                        color: colorScale(d["1.4 Geographic Region"] || "black"),
                         info: d["1.1 Name of Laboratory"] || "Laboratory Missing",
                         city: d["City"] || "Unknown City",
                         memberState: d["1.3 Member State"] || "No member state",
@@ -159,14 +160,14 @@
             points = render();
 
             // --- Event Listeners ---
-
+            
             // Search bar functionality
             searchBar.addEventListener("input", function() {
                 const query = this.value.toLowerCase();
                 filteredData = data.filter(d =>
                     (d["1.3 Member State"] && d["1.3 Member State"].toLowerCase().includes(query)) ||
                     (d["1.1 Name of Laboratory"] && d["1.1 Name of Laboratory"].toLowerCase().includes(query)) ||
-                    (d["Geographic Region"] && d["Geographic Region"].toLowerCase().includes(query)) ||
+                    (d["1.4 Geographic Region"] && d["1.4 Geographic Region"].toLowerCase().includes(query)) ||
                     (d["1.7 Contact Person"] && d["1.7 Contact Person"].toLowerCase().includes(query)) ||
                     (d["City"] && d["City"].toLowerCase().includes(query)) ||
                     (d["5.2 Radionuclides measured by laboratory"] && d["5.2 Radionuclides measured by laboratory"].toLowerCase().includes(query))
@@ -191,9 +192,10 @@
 
                 if (hoveredPoint) {
                     tooltip.style.display = "block";
-                    // Fix: Set the tooltip position relative to the mouse cursor
-                    tooltip.style.left = `${event.pageX + 10}px`;
-                    tooltip.style.top = `${event.pageY + 10}px`;
+                    // Fix: Position tooltip relative to the map container
+                    const mapRect = mapContainer.getBoundingClientRect();
+                    tooltip.style.left = `${event.clientX - mapRect.left + 10}px`;
+                    tooltip.style.top = `${event.clientY - mapRect.top + 10}px`;
                     tooltip.innerHTML = `
                         <strong>${hoveredPoint.info}</strong><br>
                         🏢 ${hoveredPoint.address}<br>
@@ -224,9 +226,10 @@
                 if (clickedPoint) {
                     selectedPoint = clickedPoint;
                     tooltip.style.display = "block";
-                    // Fix: Set the tooltip position relative to the mouse cursor
-                    tooltip.style.left = `${event.pageX + 10}px`;
-                    tooltip.style.top = `${event.pageY + 10}px`;
+                    // Fix: Position tooltip relative to the map container
+                    const mapRect = mapContainer.getBoundingClientRect();
+                    tooltip.style.left = `${event.clientX - mapRect.left + 10}px`;
+                    tooltip.style.top = `${event.clientY - mapRect.top + 10}px`;
                     tooltip.innerHTML = `
                         <strong>${clickedPoint.info}</strong><br>
                         🏢 ${clickedPoint.address}<br>
@@ -275,4 +278,3 @@
     </script>
 </body>
 </html>
-
