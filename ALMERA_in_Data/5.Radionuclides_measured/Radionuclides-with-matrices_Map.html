@@ -75,54 +75,61 @@
 
             // --- Data Loading ---
             // Load map and data files asynchronously. The URLs for the map data have been updated to be more reliable.
-            const [world, data] = await Promise.all([
-              d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"),
-              d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
-            ]);
+            // Data loading
+const [world, data] = await Promise.all([
+  d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"),
+  d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
+]);
 
-            // Convert TopoJSON → GeoJSON
-            const land = topojson.feature(world, world.objects.countries);
+// Convert TopoJSON → GeoJSON
+const land = topojson.feature(world, world.objects.countries);
 
-            // Projection + path
-            let projection = d3.geoEqualEarth().fitSize([width, height], land);
-            let path = d3.geoPath(projection, context);
+// Projection + path
+let projection = d3.geoEqualEarth().fitSize([width, height], land);
+let path = d3.geoPath(projection, context);
 
-            // Color scale (make sure domain matches your CSV exactly)
-            const colorScale = d3.scaleOrdinal()
-              .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
-              .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]);
+// Color scale (make sure domain matches your CSV exactly)
+const colorScale = d3.scaleOrdinal()
+  .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
+  .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]);
 
-            // Render function
-            function render() {
-              context.clearRect(0, 0, canvas.width, canvas.height);
+// Render function
+function render() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw just the land (remove the globe circle if you want flat map only)
-              context.beginPath();
-              path(land);
-              context.fillStyle = "#79acd2";
-              context.fill();
+  // Draw just the land (remove the globe circle if you want flat map only)
+  context.beginPath();
+  path(land);
+  context.fillStyle = "#79acd2";
+  context.fill();
 
-            // Clustering function to group nearby points
-            function clusterPoints(points, radius) {
-                const clusters = [];
-                points.forEach(point => {
-                    let addedToCluster = false;
-                    clusters.forEach(cluster => {
-                        const dx = point.x - cluster.x;
-                        const dy = point.y - cluster.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < radius) {
-                            cluster.points.push(point);
-                            cluster.x = (cluster.x * (cluster.points.length - 1) + point.x) / cluster.points.length;
-                            cluster.y = (cluster.y * (cluster.points.length - 1) + point.y) / cluster.points.length;
-                            addedToCluster = true;
-                        }
-                    });
-                    if (!addedToCluster) {
-                        clusters.push({ x: point.x, y: point.y, points: [point] });
-                    }
-                });
-                return clusters;
+  // Project points
+  const points = filteredData.map(d => {
+    const [x, y] = projection([+d.Longitude, +d.Latitude]) || [];  // <-- UPDATE FIELD NAMES
+    return {
+      x, y,
+      color: colorScale(d["1.4 Geographic Region"]),  // <-- UPDATE FIELD NAME
+      info: d["1.1 Name of Laboratory"] || "Lab missing",
+      city: d["City"] || "Unknown City",
+      memberState: d["1.3 Member State"] || "No member state",
+      contact: d["1.7 Contact Person"] || "No contact",
+      email: d["1.8 Contact Person E-mail"] || "No email",
+      address: d["1.2 Physical Address"] || "No address",
+      radionuclides: d["5.2 Radionuclides measured by laboratory"] || "No data"
+    };
+  }).filter(d => d.x && d.y);
+
+  // Draw dots
+  points.forEach(point => {
+    context.beginPath();
+    context.arc(point.x, point.y, 5, 0, 2 * Math.PI);
+    context.fillStyle = point.color;
+    context.fill();
+  });
+
+  return points;
+}
+
             }
 
             // Function to render the map and dots
