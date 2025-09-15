@@ -53,7 +53,7 @@
             const [land, data] = await Promise.all([
                 // Fix: Access the 'land' object, not 'countries', which does not exist.
                 d3.json("land-50m.json").then(landJson => topojson.feature(landJson, landJson.objects.land)),
-                d3.csv("ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
+                d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
             ]);
 
             if (!land || !data) {
