@@ -74,12 +74,12 @@
 
             // --- Data Loading ---
             // Load map and data files asynchronously. The URLs for the map data have been updated to be more reliable.
-            // Be sure to verify the path to your CSV file.
             const [land, sphere, data] = await Promise.all([
-                d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json").then(topojson.feature),
-                d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/sphere.json").then(topojson.feature),
-                // Corrected the CSV file path to a relative URL
-                d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv")
+                // Corrected the URL for the land data
+                d3.json("https://unpkg.com/world-atlas@2.0.2/land-50m.json").then(topojson.feature),
+                // Corrected the URL for the sphere data
+                d3.json("https://unpkg.com/world-atlas@2.0.2/sphere.json").then(topojson.feature),
+                d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
             ]);
 
             if (!land || !sphere || !data) {
