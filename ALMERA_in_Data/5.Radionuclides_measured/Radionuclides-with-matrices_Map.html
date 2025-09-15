@@ -74,7 +74,7 @@
             const colorScale = d3.scaleOrdinal()
                 .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
                 // Fix the domain name to the correct column name
-                .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]);
+                .range(["#d9534f", "#428bca", "#376e37", "#f0ad4e", "#5bc0de"]);
 
             // Define the geographic projection
             let projection = d3.geoEqualEarth().fitSize([width, height], land);
@@ -111,7 +111,7 @@
                 // Draw the land with a color that matches the screenshot
                 context.beginPath();
                 path(land);
-                context.fillStyle = "#79acd2";
+                context.fillStyle = "#bcd5e8";
                 context.fill();
 
                 // Project the data points to the canvas coordinates
