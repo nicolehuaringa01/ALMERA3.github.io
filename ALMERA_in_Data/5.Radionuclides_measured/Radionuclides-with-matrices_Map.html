@@ -74,15 +74,13 @@
 
             // --- Data Loading ---
             // Load map and data files asynchronously. The URLs for the map data have been updated to be more reliable.
-            const [land, sphere, data] = await Promise.all([
+            const [land, data] = await Promise.all([
                 // Corrected the URL for the land data
                 d3.json("https://unpkg.com/world-atlas@2.0.2/land-50m.json").then(topojson.feature),
-                // Corrected the URL for the sphere data
-                d3.json("https://unpkg.com/world-atlas@2.0.2/sphere.json").then(topojson.feature),
                 d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
             ]);
 
-            if (!land || !sphere || !data) {
+            if (!land || !data) {
                 console.error("Failed to load all required data.");
                 container.innerHTML = "<p class='text-red-500 text-center'>Failed to load map or data. Please check the console for details.</p>";
                 return;
@@ -129,9 +127,9 @@
                 // Clear the canvas
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Draw the sphere (background)
+                // Draw a simple circular background instead of the sphere.json file
                 context.beginPath();
-                path(sphere);
+                context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) / 2, 0, 2 * Math.PI);
                 context.fillStyle = "#e2e8f0";
                 context.fill();
 
@@ -299,3 +297,4 @@
     </script>
 </body>
 </html>
+
