@@ -67,14 +67,13 @@
 
             // Maintain a filtered version of the data; initially, all data is shown.
             let filteredData = data;
-            let selectedPoint = null;
-            let points = [];
+            let quadtree;
 
             // Create a color scale for the Geographic Region, matching the screenshot
             const colorScale = d3.scaleOrdinal()
                 .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
                 // Fix the domain name to the correct column name
-                .range(["#d9534f", "#428bca", "#376e37", "#f0ad4e", "#5bc0de"]);
+                .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]);
 
             // Define the geographic projection
             let projection = d3.geoEqualEarth().fitSize([width, height], land);
@@ -111,7 +110,7 @@
                 // Draw the land with a color that matches the screenshot
                 context.beginPath();
                 path(land);
-                context.fillStyle = "#bcd5e8";
+                context.fillStyle = "#79acd2";
                 context.fill();
 
                 // Project the data points to the canvas coordinates
@@ -154,12 +153,13 @@
                         context.fill();
                     }
                 });
-
-                return pts;
+                
+                // Build the quadtree for efficient searching
+                quadtree = d3.quadtree().x(d => d.x).y(d => d.y).addAll(pts);
             }
 
             // Initial render with all data and update result count
-            points = render();
+            render();
             updateResultCount();
 
             function updateResultCount() {
@@ -179,42 +179,36 @@
                     (d["City"] && d["City"].toLowerCase().includes(query)) ||
                     (d["5.2 Radionuclides measured by laboratory"] && d["5.2 Radionuclides measured by laboratory"].toLowerCase().includes(query))
                 );
-                points = render();
+                render();
                 updateResultCount();
             });
 
             // Mouse events for tooltips
             canvas.addEventListener("mousemove", (event) => {
-                // Only show tooltip on hover if no point is currently selected
-                if (selectedPoint) return;
-                
                 const rect = canvas.getBoundingClientRect();
                 const mouseX = event.clientX - rect.left;
                 const mouseY = event.clientY - rect.top;
 
-                const hoveredPoint = points.find(point => {
-                    const dx = mouseX - point.x;
-                    const dy = mouseY - point.y;
-                    return Math.sqrt(dx * dx + dy * dy) <= 5;
-                });
+                // Use the quadtree to find the nearest point efficiently
+                const closestPoint = quadtree.find(mouseX, mouseY, 10); // Search within a radius of 10 pixels
 
-                if (hoveredPoint) {
+                if (closestPoint) {
                     tooltip.style.display = "block";
                     // Position tooltip relative to the map container
                     const mapRect = mapContainer.getBoundingClientRect();
                     tooltip.style.left = `${event.clientX - mapRect.left + 10}px`;
                     tooltip.style.top = `${event.clientY - mapRect.top + 10}px`;
                     tooltip.innerHTML = `
-                        <strong>${hoveredPoint.info}</strong><br>
-                        🏢 ${hoveredPoint.address}<br>
-                        📍 ${hoveredPoint.city}<br>
-                        🌍 ${hoveredPoint.memberState}<br>
+                        <strong>${closestPoint.info}</strong><br>
+                        🏢 ${closestPoint.address}<br>
+                        📍 ${closestPoint.city}<br>
+                        🌍 ${closestPoint.memberState}<br>
                         <hr class="my-1 border-gray-600">
-                        🧑‍💼 ${hoveredPoint.contact}<br>
-                        📧 ${hoveredPoint.email}<br>
+                        🧑‍💼 ${closestPoint.contact}<br>
+                        📧 ${closestPoint.email}<br>
                         <hr class="my-1 border-gray-600">
                         <span class="font-semibold">Radionuclides:</span><br>
-                        ${hoveredPoint.radionuclides.split(';').join('<br>')}
+                        ${closestPoint.radionuclides.split(';').join('<br>')}
                     `;
                 } else {
                     tooltip.style.display = "none";
@@ -225,14 +219,11 @@
                 const rect = canvas.getBoundingClientRect();
                 const mouseX = event.clientX - rect.left;
                 const mouseY = event.clientY - rect.top;
-                const clickedPoint = points.find(point => {
-                    const dx = mouseX - point.x;
-                    const dy = mouseY - point.y;
-                    return Math.sqrt(dx * dx + dy * dy) <= 5;
-                });
+
+                // Use the quadtree to find the nearest point on click
+                const clickedPoint = quadtree.find(mouseX, mouseY, 10);
 
                 if (clickedPoint) {
-                    selectedPoint = clickedPoint;
                     tooltip.style.display = "block";
                     // Position tooltip relative to the map container
                     const mapRect = mapContainer.getBoundingClientRect();
@@ -251,8 +242,6 @@
                         ${clickedPoint.radionuclides.split(';').join('<br>')}
                     `;
                 } else {
-                    // Unpin the tooltip when clicking an empty area
-                    selectedPoint = null;
                     tooltip.style.display = "none";
                 }
             });
@@ -264,7 +253,7 @@
                 canvas.height = newWidth / 2;
                 projection.fitSize([canvas.width, canvas.height], land);
                 path = d3.geoPath(projection, context);
-                points = render();
+                render();
             });
 
             // Handle zooming
@@ -273,7 +262,7 @@
                 .on("zoom", (event) => {
                     const transform = event.transform;
                     projection.translate([transform.x, transform.y]).scale(transform.k * (canvas.width / 2 / Math.PI));
-                    points = render();
+                    render();
                 });
 
             d3.select(canvas)
@@ -286,4 +275,3 @@
     </script>
 </body>
 </html>
-
