@@ -1,309 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/ALMERA3.github.io/favicon.ico" type="image/x-icon">
-    <title>ALMERA Radionuclides Map</title>
-    <!-- Load D3 and TopoJSON from a CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: "Inter", sans-serif;
-            background-color: #f7fafc;
-        }
-        #chart-container {
-            position: relative;
-            max-width: 900px;
-            margin: 20px auto;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            overflow: hidden;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        canvas {
-            display: block;
-            width: 100%;
-            height: auto;
-            background-color: #e2e8f0;
-            border-radius: 0.5rem;
-        }
-        #tooltip {
-            position: absolute;
-            padding: 8px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            border-radius: 4px;
-            pointer-events: none;
-            font-size: 12px;
-            font-family: inherit;
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/ALMERA3.github.io/favicon.ico" type="image/x-icon">
+  <title>ALMERA Radionuclides Map</title>
+  <!-- Load D3 and TopoJSON -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: "Inter", sans-serif; background-color: #f7fafc; }
+    #chart-container {
+      position: relative; max-width: 900px; margin: 20px auto; border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); background-color: #fff;
+      overflow: hidden; padding: 1rem; display: flex; flex-direction: column; align-items: center;
+    }
+    canvas { display: block; width: 100%; height: auto; background-color: #e2e8f0; border-radius: 0.5rem; }
+    #tooltip {
+      position: absolute; padding: 8px; background: rgba(0,0,0,0.7); color: white;
+      border-radius: 4px; pointer-events: none; font-size: 12px; display: none;
+    }
+  </style>
 </head>
 <body>
-    <div id="chart-container" class="space-y-4">
-        <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800">Interactive ALMERA Laboratories</h1>
-        <input type="text" id="search-bar" placeholder="Search by Radionuclide, Laboratory, Member State, or City..." class="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
-        <div id="map-container" class="relative w-full aspect-[2/1] bg-gray-200 rounded-lg overflow-hidden">
-            <canvas id="map-canvas" class="w-full h-full"></canvas>
-            <div id="tooltip" class="absolute z-10 p-2 bg-black bg-opacity-70 text-white rounded-lg shadow-lg"></div>
-        </div>
+  <div id="chart-container" class="space-y-4">
+    <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800">Interactive ALMERA Laboratories</h1>
+    <input type="text" id="search-bar" placeholder="Search..." class="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+    <div id="map-container" class="relative w-full aspect-[2/1] bg-gray-200 rounded-lg overflow-hidden">
+      <canvas id="map-canvas" class="w-full h-full"></canvas>
+      <div id="tooltip" class="absolute z-10"></div>
     </div>
+  </div>
 
-    <script>
-        // Use an async function to handle all data loading and chart initialization
-        async function initializeRadionuclidesChart() {
-            // --- Configuration and Constants ---
-            const container = document.getElementById("chart-container");
-            const canvas = document.getElementById("map-canvas");
-            const context = canvas.getContext("2d");
-            const tooltip = document.getElementById("tooltip");
-            const searchBar = document.getElementById("search-bar");
+  <script>
+  async function initializeRadionuclidesChart() {
+    const container = document.getElementById("chart-container");
+    const canvas = document.getElementById("map-canvas");
+    const context = canvas.getContext("2d");
+    const tooltip = document.getElementById("tooltip");
+    const searchBar = document.getElementById("search-bar");
 
-            const width = container.clientWidth;
-            const height = width / 2; // Maintain a 2:1 aspect ratio
-            canvas.width = width;
-            canvas.height = height;
+    let width = container.clientWidth;
+    let height = width / 2;
+    canvas.width = width;
+    canvas.height = height;
 
-            // --- Data Loading ---
-            // Load map and data files asynchronously. The URLs for the map data have been updated to be more reliable.
-            // Data loading
-const [world, data] = await Promise.all([
-  d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"),
-  d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
-]);
+    // --- Load Data ---
+    const [world, dataRaw] = await Promise.all([
+      d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"),
+      d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
+    ]);
+    let data = dataRaw;
+    let filteredData = [...data];
+    let selectedPoint = null;
 
-// Convert TopoJSON → GeoJSON
-const land = topojson.feature(world, world.objects.countries);
+    const land = topojson.feature(world, world.objects.countries);
 
-// Projection + path
-let projection = d3.geoEqualEarth().fitSize([width, height], land);
-let path = d3.geoPath(projection, context);
+    let projection = d3.geoEqualEarth().fitSize([width, height], land);
+    let path = d3.geoPath(projection, context);
 
-// Color scale (make sure domain matches your CSV exactly)
-const colorScale = d3.scaleOrdinal()
-  .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
-  .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]);
+    const colorScale = d3.scaleOrdinal()
+      .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
+      .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]);
 
-// Render function
-function render() {
-  context.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Draw just the land (remove the globe circle if you want flat map only)
-  context.beginPath();
-  path(land);
-  context.fillStyle = "#79acd2";
-  context.fill();
-
-  // Project points
-  const points = filteredData.map(d => {
-    const [x, y] = projection([+d.Longitude, +d.Latitude]) || [];  // <-- UPDATE FIELD NAMES
-    return {
-      x, y,
-      color: colorScale(d["1.4 Geographic Region"]),  // <-- UPDATE FIELD NAME
-      info: d["1.1 Name of Laboratory"] || "Lab missing",
-      city: d["City"] || "Unknown City",
-      memberState: d["1.3 Member State"] || "No member state",
-      contact: d["1.7 Contact Person"] || "No contact",
-      email: d["1.8 Contact Person E-mail"] || "No email",
-      address: d["1.2 Physical Address"] || "No address",
-      radionuclides: d["5.2 Radionuclides measured by laboratory"] || "No data"
-    };
-  }).filter(d => d.x && d.y);
-
-  // Draw dots
-  points.forEach(point => {
-    context.beginPath();
-    context.arc(point.x, point.y, 5, 0, 2 * Math.PI);
-    context.fillStyle = point.color;
-    context.fill();
-  });
-
-  return points;
-}
-
-            }
-
-            // Function to render the map and dots
-            function render() {
-                // Clear the canvas
-                context.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Draw a simple circular background for the globe
-                context.beginPath();
-                context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) / 2, 0, 2 * Math.PI);
-                context.fillStyle = "#a1cbe8"; // A color that closely matches the user's screenshot
-                context.fill();
-
-                // Draw the land with a color that matches the screenshot
-                context.beginPath();
-                path(land);
-                context.fillStyle = "#79acd2";
-                context.fill();
-
-                // Project the data points to the canvas coordinates
-                const points = filteredData.map(d => {
-                    const [x, y] = projection([+d.Long, +d.Lat]) || [];
-                    return {
-                        x, y,
-                        color: colorScale(d["1.4 Geographic Region"] || "black"),
-                        info: d["1.1 Name of Laboratory"] || "Laboratory Missing",
-                        city: d["City"] || "Unknown City",
-                        memberState: d["1.3 Member State"] || "No member state",
-                        contact: d["1.7 Contact Person"] || "No contact available",
-                        email: d["1.8 Contact Person E-mail"] || "No email available",
-                        address: d["1.2 Physical Address"] || "No address available",
-                        radionuclides: d["5.2 Radionuclides measured by laboratory"] || "No info on file"
-                    };
-                }).filter(d => d.x && d.y); // Filter out points that fall outside the projection
-
-                // Cluster points to avoid overlap
-                const clusters = clusterPoints(points, 15);
-
-                clusters.forEach(cluster => {
-                    if (cluster.points.length > 1) {
-                        // Draw a cluster circle
-                        context.beginPath();
-                        context.arc(cluster.x, cluster.y, 10, 0, 2 * Math.PI);
-                        context.fillStyle = "gray";
-                        context.fill();
-                        context.fillStyle = "white";
-                        context.textAlign = "center";
-                        context.textBaseline = "middle";
-                        context.font = "12px Arial";
-                        context.fillText(cluster.points.length, cluster.x, cluster.y);
-                    } else {
-                        const point = cluster.points[0];
-                        context.beginPath();
-                        context.arc(point.x, point.y, 5, 0, 2 * Math.PI);
-                        context.fillStyle = point.color;
-                        context.fill();
-                    }
-                });
-
-                return points;
-            }
-
-            // Initial render with all data
-            let renderedPoints = render();
-
-            // --- Event Listeners ---
-
-            // Search bar functionality
-            searchBar.addEventListener("input", function() {
-                const query = this.value.toLowerCase();
-                filteredData = data.filter(d =>
-                    (d["1.3 Member State"] && d["1.3 Member State"].toLowerCase().includes(query)) ||
-                    (d["1.1 Name of Laboratory"] && d["1.1 Name of Laboratory"].toLowerCase().includes(query)) ||
-                    (d["Geographic Region"] && d["Geographic Region"].toLowerCase().includes(query)) ||
-                    (d["1.7 Contact Person"] && d["1.7 Contact Person"].toLowerCase().includes(query)) ||
-                    (d["City"] && d["City"].toLowerCase().includes(query)) ||
-                    (d["5.2 Radionuclides measured by laboratory"] && d["5.2 Radionuclides measured by laboratory"].toLowerCase().includes(query))
-                );
-                renderedPoints = render();
-            });
-
-            // Mouse events for tooltips
-            canvas.addEventListener("mousemove", (event) => {
-                if (selectedPoint) return;
-                const rect = canvas.getBoundingClientRect();
-                const mouseX = event.clientX - rect.left;
-                const mouseY = event.clientY - rect.top;
-
-                const hoveredPoint = renderedPoints.find(point => {
-                    const dx = mouseX - point.x;
-                    const dy = mouseY - point.y;
-                    return Math.sqrt(dx * dx + dy * dy) <= 5;
-                });
-
-                if (hoveredPoint) {
-                    tooltip.style.display = "block";
-                    tooltip.style.left = `${event.pageX + 10}px`;
-                    tooltip.style.top = `${event.pageY + 10}px`;
-                    tooltip.innerHTML = `
-                        <strong>${hoveredPoint.info}</strong><br>
-                        🏢 ${hoveredPoint.address}<br>
-                        📍 ${hoveredPoint.city}<br>
-                        🌍 ${hoveredPoint.memberState}<br>
-                        <hr class="my-1 border-gray-600">
-                        🧑‍💼 ${hoveredPoint.contact}<br>
-                        📧 ${hoveredPoint.email}<br>
-                        <hr class="my-1 border-gray-600">
-                        <span class="font-semibold">Radionuclides:</span><br>
-                        ${hoveredPoint.radionuclides.split(';').join('<br>')}
-                    `;
-                } else {
-                    tooltip.style.display = "none";
-                }
-            });
-
-            canvas.addEventListener("click", (event) => {
-                const rect = canvas.getBoundingClientRect();
-                const mouseX = event.clientX - rect.left;
-                const mouseY = event.clientY - rect.top;
-                const clickedPoint = renderedPoints.find(point => {
-                    const dx = mouseX - point.x;
-                    const dy = mouseY - point.y;
-                    return Math.sqrt(dx * dx + dy * dy) <= 5;
-                });
-
-                if (clickedPoint) {
-                    selectedPoint = clickedPoint;
-                    tooltip.style.display = "block";
-                    tooltip.style.left = `${event.pageX + 10}px`;
-                    tooltip.style.top = `${event.pageY + 10}px`;
-                    tooltip.innerHTML = `
-                        <strong>${clickedPoint.info}</strong><br>
-                        🏢 ${clickedPoint.address}<br>
-                        📍 ${clickedPoint.city}<br>
-                        🌍 ${clickedPoint.memberState}<br>
-                        <hr class="my-1 border-gray-600">
-                        🧑‍💼 ${clickedPoint.contact}<br>
-                        📧 ${clickedPoint.email}<br>
-                        <hr class="my-1 border-gray-600">
-                        <span class="font-semibold">Radionuclides:</span><br>
-                        ${clickedPoint.radionuclides.split(';').join('<br>')}
-                    `;
-                } else {
-                    selectedPoint = null;
-                    tooltip.style.display = "none";
-                }
-            });
-
-            // Handle responsiveness
-            window.addEventListener('resize', () => {
-                const newWidth = container.clientWidth;
-                canvas.width = newWidth;
-                canvas.height = newWidth / 2;
-                projection.fitSize([canvas.width, canvas.height], land);
-                path = d3.geoPath(projection, context);
-                render();
-            });
-
-            // Handle zooming
-            const zoom = d3.zoom()
-                .scaleExtent([1, 250])
-                .on("zoom", (event) => {
-                    const transform = event.transform;
-                    projection.translate([transform.x, transform.y]).scale(transform.k * (canvas.width / 2 / Math.PI));
-                    renderedPoints = render();
-                });
-
-            d3.select(canvas)
-                .call(zoom)
-                .on("dblclick.zoom", null);
+    // --- Clustering function ---
+    function clusterPoints(points, radius) {
+      const clusters = [];
+      points.forEach(p => {
+        let cluster = clusters.find(c => {
+          const dx = c.x - p.x, dy = c.y - p.y;
+          return Math.sqrt(dx*dx + dy*dy) < radius;
+        });
+        if (cluster) {
+          cluster.points.push(p);
+        } else {
+          clusters.push({ x: p.x, y: p.y, points: [p] });
         }
+      });
+      return clusters;
+    }
 
-        // Initialize the chart once the DOM is ready
-        document.addEventListener("DOMContentLoaded", initializeRadionuclidesChart);
-    </script>
+    // --- Render function ---
+    function render() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw land
+      context.beginPath();
+      path(land);
+      context.fillStyle = "#79acd2";
+      context.fill();
+
+      // Map data → points
+      const points = filteredData.map(d => {
+        const coords = projection([+d.Longitude || +d.Long, +d.Latitude || +d.Lat]);
+        if (!coords) return null;
+        const [x, y] = coords;
+        return {
+          x, y,
+          color: colorScale(d["1.4 Geographic Region"] || "Other"),
+          info: d["1.1 Name of Laboratory"] || "Unknown",
+          city: d["City"] || "Unknown City",
+          memberState: d["1.3 Member State"] || "Unknown State",
+          contact: d["1.7 Contact Person"] || "No contact",
+          email: d["1.8 Contact Person E-mail"] || "No email",
+          address: d["1.2 Physical Address"] || "No address",
+          radionuclides: d["5.2 Radionuclides measured by laboratory"] || "No data"
+        };
+      }).filter(Boolean);
+
+      // Cluster
+      const clusters = clusterPoints(points, 15);
+
+      clusters.forEach(c => {
+        if (c.points.length > 1) {
+          context.beginPath();
+          context.arc(c.x, c.y, 10, 0, 2 * Math.PI);
+          context.fillStyle = "gray";
+          context.fill();
+          context.fillStyle = "white";
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          context.font = "12px Arial";
+          context.fillText(c.points.length, c.x, c.y);
+        } else {
+          const p = c.points[0];
+          context.beginPath();
+          context.arc(p.x, p.y, 5, 0, 2 * Math.PI);
+          context.fillStyle = p.color;
+          context.fill();
+        }
+      });
+
+      return points;
+    }
+
+    let renderedPoints = render();
+
+    // --- Search ---
+    searchBar.addEventListener("input", function() {
+      const q = this.value.toLowerCase();
+      filteredData = data.filter(d =>
+        (d["1.3 Member State"] && d["1.3 Member State"].toLowerCase().includes(q)) ||
+        (d["1.1 Name of Laboratory"] && d["1.1 Name of Laboratory"].toLowerCase().includes(q)) ||
+        (d["1.4 Geographic Region"] && d["1.4 Geographic Region"].toLowerCase().includes(q)) ||
+        (d["1.7 Contact Person"] && d["1.7 Contact Person"].toLowerCase().includes(q)) ||
+        (d["City"] && d["City"].toLowerCase().includes(q)) ||
+        (d["5.2 Radionuclides measured by laboratory"] && d["5.2 Radionuclides measured by laboratory"].toLowerCase().includes(q))
+      );
+      renderedPoints = render();
+    });
+
+    // --- Tooltips ---
+    canvas.addEventListener("mousemove", (event) => {
+      if (selectedPoint) return;
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left, mouseY = event.clientY - rect.top;
+      const hovered = renderedPoints.find(p => {
+        const dx = mouseX - p.x, dy = mouseY - p.y;
+        return Math.sqrt(dx*dx + dy*dy) <= 5;
+      });
+      if (hovered) {
+        tooltip.style.display = "block";
+        tooltip.style.left = `${event.pageX + 10}px`;
+        tooltip.style.top = `${event.pageY + 10}px`;
+        tooltip.innerHTML = `
+          <strong>${hovered.info}</strong><br>
+          🏢 ${hovered.address}<br>
+          📍 ${hovered.city}<br>
+          🌍 ${hovered.memberState}<br>
+          <hr class="my-1 border-gray-600">
+          🧑‍💼 ${hovered.contact}<br>
+          📧 ${hovered.email}<br>
+          <hr class="my-1 border-gray-600">
+          <span class="font-semibold">Radionuclides:</span><br>
+          ${hovered.radionuclides.split(';').join('<br>')}
+        `;
+      } else {
+        tooltip.style.display = "none";
+      }
+    });
+
+    canvas.addEventListener("click", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left, mouseY = event.clientY - rect.top;
+      const clicked = renderedPoints.find(p => {
+        const dx = mouseX - p.x, dy = mouseY - p.y;
+        return Math.sqrt(dx*dx + dy*dy) <= 5;
+      });
+      if (clicked) {
+        selectedPoint = clicked;
+      } else {
+        selectedPoint = null;
+        tooltip.style.display = "none";
+      }
+    });
+
+    // --- Responsiveness ---
+    window.addEventListener("resize", () => {
+      width = container.clientWidth;
+      height = width / 2;
+      canvas.width = width;
+      canvas.height = height;
+      projection.fitSize([width, height], land);
+      path = d3.geoPath(projection, context);
+      renderedPoints = render();
+    });
+
+    // --- Zoom ---
+    const zoom = d3.zoom()
+      .scaleExtent([1, 250])
+      .on("zoom", (event) => {
+        const t = event.transform;
+        projection.translate([t.x, t.y]).scale(t.k * (canvas.width / 2 / Math.PI));
+        renderedPoints = render();
+      });
+
+    d3.select(canvas).call(zoom).on("dblclick.zoom", null);
+  }
+
+  document.addEventListener("DOMContentLoaded", initializeRadionuclidesChart);
+  </script>
 </body>
 </html>
