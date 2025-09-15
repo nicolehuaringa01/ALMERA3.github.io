@@ -1,4 +1,4 @@
-const csvDataPath2 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath2 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 console.log("Attempting to load CSV from:", csvDataPath2);
 
 d3.csv(csvDataPath2)
