@@ -75,9 +75,9 @@
             // --- Data Loading ---
             // Load map and data files asynchronously. The URLs for the map data have been updated to be more reliable.
             const [land, data] = await Promise.all([
-                // Corrected the URL for the land data
-                d3.json("https://unpkg.com/world-atlas@2.0.2/land-50m.json").then(topojson.feature),
-                d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
+                // Using a more reliable CDN link for the world map land data
+                d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then(topojson.feature),
+                // d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
             ]);
 
             if (!land || !data) {
@@ -90,10 +90,10 @@
             let filteredData = data;
             let selectedPoint = null;
 
-            // Create a color scale for the Geographic Region
+            // Create a color scale for the Geographic Region, matching the screenshot
             const colorScale = d3.scaleOrdinal()
                 .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
-                .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]); // Using a nicer color palette
+                .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]); // Matches the colors from the screenshot
 
             // Define the geographic projection
             let projection = d3.geoEqualEarth().fitSize([width, height], land);
@@ -127,16 +127,16 @@
                 // Clear the canvas
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Draw a simple circular background instead of the sphere.json file
+                // Draw a simple circular background for the globe
                 context.beginPath();
                 context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) / 2, 0, 2 * Math.PI);
-                context.fillStyle = "#e2e8f0";
+                context.fillStyle = "#a1cbe8"; // A color that closely matches the user's screenshot
                 context.fill();
 
-                // Draw the land with a nice blue color
+                // Draw the land with a color that matches the screenshot
                 context.beginPath();
                 path(land);
-                context.fillStyle = "#66a5d2";
+                context.fillStyle = "#79acd2";
                 context.fill();
 
                 // Project the data points to the canvas coordinates
@@ -297,4 +297,3 @@
     </script>
 </body>
 </html>
-
