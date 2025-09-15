@@ -74,11 +74,13 @@
 
             // --- Data Loading ---
             // Load map and data files asynchronously. The URLs for the map data have been updated to be more reliable.
-            const [land, data] = await Promise.all([
-                // Using a more reliable CDN link for the world map land data
-                d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then(topojson.feature),
-                // d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
+            const [world, data] = await Promise.all([
+              d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"),
+              d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
             ]);
+
+            // Convert TopoJSON → GeoJSON
+            const land = topojson.feature(world, world.objects.countries);
 
             if (!land || !data) {
                 console.error("Failed to load all required data.");
