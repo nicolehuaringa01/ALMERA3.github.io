@@ -49,11 +49,11 @@
             canvas.height = height;
 
             // --- Data Loading ---
-            // Load map and data files asynchronously from local paths.
+            // Load map and data files asynchronously.
             const [land, data] = await Promise.all([
-                // Using the local land-50m.json file
-                d3.json("land-50m.json").then(landJson => topojson.feature(landJson, landJson.objects.countries)),
-                d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
+                // Fix: Access the 'land' object, not 'countries', which does not exist.
+                d3.json("land-50m.json").then(landJson => topojson.feature(landJson, landJson.objects.land)),
+                d3.csv("2020_ALMERA_Capabilities_Survey.csv") // Assuming the CSV is in the same folder
             ]);
 
             if (!land || !data) {
