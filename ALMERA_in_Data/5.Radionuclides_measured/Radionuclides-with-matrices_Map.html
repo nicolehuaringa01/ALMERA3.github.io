@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/ALMERA3.github.io/favicon.ico" type="image/x-icon">
     <title>ALMERA Radionuclides Map</title>
     <!-- Load D3 and TopoJSON from a CDN -->
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
@@ -82,24 +83,24 @@
             // Convert TopoJSON → GeoJSON
             const land = topojson.feature(world, world.objects.countries);
 
-            if (!land || !data) {
-                console.error("Failed to load all required data.");
-                container.innerHTML = "<p class='text-red-500 text-center'>Failed to load map or data. Please check the console for details.</p>";
-                return;
-            }
-
-            // Maintain a filtered version of the data; initially, all data is shown.
-            let filteredData = data;
-            let selectedPoint = null;
-
-            // Create a color scale for the Geographic Region, matching the screenshot
-            const colorScale = d3.scaleOrdinal()
-                .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
-                .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]); // Matches the colors from the screenshot
-
-            // Define the geographic projection
+            // Projection + path
             let projection = d3.geoEqualEarth().fitSize([width, height], land);
             let path = d3.geoPath(projection, context);
+
+            // Color scale (make sure domain matches your CSV exactly)
+            const colorScale = d3.scaleOrdinal()
+              .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
+              .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]);
+
+            // Render function
+            function render() {
+              context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw just the land (remove the globe circle if you want flat map only)
+              context.beginPath();
+              path(land);
+              context.fillStyle = "#79acd2";
+              context.fill();
 
             // Clustering function to group nearby points
             function clusterPoints(points, radius) {
@@ -146,7 +147,7 @@
                     const [x, y] = projection([+d.Long, +d.Lat]) || [];
                     return {
                         x, y,
-                        color: colorScale(d["Geographic Region"] || "black"),
+                        color: colorScale(d["1.4 Geographic Region"] || "black"),
                         info: d["1.1 Name of Laboratory"] || "Laboratory Missing",
                         city: d["City"] || "Unknown City",
                         memberState: d["1.3 Member State"] || "No member state",
