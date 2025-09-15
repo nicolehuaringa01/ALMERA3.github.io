@@ -49,15 +49,15 @@
             canvas.height = height;
 
             // --- Data Loading ---
-            // Load map and data files asynchronously.
+            // Load map and data files asynchronously from local paths.
             const [land, data] = await Promise.all([
-                // Using a more reliable CDN link for the world map land data
-                d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json").then(topojson.feature),
-                d3.csv("data/2020_ALMERA_Capabilities_Survey.csv")
+                // Using the local land-50m.json file
+                d3.json("land-50m.json").then(landJson => topojson.feature(landJson, landJson.objects.countries)),
+                d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv")
             ]);
 
             if (!land || !data) {
-                console.error("Failed to load all required data.");
+                console.error("Failed to load all required data. Please ensure 'land-50m.json' and '2020_ALMERA_Capabilities_Survey.csv' are in the same folder as this HTML file.");
                 container.innerHTML = "<p class='text-red-500 text-center'>Failed to load map or data. Please check the console for details.</p>";
                 return;
             }
