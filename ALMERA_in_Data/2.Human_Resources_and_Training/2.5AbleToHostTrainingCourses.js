@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2.Human_Resources_and_Training/2.5AbleToHostTrainingCourses.js
 
-const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath5 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 async function initializeHostTrainingChart() {
     const container = document.getElementById("host-courses-chart-container");
@@ -29,7 +29,7 @@ async function initializeHostTrainingChart() {
     }
 
     // --- Data Processing ---
-    const trainingColumn = '2.6 Able to host training courses?';
+    const trainingColumn = '2.3 Able to host training courses?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
