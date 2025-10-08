@@ -1,11 +1,6 @@
 // js/2.8HostALMERACMs.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the root of your GitHub Pages project.
-// Based on your previous successful path, this assumes:
-// - Your GitHub Pages are serving from 'https://nicolehuaringa01.github.io/ALMERA3.github.io/'
-// - Your CSV file is located at '/ALMERA3.github.io/data/Observable2020Survey.csv'
-const csvDataPath8 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath8 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
 async function initializeHostALMERACMsChart() {
     const container = document.getElementById("host-almera-cms-chart-container");
@@ -34,7 +29,7 @@ async function initializeHostALMERACMsChart() {
     }
 
     // --- Data Processing ---
-    const hostALMERACMsColumn = '2.8 Able to host ALMERA coordination meetings?';
+    const hostALMERACMsColumn = '2.4 Able to host ALMERA coordination meetings?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
