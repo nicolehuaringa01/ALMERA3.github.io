@@ -52,7 +52,7 @@ async function initializeHumanResourcesChart() {
     };
 
     // Define the column names from your CSV
-    const professionalCountColumn = "2.1 What is the number of full-time trained professionals in the laboratory?";
+    const professionalCountColumn = "2.1 What is the number of full-time trained professionals and technicians in the laboratory?";
     const geographicRegionColumn = "1.4 Geographic Region";
 
     // Validate if necessary columns exist in the first data row
