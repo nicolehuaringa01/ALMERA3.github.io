@@ -1,11 +1,11 @@
 // js/2.Human_Resources_and_Training/2.6TrainingHostingCapacity.js
 
 // Path to your CSV data file.
-const csvDataPath_2_6 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath_2_6 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 // Define the exact column name for the training capacity data.
 // Be very careful with spelling and leading/trailing spaces.
-const trainingCapacityColumnName = "If 'yes' above, specify the maximum number of participants for practical training";
+const trainingCapacityColumnName = "2.3 Specify the maximum number of participants for practical training";
 
 // Helper function to normalize strings for robust column matching
 function normalizeString(str) {
