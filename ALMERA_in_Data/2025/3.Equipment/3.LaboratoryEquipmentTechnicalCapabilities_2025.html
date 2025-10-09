@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Laboratory Equipment and Technical Capabilities</title>
+    <link rel="stylesheet" href="../css/ALMERA_in_Data.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <a href="../ALMERA_in_Data_Homepage/stats.html">
+            <h1>ALMERA in Data (2025)</h1>
+        </a>
+    </header>
+
+    <div class="content-wrapper">
+        <div id="navigation-placeholder"></div>
+        <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+            <section>
+                <h2>3. Equipment Availability & Technical Capabilities</h2>
+                <details open>
+                    <summary>Field Survey Capabilities</summary>
+                    <p>1. Does the laboratory have field survey capabilities?</p>
+                    <div id="YNFieldSurvey-chart-container" class="chart-container"></div>
+                    <p>2. What field survey capabilities are available at the lab?</p>
+                    <div id="FieldSurveyCapabilities-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <h2>Equipment Availability</h2>
+                
+                    <summary>3. Equipment Availability</summary>
+                    <p>This pie chart illustrates the types and relative abundance of analytical equipment owned by laboratories within the ALMERA network. Alpha spectrometry systems represent the most widely used instrumentation. Gamma-ray spectrometry systems and liquid scintillation counters also make up significant portions.</p>
+                    <div id="chart-container"></div>
+                    <div id="lab-info-section">
+                    <div class="view-options">
+                    <label for="view-toggle">List View</label>
+                    <input type="checkbox" id="view-toggle">
+                    </div>
+                    <div id="lab-info-display-container">
+                    </div>
+                
+            </section>
+
+        </main>
+    </div>
+
+    <button id="topBtn">↑</button>
+
+    <footer>
+        &copy; 2025 ALMERA Network
+    </footer>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+
+    <script src="3.1YesNoFieldSurveyCapabilities_2020.js"></script>
+    <script src="3.1FieldSurveyCapabilities_2020.js"></script>
+    <script src="3.3Equipment_Availability_2020.js"></script>
+
+    <script src="../components/utility.js"></script>
+    <script src="../components/navigation/load_navigation.js"></script>
+
+</body>
+
+</html>
