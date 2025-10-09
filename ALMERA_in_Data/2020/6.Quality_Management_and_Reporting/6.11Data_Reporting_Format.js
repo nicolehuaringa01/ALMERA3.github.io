@@ -1,9 +1,5 @@
-// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.11Data_Reporting_Format.js
+// ALMERA_in_Data/2020/6.Quality_Management_and_Reporting/6.11Data_Reporting_Format.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the HTML file that loads this JS.
-// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
-// (e.g., https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable2020Survey.csv)
 const csvDataPath11 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
 
 // This function processes the raw data to count Data_Reporting_Formats
