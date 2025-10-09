@@ -1,4 +1,4 @@
-// ALMERA_in_Data/3.Equipment/3.1YesNoFieldSurveyCapabilities.js
+// ALMERA_in_Data/2020/3.Equipment/3.1YesNoFieldSurveyCapabilities.js
 
 const csvDataPath13 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
