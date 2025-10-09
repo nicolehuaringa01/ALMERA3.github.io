@@ -1,6 +1,6 @@
-// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.7Results_Transmitted_Automically_to_Data_Centre.js
+// ALMERA_in_Data/2020/7.EnvironmentalMonitoringCapabilities/7.7Results_Transmitted_Automically_to_Data_Centre.js
 
-const csvDataPath7 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath7 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeResults_Transmitted_Automically_to_Data_CentreChart() {
     const container = document.getElementById("Results_Transmitted_Automically_to_Data_Centre-chart-container");
