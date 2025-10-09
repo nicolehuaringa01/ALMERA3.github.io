@@ -1,4 +1,4 @@
-// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.14Data_Reporting_In_Emergency_Situations
+// ALMERA_in_Data/2020/6.Quality_Management_and_Reporting/6.14Data_Reporting_In_Emergency_Situations
 
 const csvDataPath14 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
