@@ -1,4 +1,4 @@
-// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.1QMS_System.js
+// ALMERA_in_Data/2020/6.Quality_Management_and_Reporting/6.1QMS_System.js
 
 const csvDataPath1 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
