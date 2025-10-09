@@ -1,4 +1,4 @@
-// ALMERA3.github.io/ALMERA_in_Data/5.Radionuclides_measured/Map_file.js
+// ALMERA3.github.io/ALMERA_in_Data/2020/5.Radionuclides_measured/Map_file_2020.js
 
 // Config
 const width = 900;
