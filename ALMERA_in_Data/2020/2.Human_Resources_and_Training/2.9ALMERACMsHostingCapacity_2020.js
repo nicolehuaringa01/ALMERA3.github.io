@@ -1,4 +1,4 @@
-// ALMERA_in_Data/2.Huamn_Resources_and_Training/2.9ALMERACMsHostingCapacity_2020.js
+// ALMERA_in_Data/2020/2.Human_Resources_and_Training/2.9ALMERACMsHostingCapacity_2020.js
 
 const csvDataPath9 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
