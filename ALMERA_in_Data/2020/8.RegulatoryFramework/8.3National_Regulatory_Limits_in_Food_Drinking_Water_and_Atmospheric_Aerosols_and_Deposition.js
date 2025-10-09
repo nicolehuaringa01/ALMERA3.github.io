@@ -1,6 +1,6 @@
-// ALMERA_in_Data/8.RegulatoryFramework/8.3National_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_Deposition.js
+// ALMERA_in_Data/2020/8.RegulatoryFramework/8.3National_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_Deposition.js
 
-const csvDataPath3 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath3 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeNational_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_DepositionChart() {
     const container = document.getElementById("National_Regulatory_Limits_in_Food_Drinking_Water_and_Atmospheric_Aerosols_and_Deposition-chart-container");
