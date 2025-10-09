@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Geographic and Institutional Coverage</title>
+    <link rel="stylesheet" href="../css/ALMERA_in_Data.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <a href="../ALMERA_in_Data_Homepage/stats.html">
+        <h1>ALMERA in Data (2025)</h1>
+    </a>
+</header>
+
+<div class="content-wrapper">
+    <div id="navigation-placeholder"></div>
+    <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+        <div class="breadcrumbs">
+            <a href="../../Main/home/index.html">Home</a>
+            <span>&gt;</span>
+            <a href="../ALMERA_in_Data_Homepage/stats.html">ALMERA in Data</a>
+            <span>&gt;</span>
+            <span>1. Geographic and Institutional Coverage</span>
+        </div>
+        
+        <h2>1. Geographic & Institutional Coverage</h2>
+        <section class="text-lg text-gray-700 leading-relaxed space-y-4">
+            <details open>
+                <summary>1. Geographic Coverage of ALMERA Laboratories</summary>
+                <p>This map visualizes the global distribution of ALMERA laboratories, colored by geographic region. Hover over a point to see laboratory details, or click to pin the tooltip.</p>
+                <div id="almera-members-map-container"></div>
+            </details>
+        </section>
+
+        <section>
+            <details open>
+                <summary>2. Number of Laboratories per Geographic Region (Bar Chart)</summary>
+                <p>In 2025, there were <strong class="text-[var(--color-primary-dark)]"><span id="response-count">Loading...</span></strong> ALMERA laboratories globally, most located in Europe, Asia Pacific, and the Americas.</p>
+                <div id="labs-geographic-chart"></div>
+            </details>
+        </section>
+
+        <section>
+            <details open>
+                <summary>3. Affiliation of ALMERA Labs</summary>
+                <p>Labs selected multiple affiliations; each counted individually in the survey.</p>
+                <div id="affiliation-chart-container" class="chart-container">
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <details open>
+                <summary>4. Sector Activities Reported</summary>
+                <p>Labs often operate in multiple sectors, such as Food Control and Environmental Monitoring.</p>
+                <div id="sector-chart-container" class="chart-container"></div>
+            </details>
+        </section>
+
+        <section>
+            <details open>
+                <summary>5. Target Users Identified</summary>
+                <p>Labs may serve Academia, Industry, and others, counted per selection.</p>
+                <div id="target-chart-container" class="chart-container"></div>
+            </details>
+        </section>
+
+        <section>
+            <details open>
+                <summary>6. Scope and Source Interests</summary>
+                <div id="scope-chart-container" class="chart-container"></div>
+            </details>
+        </section>
+    </main>
+</div>
+
+<button id="topBtn">↑</button>
+
+<div id="map-page-tooltip" class="map-tooltip"></div>
+<footer>
+    &copy; 2025 ALMERA Network
+</footer>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    
+<script src="1.1ALMERA_Members_Map.js"></script>
+<script src="../response_count_2020.js"></script>
+<script src="1.2LabsGeographic_2020.js"></script>
+<script src="1.3_Affiliation_2020.js"></script>
+<script src="1.4Sector_2020.js"></script>
+<script src="1.5Target_2020.js"></script>
+<script src="1.6Scope_2020.js"></script>
+
+<script src="../components/utility.js"></script>
+<script src="../components/navigation/load_navigation.js"></script>
+
+</body>
+</html>
