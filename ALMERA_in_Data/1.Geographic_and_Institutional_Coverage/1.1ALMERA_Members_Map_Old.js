@@ -1,3 +1,5 @@
+//ALMERA_in_Data/2025/1.Geographic_and_Institutional_Coverage/1.1ALMERA_Members_Map_Old.js
+
 const csvDataPath1 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
 const landTopojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
 
