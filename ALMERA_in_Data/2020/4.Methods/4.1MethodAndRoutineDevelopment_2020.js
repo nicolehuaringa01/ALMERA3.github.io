@@ -1,4 +1,4 @@
-// ALMERA_in_Data/4.Methods/4.1MethodAndRoutineDevelopment.js
+// ALMERA_in_Data/2020/4.Methods/4.1MethodAndRoutineDevelopment_2020.js
 
 const csvDataPath1 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
