@@ -1,6 +1,6 @@
-// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.5Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country.js
+// ALMERA_in_Data/2020/7.EnvironmentalMonitoringCapabilities/7.5Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country.js
 
-const csvDataPath5 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath5 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryChart() {
     const container = document.getElementById("Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country-chart-container");
