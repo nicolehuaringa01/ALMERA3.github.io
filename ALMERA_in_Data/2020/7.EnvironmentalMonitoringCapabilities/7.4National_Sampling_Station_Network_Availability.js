@@ -1,6 +1,6 @@
-// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.4National_Sampling_Station_Network_Availability.js
+// ALMERA_in_Data/2020/7.EnvironmentalMonitoringCapabilities/7.4National_Sampling_Station_Network_Availability.js
 
-const csvDataPath4 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath4 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeNational_Sampling_Station_Network_AvailabilityChart() {
     const container = document.getElementById("National_Sampling_Station_Network_Availability-chart-container");
