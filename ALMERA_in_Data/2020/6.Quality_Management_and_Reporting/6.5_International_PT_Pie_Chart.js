@@ -1,7 +1,7 @@
-//ALMERA_in_Data/6.Quality_Management_and_Reporting/6.5_International_PT_Pie_Chart.js
+//ALMERA_in_Data/2020/6.Quality_Management_and_Reporting/6.5_International_PT_Pie_Chart.js
 
 
-d3.csv("/ALMERA3.github.io/data/Observable2020Survey.csv").then(data => {
+d3.csv("/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv").then(data => {
     // 1. International_PT_PieCounts (adapted from your Observable code)
     const International_PT_PieCounts = () => {
         const counts = new Map();
