@@ -1,6 +1,6 @@
-// js/2.9ALMERACMsHostingCapacity.js
+// ALMERA_in_Data/2025/2.Human_Resources_and_Training/2.9_ALMERA_CMs_Hosting_Capacity.js
 
-const csvDataPath9 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // User-provided path
+const csvDataPath9 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 const ALMERACMsHostingCapacityColumnName = "2.4 State the maximum number of participants";
 
