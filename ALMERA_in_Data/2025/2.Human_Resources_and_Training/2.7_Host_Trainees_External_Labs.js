@@ -1,11 +1,6 @@
-// js/2.7HostTraineesExternalLabs.js
+// ALMERA_in_Data/2025/2.Human_Resources_and_Training/2.7_Host_Trainees_External_Labs.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the root of your GitHub Pages project.
-// Based on your previous successful path, this assumes:
-// - Your GitHub Pages are serving from 'https://nicolehuaringa01.github.io/ALMERA3.github.io/'
-// - Your CSV file is located at '/ALMERA3.github.io/data/Observable2020Survey.csv'
-const csvDataPath7 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath7 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
 async function initializeHostExternalTraineeChart() {
     const container = document.getElementById("host-external-trainees-chart-container");
