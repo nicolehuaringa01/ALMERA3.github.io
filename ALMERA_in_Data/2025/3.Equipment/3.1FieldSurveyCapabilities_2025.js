@@ -1,4 +1,4 @@
-// ALMERA_in_Data/3.Equipment/3.1FieldSurveyCapabilities.js
+// ALMERA_in_Data/2025/3.Equipment/3.1FieldSurveyCapabilities_2025.js
 
 const csvDataPath1 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
