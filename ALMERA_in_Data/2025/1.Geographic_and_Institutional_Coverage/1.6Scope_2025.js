@@ -1,4 +1,4 @@
-// ALMERA3.github.io/ALMERA_in_Data/1.Geographic_and_Institutional_Coverage/1.6Scope_2025.js
+// ALMERA_in_Data/2025/1.Geographic_and_Institutional_Coverage/1.6Scope_2025.js
 
 const csvDataPath6 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
