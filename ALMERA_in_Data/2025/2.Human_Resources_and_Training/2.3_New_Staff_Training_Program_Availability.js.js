@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2025/2.Human_Resources_and_Training/2.3_New_Staff_Training_Program_Availability.js
 
-const csvDataPath3 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath3 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 async function initializeStaffTrainingChart() {
     const container = document.getElementById("new-staff-training-chart-container");
