@@ -1,3 +1,5 @@
+// ALMERA_in_Data/2020/1.Geographic_and_Institutional_Coverage/1.2LabsGeographic_2020.js
+
 const csvDataPath2 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 console.log("Attempting to load CSV from:", csvDataPath2);
 
