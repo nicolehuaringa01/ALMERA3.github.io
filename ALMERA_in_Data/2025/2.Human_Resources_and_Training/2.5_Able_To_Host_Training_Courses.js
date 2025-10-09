@@ -1,4 +1,4 @@
-// ALMERA_in_Data/2.Human_Resources_and_Training/2.5AbleToHostTrainingCourses.js
+// ALMERA_in_Data/2025/2.Human_Resources_and_Training/2.5_Able_To_Host_Training_Courses.js
 
 const csvDataPath5 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
