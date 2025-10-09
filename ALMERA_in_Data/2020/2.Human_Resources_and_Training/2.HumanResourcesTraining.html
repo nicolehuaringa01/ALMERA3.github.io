@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Human Resources and Training</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/ALMERA_in_Data.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="../ALMERA_in_Data_Homepage/stats.html">
+            <h1>ALMERA in Data (2025)</h1>
+        </a>
+    </header>
+
+    <div class="content-wrapper">
+        <div id="navigation-placeholder"></div>
+        <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+            <div class="breadcrumbs">
+            <a href="../../Main/home/index.html">Home</a>
+            <span>&gt;</span>
+            <a href="../ALMERA_in_Data_Homepage/stats.html">ALMERA in Data</a>
+            <span>&gt;</span>
+            <span>2. Human Resources and Training</span>
+        </div>
+            <h2>2. Human Resources and Training</h2>
+
+            <section class="text-lg text-gray-700 leading-relaxed space-y-4">
+                <h2> Full-Time Trained Professionals</h2>
+                <details open>
+                    <summary> Full-Time Trained Professionals</summary>
+                    <p><strong>Key Points</strong></p>
+                    <ul>
+                        <li>Europe has the highest number of laboratories across all categories, indicating a strong presence and capacity for trained professionals.</li>
+                        <li>Africa and the Middle East have fewer laboratories overall, with minimal representation in the higher categories.</li>
+                        <li>The majority of the laboratories fall within the 1-5 and 6-10 trained professional categories, suggesting that most labs operate with a relatively small team of trained professionals.</li>
+                    </ul>
+                    <div id="human-resources-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <h2>Training Programmes</h2>
+                <details open>
+                    <summary>Availaibility of Training Programmes and Evaluation Systems</summary>
+                    <p>2. Does the laboratory have a programme for regular staff training?</p>
+                    <div id="staff-training-chart-container" class="chart-container"></div>
+                    <p>3. Does the laboratory have a training programme for new personnel?</p>
+                    <div id="new-staff-training-chart-container" class="chart-container"></div>
+                    <p>4. Does the laboratory have systems to evaluate the training programme?</p>
+                    <div id="training-program-chart-container" class="chart-container"></div>
+                    <p>5. Is the laboratory able to host training courses?</p>
+                    <div id="host-courses-chart-container" class="chart-container"></div>
+                    <p>6. Training Hosting Capacity</p>
+                    <div id="training-hosting-capacity-chart-container" class="chart-container"></div>
+                    <p>7. Is the laboratory able to host trainees from other laboratories?</p>
+                    <div id="host-external-trainees-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <h2>ALMERA Coordination Meetings</h2>
+                <details open>
+                    <summary>Availability to Host ALMERA Coordination Meetings</summary>
+                    <p>8. Is the laboratory able to host ALMERA Coordination Meetings?</p>
+                    <div id="host-almera-cms-chart-container" class="chart-container"></div>
+                    <p>9. ALMERA Coordination Meeting Hosting Capacity</p>
+                    <div id="almera-hosting-capacity-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+        </main>
+    </div>
+
+    <button id="topBtn">↑</button>
+
+    <footer>
+        &copy; 2025 ALMERA Network
+    </footer>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+
+    <script src="2.1FullTimeTrainedProfessionals.js"></script>
+    <script src="2.2RegularStaffTrainingProgramAvailability.js"></script>
+    <script src="2.3NewStaffTrainingProgramAvailaibity.js"></script>
+    <script src="2.4TrainingProgramEvaluationSystems.js"></script>
+    <script src="2.5AbleToHostTrainingCourses.js"></script>
+    <script src="2.6TrainingHostingCapacity.js"></script>
+    <script src="2.7HostTraineesExternalLabs.js"></script>
+    <script src="2.8HostALMERACMs.js"></script>
+    <script src="2.9ALMERACMsHostingCapacity.js"></script>
+
+    <script src="../components/utility.js"></script>
+    <script src="../components/navigation/load_navigation.js"></script>
+
+</body>
+
+</html>
