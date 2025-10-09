@@ -1,10 +1,6 @@
-// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.16Other_Networks_that_ALMERA_Labs_Belong_To.js
+// ALMERA_in_Data/2020/6.Quality_Management_and_Reporting/6.16Other_Networks_that_ALMERA_Labs_Belong_To.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the HTML file that loads this JS.
-// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
-// (e.g., https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable2020Survey.csv)
-const csvDataPath165 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
+const csvDataPath165 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv"; // User-provided path
 
 // Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
 function normalizeString(str) {
