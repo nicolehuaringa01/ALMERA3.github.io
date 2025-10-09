@@ -1,6 +1,6 @@
-// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.6Gamma_Dose_Rate_Monitoring_Network_Availability
+// ALMERA_in_Data/2020/7.EnvironmentalMonitoringCapabilities/7.6Gamma_Dose_Rate_Monitoring_Network_Availability.js
 
-const csvDataPath6 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath6 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() {
     const container = document.getElementById("Gamma_Dose_Rate_Monitoring_Network_Availability-chart-container");
