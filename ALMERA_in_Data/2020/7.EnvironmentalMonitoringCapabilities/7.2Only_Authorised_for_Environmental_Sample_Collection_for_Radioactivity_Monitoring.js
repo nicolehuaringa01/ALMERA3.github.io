@@ -1,6 +1,6 @@
-// ALMERA_in_Data/7.EnvironmentalMonitoringCapabilities/7.2Only_Authorised_for_Environmental_Sample_Collection_for_Radioactivity_Monitoring.js
+// ALMERA_in_Data/2020/7.EnvironmentalMonitoringCapabilities/7.2Only_Authorised_for_Environmental_Sample_Collection_for_Radioactivity_Monitoring.js
 
-const csvDataPath2 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath2 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 async function initializeOnly_Authorised_for_Environmental_Sample_Collection_for_Radioactivity_MonitoringChart() {
     const container = document.getElementById("Only_Authorised_for_Environmental_Sample_Collection_for_Radioactivity_Monitoring-chart-container");
