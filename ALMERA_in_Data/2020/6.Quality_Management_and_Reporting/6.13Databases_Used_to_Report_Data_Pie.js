@@ -1,10 +1,6 @@
-// ALMERA_in_Data/6.Quality_Management_and_Reporting//6.13Databases_Used_to_Report_Data_Pie.js
+// ALMERA_in_Data/2020/6.Quality_Management_and_Reporting//6.13Databases_Used_to_Report_Data_Pie.js
 
-// IMPORTANT: Verify this path carefully!
-// This path is relative to the HTML file that loads this JS.
-// Assuming your CSV is in the 'data' subfolder within your GitHub Pages project's root
-// (e.g., https://nicolehuaringa01.github.io/ALMERA3.github.io/data/Observable2020Survey.csv)
-const csvDataPath135 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
+const csvDataPath135 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv";
 
 // Helper function to normalize strings for robust column matching
 function normalizeString(str) {
