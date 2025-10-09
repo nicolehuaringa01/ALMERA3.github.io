@@ -1,4 +1,4 @@
-// ALMERA_in_Data/3.Equipment/3.3Equipment_Availability.js
+// ALMERA_in_Data/2025/3.Equipment/3.3Equipment_Availability_2025.js
 
 // Global variables to store processed data and selected state
 let allSurveyData; // Will hold the loaded CSV data
