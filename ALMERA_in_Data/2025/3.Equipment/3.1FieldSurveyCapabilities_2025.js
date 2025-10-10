@@ -9,7 +9,7 @@ function getFieldSurveyCapabilitiesCounts(data, FieldSurveyCapabilitiesColumn) {
     for (const row of data) {
         if (row[FieldSurveyCapabilitiesColumn]) {
             // Split by semicolon as per your Observable notebook's implicit logic
-            const FieldSurveyCapabilitiess = row[FieldSurveyCapabilitiesColumn].split(";").map(d => d.trim());
+            const FieldSurveyCapabilitiess = row[FieldSurveyCapabilitiesColumn].split(/;|\n|\r/).map(d => d.trim());
             for (const aff of FieldSurveyCapabilitiess) {
                 if (aff) { // Ensure FieldSurveyCapabilities string is not empty after trimming
                     counts.set(aff, (counts.get(aff) || 0) + 1);
