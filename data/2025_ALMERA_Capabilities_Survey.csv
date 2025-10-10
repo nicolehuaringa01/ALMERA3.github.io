@@ -1,0 +1,1046 @@
+﻿Lat,Long,City,Submission Date,Unique Code ID,1.1 Name of Laboratory,1.2 Physical Address,1.3 Member State,1.4 Geographic Region,1.5 Phone Number,1.6 Head of Laboratory,1.7 Contact Person,1.8 Contact Person E-mail,1.9 Proficiency Test Contact Person (if different than Contact Person),1.10 Proficiency Test Contact E-mail,1.11 Affiliation,1.12 Type/Sector in which the laboratory falls,2.1 What is the number of full-time trained professionals and technicians in the laboratory?,2.1 What are their areas of expertise?,2.2 State in what areas the laboratory needs assistance to help it achieve its training objectives.,2.3 Able to host training courses?,2.3 Specify the maximum number of participants for practical training,2.4 Able to host ALMERA coordination meetings?,2.4 State the maximum number of participants,3.1 Does the laboratory have field survey capabilities?,3.1 Which of the following field survey capabilities are available at your facility? (Select all that apply),3.2 Select the equipment available in your laboratory.,4.1 Has the laboratory been involved in development of routine and/or rapid analytical methods?,4.1 What methods have been developed?,4.1 What methods are under development?,4.1 What are the plans for future development of routine methods?,4.1 What are the plans for future development of rapid methods?,Matrix Dynamique,"5.1.1 If your laboratory is measuring H-3, please select operations/analyses performed:",5.1.2 OBT,5.1.3 TFWT,Matrix Dynamique2,6.1 Has the laboratory implemented a quality management system?,6.2 State the basis of the QMS programme,"6.3 If the laboratory is accredited against ISO 17025, specify year of accreditation.",6.4 Has the laboratory participated in national proficiency testing exercises?,6.4 State which national PT scheme/s.,6.5 Is the laboratory participating in international proficiency testing exercises?,6.5 What is the name of the PT scheme/s?,6.6 What standards or reference samples are used in the laboratory?,6.7 Has the laboratory established internal QA/QC procedures for measurement validation and to check equipment performance?,6.7 Specify the procedures.,6.8 Is routing monitoring data reported to national authorities?,6.9 What is the frequency with which results are reported to national authorities?,6.10 Is routine monitoring data reported to a regional or international database?,6.10 Which database(s) is the routine monitoring data reported to? (Select all that apply),6.11 Does the laboratory report data in emergency situations?,6.11 To which authority is the data reported? (Select all that apply),6.12 Can the laboratory report data to the IAEA ALMERA coordination if requested?,"6.13 Is the laboratory part of another network in addition to ALMERA? (e.g. Ring of Five, RANET, PROCORAD, etc.)",6.13 Select other networks in addition to ALMERA that the laboratory is member of.,7.1  What environmental radioactivity monitoring tasks is the laboratory/institution authorised or appointed to perform? Please select all that apply.,7.2 Is there a network of sampling stations established in the country?,7.2 How many environmental sampling stations are there in the country?,7.3 Is there an environmental monitoring network of automatic monitors for gamma-ray spectrometry of aerosols and/or for gaseous iodine in the laboratory's country?,7.3 State the name of network/s.,7.4 Is there a gamma dose rate monitoring network operational in the country?,7.4 What is the number of stations included in the network?,7.5 Are the laboratory's measurement results transmitted automatically to a data centre?,7.5 To which data centre are the results being transmitted?,7.6 Additional environmental monitoring programmes for radioactivity established in the country,8.1 Requested radionuclides and matrices for future PTs and RMs,8.2 Requested activities to be organised by the ALMERA network,General Comments regarding ALMERA and/or this survey.,"Lab Photos, if possible","To help facilitate recognition and networking among ALMERA members during the upcoming meeting, you may choose to upload a photo of yourself and your team. These photos will be linked to your laboratory and will only be accessible within the ALMERA networ"
+2.892778,101.795112,Bangi,"Oct 8, 2025 05:07",eGiF1Y,"Malaysian Nuclear Agency (Nuclear Malaysia)
+Radiochemistry and Environment Group","Bangi, 43000
+Kajang, Selangor D.E.",Malaysia,ASIA PACIFIC,Tel: +60 389112130 (Office)Fax: +60 389282977,Mr Mei-Wo Yii,Mr Mei-Wo Yii,yii@nm.gov.my; yii.meiwo@gmail.com,Mr Mei-Wo Yii,yii@nm.gov.my; yii.meiwo@gmail.com,"Government
+Research","Environmental Research
+Environmental Monitoring
+Food Control
+NPP / Nuclear Facility Monitoring
+Public Health",9,"4 - radiochemistry - Po, Ue, Th, Pu, Sr; 3 - gamma spectrometry; 2- tritium analysis; 2 - gross alpha/beta;","1. Low level measurements in gamma spectrometry, gross alpha and gross beta 2. New and rapid techniques for radiochemistry",No,,No,,No,"Radon Detection and Monitoring
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",Yes,"Pu, U, Th, Po, Sr analyses in various sample.",Ra-226 measurement in water,Combine the routine methods to reduce the usage of chemicals and get the results faster.,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: Sr-90, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: Sr-90, Matrix: Milk, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: Po-210, Matrix: Various, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: Pu-239+240, Matrix: Various, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: Th isotopes, Matrix: Various, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: U isotopes, Matrix: Various, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: Gross Alpha/Beta, Matrix: Various, Accredited (routine): No, Total Annual Sample Throughput (routine): >1000, Total Weekly Sample Throughput (rapid): >20
+Radionuclide: Gamma, Matrix: Various, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >2000, Total Weekly Sample Throughput (rapid): >50",TFWT,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Estimated total sample throughput (rapid): <5","Radionuclide: H-3, Matrix: Water, MDA for routine method: 10 Bq/L, MDA for rapid method: 20 Bq/L
+Radionuclide: Sr-90, Matrix: Water, MDA for routine method: 0.1 Bq/L, MDA for rapid method: 0.5 Bq/L
+Radionuclide: Sr-90, Matrix: Milk, MDA for routine method: 1 Bq/L, MDA for rapid method: 5 Bq/L
+Radionuclide: Radiochemistry Alpha emitters, Matrix: Various, MDA for routine method: 0.2 Bq/kg, MDA for rapid method: 0.5 Bq/kg
+Radionuclide: Gross Alpha, Matrix: Water, MDA for routine method: 0.1 Bq/L, MDA for rapid method: 0.3 Bq/L
+Radionuclide: Gross Beta, Matrix: Water, MDA for routine method: 0.1 Bq/L, MDA for rapid method: 0.3 Bq/L
+Radionuclide: Gross Alpha, Matrix: Others, MDA for routine method: 0.3 Bq/kg, MDA for rapid method: 0.5 Bq/kg
+Radionuclide: Gross Beta, Matrix: Others, MDA for routine method: 0.3 Bq/kg, MDA for rapid method: 0.5 Bq/kg
+Radionuclide: Gamma, Matrix: Various, MDA for routine method: 0.5 Bq/kg, MDA for rapid method: 1 Bq/kg",Yes,ISO 17025,2008,No,,Yes,ALMERA,"Radioactive standards procured regularly from Isotopes Production Lab, USA; Various reference materials obtained from IAEA.",Yes,"Laboratory has its own internal QA/QC procedures, using IAEA reference materials to validate methods and check equipment.",Yes,Upon request,Yes,"MARIS
+Based on project basis",Yes,National authorities,Technically yes but subject to approval by the agency top management and national authorities,No,,"Countrywide,  on a regular basis
+Discharges from the nuclear facilities (NPPs, waste repositories)
+For  existing exposure situations (e.g. for uranium legacy sites)
+For  marine monitoring
+For NORM  industry
+For research
+In  emergency situations",Not very sure. This is managed by other organisation.,,Yes,There is one station of  RN 42 under CTBTO.,Yes,10 stations are included in the network.,No,,Continuous ongoing research projects,anthropogenic gamma; NORM gamma; Sr-90; gross alpha/beta; anthropogenic alpha; NORM alpha; H-3,Proficiency Test; Training Courses; ALMERA Coordination Meeting,The laboratory is still in the process of fully establishing its capabilities. Methods  currently in use are still being investigated and improved from time to time. Any program from the IAEA that can assist in this is very much welcome.,"https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357020176222283944/IMG_20251008_090540_1.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357020176222283944/IMG_20251008_090415_8523.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357020176222283944/IMG_20251008_090455_1274.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357020176222283944/IMG_20251008_090540_1_5948.jpg",
+52.48329,13.537695,Berlin,"Oct 8, 2025 08:50",Qh9ybc,Federal Office for Radiation Protection (BfS),"Section UR4 Discharges, Immissions Water
+Köpenicker Allee 120-130
+10318 Berlin",Germany,EUROPE,Tel: +49 3018 333 4334,Mr Sascha Hofmann,Mr Sascha Hofmann,shofmann@bfs.de,Mr Sascha Hofmann,shofmann@bfs.de,Government,"Analytical
+Environmental Research
+Environmental Monitoring
+NPP / Nuclear Facility Monitoring",5,"chemistry, analytical techniques, radiochemistry, gamma spectrometry",,No,,No,,Yes,"Alpha and Beta Spectrometry
+In-Situ Gamma Spectrometry
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",Yes,"water: H-3, Sr-89/-90, gamma spectrometry, Fe-55 & Ni-63, g-Alpha, actinides",Sr-90+ rapid method,,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <100, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: C-14, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <100, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: Sr-89/Sr-90, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <100, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: Fe-55/Ni-63, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <100, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: all Gamma, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: actinides (alpha spec), Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <100, Total Weekly Sample Throughput (rapid): <10",Enrichment performed,,,"Radionuclide: H-3, Matrix: Water, MDA for routine method: 10 Bq/kg, MDA for rapid method: 
+Radionuclide: Fe-55/Ni-63, Matrix: Water, MDA for routine method: 0.5 Bq/kg, MDA for rapid method: 
+Radionuclide: Sr-90+, Matrix: Water, MDA for routine method: 0.1 Bq/kg, MDA for rapid method: 
+Radionuclide: Gamma, Matrix: Water, MDA for routine method: 0.3 Bq/kg, MDA for rapid method: 
+Radionuclide: C-14, Matrix: Water, MDA for routine method: 1 Bq/kg, MDA for rapid method: 
+Radionuclide: actinides, Matrix: Water, MDA for routine method: 0.1 Bq/kg, MDA for rapid method:",Yes,"inspired by ISO 17025, but not accredited",,Yes,"food, milk, water",Yes,"IAEA-TERC, IAEA sea water","std solutions, point sources",Yes,"monitoring energy and efficiency calibration, participation in PTs",No,,No,,No,,Yes,No,,"Discharges from the nuclear facilities (NPPs, waste repositories)
+For research
+In  emergency situations",Yes,>100,No,,Yes,~ 100,No,,,,,,,
+52.5187,5.4844,Lelystad,"Oct 8, 2025 10:35",NlvYdv,Rijkswaterstaat Laboratory,"Zuiderwagenplein 2
+8224 AD Lelystad",Netherlands,EUROPE,Tel: +31 6 2054871,Mr Floris Hout,Mr Carlo Engeler,carlo.engeler@rws.nl,Mr Carlo Engeler,carlo.engeler@rws.nl,Government,"Environmental Research
+Environmental Monitoring
+Water Resources",65,"Mainly all kind of (radio)chemical analyses in water, sediment and biota",Intercomparsion excercises,No,,No,,Yes,"In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Mass spectrometry",Yes,Sr-90 method in water,,Tc-99 in seawater,Alpha/beta screening with HR-ICP-MS,"Radionuclide: H-3, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 250, Total Weekly Sample Throughput (rapid): 100
+Radionuclide: Sr-90, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 60, Total Weekly Sample Throughput (rapid): 20
+Radionuclide: Ra-226, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 110, Total Weekly Sample Throughput (rapid): 40
+Radionuclide: Cs-137, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 300, Total Weekly Sample Throughput (rapid): 1000
+Radionuclide: Pu-240, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 20, Total Weekly Sample Throughput (rapid): 20
+Radionuclide: Tc-99, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 10, Total Weekly Sample Throughput (rapid): 10
+Radionuclide: Cm-244, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 20, Total Weekly Sample Throughput (rapid): 20
+Radionuclide: U-238, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 100, Total Weekly Sample Throughput (rapid): 100",OBT,,,"Radionuclide: H-3, Matrix: Water, MDA for routine method: 0.01, MDA for rapid method: 10
+Radionuclide: Sr-90, Matrix: Water, MDA for routine method: 0.001, MDA for rapid method: 10
+Radionuclide: Ra-226, Matrix: Water, MDA for routine method: 0.005, MDA for rapid method: 10
+Radionuclide: Cs-137, Matrix: Water, MDA for routine method: 0.0001, MDA for rapid method: 10
+Radionuclide: Pu-240, Matrix: Water, MDA for routine method: 0.000001, MDA for rapid method: 0.05
+Radionuclide: Tc-99, Matrix: Water, MDA for routine method: 0.001, MDA for rapid method: 1
+Radionuclide: Cm-244, Matrix: Water, MDA for routine method: 0.0001, MDA for rapid method: 1
+Radionuclide: U-238, Matrix: Water, MDA for routine method: 0.000001, MDA for rapid method: 1",Yes,ISO 17025,1992,No,,Yes,"BfS proficiency test in NPP waste water
+LGC Aquacheck
+IRSN proficiency tests
+IAEA proficiency test",Certified standards and IAEA reference material,Yes,"For all equipment certified sources are used for first line QC.
+For QA reference material or open sources are used  per measurement serie",Yes,"Annually
+Quarterly
+Monthly
+Upon request",Yes,"EURATOM treaty (REM)
+MARIS
+OSPAR RSC",Yes,"National authorities
+The European Union
+IAEA",Yes,Yes,Dutch national network,"Around  nuclear facilities
+Countrywide,  on a regular basis
+For  marine monitoring
+For research
+In  emergency situations",Yes,31 for Water and/or sediment,Yes,RIVM network,Yes,,Yes,"National authorities
+EURDEP","Programs for air, food, milk, grass, feed and drinking water",,,,,
+51.744726,19.449414,Lodz,"Oct 8, 2025 10:45",9wDicQ,"Laboratory of Isotopic Methods (LMI)
+Institute of Applied Radiation Chemistry
+Lodz University of Technology – Faculty of Chemistry","Wroblewskiego 15
+90-924 Lodz",Poland,EUROPE,"Tel: +48 42 631-31-67 (main CP)
+Tel: +48 42 631-31-84 (alt. CP)","Ms Magdalena Dlugosz-Lisiecka
+Associate Professor",Magdalena Dlugosz-Lisiecka Associate Proffesor,mdlugosz@mitr.p.lodz.pl; magdalena.dlugosz@p.lodz.pl,Ms Magdalena Długosz-Lisiecka,magdalena.dlugosz@p.lodz.pl,Academia,"Analytical
+Environmental Research
+Environmental Monitoring
+Public Health
+University (Higher education, Teaching)",2,"1. Waste classifications
+2. Medical isotope production in cyclotron facility
+3. Monitoring of radionuclides in environmental smaples.
+4. Public health
+5. Spectrometry systems
+6. Radiochemical separations","Provision of analytical methods for isotope separation.
+Enabling participation in training at another institution in the field of separation methods.",No,,No,,Yes,"Alpha and Beta Spectrometry
+In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Radon Detection and Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",Yes,"Radon in the air and in water samples.
+U and Th, Pu, Sr, Y,Pb, Bi, Po in environmental samples by radiochemical separation on resins
+H-3 destilation method for LSC analysis
+Po- separation and deposition
+3 different coprecipitation methods","U and Th electrodeposition on metal discs
+Pu determination in milk and flour by ashing",lowering MDA for alpha and beta determinations by LSC- we need to buy new LSC system for better indetification of isotopes and activities with alpha and beta separations,We need to buy new resins for quick determination different isotopes,,,,,,Yes,ISO 17025,,Yes,Regulatory PT.,Yes,IAEA ALMERA 2025 – Spectrum Analysis Exercise,"IAEA 327 SOIL, IAEA PG-434, IAEA 6,7-SOIL, IAEA 300 sediments, SRM water",Yes,The laboratory certifies reference materials for each matrix and isotope and participates in intercomparisons with other national laboratories,Yes,Upon request,Yes,UNSCEAR,Yes,National authorities,Yes,No,,"Around  nuclear facilities
+Countrywide,  on a regular basis
+Discharges from the nuclear facilities (NPPs, waste repositories)
+For  marine monitoring
+For NORM  industry
+For research
+In  emergency situations",Yes,Samples are taken once per week for aerosols and once every 3 or 5 years for the drinking water supply,Yes,"The national aerosol monitoring network consists of 12 stations in various cities. One aerosol sampling station is located in our Insitute, and is coordinated by our Laboratory.",Yes,"In the national monitoring network for dose rates there are now about 23 stations, one of which is located in our Institute under our coordination.",Yes,National authorities,,Po-210 in water; Pb-210 in water; Ra-226 in water; Th-232 in water; K-40 in building materials; Ra-226 in building materials; Th-232 in building materials; natural isotopes in air filters,,,,
+36.918951,10.079552,Sidi Thabet,"Oct 8, 2025 11:22",XHxYE9,"Radioanalytical Laboratory
+Centre National des Sciences et Technologies Nucleaires","Pole Technologique
+Sidi Thabet, 2020",Tunisia,AFRICA,"Tel: +216 71 537 410 
+Fax: +216 71 537 555",Mr Mansour Oueslati,Mr Mansour Oueslati,mansour.oueslati@cnstn.rnrt.tn; oueslati_mansour2007@yahoo.fr; mansour.oueslati2016@gmail.com,Mr Mansour Oueslati,mansour.oueslati@cnstn.rnrt.tn; oueslati_mansour2007@yahoo.fr; mansour.oueslati2016@gmail.com,"Government
+Industry
+Research","Analytical
+Environmental Research
+Environmental Monitoring
+Food Control
+University (Higher education, Teaching)",3,"Sampling and sample preparation for alpha spectrometry, liquid scintilation and gamma spectrometry",Need help to establish the QC/QM,Yes,10,Yes,100,Yes,"Alpha and Beta Spectrometry
+In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",No,,,,,"Radionuclide: NORM, Matrix: ALL, Accredited (routine): No, Total Annual Sample Throughput (routine): 600<, Total Weekly Sample Throughput (rapid): 30<
+Radionuclide: U, Matrix: water, Accredited (routine): No, Total Annual Sample Throughput (routine): 50<, Total Weekly Sample Throughput (rapid): 2<
+Radionuclide: Pb-210, Matrix: soil, Accredited (routine): No, Total Annual Sample Throughput (routine): 200<, Total Weekly Sample Throughput (rapid): 5<
+Radionuclide: Pb-210, Matrix: vegetation, Accredited (routine): No, Total Annual Sample Throughput (routine): 130<, Total Weekly Sample Throughput (rapid): 3<
+Radionuclide: Ra-226, Matrix: soil, Accredited (routine): No, Total Annual Sample Throughput (routine): 400<, Total Weekly Sample Throughput (rapid): 30<
+Radionuclide: Ra-226, Matrix: Scale, Accredited (routine): No, Total Annual Sample Throughput (routine): 50<, Total Weekly Sample Throughput (rapid): 2<
+Radionuclide: Ra-226, Matrix: Phosphogypsum, Accredited (routine): No, Total Annual Sample Throughput (routine): 100<, Total Weekly Sample Throughput (rapid): 3<
+Radionuclide: Th-232, Matrix: all matrices, Accredited (routine): No, Total Annual Sample Throughput (routine): 150<, Total Weekly Sample Throughput (rapid): 5<
+Radionuclide: K-40, Matrix: all matrices, Accredited (routine): No, Total Annual Sample Throughput (routine): 500<, Total Weekly Sample Throughput (rapid): 20<",,,,"Radionuclide: Cs-137, Matrix: soil, MDA for routine method: 0.5Bq/kg, MDA for rapid method: N/A
+Radionuclide: Ra-226, Matrix: soil, MDA for routine method: 0.5Bq/kg, MDA for rapid method: N/A",Yes,ISO 17025,0,No,,Yes,all Almera-Proficiency-Test since 2008,"soil, and samples from the ALMERA  Proficiency Tests",Yes,control card for the stability of the system,No,,No,,No,,Yes,No,,"For  marine monitoring
+For NORM  industry
+For research
+In  emergency situations",No,,No,,Yes,5,No,,,Pb-210 in phosphogypsum; Ra-226 in water,In-Situ Gamma-Ray Measurement; NORM,,,
+44.853456,20.374932,Belgrade,"Oct 8, 2025 12:06",C75qVa,"Department of Radioecology and Agricultural Chemistry 
+Institute for the Application of Nuclear Energy (INEP)","Banatska 31 b
+PO Box 46 
+SR-11080, Belgrade",Serbia,EUROPE,Tel: +381 63275130       +381 628858247,Ms Ana Cuculovic,Ms Ana Cuculovic,anas@inep.co.rs,"Ms Ana Cuculovic
+Ms Jelena Stanojkovic",anas@inep.co.rs; jelenas@inep.co.rs,Research,"Environmental Research
+Environmental Monitoring
+Food Control",3,"physical chemistry
+biochemistry
+biology 
+molecular biology",gammaspectrometry,No,,No,,No,,Gamma-ray spectrometry system/s,No,,,,,"Radionuclide: Cs-137, Matrix: soil, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 50, Total Weekly Sample Throughput (rapid): > 10
+Radionuclide: Cs-137, Matrix: food, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): < 50
+Radionuclide: Cs-137, Matrix: animal feed, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 10
+Radionuclide: Cs-137, Matrix: artificial fertilizer, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 20
+Radionuclide: U-238, Matrix: soil, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 50, Total Weekly Sample Throughput (rapid): > 10
+Radionuclide: U-238, Matrix: food, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 50
+Radionuclide: U-238, Matrix: animal feed, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 10
+Radionuclide: U-238, Matrix: artificial fertilizer, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 20
+Radionuclide: K-40, Matrix: soil, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 50, Total Weekly Sample Throughput (rapid): > 10
+Radionuclide: K-40, Matrix: food, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 50
+Radionuclide: K-40, Matrix: animal feed, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 10
+Radionuclide: K-40, Matrix: artificial fertilizer, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 20
+Radionuclide: Th-232, Matrix: soil, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 50, Total Weekly Sample Throughput (rapid): > 10
+Radionuclide: Th-232, Matrix: food, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 50
+Radionuclide: Th-232, Matrix: animal feed, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 10
+Radionuclide: Th-232, Matrix: artificial fertilizer, Accredited (routine): yes, Total Annual Sample Throughput (routine): < 100, Total Weekly Sample Throughput (rapid): > 20",,,,"Radionuclide: Cs-137, Matrix: water, MDA for routine method: 1-2 mBq/L, MDA for rapid method: N/A",Yes,ISO 17025,2025,No,,Yes,ALMERA;,"Detector calibration was performed using three different radioactive reference materials in the Marinelli geometry: Silicone resin (Czech Metrological Inst. Praha (CMI Praha), Cert. No. 1035-SE-40517-17, Type MBSS 2 (241Am, 109Cd, 139Ce, 57Co, 60Co, 137Cs, 113Sn, 85Sr, 88Y, 51Cr), 490.0 g, density: 0.98 ± 0.01 gcm-3, vol. 500.0 ± 5.0 cm3, ref. date 1.9.2017); silicone resin (Czech Metrological Inst. Praha (CMI Praha), Cert. No. 1035-SE-40661/14, Type MBSS 2 (241Am, 109Cd, 139Ce, 57Co, 60Co, 137Cs, 113Sn, 85Sr, 88Y, 51Cr), 490.0 g, density: 0.98 ± 0.01 gcm-3, vol. 500.0 ± 5.0 cm3, ref. date 1.10.2014); silicone resin (Czech Metrological Inst. Praha (CMI Praha), Cert. No. 9031-OL-420/10, Type MBSS 2 (241Am, 109Cd, 139Ce, 57Co, 60Co, 137Cs, 113Sn, 85Sr, 88Y, 203Hg), 985.0 g, density: 0.985 ± 0.01 gcm-3, vol. 1000.0 ± 10.0 cm3, ref. date 16.8.2010) and vegetation (Inst. Radiological Protection, Belgrade: QAP 9709, 23.12.2002).",Yes,,Yes,Annually,No,,Yes,National authorities,,No,,,,,,,Yes,,Yes,National authorities,,"Am-241, Cd-109, Ce-139, Co-57, Co-60, Cs-137, Sn-113, Sr-85, Y-85, Hg-203",,,,
+52.136537,5.210425,Bilthoven,"Oct 8, 2025 12:32",r65igj,"National Institute for Public Health and the Environment
+Centre for Environmental Safety and Security","Antonie Van Leeuwenhoeklaan 9
+3721 MA, Bilthoven",Netherlands,EUROPE,Tel: +31 88 689 3691 (P. Bosch),Mr Herman Schreurs,Mr Peter Bosch,peter.bosch@rivm.nl,Mr Peter Bosch,peter.bosch@rivm.nl,Government,"Analytical
+Environmental Monitoring
+NPP / Nuclear Facility Monitoring
+Public Health",13,1 staff; 4 laboratory analysts; 2 general technicians; 4 scientist radiochemistry or radiophysics; 1 general duties department for modelling and nuclear crisis organisation; 1 measuring vans,none,No,,No,,Yes,"In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Neutron Detection Capabilities
+Radon Detection and Monitoring
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Neutron dose rate monitors; real-time radon detectors",Yes,sampling air dust on filter cartridges for Iodine nuclides; aerosol filter + carbon impregnated filter + carbon cartridge.,improving determination of strontium 89/90 with LSC,,,"Radionuclide: H-3, Matrix: water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 5-20
+Radionuclide: C-14, Matrix: water, air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 20, Total Weekly Sample Throughput (rapid): 5-10
+Radionuclide: Sr-90/89, Matrix: water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 4-5, Total Weekly Sample Throughput (rapid): 2-3
+Radionuclide: I-131, Matrix: water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 15-20, Total Weekly Sample Throughput (rapid): 20
+Radionuclide: I-131, Matrix: air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 20-25, Total Weekly Sample Throughput (rapid): 10-20
+Radionuclide: Pb-210, Matrix: air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 10-120
+Radionuclide: Po-210, Matrix: air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 5
+Radionuclide: Ra-226, Matrix: water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 10-20, Total Weekly Sample Throughput (rapid): 5-10
+Radionuclide: Am-241, Matrix: water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 10-20, Total Weekly Sample Throughput (rapid): 5-10",,,,"Radionuclide: Cs-137, Matrix: water, MDA for routine method: 0.5 Bq/L, MDA for rapid method: 5 Bq/L
+Radionuclide: H-3, Matrix: water, MDA for routine method: 2 Bq/L, MDA for rapid method: 20 Bq/L
+Radionuclide: I-131, Matrix: water, MDA for routine method: 1 Bq/L, MDA for rapid method: 10 Bq/L
+Radionuclide: Sr-90, Matrix: water, milk, MDA for routine method: 0.5 Bq/L, MDA for rapid method: 5 Bq/L
+Radionuclide: Pu-239/240, Matrix: water, MDA for routine method: 0.1 Bq/L, MDA for rapid method: 1 Bq/L
+Radionuclide: Po-210, Matrix: water, urine, MDA for routine method: 0.1 Bq/L, MDA for rapid method: 1 Bq/L
+Radionuclide: C-14, Matrix: water, MDA for routine method: 1 Bq/L, MDA for rapid method: 5 Bq/L",Yes,ISO 17025,1994,No,,Yes,"Since 1990 yearly participation in the German Abwasser Intercomparisons exercises. Next (less regularly) participation in EU intercomparisons (ALMERA), air filter intercomparisons (BfS Germany), and NPL water samples for specific beta emitters (3H, 14C, 36Cl).","Only reference samples supplied by accredited laboratories, such as NPL (UK) or PTB (D).",Yes,ISO 17025,Yes,Annually,Yes,"EURATOM treaty (REM)
+Ring of Five",Yes,"National authorities
+The European Union
+IAEA",Yes,Yes,"RANET
+Ring of Five
+EURDEP, IRMIS, REM-database","Countrywide,  on a regular basis
+Discharges from the nuclear facilities (NPPs, waste repositories)
+In  emergency situations",Yes,There is a nationwide network for sampling food. Milk is sampled weekly.,Yes,There are 12 on-line monitors for alpha/beta and 1 iodine specific monitor,Yes,There are 160 on-line gamma dose rate monitors,Yes,"IRMIS
+EURDEP","Countrywide, on a regular basis: surface waters. Sampling and analysis is carried out by RWS, the Ministry of Infrastructure and Water Management. Around nuclear facilities: network around NPP Borssele giving on-line gamma dose rates.","complex mix of fission nuclides in water; complex mix of fission nuclides on air filters; fission nuclides in grass samples; gross alpha/beta in air filters; uranium and thorium in ore samples; mix of Pu, Am, Cm in water samples; Po-210 on air filters",Proficiency Test; sharing common laboratory experience and building a laboratory expert network,,https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357287562015889747/Gammaspectrometry%20RIVM-NL.jpg,
+47.497937,19.040151,Budapest,"Oct 8, 2025 12:34",PSlmQm,"Radioanalytical Reference Laboratory
+Food and Feed Safety Directorate
+National Food Chain Safety Office","Fogoly utca 13-15, H-1182 Budapest",Hungary,EUROPE,Tel: +36-1-2000-934Mobile: +36-30-302-8290,Mr Valentin Szabo,Ms Nassima Oroszlan-Kram,oroszlan-kramn@nebih.gov.hu,Ms Nassima Oroszlan-Kram,oroszlan-kramn@nebih.gov.hu,Government,,10,"Laboratory staff: 10 persons; Gamma-spectrometry, including in-situ gamma-spectrometry: 3 persons; Alpha-spectrometry: 4 persons; Gross alpha and beta determination: 3 persons; sample collecting and sample preparation: 10 persons; H-3 and carbon-14 determination by LSC: 2 persons",,Yes,2,No,,Yes,"In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Surface Contamination Monitoring","Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",Yes,,,Ra-226 determination by LSC in water,,"Radionuclide: H-3, Matrix: Drinking water, Accredited (routine): yes, Total Annual Sample Throughput (routine): 20-50, Total Weekly Sample Throughput (rapid): >50
+Radionuclide: C-14, Matrix: Drinking water, Accredited (routine): yes, Total Annual Sample Throughput (routine): 20-50, Total Weekly Sample Throughput (rapid): >50
+Radionuclide: C-14, Matrix: Vegetation, Accredited (routine): yes, Total Annual Sample Throughput (routine): 20-50, Total Weekly Sample Throughput (rapid): 10-20
+Radionuclide: Sr-90, Matrix: Vegetation, Accredited (routine): yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 10-20
+Radionuclide: Sr-90, Matrix: Soil, Accredited (routine): yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 10-20
+Radionuclide: K-40, Matrix: Drinking water, Accredited (routine): yes, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: K-40, Matrix: Soil, Accredited (routine): yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): >50
+Radionuclide: K-40, Matrix: Vegetation, Accredited (routine): yes, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >50
+Radionuclide: K-40, Matrix: Food, Accredited (routine): yes, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): 10-20
+Radionuclide: I-131, Matrix: Water, Accredited (routine): yes, Total Annual Sample Throughput (routine): 20-50, Total Weekly Sample Throughput (rapid): 20-50
+Radionuclide: I-131, Matrix: Soil, Accredited (routine): yes, Total Annual Sample Throughput (routine): 20-50, Total Weekly Sample Throughput (rapid): >50
+Radionuclide: I-131, Matrix: Vegetation, Accredited (routine): yes, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): 20-50
+Radionuclide: I-131, Matrix: Milk, Accredited (routine): yes, Total Annual Sample Throughput (routine): 20-50, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: Cs-137, Matrix: Water, Accredited (routine): yes, Total Annual Sample Throughput (routine): 20-50, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: Cs-131, Matrix: Soil, Accredited (routine): yes, Total Annual Sample Throughput (routine): 20-50, Total Weekly Sample Throughput (rapid): 10-20",,,,"Radionuclide: H-3, Matrix: water, MDA for routine method: 0.9 Bq/L, MDA for rapid method: 0.9 Bq/L
+Radionuclide: C-14, Matrix: water, MDA for routine method: 1.3 Bq/L, MDA for rapid method: 1.3 Bq/L
+Radionuclide: Sr-90, Matrix: ash from vegetartion, food, feed, milk, MDA for routine method: 6 Bq/kg ash, MDA for rapid method: 6 Bq/kg ash
+Radionuclide: Sr-90, Matrix: soil, MDA for routine method: 0.6 Bq/kg soil, MDA for rapid method: 0.6 Bq/kg soil
+Radionuclide: I-131, Matrix: soil, ash, MDA for routine method: 1.5 Bq/kg dry weight, MDA for rapid method: 1.5 Bq/kg dry weight
+Radionuclide: Pu-239/240, Matrix: soil, ash, MDA for routine method: 0.05 Bq/kg ash, MDA for rapid method: 0.05 Bq/kg ash",Yes,ISO 17025,2024,Yes,,Yes,ALMERA,We use reference materials from the IAEA.,Yes,The laboratory uses control charts to check equipment performance for all the methods.,Yes,Annually,No,,No,,No,No,,"Around  nuclear facilities
+Countrywide,  on a regular basis",Yes,There is a network of sampling stations for milk,No,,Yes,There are 130 automatic gamma dose rate meters countrywide. There are approximately 10 stations around Paks NPP.,No,,,,In situ gamma training course,,,
+24.303243,54.697277,Abu Dhabi,"Oct 8, 2025 13:08",qn4X8U,Radiological Environmental Laboratory Federal Authority for Nuclear Regulation,"Federal Authority for Nuclear Regulation 
+Landmark Tower, Abu Dhabi Corniche  
+PO Box 112021 Abu Dhabi
+United Arab Emirates",United Arab Emirates,MIDDLE EAST,Tel: +971 26516790 Ameena Al Abdouli Tel: +971 26516348 Ayesha AlShouq Tel: +971 26516348 Mouza AlZaabiFax: +971 26516661,Ms Ameena Al Abdouli,Ms Ameena Al Abdouli,ameena.alabdouli@fanr.gov.ae,"Ms Ameena Al Abdouli,Ms Ayesha Al Shouq",ameena.alabdouli@fanr.gov.ae; ayesha.alshouq@fanr.gov.ae; FREL@fanr.gov.ae,Government,Environmental Monitoring,7,"1 Qualified expert in radiochemistry and 1 qualified expert in gamma spectrometry analysis.
+5 staff are trained on advanced Gamma spectrometry, Liquid Scintillation Counter, Alpha/beta Counter, Alpha Spectrometry and sampling.","Some technical areas related to quality assurance, calculation of the MDAs, uncertainty calculations, and challenges in coincidence summing. In addition of the analysis of NORM by gamma spectrometry.",Yes,20,Yes,50,Yes,Airborne or Carbon Survey Systems,"Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",No,,,,,"Radionuclide: Gamma Emitters, Matrix: Water, Fish, Air, Soil and Sediment, Accredited (routine): No, Total Annual Sample Throughput (routine): 500, Total Weekly Sample Throughput (rapid): 5
+Radionuclide: H-3, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): 2
+Radionuclide: Po-210, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): 5
+Radionuclide: Gross Beta, Matrix: Air, Accredited (routine): No, Total Annual Sample Throughput (routine): 260, Total Weekly Sample Throughput (rapid): 3",,,,"Radionuclide: H-3, Matrix: water, MDA for routine method: 8 Bq/L, MDA for rapid method: NA",Yes,ISO 17025,,No,,Yes,IAEA and MAPEP,"PT, calibrated standard sources and certified reference materials",Yes,Based on EPA proce.dure for tritium and IAEA procedures for the other radionuclides,Yes,Annually,No,,No,,Yes,No,,"Around  nuclear facilities
+Countrywide,  on a regular basis
+For  marine monitoring
+For NORM  industry",No,,Yes,Air samplers are across the country.,Yes,It is around 17 stations.,Yes,Internal Data Cenetr,,Artificial Radionuclides in Milk Sample,"Advanced gamma spectrometry training.
+OBT analysis.
+Strontitum-90 in milk samples",,,
+45.100468,24.369008,Valcea,"Oct 8, 2025 13:35",g19POG,Laboratory of National Research and Development Institute for Cryogenic and Isotopic Technologies,"str. Uzinei no. 4, Râmnicu Vâlcea, 240050, Vâlcea",Romania,EUROPE,Tel: +40 250732744 (extension 256 or 156)Fax: +40 250732746Mobile: +40 744764399,Mr Ionut Faurescu,Mr Ionut Faurescu,ionut.faurescu@icsi.ro,Mr Ionut Faurescu,ionut.faurescu@icsi.ro,Research,"Analytical
+Environmental Research
+Environmental Monitoring",8,"2 specialists in gross alfa, gross beta and gamma measurements in water, soil, sediment and biota
+4 specialists in tritium, organically bound tritium and radiocarbon measurements in water, biota
+3 technicians",Romania,No,,No,,No,,"Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Liquid scintillation counter/s",No,,,,,"Radionuclide: H-3, Matrix: Water, extracted water from soil, sediments and biota, OBT, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >500, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: C-14, Matrix: Water, Air, Biota, Accredited (routine): no, Total Annual Sample Throughput (routine): >20, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: Cs-137, Matrix: Water, Soil, Sediments, Biota, Accredited (routine): no, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: Ra-226, Matrix: Water, Soil, Sediments, Biota, Accredited (routine): no, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): 0","OBT
+TFWT","Radionuclide: OBT, Matrix: Biota, Accredited (routine): yes, Total Annual Sample Throughput (routine): >50, Estimated total sample throughput (rapid): 0","Radionuclide: TFWT, Matrix: Soil, sediments and biota, Accredited (routine): yes, Total Annual Sample Throughput (routine): >200, Estimated total sample throughput (rapid): 0","Radionuclide: H-3, Matrix: Water, extracted water from soil, sediments and biota, OBT, MDA for routine method: < 1 Bq/L, MDA for rapid method: N/A
+Radionuclide: C-14, Matrix: Water, Air, Biota, MDA for routine method: 3.5 Bq/gC, MDA for rapid method: N/A
+Radionuclide: Cs-137, Matrix: Water, MDA for routine method: < 0.05 Bq/L, MDA for rapid method: N/A
+Radionuclide: Cs-137, Matrix: Soil, Sediments, Biota, MDA for routine method: < 1.0 Bq/kg, MDA for rapid method: N/A
+Radionuclide: Ra-226, Matrix: Water, MDA for routine method: < 0.45 Bq/L, MDA for rapid method: N/A
+Radionuclide: Ra-226, Matrix: Soil, Sediments, Biota, MDA for routine method: < 1.5 Bq/kg, MDA for rapid method: N/A",Yes,ISO 17025,2008,No,,Yes,"IAEA Tritium Intercomparison Tests TRIC2000, TRIC2004, 2008, 2012, 2018, TRIC2022 
+LGC AQUACHECK Proficiency Testing Scheme 2017-2025
+1st - 7th Organically Bound Tritium Inter-Laboratory Exercises
+IAEA-TERC-2025-01, Worldwide Proficiency Test Exercise on the determination of anthropogenic and natural radionuclides in water, soil, vegetation and simulated contaminated surface samples.","3H Quenched Standard Set for liquid scintillation counting
+Unquenched reference standard for liquid scintillation counting
+Tritiated Water Internal Standard
+(Sr+Y)-90, Am-241, Co-60 + Ba-133 + Cs-137 + Am-241",Yes,,Yes,Annually,No,,No,,need a prior institute management approval,No,,"Around  nuclear facilities
+For research",No,,,,Unsure,,No,,,"H-3 in water, C-14 in biota, gamma emitters in water, soil, bauxite ore",,,,https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357325207427077569/ICSI%20NUCLEAR_9297.jpg
+38.009998,23.824901,Athens,"Oct 8, 2025 14:04",G3urX0,"Greek Atomic Energy Commission (EEAE)
+Department of Environmental Radioactivity Monitoring","PO Box 60092
+GR-15310, Agia Paraskevi, Athens",Greece,EUROPE,Tel: +30 210 6506779,Mr Constantinos Potiriadis,Mr Constantinos Potiriadis,constantinos.potiriadis@eeae.gr; cpot@eeae.gr,Mr Constantinos Potiriadis,constantinos.potiriadis@eeae.gr; cpot@eeae.gr,Government,"Analytical
+Environmental Research
+Environmental Monitoring
+Water Resources",6,"6 persons: 3 gamma analysts, 2 radiochemists and alpha analysts, 1 radon expert","in-situ gamma spectrometry, Ra-228 in drinking water",Yes,16,No,,Yes,"In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Neutron Detection Capabilities
+Radon Detection and Monitoring
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",No,,,,,"Radionuclide: H-3, Matrix: Drinking water, Accredited (routine): No, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: C-14, Matrix: PT, Accredited (routine): No, Total Annual Sample Throughput (routine): 5-10, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Sr-90, Matrix: Water, Milk, Accredited (routine): No, Total Annual Sample Throughput (routine): 15, Total Weekly Sample Throughput (rapid): 
+Radionuclide: I-131, Matrix: Atmosceric aerosols in accidental situations, Food, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 20-30, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, Matrix: Atmosperic aerosols in accidental situations, soil, food, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Pb-210, Matrix: aerosol, water, soil, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Ra-226, Matrix: Soil, Phosphogypsum, water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: K-40, Matrix: Soil, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: U-238, Matrix: water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): > 100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: U-234, Matrix: water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): > 100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Po-210, Matrix: water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 20-50, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Th-232, Matrix: soil, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50-100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Am-241, Matrix: Decommisioning, Accredited (routine): Yes, Total Annual Sample Throughput (routine): , Total Weekly Sample Throughput (rapid):",TFWT,,"Radionuclide: H-3, Matrix: water, urine, Accredited (routine): No, Total Annual Sample Throughput (routine): 50-100, Estimated total sample throughput (rapid):","Radionuclide: H-3, Matrix: water, MDA for routine method: 2.8 Bq/l, MDA for rapid method: 
+Radionuclide: C-14, Matrix: urine, MDA for routine method: 2.5 Bq/L, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: soil, water, food, MDA for routine method: 0.4 Bq/L, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: air filters, MDA for routine method: 5E-06Bq/m3, MDA for rapid method: 
+Radionuclide: Ra-226, Matrix: soil, MDA for routine method: 0.7 Bq/Kg, MDA for rapid method: 
+Radionuclide: Th-232, Matrix: soil,food, MDA for routine method: 0.5 Bq/Kg, MDA for rapid method: 
+Radionuclide: U-238, Matrix: water, MDA for routine method: 4.0E-04 Bq/L, MDA for rapid method: 
+Radionuclide: Po-210, Matrix: water, MDA for routine method: 1.0E-03 Bq/L, MDA for rapid method:",Yes,ISO 17025,2003,No,,Yes,ALMERA; PROCORAD; BfS; EC JRC,"Multinuclide gamma standards in different densities and volumes.
+tracers for alpha-spec: U-232, Th-229, Pu-242, Am-243, Po-209",Yes,Energy and efficiency calibrations and FWHM are validated prior to any measurement.,Yes,Annually,Yes,EURATOM treaty (REM),Yes,"National authorities
+The European Union
+IAEA",Yes,Yes,PROCORAD,"Countrywide,  on a regular basis
+For NORM  industry
+For research
+In  emergency situations",No,,Yes,EEAE aerosol monitoring station in 3 places in northern Greece,Yes,24 stations,Yes,"National authorities
+EURDEP",Ongoing program to extend the existing gamma dose rate monitoring network.,Natural Radionuclides in drinking water according to COUNCIL DIRECTIVE 2013/51/EURATOM,,,,
+63.825324,20.262959,Umea,"Oct 8, 2025 15:14",ZMJdSk,"Swedish Defence Research Agency (FOI)
+Department for Radioactive Substances","CBRN Defence and Security
+901 82 Umea",Sweden,EUROPE,Tel: +46 90 10 66 40Mobile: +46 730 236 130,Mr Robert Sigg,Mr Karl Norlin,karl.norlin@foi.se,Mr Karl Norlin,karl.norlin@foi.se,Government,"Analytical
+Environmental Research",5,"Sample preparation
+Gamma spectrometry
+Mass spectrometry
+Gross alpha/beta with LSC
+Strontium analysis",,Yes,20,No,,Yes,In-Situ Gamma Spectrometry,"Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Mass spectrometry",Yes,"Gross alpha/beta with LSC
+Strontium method
+Gamma spectrometry","Gross alpha/beta with LSC
+Strontium method",,,"Radionuclide: Sr-90, Matrix: Milk, Accredited (routine): No, Total Annual Sample Throughput (routine): >10, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Sr-90, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): >20, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Sr-90, Matrix: Foodstuff, Accredited (routine): No, Total Annual Sample Throughput (routine): >10, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Gammaspec, Matrix: Several, Accredited (routine): No, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: C-14, Matrix: Sand, Accredited (routine): No, Total Annual Sample Throughput (routine): >10, Total Weekly Sample Throughput (rapid):",,,,,No,,,No,,Yes,IAEA's annual PT,,Yes,QC for Gamma spectrometry system and LSC,No,,No,,Yes,National authorities,Yes,Yes,NESA,"For research
+In  emergency situations",Yes,8,Yes,,Yes,,No,,,"Sr-90 in milk (other matrices than water)
+Sample with reactor nuclides, most for Gamma specrometry",,,,
+29.370125,47.97812,Safat,"Oct 8, 2025 15:31",dA7kvv,Kuwait Institute for Scientific Research,"PO Box 24885
+Safat, 13109",Kuwait,MIDDLE EAST,Tel: +965 24989224,Mr Saif Uddin,Ms Montaha Behbehani,mbahbaha@kisr.edu.kw,Mr Abdulaziz Aba,aaba@kisr.edu.kw,"Government
+Research","Analytical
+Environmental Research
+Environmental Monitoring
+Food Control
+Water Resources",15,"Environmental Pollution, Analytical Chemistry, Radiochemistry, Radiometrics, Environmental Monitoring and Assessment, Microplastics",Radioisotopes use in environmental pollution assessment,Yes,,Yes,30,Yes,"Alpha and Beta Spectrometry
+In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Radon Detection and Monitoring
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Mass spectrometry",No,,,,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <10, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: Sr-90, Matrix: water, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <20
+Radionuclide: CS-137, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): 10
+Radionuclide: Cs-137, Matrix: Sediment, Accredited (routine): No, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): 10
+Radionuclide: Cs-137, Matrix: Air, Accredited (routine): No, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): 10
+Radionuclide: Po-210, Matrix: Biota, Accredited (routine): No, Total Annual Sample Throughput (routine): >300, Total Weekly Sample Throughput (rapid): 20
+Radionuclide: Pb-210, Matrix: Air, Accredited (routine): no, Total Annual Sample Throughput (routine): >50, Total Weekly Sample Throughput (rapid): 10
+Radionuclide: Ra-226, Matrix: Air, Accredited (routine): No, Total Annual Sample Throughput (routine): >50, Total Weekly Sample Throughput (rapid): 10",Enrichment performed,,,"Radionuclide: H-3, Matrix: water, MDA for routine method: 1 Bq/L, MDA for rapid method: _
+Radionuclide: Sr-90, Matrix: Water, MDA for routine method: 1 Bq/L, MDA for rapid method: -
+Radionuclide: Cs-137, Matrix: Water, MDA for routine method: 1 mbq/L, MDA for rapid method: 1 Bq/L",Yes,ISO 17025,,Yes,ALMERA,No,,CRM available commercially and IAEA reference material are routinely used,No,,No,,No,,Yes,National authorities,Yes,No,,"For  marine monitoring
+For research",Yes,4,Yes,KISR,Unsure,,No,,Ministry of Health has Radiation Protection department.,Cs-137 in sediment and water; 210-Po in biota,Training course on environmental monitoring,,,
+43.51833,-112.042383,Idaho Falls,"Oct 8, 2025 15:46",Tyg8ed,Radiological and Environmental Sciences Laboratory,"2251 N Boulevard
+RESL-601, MS 2112
+Idaho Falls, ID 83415",United States of America,NORTH AND LATIN AMERICA,Tel: +1 208-526-8249Cell: +1 208-541-2120Fax: +1 208-526-2548,Mr Guy Backstrom,Mr Shane Steidley,steidlsd@id.doe.gov,Mr Shane Steidley,steidlsd@id.doe.gov,Government,"Analytical
+Environmental Monitoring
+NPP / Nuclear Facility Monitoring
+Public Health",20,"~15-20, Radiochemistry & Health physics","Nospecific areas, but always open to improvement efforts",No,,No,,Yes,Alpha and Beta Spectrometry,"Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Mass spectrometry",Yes,Pretty much all fresh fission products and long lived nuclides.,Cadmium methods,Continue to refine and improve our fresh fission product methods.,No specific plans.  Goal is always to improve on our current methods.,,,,,,Yes,ISO 17025,2025,Yes,USA's DOELAP and MAPEP PT provider,No,USA's DOELAP and MAPEP PT provider,NBL's & NIST,No,,Yes,Quarterly,No,,Yes,National authorities,Yes,No,,"Around  nuclear facilities
+Countrywide,  on a regular basis
+Discharges from the nuclear facilities (NPPs, waste repositories)
+For  existing exposure situations (e.g. for uranium legacy sites)
+For  marine monitoring
+For NORM  industry
+For research
+In  emergency situations",,,,,Unsure,,No,,US DOE MAPEP,NA,NA,Enjoy working with and learning more about ALMERA,,
+56.949639,24.105033,Riga,"Oct 8, 2025 16:45",WPvmdB,"Latvian Environment, Geology and Meteorology Centre","Latgales Street 165
+Riga, LV-1019",Latvia,EUROPE,Tel: +371-67032693 Mobile: +371-29868438,Mr Edgars Barons,Mr Raimonds Murnieks,raimonds.murnieks@lvgmc.lv,Mr Raimonds Murnieks,raimonds.murnieks@lvgmc.lv,Government,"Analytical
+Environmental Monitoring",3,"Provision and measurements of individual TLD dosimeters;
+Radioactivity measurements - gamma spectrometry and liquid scintillation counting.",Implementation the procedures of regular training and evaluation of existing methodology with aim to improve analytical methods currently in place (e.g. Gamma spectrometry advanced training courses for improvement of methodology).,No,,No,,Yes,"In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Neutron Detection Capabilities
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Mass spectrometry",No,,,,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): yes, Total Annual Sample Throughput (routine): 80, Total Weekly Sample Throughput (rapid): -
+Radionuclide: Rn-222, Matrix: Water, Accredited (routine): yes, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): -
+Radionuclide: Cs-137, Matrix: Water, Accredited (routine): yes, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): -
+Radionuclide: K-40, Matrix: Water, Accredited (routine): yes, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): -
+Radionuclide: Ra-226, Matrix: water, Accredited (routine): yes, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): -",,,,"Radionuclide: H-3, Matrix: water, MDA for routine method: 1.5 Bq/l, MDA for rapid method: -
+Radionuclide: Rn-222, Matrix: water, MDA for routine method: 0.03 Bq/l, MDA for rapid method: -
+Radionuclide: Cs-137, Matrix: water, MDA for routine method: 0.07 Bq/l, MDA for rapid method: -
+Radionuclide: K-40, Matrix: water, MDA for routine method: 3 Bq/l, MDA for rapid method: -
+Radionuclide: Ra-226, Matrix: water, MDA for routine method: 2 Bq/l, MDA for rapid method: -",Yes,ISO 17025,1997,No,,Yes,Almera (Since ~2007) and JRC ILC,"Multistandard (Czech Metrology Institute - CMI) for gamma spectrometry calibration;
+H-3, Ra-226, Am-241, Sr-90 standards (CMI) for LSC.",Yes,"Weekly gamma spectrometer performance checks (energy and efficiency stability);
+Regular LSC spectrometer (Hidex and Quantulus) performance monitoring with a set of standards (background, C-14 and H-3) and constant sample preparation and repeatability checks.",Yes,Annually,Yes,EURATOM treaty (REM),No,,Depends on the requested parameter.,No,,"Countrywide,  on a regular basis
+For  existing exposure situations (e.g. for uranium legacy sites)","No network of sampling stations, only the network of 20 gamma dose rate stations.",,Yes,One automatic aerosol monitoring station (Not really a network) installed in capital city Riga (main population centre of Latvia) for gross alpha/beta and gamma radionuclide monitoring and gaseous iodine sampling.,Yes,The network of 20 gamma dose rate stations across the country.,No,,Operator monitoring programs in Salaspils Research Reactor (Non-operational) and radioactive waste repository “Radons”.,Water samples (anthropogenic and natural radionuclides) appreciated; concrete matrix could be suggested for future PT and RMs.,"In Latvia’s case, training on liquid scintillation counting (LSC) for Sr-90 analysis would be highly beneficial for both emergency and routine environmental monitoring.","Although many laboratories indicated that the QC sample within the ALMERA proficiency test (PT) set was unnecessary, it could be offered as an optional feature, as this sample provides an additional check of equipment performance during PTs.","https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357439136271721727/IMG_20230323_160630.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357439136271721727/IMG_20230323_162311.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357439136271721727/IMG_20230323_160544.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357439136271721727/IMG_20230323_160700.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357439136271721727/IMG_20230323_160728.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357439136271721727/IMG_20250605_101135.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357439136271721727/IMG_20250605_101022.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357439136271721727/IMG_20250205_105332.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357439136271721727/equip.jpg",
+42.041229,12.302004,Santa Maria Di Galeria,"Oct 8, 2025 18:06",Tpbsev,"ENEA Centro Ricerche Casaccia
+Istituto di Radioprotezione
+Laboratorio sorveglianza della radioattività ambientale, S.p. 009
+
+ENEA Casaccia Research Centre
+Radiation Protection Institute
+Laboratory for surveillance of environmental radioactivity, S.p. 009","Via Anguillarese 301
+I-00123, Santa Maria Di Galeria – Rome",Italy,EUROPE,Tel: +39 0630486370 Fax: +39 0630486704,Mr Ignazio Vilardi,Mr Ignazio Vilardi,ignazio.vilardi@enea.it,"Mr Ignazio Vilardi, Mr Alessandro Rizzo, Ms Nadia Di Marco",nadia.dimarco@enea.it; alessandro.rizzo@enea.it; ignazio.vilardi@enea.it,"Government
+Research","Environmental Research
+Environmental Monitoring
+NPP / Nuclear Facility Monitoring",7,"2 physicists and 1 chemist (qualified experts in radiation protection); 3 technicians experts in physical measurements, 1 technician expert in chemistry.",N/A,No,,No,,Yes,"In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s",No,,,,,"Radionuclide: Cs-137, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): > 100, Total Weekly Sample Throughput (rapid): 20-50
+Radionuclide: Cs-137, Matrix: Drinking water, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): 20-50
+Radionuclide: Cs-137, Matrix: Soil-Sediment, Accredited (routine): No, Total Annual Sample Throughput (routine): > 20, Total Weekly Sample Throughput (rapid): 20-50
+Radionuclide: Cs-137, Matrix: Vegetation, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): 20-50
+Radionuclide: Cs-137, Matrix: Milk, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): 20-50
+Radionuclide: Cs-137, Matrix: Air, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): 20-50
+Radionuclide: Sr-90, Matrix: Vegetation, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): < 10
+Radionuclide: Sr-90, Matrix: Milk, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): < 10
+Radionuclide: Pu-239, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): < 10
+Radionuclide: Pu-239, Matrix: Soil-Sediment, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): < 10
+Radionuclide: Pu-239, Matrix: Vegetation, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): < 10
+Radionuclide: Pu-239, Matrix: Air, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): < 10",,,,"Radionuclide: Cs-137, Matrix: Air, MDA for routine method: 2E-06 Bq/m^3, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Water, MDA for routine method: 7E-03 Bq/l, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Drinking water, MDA for routine method: 7E-03 Bq/l, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Soil, MDA for routine method: 2E-01 Bq/kg, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Vegetables, MDA for routine method: 3E-01 Bq/kg, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Milk, MDA for routine method: 2E-02 Bq/l, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Sediment, MDA for routine method: 5E-02 Bq/kg, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Air, MDA for routine method: 1E-04 Bq/m^3, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Water, MDA for routine method: 1E-01 Bq/l, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Drinking water, MDA for routine method: 1E-01 Bq/l, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Sediment, MDA for routine method: 1E-01 Bq/l, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Milk, MDA for routine method: 1E-01 Bq/l, MDA for rapid method: 
+Radionuclide: Sr-90, Matrix: Vegetables, MDA for routine method: 3E-01 Bq/kg, MDA for rapid method: 
+Radionuclide: Sr-90, Matrix: Milk, MDA for routine method: 4E-03 Bq/l, MDA for rapid method: 
+Radionuclide: Pu-239/240, Matrix: Air, MDA for routine method: 3E-09 Bq/m^3, MDA for rapid method: 
+Radionuclide: Pu-239/240, Matrix: Water, MDA for routine method: 1E-06 Bq/l, MDA for rapid method: 
+Radionuclide: Pu-239/240, Matrix: Soil-Sediment, MDA for routine method: 2E-02 Bq/kg, MDA for rapid method: 
+Radionuclide: Pu-239/240, Matrix: vegetables, MDA for routine method: 2E-03 Bq/kg, MDA for rapid method:",No,,,Yes,PT organized by Italian Institute of Ionizing Radiation Metrology.,Yes,IAEA - Almera,"Liquid mix gamma, liquid Pu-242, solid Am-241, solid Sr-90",Yes,"QC for gamma spectrometry, QC for proportional counters",Yes,Annually,Yes,National authority database,Yes,National authorities,Yes,No,,"Around  nuclear facilities
+In  emergency situations",Yes,"Local environmental sampling
+- 3 stations sample particulate air daily; 
+- 3 stations sample drinking water every six months; 
+- 2 stations sample superficial water, one weekly, one every three months; 
+- 1 station samples waste water daily; 
+- 3 stations sample sediments, one monthly, one every three months, one every six months; 
+- 8 stations sample soil annually; 
+- 3/4 stations sample vegetables every six months; 
+- 4 stations sample milk, monthly for 3, every six months for the fourth.",No,,Yes,"- 26 stations are included in the network, 1 with a Reuter-Stokes for dose rate, 25 with passive dosimeters for integral dose.",No,,"Emergency exposure situations, around nuclear facilities","- Total alpha/beta and gamma emitting radionuclides on air filters; 
+- fission and activation products in water; 
+- Pu-239/240 in water; 
+- Pu-239/240 in soil;
+- Sr-90 in water/milk; 
+- Sr-90 in vegetables.",Alpha/beta measurement harmonization,,,
+23.118679,-82.412148,La Habana,"Oct 8, 2025 18:15",er28WV,"Centro de Proteccion e Higiene de las Radiaciones (CPHR)
+Laboratorio de Vigilancia Radiológica Ambiental","Calle 20 No. 4113, entre 41 Y 47 Playa
+CP 10300, La Habana",Cuba,NORTH AND LATIN AMERICA,Tel: +53 5 566 2417,Mr. Eduardo Capote Ferrera,Mr. Eduardo Capote Ferrera,capote@cphr.edu.cu; educafe69@gmail.com,Mr Eduardo Capote Ferrera,capote@cphr.edu.cu; educafe69@gmail.com,"Government
+Research","Analytical
+Environmental Research
+Environmental Monitoring
+Food Control
+University (Higher education, Teaching)",5,"1 engineer in Nuclear Physics (radiometric measurements and gamma-ray spectrometry).
+1 Licentiate in Nuclear Physics (radiometric measurements and gamma-ray spectrometry)
+1 Licentiate in Radiochemistry (expert in Radiochemistry and Quality Assurance)
+2 Licentiate in Chemistry (preparation of calibration standards, pretreatment of samples)
+1 Technician in Chemistry (pretreatment of samples).","Gamma in-situ spectrometry, and advanced methods in gamma-ray spectrometry; Determination of total alpha and beta in water by liquid scintillation.",No,,Yes,30,Yes,"In-Situ Gamma Dose Rate Radiometry
+Radon Detection and Monitoring
+Surface Contamination Monitoring
+gamma spectrometry","Gamma-ray spectrometry system/s
+Liquid scintillation counter/s",No,,,,,,,,,,Yes,ISO 17025,2024,Yes,No,Yes,,IEC and ANSI guides on calibration and use of HPGe detectors for the determination of radionuclides by gamma-ray spectrometry.,Yes,"Control charts, checking the accuracy (trueness and precision). Control of peak position, resolution and efficiency in gamma-ray spectrometry.",Yes,Upon request,Yes,,Yes,National authorities,Yes,No,,"Around  nuclear facilities
+Countrywide,  on a regular basis
+Discharges from the nuclear facilities (NPPs, waste repositories)
+For  existing exposure situations (e.g. for uranium legacy sites)
+For NORM  industry
+For research
+In  emergency situations",Yes,4,No,,Yes,Unsure of the number of stations. 4,No,,"countrywide, on a regular basis--station to measure gamma dose rate with GammaTracers probes; emergency exposure situations--station to measure gamma dose rate with GammaTracers probes.",Cs-137 in food; Cs-134 in food; I-131 in food; Pb-210 in food; Am-241 in food;  Cs-137 in soil; Cs-134 in soil; Ra-226 in soil; Pb-210 in soil; Am-241 in soil; Cs-137 in aerosol filters; Cs-134 in aerosol filters; Co-60 in aerosol filters; Eu-152 in water,Proficiency Test; Training Workshops; Training Courses,,,
+-12.084798,-77.009632,Lima,"Oct 8, 2025 19:55",SbSR1i,"Laboratory of Radioecology
+Instituto Peruano de Energia Nuclear (IPEN)","Av. Canada 1480
+San Borja
+Lima 41 - Peru",Peru,NORTH AND LATIN AMERICA,Tel: +51-1-4885050 ext 2297,Mr Jose Manuel Osores,Mr Jose Manuel Osores,josores@ipen.gob.pe; ecorad1960@gmail.com,Mr Jose Manuel Osores,josores@ipen.gob.pe,Government,"Analytical
+Environmental Research
+Environmental Monitoring
+Food Control
+Public Health",4,"Environmental Radioactivity
+Radioecology","ISO 17025 accreditation in nuclear analytical techniques
+Proficiency testing under ISO 17043
+Availability of reference materials",Yes,4,Yes,40,Yes,"Airborne or Carbon Survey Systems
+Alpha and Beta Spectrometry
+In-Situ Gamma Dose Rate Radiometry
+Radon Detection and Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",Yes,gamma spectrometry,"Radon
+Tritium
+Sr-90",Radionuclides in NORM,"Radionuclides released during a radiological emergency (I-131, Cs-137, H-3)","Radionuclide: Sr-90, Matrix: Food, Accredited (routine): No, Total Annual Sample Throughput (routine): < 20, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: Sr-90, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): < 10, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: I-131, Matrix: Air, Accredited (routine): No, Total Annual Sample Throughput (routine): > 50, Total Weekly Sample Throughput (rapid): > 50
+Radionuclide: Cs-137, Matrix: All, Accredited (routine): In process, Total Annual Sample Throughput (routine): > 100, Total Weekly Sample Throughput (rapid): > 30
+Radionuclide: Pb-210, Matrix: Geological, Accredited (routine): No, Total Annual Sample Throughput (routine): > 20, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: Ra-220, Matrix: Geological, Accredited (routine): In process, Total Annual Sample Throughput (routine): > 100, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: Gross Beta, Matrix: Water, Accredited (routine): In process, Total Annual Sample Throughput (routine): > 20, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: Gross Alpha, Matrix: Water, Accredited (routine): In process, Total Annual Sample Throughput (routine): > 10, Total Weekly Sample Throughput (rapid): 0",Enrichment performed,,,"Radionuclide: Sr-90, Matrix: Water, MDA for routine method: 1 Bq/L, MDA for rapid method: 
+Radionuclide: Sr-90, Matrix: Food, MDA for routine method: 5 Bq/kg, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Air, MDA for routine method: 10 mBq/m3, MDA for rapid method: 100 mB/m3
+Radionuclide: Cs-137, Matrix: All, MDA for routine method: 5 Bq/kg, MDA for rapid method: 20 Bq/kg
+Radionuclide: Pb-210, Matrix: Geological, MDA for routine method: 10 Bq/kg, MDA for rapid method: 
+Radionuclide: Ra-226, Matrix: Geological, MDA for routine method: 4 Bq/kg, MDA for rapid method: 
+Radionuclide: Gross Beta, Matrix: Water, MDA for routine method: 0.1 Bq/L, MDA for rapid method: 
+Radionuclide: Gross Alpha, Matrix: Water, MDA for routine method: 0.1 Bq/L, MDA for rapid method:",Yes,ISO 17025,,No,,Yes,The laboratory has participated in all international proficiency testing exercises since its incorporation into the Almera Network.,"IAEA-321
+IAEA-444
+IAEA-330
+IAEA-373
+IAEA-RGU1
+IAEA-434",Yes,"Internal Quality Control (QC): Verify the accuracy and precision of routine measurements.
+Internal control sources: Routine measurement (daily or weekly) of a standard control source.
+Assessment of recovery of known activity.
+Application of control charts to detect trends.
+Duplicates or replicates: Measurement of a duplicate sample to assess repeatability.
+Typical criterion: ≤10% difference in results.
+Laboratory blanks: Measurement of inert matrices or empty containers to detect contamination or interferences.
+Secondary standard sources: Verification of efficiency and calibration against standards traceable to a national agency (IAEA, NIST)",Yes,Annually,No,,Yes,National authorities,Yes,No,,"Around  nuclear facilities
+Countrywide,  on a regular basis
+Discharges from the nuclear facilities (NPPs, waste repositories)
+For  existing exposure situations (e.g. for uranium legacy sites)
+For  marine monitoring
+For NORM  industry
+For research
+In  emergency situations",No,,No,,Yes,Only one (01) - Nuclear Center,No,,,Eu-152 in food; Eu-152 in water; Ra-226 in soil; Ra-226 in minerals; Pb-210 in soil; Pb-210 in sediments; Th-232 in soil; Th-232 in mineral,Interlaboratory Comparison Exercises; NORM,,"https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357553286225287734/2023-11-13-08-07-13-464.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357553286225287734/3a198d69-833f-421b-8141-ea9240ed9624.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357553286225287734/2023-11-13-08-10-00-721.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357553286225287734/5199eb49-879d-4d11-8f14-c53912d17822.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357553286225287734/IMG_20231204_140047.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357553286225287734/IMG_20231204_140122.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357553286225287734/26e84291-bfdf-4fdc-8daf-19b9c836d3a1.jpg",https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357553286225287734/2023-11-13-08-10-00-721_9037.jpg
+50.270929,19.025754,Katowice,"Oct 9, 2025 07:33",du7soB,Silesian Centre for Environmental Radioactivity of the Central Mining Institute - National Research Institute,"Plac Gwarkow 1
+P.B. 3672
+PL-40-166 Katowice",Poland,EUROPE,Tel: +48 32 2592720or +48 539 742 936,Dr Michal Bonczyk,Dr Michal Bonczyk,mbonczyk@gig.eu,Dr Michal Bonczyk,mbonczyk@gig.eu,"Academia
+Government
+Industry","Analytical
+Environmental Research
+Environmental Monitoring
+University (Higher education, Teaching)",15,"Radiometry, radiation dosimetry, radiochemistry, physics, geology, environmental sciences","determinaton of OBT, C-14 in some matrixes,",Yes,20,Yes,20,Yes,"Alpha and Beta Spectrometry
+In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Radon Detection and Monitoring
+Surface Contamination Monitoring","Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",Yes,"Radium (LSC), Radon, Radon/Thoron progeny (TLD), Uranium (alpha), gamma spectrometry (40-2000 keV), Sr-90, H-3, total alpha/beta (LSC)","OBT, HTO in plants, C-14,","Plutonium, Polonium",total alpha/beta,"Radionuclide: H-3, Matrix: water, Accredited (routine): yes, Total Annual Sample Throughput (routine): >3000, Total Weekly Sample Throughput (rapid): >200
+Radionuclide: C-14, Matrix: vegetation, soil, Accredited (routine): no, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >10
+Radionuclide: Sr-90, Matrix: water, soil, vegetation,, Accredited (routine): yes, Total Annual Sample Throughput (routine): >300, Total Weekly Sample Throughput (rapid): >50
+Radionuclide: I-131, Matrix: air, soil, water, food, Accredited (routine): yes, Total Annual Sample Throughput (routine): >1000, Total Weekly Sample Throughput (rapid): >50
+Radionuclide: Cs-137, Matrix: air, soil, water, food, Accredited (routine): yes, Total Annual Sample Throughput (routine): >1000, Total Weekly Sample Throughput (rapid): >50
+Radionuclide: Pb-210, Matrix: air, soil, water, food, waste, Accredited (routine): yes, Total Annual Sample Throughput (routine): >500, Total Weekly Sample Throughput (rapid): >20
+Radionuclide: Ra-226, Ra-228, Matrix: water, soil, waste, Accredited (routine): yes, Total Annual Sample Throughput (routine): >2000, Total Weekly Sample Throughput (rapid): >100
+Radionuclide: U-238, U-235, Matrix: water, soil, vegetation, waste, Accredited (routine): yes, Total Annual Sample Throughput (routine): >200, Total Weekly Sample Throughput (rapid): >10",OBT,"Radionuclide: OBT, Matrix: vegetation, Accredited (routine): no, Total Annual Sample Throughput (routine): 200, Estimated total sample throughput (rapid): 10",,"Radionuclide: H-3, Matrix: water, MDA for routine method: 2 Bq/L, MDA for rapid method: 5 Bq/L",Yes,ISO 17025,1993,Yes,PT organised by Polish Atomic Agency (every year),Yes,ALMERA; EC JRC; IRMM,,Yes,,Yes,"depends on case: air - weekly, radium in surface water - quaterly",No,,Yes,National authorities,Yes,No,,"Around  nuclear facilities
+For  existing exposure situations (e.g. for uranium legacy sites)
+For NORM  industry
+For research
+In  emergency situations",Yes,~13,,,Unsure,,No,,monitoring of the radiactivity of discharged mining water,,,,"https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357972307788047844/DSC_0171.JPG
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357972307788047844/DSC_0158.JPG
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357972307788047844/identyfikacja%20ska%C5%BCe%C5%84%20promieniot%C3%B3wrczych%20w%20%C5%9Brodowisku.JPG
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357972307788047844/SAM_0150.JPG
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357972307788047844/SAM_1020.JPG
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357972307788047844/wzorcowanie%20przyrz%C4%85d%C3%B3w%20radiometrycznych.JPG
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357972307788047844/badanie%20st%C4%99%C5%BCenia%20nuklid%C3%B3w%20promieniot%C3%B3rczych%20metod%C4%85%20spektrometrii%20gamma.JPG",https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6357972307788047844/MICHAl-3.jpg
+54.721774,25.286932,Vilnius,"Oct 9, 2025 08:39",VjHBd2,Radiation Protection Centre,"Kalvariju Street 153
+LT-08352, Vilnius",Lithuania,EUROPE,Tel: +370 5 263 9908,Mr Julius Žiliukas,Ms Rima Ladygiene,rima.ladygiene@rsc.lt,Ms Rima Ladygienė,rima.ladygiene@rsc.lt,Government,Environmental Monitoring,10,Radiological environmental monitoring in normal situation and in case of nuclear or radiological emergency,training in radiological measurements,Yes,10,No,,Yes,"Airborne or Carbon Survey Systems
+Alpha and Beta Spectrometry
+In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Radon Detection and Monitoring
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Liquid scintillation counter/s",No,,,,,"Radionuclide: H-3, Matrix: water, Accredited (routine): YES, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >30
+Radionuclide: Sr-90, Matrix: environmental and food samples, Accredited (routine): YES, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >12
+Radionuclide: Gamma radionuclides, Matrix: environmental and food samples, Accredited (routine): YES, Total Annual Sample Throughput (routine): >500, Total Weekly Sample Throughput (rapid): >30
+Radionuclide: gross alpha/gross beta, Matrix: water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >12
+Radionuclide: Rn-222, Matrix: water, Accredited (routine): No, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >12",,,,"Radionuclide: H-3, Matrix: water, MDA for routine method: 2 Bq/l, MDA for rapid method: 2 Bq/l
+Radionuclide: Sr-90, Matrix: food, MDA for routine method: 0.02 Bq/kg, MDA for rapid method: 2 Bq/kg
+Radionuclide: Cs-137, Matrix: water, MDA for routine method: 2 mBq/l, MDA for rapid method: 2 Bq/l",Yes,ISO 17025,2005,No,,Yes,"ALMERA, EC","IEC 61452; ISO 9698; ISO 9696; ISO 9697,  ISO 11704",Yes,Quality checks,Yes,Annually,Yes,"EURATOM treaty (REM)
+UNSCEAR",Yes,"National authorities
+The European Union",Yes,Yes,RANET,"Countrywide,  on a regular basis
+For  existing exposure situations (e.g. for uranium legacy sites)
+For  marine monitoring",Yes,15,Yes,RADIS,Yes,44 for air and 4 forwater,Yes,"National authorities
+EURDEP",Wood contamination for Cs-137,"H-3 in water
+Sr-90 in environmental and food samples, sea water
+Gamma radionuclides in the environmental samples
+gross alpha/beta in water
+Rn-222 in water",training in radiological measurements and intercomparisons,Thanks ALMERA for excellent work,"https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358011784701032433/IMG_20230920_160328.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358011784701032433/IMG_20230920_160601.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358011784701032433/IMG_20250924_083355.jpg",
+43.863948,18.417405,Sarajevo,"Oct 9, 2025 11:21",iGptwf,"Institute for Public Health of Federation of Bosnia and Herzegovina
+Department for Radiation Protection","Tahtali sokak 17
+BH-71000 Sarajevo",Bosnia and Herzegovina,EUROPE,Tel/Fax: +387 33 268 280,Mr Alfred Vidic,Mr Alfred Vidic,a.vidic@zzjzfbih.ba; czz@zzjzfbih.ba,Zorana Ilić,z.ilic@zzjzfbih.ba,Government,"Environmental Monitoring
+Food Control
+Public Health",4,"Four (4), out of which two graduated chemists - radioanalytical chemistry and radiometric techniques (alpha spectrometry, LSC and gas proportional counting) - one graduated physicist - gamma spectrometry, one technician - sampling and sample preparation.","Quality assurance and quality control of laboratory analytical work, sampling design and sampling uncertainty",Yes,5,,,Yes,"In-Situ Gamma Dose Rate Radiometry
+Neutron Detection Capabilities
+Radon Detection and Monitoring
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",No,,,,,"Radionuclide: Ra-226, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Sr-90, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 20, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Sr-90, Matrix: Food, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Sr-90, Matrix: Milk, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 20, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, Matrix: Soil, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 200, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 20, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, Matrix: Food, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 200, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, Matrix: Aerosol, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Gross alpha, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 100, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Gross beta, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 100, Total Weekly Sample Throughput (rapid):",,,,"Radionuclide: U-238, Matrix: Water, MDA for routine method: 0.5 mBq/L, MDA for rapid method: 
+Radionuclide: Ra-226, Matrix: Water, MDA for routine method: 1 mBq/L, MDA for rapid method: 
+Radionuclide: Sr-90, Matrix: Water, MDA for routine method: 2 mBq/L, MDA for rapid method: 
+Radionuclide: Sr-90, Matrix: Food, MDA for routine method: 0.05 Bq/kg, MDA for rapid method: 
+Radionuclide: Sr-90, Matrix: Milk, MDA for routine method: 0.1 Bq/L, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Soil, MDA for routine method: 1 Bq/kg, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Water, MDA for routine method: 1 mBq/m3, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Food, MDA for routine method: 0.02 Bq/kg, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Aerosol, MDA for routine method: 2 uBq/m3, MDA for rapid method: 
+Radionuclide: Gross alpha, Matrix: Water, MDA for routine method: 0.1 Bq/L, MDA for rapid method: 
+Radionuclide: Gross beta, Matrix: Water, MDA for routine method: 0.2 Bq/L, MDA for rapid method:",Yes,ISO 17025,2023,No,,Yes,IAEA-TERC-2025-01 Worldwide Proficiency Test,"Radionuclide mixture, geometry cylinder
+Radionuclide mixture, geometry Marinelli beaker
+Radionuclide tracer solutions Sr-90, U-232, Ba-133, Am-241",Yes,"Background, FWHM, test sources, certified reference materials",Yes,"Annually
+Upon request",No,,Yes,National authorities,Yes,Yes,Ring of Five,"Countrywide,  on a regular basis
+In  emergency situations",Yes,10,Yes,Sarajevo station (1) and Novi Grad station (1),Yes,"6 (Institute for Public Health of Federation of Bosnia and Herzegovina)
+5 (Institute for Public Health of Republic of Srpska)
+10 (State Regulatory Agency for Radiation and Nuclear Safety)",Yes,"EURDEP
+Institute for Public Health",,"Filter sheets (40 x 40) cm or similar spiked with anthropogenic and natural radionuclides
+Water samples spiked with anthropogenic and natural radionuclides at environmental levels
+Water samples with U-238 and U-234 close to equilibrium and in significant disequilibrium
+Food samples (milk) spiked with Sr-90","PT test
+Workshop determination of surface contamination, direct method, typical radionuclides in nuclear medicine (single radionuclide and mixture of radionuclides)
+Workshop final survey of radioanalytical or nuclear medicine laboratory for the decommissioning purpose","Keep up the good work
+
+This survey, laboratory capacity part, information on methods associated with radionuclides, matrices, MDA etc. might be beneficial",,
+45.834498,15.978302,Zagreb,"Oct 9, 2025 12:19",h5Qzez,"Institute for Medical Research and Occupational Health (IMROH)
+Division of Radiation Protection","Ksaverska cesta 2
+HR-10000 Zagreb",Croatia,EUROPE,Tel: +385 1 4682 500,Prof Branko Petrinec,Dr Tomislav Bituh,tbituh@imi.hr,Dr Tomislav Bituh,tbituh@imi.hr,Research,"Analytical
+Environmental Research
+Environmental Monitoring
+Food Control
+NPP / Nuclear Facility Monitoring
+Public Health
+Water Resources",12,"4 experts in gamma spectrometry, 6 radiochemists, 2 technical staff","Training for radio-chemistry, LSC, alpha-spectrometry.",No,,No,,Yes,"In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Neutron Detection Capabilities
+Radon Detection and Monitoring
+Surface Contamination Monitoring","Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s",No,,,,,"Radionuclide: Sr-90, Matrix: Food, animal feed stuffs, drinking water, natural water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): > 50, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: Cs-137, Matrix: Food, animal feed stuffs, drinking water, natural water and waste water, soil, building material, naturally occurring radioactive material - NORM, air and biota, Accredited (routine): Yes, Total Annual Sample Throughput (routine): > 100, Total Weekly Sample Throughput (rapid): > 5
+Radionuclide: I-131, Matrix: air, water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): > 50, Total Weekly Sample Throughput (rapid): 0
+Radionuclide: Ra-226, Matrix: Drinking water, natural water and waste water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): > 35, Total Weekly Sample Throughput (rapid): 0",,,,"Radionuclide: Sr-90, Matrix: water, MDA for routine method: 0.3 Bq/m3, MDA for rapid method: N/A
+Radionuclide: Sr-90, Matrix: milk, MDA for routine method: 0.03 Bq/kg, MDA for rapid method: N/A
+Radionuclide: Cs-137, Matrix: milk, MDA for routine method: 0.02 Bq/kg, MDA for rapid method: 1.5 Bq/kg
+Radionuclide: Cs-137, Matrix: water, MDA for routine method: 1 Bq/m3, MDA for rapid method: N/A
+Radionuclide: Ra-226, Matrix: water, MDA for routine method: 7 Bq/m3, MDA for rapid method: N/A",Yes,ISO 17025,2010,Yes,"90-Sr in milk, organized by our laboratory (IMROH)
+Natural radionuclides in thermal water,  organized by our laboratory (IMROH)",Yes,"IAEA (TEL, TERC, NAEL, RML) from 2005; EC JRC from 2006",For gamma: CBSS2 Mix in different geometries; ERX mix standard; for in-situ gamma: 152-Eu point source; Sr-90 liquid standard; Ra-226 liquid standard. All provided by CMI-Eurostandard.,Yes,Internal procedures for validating equipment and measurements are established for all methods. Routine checks with reference materials and standards are established.,Yes,Annually,Yes,EURATOM treaty (REM),Yes,National authorities,No,Yes,Ring of Five,"Countrywide,  on a regular basis
+For NORM  industry
+For research
+In  emergency situations",Yes,"Precipitation is collected on a monthly basis at 7 locations, and air samples are collected at two locations.",Yes,"One AMS (gamma, alpha/beta, I-131) at IMROH, and 2 more stations countrywide.",Yes,SPUNN (33 stations),No,,Zero state monitoring of the future facility for storage of radioactive waste.,Ra-226 in water; Sr-90 in water; Sr-90 in foodstuffs; Pb-210 in biota; Sr-90 in milk,Training Courses,Well done. Keep up the good work.,"https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358143616018216075/17-scaled.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358143616018216075/18-scaled.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358143616018216075/13-scaled.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358143616018216075/15-scaled_1.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358143616018216075/14-scaled.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358143616018216075/16-scaled.jpg",
+43.77579,23.724629,Kozloduy,"Oct 9, 2025 12:48",8fgLpH,Radioecological Monitoring Laboratory,"Kozloduy Nuclear Power Plant
+Kozloduy, 3321",Bulgaria,EUROPE,Tel: +359 973 72796 Fax: +359 973 80 718,Mr Rusiyan Tsibranski,"Mr Rusiyan Tsibranski, Mr. Mitko Milyovski",RHTsibranski@npp.bg; mmilyovski@gmail.com,"Mrs. Milka Katrankieva, Mr. Mitko Milyovski",MDKatrankieva@npp.bg; mmilyovski@gmail.com,Industry,"Environmental Monitoring
+NPP / Nuclear Facility Monitoring",20,"Radiochemistry analyses, sampling and sample preparation, radioactivity measurements (spectrometry, radiometry, dose rate mapping, etc.), mobile lab field measurements.","In-situ field measurements, aero-gamma radiation survey (UAV).",Yes,10,No,,Yes,"Airborne or Carbon Survey Systems
+Alpha and Beta Spectrometry
+In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Mass spectrometry",No,,,,,"Radionuclide: H-3, Matrix: Water, Air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >1100, Total Weekly Sample Throughput (rapid): -
+Radionuclide: C-14, Matrix: Air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >150, Total Weekly Sample Throughput (rapid): -
+Radionuclide: Mn-54, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >150, Total Weekly Sample Throughput (rapid): 2
+Radionuclide: Co-60, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >150, Total Weekly Sample Throughput (rapid): 2
+Radionuclide: Sr-90, Matrix: Water, Air, Soil, Sediments, Plants, Milk, Bones, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >170, Total Weekly Sample Throughput (rapid): -
+Radionuclide: I-131, Matrix: Air, Milk, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >300, Total Weekly Sample Throughput (rapid): 1
+Radionuclide: Cs-137, Matrix: Water, Air, Soil, Sediments, Plants, Milk, Meat, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >1300, Total Weekly Sample Throughput (rapid): 2
+Radionuclide: Pu-238, Pu-239,240, Matrix: Water, Air, Soil, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >50, Total Weekly Sample Throughput (rapid): -
+Radionuclide: Am-241, Matrix: Water, Air, Soil, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >50, Total Weekly Sample Throughput (rapid): -
+Radionuclide: Cm-242, CM-243,244, Matrix: Water, Air, Soil, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >50, Total Weekly Sample Throughput (rapid): -",,,,"Radionuclide: H-3, Matrix: Water, MDA for routine method: 4 Bq/L, MDA for rapid method: N/A
+Radionuclide: H-3, Matrix: Air, MDA for routine method: 0.2 Bq/m3, MDA for rapid method: N/A
+Radionuclide: C-14, Matrix: Air, MDA for routine method: 0.5 Bq/m3, MDA for rapid method: N/A
+Radionuclide: Mn-54, Matrix: Water, MDA for routine method: 0.01 Bq/L, MDA for rapid method: 0.2 Bq/L
+Radionuclide: Co-60, Matrix: Water, MDA for routine method: 0.01 Bq/L, MDA for rapid method: 0.2 Bq/L
+Radionuclide: Sr-90, Matrix: Water, MDA for routine method: 0.001 Bq/L, MDA for rapid method: N/A
+Radionuclide: Sr-90, Matrix: Milk, MDA for routine method: 0.006 Bq/L, MDA for rapid method: N/A
+Radionuclide: I-131, Matrix: Air, MDA for routine method: 0.004 mBq/m3, MDA for rapid method: 4 Bq/m3
+Radionuclide: Cs-137, Matrix: Water, MDA for routine method: 0.001 Bq/L, MDA for rapid method: 0.2 Bq/L
+Radionuclide: Cs-137, Matrix: Air, MDA for routine method: 0.002 mBq/m3, MDA for rapid method: 3 Bq/m3
+Radionuclide: Pu-238, Matrix: Air, MDA for routine method: 6E-9 Bq/m3, MDA for rapid method: N/A
+Radionuclide: Am-241, Matrix: Air, MDA for routine method: 6E-9 Bq/m3, MDA for rapid method: N/A
+Radionuclide: Cm-242, Matrix: Air, MDA for routine method: 6E-9 Bq/m3, MDA for rapid method: N/A",Yes,ISO 17025,2012,Yes,"IP-123-Inter Project, Bulgarian Institute of Metrology (BIM)",Yes,"IAEA-ALMERA PT
+BfS (PTB) Germany PT - water and air filter (NPP)
+NPL-UK PT","Mixed gamma spectrometry calibration sources - 210Pb, 241Am, 109Cd, 139Ce, 57Co, 60Co, 137Cs, 51Cr, 113Sn, 85Sr, 88Y
+Suppliers: Czech Metrology Institute (CMI), Eckert & Ziegler Nuclitec GmbH, Germany",Yes,"QC of measurements:
+- Duplicate samples
+- Blank samples",Yes,Annually,Yes,"EURATOM treaty (REM)
+UNSCEAR
+IAEA DIRATA database",Yes,"National authorities
+The European Union
+IAEA",Yes,Yes,RANET,"Around  nuclear facilities
+Discharges from the nuclear facilities (NPPs, waste repositories)
+In  emergency situations",Yes,"- Local: 33 monitoring points on Bulgarian part of 300 km zone around Kozloduy NPP and 3 reference points up to 100 km. 7 water sample collection points on Danube river and other rivers and lake. Milk sampling from 3 farms. Cereals sampling in 3 km radius (KNPP).
+- Countrywide: Еstablished countrywide sampling network (air, water, sediment, soil). The monitoring program is implemented by the Executive Environmental Agency (ExEA). Other sampling points monitored by NCRRP (Ministry of Health).",Yes,"- 8 gamma dose rate (I-131) stations in 2 km KNPP precaution zone.
+- 14 automatic aerosol sampling stations in in 30 km zone (Bulgarian part). Subsequent laboratory analysis with gamma spectrometry.",Yes,"- 8 gamma dose rate (I-131) stations in 2 km KNPP precaution zone and 13 gamma dose rate stations in settlements in 30 km (Bulgarian part).
+- 26 gamma dose rate monitoring stations countrywide BULRAMO (ExEA). Data transfer integrated to EURDEP.",Yes,"National authorities
+EURDEP
+Kozloduy NPP Emergency response center and NRA in case of emergency drills.","The countrywide monitoring program is implemented by the Executive Environmental Agency (ExEA). 
+Other monitoring program (health aspects) is implemented by the National Centre of Radiobiology and Radiation Protection (NCRRP), Ministry of Health.","- Gamma emitting radionuclides in various matrices (water, air filters, soil, milk, vegetation). Some difficult to measure radionuclides with common interference.
+- Tritium and C-14 in water and biological samples (OBT).
+- Strontium (89, 90) in various environmental media and matrices.
+- Alfa emitters actinides (U, Pu, Am, Cm isotopes).
+- Radon measurements, etc.","- Regional Training Course on Radiation Monitoring in Emergency Situations (Field measurements with mobile laboratory, in-situ gamma-spectrometry, aerogamma (UAV) mapping of contaminated area. 
+- Regional Training Course on Radiochemistry procedures for rapid measurements in emergency situations.
+- Advanced Gamma-spectrometry and Liquid scintillation counting techniques.
+- Field sampling strategies and sampling uncertainty evaluation.",Kozloduy NPP's Radioecological Monitoring Laboratory is 20 years successful ALMERA member (since 2005). This is key tool for exchanging good laboratory practices and sustainable improvement of analytical capabilities in scope of ISO 17025 accreditation.,"https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358161231896714049/RM_collage_2.png
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358161231896714049/KNPP_5EB_6EB_1.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358161231896714049/RM-en.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358161231896714049/RM-map-en.jpg
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358161231896714049/Mobile%20laboratory%20for%20field%20measurements.png","https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358161231896714049/Snimka_RTz_1.png
+https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358161231896714049/DSC_ObshtaFront_cr.jpg"
+48.264084,18.453261,Levice,"Oct 9, 2025 13:43",hRzeBQ,"Environmental Radiation Monitoring Laboratory
+Slovenske Elektrarne, A.S.
+Nuclear Power Plant Mochovce","Komenskeho 6
+934 01, Levice",Slovakia,EUROPE,Tel: +421 36 637 1234Fax: +421 36 622 1127,Mr Roman Durcat,Mr Velin Balev,Velin.Balev@seas.sk,Mr Peter Kerenyi,Peter.Kerenyi@seas.sk,Industry,"Environmental Monitoring
+NPP / Nuclear Facility Monitoring",8,,,No,,No,,Yes,"Airborne or Carbon Survey Systems
+In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Liquid scintillation counter/s",No,,,,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): >=360, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, I-131,..., Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): >=30, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, I-131,..., Matrix: Air, Accredited (routine): No, Total Annual Sample Throughput (routine): >=176, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, I-131,..., Matrix: Fallout, Accredited (routine): No, Total Annual Sample Throughput (routine): >=24, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, I-131,..., Matrix: Soil, Accredited (routine): No, Total Annual Sample Throughput (routine): >=18, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, I-131,..., Matrix: Milk, Accredited (routine): No, Total Annual Sample Throughput (routine): >=12, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, I-131,..., Matrix: Fish, Accredited (routine): No, Total Annual Sample Throughput (routine): >=2, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, I-131,..., Matrix: Water Plants, Accredited (routine): No, Total Annual Sample Throughput (routine): >=2, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, I-131,..., Matrix: Grass, Accredited (routine): No, Total Annual Sample Throughput (routine): >=6, Total Weekly Sample Throughput (rapid):",TFWT,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): >=360, Estimated total sample throughput (rapid):","Radionuclide: Cs-137, Matrix: Air, MDA for routine method: 0,35 uBq/m3, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Soil, MDA for routine method: 0,16 Bq/kg, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Fallout, MDA for routine method: 0,23 Bq/m2, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Water, MDA for routine method: 2,2 mBq/dm3, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Milk, MDA for routine method: 10 mBq/dm3, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Air, MDA for routine method: 5 uBq/m3, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Soil, MDA for routine method: 1,4 Bq/kg, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Fallout, MDA for routine method: 3,6 Bq/m2, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Water, MDA for routine method: 37 mBq/dm3, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Milk, MDA for routine method: 50 mBq/dm3, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Water Plants, MDA for routine method: 0,2 Bq/kg, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Water Plants, MDA for routine method: 2 Bq/kg, MDA for rapid method: 
+Radionuclide: H-3, Matrix: Water, MDA for routine method: 1 Bq/dm3, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: Grass, MDA for routine method: 0,2 Bq/kg, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Grass, MDA for routine method: 2 Bq/kg, MDA for rapid method:",Yes,ISO 17025,,Yes,,Yes,ALMERA; ASLAB (Czech Republic),"Am-241, Ba-133, Cl-36, Co-60, Cs-137, Sr-90, Eu-155, Na-22, H-3",Yes,"Blanks Samples Procedures, Blind Samples Procedures, Spiked Samples Procedures, Duplicate Samples Procedures.",Yes,"Annually
+Upon request
+Semi-annually",Yes,RADD,Yes,National authorities,,No,,"Around  nuclear facilities
+Discharges from the nuclear facilities (NPPs, waste repositories)
+In  emergency situations",Yes,,Yes,,Yes,,Yes,National authorities,,,,,,
+59.354185,17.971266,Stockholm,"Oct 9, 2025 14:00",tcDMn3,"Swedish Radiation Safety Authority
+Dept. of  Regulation and Knowlege Development","Solna Strandväg 96
+S-171 16, Stockholm",Sweden,EUROPE,+46702396144,Dr. Daniel Rosik,"Maria Doncel Monasterio , Maisa Al Zahili","Maria.DoncelMonasterio@ssm.se, Maisa.AlZahili@ssm.se",Ms Maisa Al Zahili,Maisa.AlZahili@ssm.se,Government,"Analytical
+Environmental Research
+Environmental Monitoring
+Food Control
+NPP / Nuclear Facility Monitoring",4,"1 staff--Gamma spectrometry, quality manager,
+1 staff--Gamma spectrometry, technical manager,
+1 staff--LSC
+1 staff--LSC","With only four people in the lab and many tasks there is a lot of knowledge that gets lost with change in staff. The training of new personnel on existing methods is managed by the laboratory, but advanced courses in different methods, method validation/verification, evaluation and transfer of experice from PTs is needed to keep knowledge over time.",No,,No,,No,,"Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Mass spectrometry
+Whole-body counter",No,,,,,"Radionuclide: H-3, Matrix: water, Accredited (routine): No, Total Annual Sample Throughput (routine): <100, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: Sr-90, Matrix: water, Accredited (routine): No, Total Annual Sample Throughput (routine): <100, Total Weekly Sample Throughput (rapid): <3
+Radionuclide: Cs-137, Matrix: water, Accredited (routine): No, Total Annual Sample Throughput (routine): <150, Total Weekly Sample Throughput (rapid): <15
+Radionuclide: Cs-137, Matrix: Soil/sediment, Accredited (routine): No, Total Annual Sample Throughput (routine): <50, Total Weekly Sample Throughput (rapid): <1
+Radionuclide: Cs-137, Matrix: filter, Accredited (routine): No, Total Annual Sample Throughput (routine): <100, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: Cs-137, Matrix: vegetation, Accredited (routine): No, Total Annual Sample Throughput (routine): <50, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: Cs-137, Matrix: fish, Accredited (routine): No, Total Annual Sample Throughput (routine): <25, Total Weekly Sample Throughput (rapid): <3
+Radionuclide: Cs-137, Matrix: milk, Accredited (routine): No, Total Annual Sample Throughput (routine): <30, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: Cs-137, Matrix: Diet, Accredited (routine): No, Total Annual Sample Throughput (routine): <10, Total Weekly Sample Throughput (rapid): <1
+Radionuclide: Co-60, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <150, Total Weekly Sample Throughput (rapid): <15
+Radionuclide: Co-60, Matrix: Soil/Sediment, Accredited (routine): No, Total Annual Sample Throughput (routine): <50, Total Weekly Sample Throughput (rapid): <1
+Radionuclide: Co-60, Matrix: filter, Accredited (routine): No, Total Annual Sample Throughput (routine): <100, Total Weekly Sample Throughput (rapid): <10
+Radionuclide: Co-60, Matrix: vegetation, Accredited (routine): No, Total Annual Sample Throughput (routine): <50, Total Weekly Sample Throughput (rapid): <5
+Radionuclide: Ra-226, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <2
+Radionuclide: Pb-210, Matrix: sediment, Accredited (routine): No, Total Annual Sample Throughput (routine): <20, Total Weekly Sample Throughput (rapid): <3
+Radionuclide: Rn-222, Matrix: water, Accredited (routine): No, Total Annual Sample Throughput (routine): <10, Total Weekly Sample Throughput (rapid): <1",,,,,Yes,ISO 17025,,,,Yes,"IAEA-TERC
+IAEA-RML
+HELCOM
+REM PT","Gamma reference solution (NPL, PTB)
+H-3 reference solution (NPL)
+Sr-90 reference solution (NPL)",Yes,"QC checks on weekly basis
+BG check every 3 months
+System BG every 2,5 year gamma spectrometry 
+Control sample measurement LSC",Yes,Twice a year,Yes,EURATOM treaty (REM),No,,Yes,No,,"Around  nuclear facilities
+Discharges from the nuclear facilities (NPPs, waste repositories)
+For  marine monitoring
+For NORM  industry",Yes,We are not responsible for that program,Yes,We are not responsible for that program,Yes,We are not responsible for that program,Yes,National authorities,,,,,,
+54.759364,25.267438,Vilnius,"Oct 9, 2025 14:20",SEgTCS,National Food and Veterinary Risk Assessment Institute,"J. Kairiukscio 10
+LT-08411, Vilnius",Lithuania,EUROPE,Tel: +370 5 278 0479,Mr Egidijus Pumputis,Mrs Inga Jarmalaitė (Head of Chemistry Unit),inga.jarmalaitė@nmvrvi.lt,Mrs Božėna Valantavičienė,bozena.valantaviciene@nmvrvi.lt,Government,Food Control,6,"sample preparation, measurement, analysis and reporting",,No,,No,,No,,"Gamma-ray spectrometry system/s
+Liquid scintillation counter/s",No,,,,,"Radionuclide: Cs-137, Matrix: Food, feed, water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >1000, Total Weekly Sample Throughput (rapid): >50
+Radionuclide: Cs-134, Matrix: Food, feed, water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >50, Total Weekly Sample Throughput (rapid): >1
+Radionuclide: H-3, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >1, Total Weekly Sample Throughput (rapid): >1
+Radionuclide: Sr-90, Matrix: Food, feed, water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >200, Total Weekly Sample Throughput (rapid): >20
+Radionuclide: I-134, Matrix: Food, feed, water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >20, Total Weekly Sample Throughput (rapid): >1",Enrichment performed,,,"Radionuclide: Cs-137, Matrix: Food, feed, water, MDA for routine method: <1 Bq/kg, MDA for rapid method: N/A
+Radionuclide: I-131, Matrix: Food, feed, water, MDA for routine method: <1 Bq/kg, MDA for rapid method: N/A
+Radionuclide: Cs-134, Matrix: Food, feed, water, MDA for routine method: <1 Bq/kg, MDA for rapid method: N/A
+Radionuclide: H-3, Matrix: Water, MDA for routine method: <10 Bq/l, MDA for rapid method: N/A
+Radionuclide: Sr-90, Matrix: Food, feed, water, MDA for routine method: <10 Bq/kg, MDA for rapid method: N/A",Yes,ISO 17025,,Yes,"Radiation Protection Centre 2022 
+Nature Research Centre 2022",Yes,"IAEA-TERC-2023-01 
+IAEA-TERC-2024-01
+IAEA-TERC-2025-01","ERX Sr-90 Certified Source 
+K-40 source
+TRY44 H-3 certified source
+CBSS4 Geometric Reference Source
+QCRB25479 Geometric Reference Source
+Unquenched Toluene standart: H-3 SRM 4947C, C-14 SRM 4222C, Background",Yes,"for gama ray: Energy calibration; Efficiency calibration; Quality control detector background, detector efficiency, peak shape and peak drift; Participation in  proficiency testing exercises; Repeated measurement of positive samples exceeding the DLL
+for Sr-90: quality control to ensure the technical stability of the device; Interim checks with Sr-90 standard reference solution; Participation in  proficiency testing exercises;
+for H-3:  quality control to ensure the technical stability of the device; Interim checks with H-3 standard reference solution; Participation in  proficiency testing exercises",No,,No,,Yes,National authorities,No,No,,,,,,,Unsure,,,,,"Cs-137, I-131, Cs-134, Sr-90, H-3",training on radiological examination of food samples in an emergency situation,,,
+47.429972,19.035507,Budapest,"Oct 9, 2025 15:21",ilpjov,"National Centre for Public Health and Pharmacy
+Department for Radiobiology and Radiohygiene","Albert Flórián út 3/A, H-1097 Budapest",Hungary,EUROPE,Tel: +36 1-482-2001,Mrs Katalin Lumniczky,Ms Julia Kövendiné Kónyi,konyi@nngyk.gov.hu;    konyililla@gmail.com,Ms Julia Kövendiné Kónyi,konyi@nngyk.gov.hu;  konyililla@gmail.com,Government,"Analytical
+Environmental Monitoring
+Public Health",13,"chemistry, meteorology, geology, microbiology, engineering,",,No,,No,,Yes,"In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Radon Detection and Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Dose rate meters,  AAS, Distillator, Radometer, Whole Body Counter,",Yes,"Gamma-spectrometry; Alpha-spectrometry; Gross beta anaysis; Sr-90 determination; Radon determination in indoor air; Radon determination in water; Tritium determination in water and urine; Gross alpha analysis, Whole Body counting, Gamma spectrometry in fallout,",,,,"Radionuclide: H-3, Matrix: water, urine, Accredited (routine): Yes, Total Annual Sample Throughput (routine): 30-50, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Sr-90, Matrix: water, milk,, Accredited (routine): Yes, Total Annual Sample Throughput (routine): , Total Weekly Sample Throughput (rapid): 
+Radionuclide: gamma emmitting, Matrix: water, air, urine, food, soil, WB, thyroid, etc., Accredited (routine): yes, Total Annual Sample Throughput (routine): 900-1300, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Po-210, Matrix: water, food, Accredited (routine): , Total Annual Sample Throughput (routine): , Total Weekly Sample Throughput (rapid): 
+Radionuclide: alpha emmitting, Matrix: water, urine,, Accredited (routine): yes, Total Annual Sample Throughput (routine): 10-20, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Rn-226, Matrix: air, water, soil, dwellings, Accredited (routine): yes, Total Annual Sample Throughput (routine): 100-200, Total Weekly Sample Throughput (rapid):",Enrichment performed,,,"Radionuclide: Cs-137, Matrix: aerosol, MDA for routine method: 1-2 microBq/m3, MDA for rapid method: 
+Radionuclide: I-131, Matrix: aerosol, MDA for routine method: 1-2 microBq/m3, MDA for rapid method: 
+Radionuclide: Sr-90, Matrix: milk, MDA for routine method: 0.05 Bq/L, MDA for rapid method: 
+Radionuclide: H-3, Matrix: water, MDA for routine method: 0.2 Bq/L, MDA for rapid method:",Yes,ISO 17025,,Yes,"NÉBIH, NNGYK",Yes,IAEA; EC JRC; MRI,"Eckert Ziegler Isotope multinuclide standard
+Reference samples belonging to device (K-40, Sr-90. Am-241)",Yes,Regular internal check,Yes,"Annually
+Quarterly
+Monthly",Yes,EURATOM treaty (REM),Yes,"National authorities
+The European Union
+IAEA",Yes,"Not officially part of Ring of Five, but reporting data to them on request",,"Around  nuclear facilities
+Countrywide,  on a regular basis
+For  existing exposure situations (e.g. for uranium legacy sites)
+In  emergency situations",Yes,"Our lab is coordinating a network of 6 laboratories (Radiological Monitoring and Data Analyses Network)
+
+(The Ministry of Agriculture has got an other network (NÉBIH) with 6 laboratories.)",No,,Yes,"Radiological Telemetry Network of automatic gamma dose-rate meters (is part of The National Radiation Monitoring, Signaling and Control System (OSJER) operated by the Ministry of the Interior, National Directorate General of Disaster Management. 130 stations.",Yes,"National authorities
+EURDEP","Danube Monitoring on 6 points
+Monitoring of the territory of Hungary in 80 km radius from Mohovce NPP Slovakia",,"Handling of emergency situations (sampling, preparation, measurement, data exchange)",,https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358252954644101612/Lab_photos.pdf,
+50.06259,14.440314,Prague,"Oct 9, 2025 16:22",SD3Kgv,SÚRO - National Radiation Protection Institute,"Bartoskova 28
+140 00 Prague 4",Czech Republic,EUROPE,Tel: +420 226 518 232,Mr. Petr Rulík,Mr. Petr Rulik,petr.rulik@suro.cz,,petr.rulik@suro.cz,"Government
+Research","Analytical
+Environmental Research
+Environmental Monitoring
+Food Control
+NPP / Nuclear Facility Monitoring",50,"nuclear physics
+nuclear chemistry
+programming
+laboratory technician
+technician",SÚRO laboratories do not need help in present time; SÚRO also has other departments and operates in other areas of activity as well.,Yes,5,No,,Yes,"Airborne or Carbon Survey Systems
+Alpha and Beta Spectrometry
+In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Radon Detection and Monitoring
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Whole body counters",Yes,Method of analyzing gamma spectra using the machine learning method (evaluation spectra from on-line measurements using an HPGe detector placed above an aerosol filter during aerosol sampling).,Methods for analyzing gamma spectra using machine learning method and neural networks,Using machine learning method and neural networks for analyze gamma ray spectra.,Using machine learning method and neural networks for analyze gamma ray spectra.,"Radionuclide: Gamma-emitting, Matrix: All, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >1000, Total Weekly Sample Throughput (rapid): >500
+Radionuclide: H-3, Matrix: Air, Water, Accredited (routine): No, Total Annual Sample Throughput (routine): >1000, Total Weekly Sample Throughput (rapid): >100
+Radionuclide: C-14, Matrix: Air, Water, Accredited (routine): No, Total Annual Sample Throughput (routine): >50, Total Weekly Sample Throughput (rapid): >20
+Radionuclide: Sr-90, Matrix: All, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >400, Total Weekly Sample Throughput (rapid): >20
+Radionuclide: Gross alpha, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >1000, Total Weekly Sample Throughput (rapid): >100
+Radionuclide: Gross beta, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >1000, Total Weekly Sample Throughput (rapid): >100
+Radionuclide: Alpha-emitting, Matrix: All, Accredited (routine): No, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >10",,,,"Radionuclide: Gamma-emitting, Matrix: All, MDA for routine method: 0,01 Bq/sample, MDA for rapid method: 1-10 Bq/sample
+Radionuclide: H-3, Matrix: Air moister, Water, MDA for routine method: < 1,6 Bq/L, MDA for rapid method: 10 Bq/L
+Radionuclide: C-14, Matrix: Water, MDA for routine method: 26 Bq/L, MDA for rapid method: 
+Radionuclide: Sr-90, Matrix: All, MDA for routine method: 0,01 Bq/kg, MDA for rapid method: 1-10 Bq/kg
+Radionuclide: Gross alpha, Matrix: Water, MDA for routine method: 0,05 Bq/L, MDA for rapid method: 5 Bq/L
+Radionuclide: Gross beta, Matrix: Water, MDA for routine method: 0,1 Bq/L, MDA for rapid method: 10 Bq/L
+Radionuclide: Alpha-emitting, Matrix: All, MDA for routine method: 0,001 Bq/kg, MDA for rapid method: 1 Bq/kg",Yes,ISO 17025,2006,Yes,"Comparisons organized by the State Office for Nuclear Safety of the Czech Republic (with repetition 1-4 years)
+- Rapid determination of radionuclides using gamma spectrometry
+- Determination of radionuclides using gamma spectrometry in fallout
+- Determination of radionuclides using gamma spectrometry in soil
+- Rapid determination of gross beta activity in water
+- Determination of Sr-90 in water and milk
+- Determination of H-3 in water
+- Determination of Sr-90 and Pu-239 in aerosol filter
+- Capacity exercises of laboratories with gamma spectrometry
+
+Participation in other comparisons as needed organized by other entities.",Yes,"ALMERA - every year
+BfS (Germany) - every year
+EC (organised by JRC, ISPRA) - whenever it is organised","Usually standards delivered by the Czech Metrology Institute, or samples from interlaboraotry comparisons.",Yes,According to the requirements of the ISO 17025 and Czech Legislation Act No. 263/2016 (Atomic Act) and Decree No. 422/2016 on radiation protection and security of a radioactive source. Internal audit is performed in the laboratories every year. The equipments is regularly verified by the Czech Metrology Institute.,Yes,"Annually
+Quarterly
+Monthly
+Upon request
+Immediately after verification of results",Yes,EURATOM treaty (REM),Yes,"National authorities
+Ring of Five",Only with the consent of the State Office for Nuclear Safety of the Czech Republic,Yes,"RANET
+Ring of Five","Around  nuclear facilities
+Countrywide,  on a regular basis
+Discharges from the nuclear facilities (NPPs, waste repositories)
+For  existing exposure situations (e.g. for uranium legacy sites)
+For NORM  industry
+For research
+In  emergency situations",Yes,"Aerosol sampling stations (weekly sampling): 11 territorial, 13 around NPPs. 
+Fall-out sampling stations (usually monthly sampling): 9 territorial, 9 around NPPs.",No,,Yes,"There are about 71 territorial stations of gamma dose rate monitoring and
+180 places with integral measurement network using thermoluminescent dosimeters",No,,"Countrywide, on a regular basis: National monitoring programme. 
+Emergency exposure situations: National monitoring programme. 
+Around nuclear facilities: National monitoring programme. 
+Existing exposure situations (e.g. uranium legacy sites): Monitoring programme of the uranium legacy sites defined by atomic law. 
+NORM industry: monitoring programme of the NORM industry defined by atomic law. 
+Other: action radon plan, monitoring of building materials, monitoring of natural radionuclides in drinking water.",Natural radionuclides in liquid and solid NORMs,Training Courses,"In section ""5.1.1"" the possibility of determining HTO is not mentioned.",,
+45.421737,-75.698593,Ottawa,"Oct 9, 2025 17:40",Biwo8j,"Canadian Nuclear Safety Commission
+Government of Canada
+Laboratory Services Division","3484 Limebank Road 
+Ottawa, Ontario  K1V 1E1",Canada,NORTH AND LATIN AMERICA,Tel: + 1 613 790 4619Fax: +1 613 998 3209,Ms Nadereh St-Amant,Ms Nadereh St-Amant,nadereh.st-amant@cnsc-ccsn.gc.ca,Ms Nadereh St-Amant,nadereh.st-amant@cnsc-ccsn.gc.ca,Government,"Analytical
+Environmental Monitoring",6,"3 Analysts (radiochemistry, inorganic chemistry, analytical chemistry) and 3 technicians",Analysis of NORM by gamma spectrometry and characterization of beta emitters (such as Nickel isotopes).,Yes,15,Yes,50,Yes,"Airborne or Carbon Survey Systems
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Mass spectrometry",No,,,,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >25
+Radionuclide: Sr-90, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 10, Total Weekly Sample Throughput (rapid): 1
+Radionuclide: Gross alpha/beta, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): >50, Total Weekly Sample Throughput (rapid): 5
+Radionuclide: Gross alpha/beta, Matrix: Wipes, Accredited (routine): No, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >25
+Radionuclide: Gross Gamma, Matrix: Wipes, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >25
+Radionuclide: Cs-137, Matrix: All matrices, Accredited (routine): No, Total Annual Sample Throughput (routine): >200, Total Weekly Sample Throughput (rapid): >20
+Radionuclide: Co-60, Matrix: All matrices, Accredited (routine): No, Total Annual Sample Throughput (routine): >200, Total Weekly Sample Throughput (rapid): >20
+Radionuclide: Ra-226, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): 20, Total Weekly Sample Throughput (rapid): 3
+Radionuclide: Anthropogenic Gamma Emitters, Matrix: All matrices, Accredited (routine): No, Total Annual Sample Throughput (routine): >100, Total Weekly Sample Throughput (rapid): >20","OBT
+TFWT","Radionuclide: H-3, Matrix: Food, Accredited (routine): No, Total Annual Sample Throughput (routine): 50, Estimated total sample throughput (rapid):","Radionuclide: H-3, Matrix: Food, Accredited (routine): No, Total Annual Sample Throughput (routine): >200, Estimated total sample throughput (rapid):","Radionuclide: H-3, Matrix: Water, MDA for routine method: 5 Bq/L, MDA for rapid method: 5 Bq/L
+Radionuclide: Sr-90, Matrix: Water, MDA for routine method: 5 Bq/L, MDA for rapid method: 
+Radionuclide: Gross alpha/beta, Matrix: Water, MDA for routine method: 0.15 Bq/L, MDA for rapid method: 
+Radionuclide: Gamma Emitters, Matrix: Water, MDA for routine method: 0.5 Bq/L, MDA for rapid method: 
+Radionuclide: Gamma Emitters, Matrix: Air, MDA for routine method: 0.5 mBq/m3, MDA for rapid method:",Yes,ISO 17025,2023,Yes,Two PTs per year for methods in Scope of accreditation,Yes,"ALMERA, annually","Eckert & Ziegler standards for calibration of HPGe, alpha spectrometer, and Gas Proportional Counter, and LSC.",Yes,Routine QC checks tracking trends in QC control charts. Most methods are based on Standard methods and verified in-house.,No,,No,,No,,Yes,No,,"Around  nuclear facilities
+Discharges from the nuclear facilities (NPPs, waste repositories)",Yes,"About 30, managed by another Government Department (Health Canada)",Yes,Canada has four CTBT stations managed by another Government Department (Health Canada),Yes,Up to 75 stations are operated by Government Department (Health Canada).,No,,"CNSC conduct environmental sampling around nuclear facilities: 
+Ra-226, TFWT and OBT in food, gamma emitters in all matrices, and gross alpha/beta in water.",gamma emitters in water and soil; H-3 in water; gross alpha beta in water; Ra-226 in water; NORM in soil; Sr-90 in water,ALMERA Coordination Meeting; Training Workshops,,,
+42.697072,23.322284,Sofia,"Oct 10, 2025 10:44",zN87QD,"Executive Environment Agency
+Ministry Of Environment & Water","136 Tzar Boris III
+BG-1618, Sofia",Bulgaria,EUROPE,Office:   +359 2 940 64 35,Ms Eksevia Chervenobrezhka,Ms Eksevia Chervenobrezhka,e.chervenobrezhka@eea.government.bg; radiatlab@eea.government.bg,"Ms Eksevia Chervenobrezhka, Ms Nina Mineva","e.chervenobrezhka@eea.government.bg, n.mineva@eea.government.bg; radiatlab@eea.government.bg",Government,Environmental Monitoring,3,"One people work in the field of radiochemistry, two in the field of gamma spectrometry. All are responsible for sampling from the radiological monitoring network points",It is difficult to summarize because it is difficult to find staff to work in the field of radiation measurements. Fewer and fewer young people are interested in studying physics or chemistry. The statistical processing of the results is the most complicated part during the training.,No,,No,,Yes,"In-Situ Gamma Dose Rate Radiometry
+In-Situ Gamma Spectrometry
+Surface Contamination Monitoring","Gross alpha counter/s
+Gross beta counter/s
+Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+radon monitors",No,,,,,"Radionuclide: U-238, Matrix: soil, sediment, air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >170, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Ra-226, Matrix: soil, sediment, air, water, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >200, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Ra-228, Matrix: sediment, air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >90, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Th-232, Matrix: soil, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >80, Total Weekly Sample Throughput (rapid): 
+Radionuclide: K-40, Matrix: soil, sediment, air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >170, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Pb-210, Matrix: soil, sediment, air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >170, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Cs-137, Matrix: soil, sediment, air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >170, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Be-7, Matrix: air, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >48, Total Weekly Sample Throughput (rapid): 
+Radionuclide: I-131, Matrix: sediment, Accredited (routine): Yes, Total Annual Sample Throughput (routine): >45, Total Weekly Sample Throughput (rapid): 
+Radionuclide: H-3, Matrix: water, Accredited (routine): Yas, Total Annual Sample Throughput (routine): >25, Total Weekly Sample Throughput (rapid):",,,,"Radionuclide: H-3, Matrix: water, MDA for routine method: 3 Bq/L, MDA for rapid method: 
+Radionuclide: Ra-226, Matrix: water, MDA for routine method: 0.05 Bq/L, MDA for rapid method:",Yes,ISO 17025,2011,Yes,Ring tests organized by individual departments,Yes,"IAEA, JRC",liquid certified reference materials for water and combined certified sources for the geometries used for gamma spectrometry,Yes,Protocols of validation and verification of methods and control charts,Yes,"Quarterly
+Monthly",Yes,Basin Directorates at the  Bulgarian Ministry of Environment and Water,Yes,National authorities,,No,,"Around  nuclear facilities
+Countrywide,  on a regular basis
+For  existing exposure situations (e.g. for uranium legacy sites)
+In  emergency situations",Yes,"In the  system of the Bulgarian Executive Environment Agency there are sampling stations:
+558 for soils;
+121 for sediments;
+161 for water;
+12 for air filters",No,,Yes,26 stations,No,,,"NORM , matrices: soil, sediment , water, air filters",-,-,https://eu.jotform.com/uploads/ALMERANetworkContactPoint/252734998180368/6358950514245591999/Lab%20photos.pdf,
+33.888746,35.495391,Beirut,"Oct 10, 2025 11:18",TQEeS8,"Lebanese Atomic Energy Commission
+Environmental Radiation Control Department","PO Box 11-8281
+Beirut",Lebanon,MIDDLE EAST,Tel:  +961 1 450811Fax: +961 1 450810,,Mr Omar El-Samad,osamad@cnrs.edu.lb,Ms Rana Baydoun,baydounbsat@cnrs.edu.lb,Government,"Environmental Research
+Environmental Monitoring
+Food Control",7,"7 persons- chemists, biochemists and physicists",Sr-90 analysis;  H-3 enrichment,Yes,15,Yes,75,Yes,"In-Situ Gamma Dose Rate Radiometry
+Neutron Detection Capabilities
+Radon Detection and Monitoring
+Surface Contamination Monitoring","Gamma-ray spectrometry system/s
+Alpha spectrometry system/s
+Liquid scintillation counter/s
+Mass spectrometry",No,,,,,"Radionuclide: H-3, Matrix: Water, Accredited (routine): No, Total Annual Sample Throughput (routine): Less than 20, Total Weekly Sample Throughput (rapid): Less than 10
+Radionuclide: H-3, Matrix: Seawater, Accredited (routine): No, Total Annual Sample Throughput (routine): Less than 20, Total Weekly Sample Throughput (rapid): Less than 10
+Radionuclide: Po-210, Matrix: Environmental samples including biota and fauna, Accredited (routine): No, Total Annual Sample Throughput (routine): 70, Total Weekly Sample Throughput (rapid): 2
+Radionuclide: Uranium isotopes, Matrix: Environmental samples, Accredited (routine): No, Total Annual Sample Throughput (routine): 50, Total Weekly Sample Throughput (rapid): 1
+Radionuclide: Plutonium isotopes, Matrix: Environmental samples, Accredited (routine): No, Total Annual Sample Throughput (routine): Less than 10, Total Weekly Sample Throughput (rapid): 
+Radionuclide: Thorium isotopes, Matrix: Environmental samples, Accredited (routine): No, Total Annual Sample Throughput (routine): Less than 10, Total Weekly Sample Throughput (rapid):",Enrichment performed,,,"Radionuclide: H-3, Matrix: Water, MDA for routine method: 0.15 Bq/kg, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: soil, MDA for routine method: 0.3 Bq/kg, MDA for rapid method: 
+Radionuclide: Cs-137, Matrix: vegetation and milk, MDA for routine method: 0.2 Bq/kg, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Water, MDA for routine method: 2 Bq/kg, MDA for rapid method: 
+Radionuclide: I-131, Matrix: Biota, MDA for routine method: 1 Bq/kg, MDA for rapid method: 
+Radionuclide: Uranium isotopes, Matrix: Environmental samples, MDA for routine method: 0.0025 Bq/kg, MDA for rapid method: 
+Radionuclide: Plutonium isotopes, Matrix: Environmental samples, MDA for routine method: 0.0031 Bq/kg, MDA for rapid method: 
+Radionuclide: Thorium isotopes, Matrix: Environmental samples, MDA for routine method: 0.0020 Bq/kg, MDA for rapid method: 
+Radionuclide: Po-210, Matrix: Environmental samples, MDA for routine method: 0.0006 Bq/kg, MDA for rapid method:",Yes,ISO 17025,2012,No,,Yes,ALMERA; IAEA,"Multigamma sand and solution; multi-alpha source; milk, vegetation, soil, sediment, water reference materials in addition to wide range of left over proficiency test samples",Yes,"The gamma spectroscopy lab is accredited according to ISO 17025. Periodic and routine analyses of reference materials for various radionuclides in different matrices are carried out. 
+Use of standards, RM and blank is mandatory for alpha and beta emitters analysis",Yes,Annually,No,,Yes,National authorities,Yes,No,,"Countrywide,  on a regular basis
+For  marine monitoring
+For research
+In  emergency situations",No,,No,,Yes,There are 26 stations included in the network.,No,,"Countrywide, on a regular basis: annual analysis of food stuff samples representative of the diet of the Lebanese population, in addition to all other environmental samples","Uranium isotopes in soil, Milk powder with K-40, Am-241, Eu-152, Cs-137 and Co-60",,,,
