@@ -7,14 +7,15 @@ function getAffiliationCounts(data, affiliationColumn) {
 
     for (const row of data) {
         if (row[affiliationColumn]) {
-            // Split by semicolon as per your Observable notebook's implicit logic
-            const affiliations = row[affiliationColumn].split(";").map(d => d.trim());
-            for (const aff of affiliations) {
-                if (aff) { // Ensure affiliation string is not empty after trimming
-                    counts.set(aff, (counts.get(aff) || 0) + 1);
-                }
-            }
-        }
+            // FIX: Using a regular expression to split by semicolon (;) OR newline (\n) OR carriage return (\r).
+            // This correctly separates affiliations entered across multiple lines within a single CSV cell.
+            const affiliations = row[affiliationColumn].split(/;|\n|\r/).map(d => d.trim());
+            for (const aff of affiliations) {
+                if (aff) { // Ensure affiliation string is not empty after trimming
+                    counts.set(aff, (counts.get(aff) || 0) + 1);
+                }
+            }
+        }
     }
 
     let result = [];
