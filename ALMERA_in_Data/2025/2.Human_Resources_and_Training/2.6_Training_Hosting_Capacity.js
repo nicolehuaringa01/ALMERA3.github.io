@@ -1,11 +1,8 @@
-// ALMERA_in_Data/2025/2.Human_Resources_and_Training/2.6_Training_Hosting_Capacity.js
+// ALMERA_in_Data/2025/2.Human_Resources_and_Training/2.6TrainingHostingCapacity_2025.js
 
-// Path to your CSV data file.
-const csvDataPath_2_6 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
+const csvDataPath6 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
-// Define the exact column name for the training capacity data.
-// Be very careful with spelling and leading/trailing spaces.
-const trainingCapacityColumnName = "2.3 Specify the maximum number of participants for practical training";
+const trainingCapacityColumnName = "2.6 Specify the maximum number of participants for practical training";
 
 // Helper function to normalize strings for robust column matching
 function normalizeString(str) {
@@ -27,7 +24,7 @@ async function renderTrainingHostingCapacityHistogram() {
 
     let data;
     try {
-        data = await d3.csv(csvDataPath_2_6);
+        data = await d3.csv(csvDataPath6);
     } catch (error) {
         console.error("Error loading CSV data for 2.6 Training Hosting Capacity:", error);
         container.append("p").style("color", "red").text("Failed to load data for Training Hosting Capacity. Please check the CSV file path and content.");
@@ -98,6 +95,8 @@ async function renderTrainingHostingCapacityHistogram() {
     const y = d3.scaleLinear()
         .domain([0, d3.max(nonEmptyBins, d => d.length)]).nice()
         .range([height - margin.bottom, margin.top]);
+    
+    const labsThatAnswered = data.filter(d => d[foundColumn] && d[foundColumn].trim() !== "").length;
 
     // Create SVG element
     const svg = container.append("svg")
@@ -160,6 +159,14 @@ async function renderTrainingHostingCapacityHistogram() {
         .style("font-size", "16px")
         .style("font-weight", "bold")
         .text("Distribution of Training Hosting Capacity");
+
+    svg.append("text")
+        .attr("x", margin.left)
+        .attr("y", margin.top - 15)
+        .attr("text-anchor", "start")
+        .style("font-size", "16px")
+        .style("font-weight", "bold")
+        .text(`Total responses: ${labsThatAnswered}`);
 }
 
 // Call the function to render the chart when the script loads
