@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Environmental Monitoring</title>
+    <link rel="stylesheet" href="../css/ALMERA_in_Data.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+    <a href="../ALMERA_in_Data_Homepage/ALMERA_in_Data_2025.html">
+        <h1>ALMERA in Data (2025)</h1>
+    </a>
+</header>
+
+<div class="content-wrapper">
+    <div id="navigation-placeholder"></div>
+    <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+        <div class="breadcrumbs">
+            <a href="../../../Main/home/index.html">Home</a>
+            <span>&gt;</span>
+            <a href="../ALMERA_in_Data_Homepage/ALMERA_in_Data_2025.html">ALMERA in Data (2025)</a>
+            <span>&gt;</span>
+            <span>7. Environmental Monitoring</span>
+        </div>
+        
+            <h2>7. Environmental Monitoring</h2>
+            <section>
+                <details open>
+                    <summary>1. What environmental radioactivity monitoring tasks is the laboratory/institution authorised or appointed to perform?</summary>
+                    <div id="Environmental_Monitoring_Capabilities-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>2. Is the institution only authorised/appointed to collect environmental samples for environmental radioactivity monitoring or research purposes?</summary>
+                    <div id="Only_Authorised_for_Environmental_Sample_Collection_for_Radioactivity_Monitoring-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>3. Is the institution only authorised/appointed to carry out analytical measurements of radionuclides in environmental samples for monitoring or research purposes?</summary>
+                    <div id="Only_Authorised_to_Carry_Out_Radionuclide_Analysis_for_Radioactivity_Monitoring-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>4. Is there a network of sampling stations established in the country?</summary>
+                    <div id="National_Sampling_Station_Network_Availability-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>5. Is there an environmental monitoring network of automatic monitors for gamma-ray spectrometry of aerosols and/or for gaseous iodine in the laboratory's country?</summary>
+                    <div id="Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>6. Is there a gamma dose rate monitoring network operational in the country?</summary>
+                    <div id="Gamma_Dose_Rate_Monitoring_Network_Availability-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>7. Are the laboratory's measurement results transmitted automatically to a data centre?</summary>
+                    <div id="Results_Transmitted_Automically_to_Data_Centre-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+        </main>
+    </div>
+
+    <button id="topBtn">↑</button>
+
+    <footer>
+        &copy; 2025 ALMERA Network
+    </footer>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+
+    <script src="7.1Environmental_Monitoring_Capabilities.js"></script>
+    <script src="7.2Only_Authorised_for_Environmental_Sample_Collection_for_Radioactivity_Monitoring.js"></script>
+    <script src="7.3Only_Authorised_to_Carry_Out_Radionuclide_Analysis_for_Radioactivity_Monitoring.js"></script>
+    <script src="7.4National_Sampling_Station_Network_Availability.js"></script>
+    <script src="7.5Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country.js"></script>
+    <script src="7.6Gamma_Dose_Rate_Monitoring_Network_Availability.js"></script>
+    <script src="7.7Results_Transmitted_Automically_to_Data_Centre.js"></script>
+
+    <script src="../components/utility.js"></script>
+    <script src="../components/navigation/load_navigation.js"></script>
+
+</body>
+
+</html>
