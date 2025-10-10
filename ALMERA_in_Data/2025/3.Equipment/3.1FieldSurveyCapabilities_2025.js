@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2025/3.Equipment/3.1FieldSurveyCapabilities_2025.js
 
-const csvDataPath1 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
 // This function processes the raw data to count FieldSurveyCapabilitiess
 function getFieldSurveyCapabilitiesCounts(data, FieldSurveyCapabilitiesColumn) {
