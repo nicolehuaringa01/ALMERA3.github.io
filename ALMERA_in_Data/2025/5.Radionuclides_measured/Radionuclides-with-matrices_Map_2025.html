@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Radionuclides Map</title>
+    <!-- Load D3 and TopoJSON from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: "Inter", sans-serif; background-color: #f7fafc; }
+        #chart-container {
+            position: relative; max-width: 900px; margin: 20px auto; border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); background-color: #fff;
+            overflow: hidden; padding: 1rem; display: flex; flex-direction: column; align-items: center;
+        }
+        canvas { display: block; width: 100%; height: auto; background-color: #e2e8f0; border-radius: 0.5rem; }
+        #tooltip {
+            position: absolute; padding: 8px; background: rgba(0,0,0,0.7); color: white;
+            border-radius: 4px; pointer-events: none; font-size: 12px; display: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart-container" class="space-y-4">
+        <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800">Interactive ALMERA Laboratories</h1>
+        <input type="text" id="search-bar" placeholder="Search by Radionuclide, Laboratory, Member State, or City..." class="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+        <p id="result-count" class="text-sm text-gray-600 text-center"></p>
+        <div id="map-container" class="relative w-full aspect-[2/1] bg-gray-200 rounded-lg overflow-hidden">
+            <canvas id="map-canvas" class="w-full h-full"></canvas>
+            <div id="tooltip" class="absolute z-10"></div>
+        </div>
+    </div>
+
+    <script>
+        // Use an async function to handle all data loading and chart initialization
+        async function initializeRadionuclidesChart() {
+            // --- Configuration and Constants ---
+            const container = document.getElementById("chart-container");
+            const canvas = document.getElementById("map-canvas");
+            const context = canvas.getContext("2d");
+            const tooltip = document.getElementById("tooltip");
+            const searchBar = document.getElementById("search-bar");
+            const resultCountEl = document.getElementById("result-count");
+            const mapContainer = document.getElementById("map-container");
+
+            const width = container.clientWidth;
+            const height = width / 2; // Maintain a 2:1 aspect ratio
+            canvas.width = width;
+            canvas.height = height;
+
+            // --- Data Loading ---
+            // Load map and data files asynchronously.
+            const [land, data] = await Promise.all([
+                d3.json("land-50m.json").then(landJson => topojson.feature(landJson, landJson.objects.land)),
+                d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv")
+            ]);
+
+            if (!land || !data) {
+                console.error("Failed to load all required data. Please ensure 'land-50m.json' and '2025_ALMERA_Capabilities_Survey.csv' are in the correct location.");
+                container.innerHTML = "<p class='text-red-500 text-center'>Failed to load map or data. Please check the console for details.</p>";
+                return;
+            }
+
+            // Maintain a filtered version of the data; initially, all data is shown.
+            let filteredData = data;
+            let quadtree;
+
+            // Create a color scale for the Geographic Region, matching the screenshot
+            const colorScale = d3.scaleOrdinal()
+                .domain(["EUROPE", "NORTH AND LATIN AMERICA", "ASIA PACIFIC", "AFRICA", "MIDDLE EAST"])
+                // Fix the domain name to the correct column name
+                .range(["#d9534f", "#428bca", "#5cb85c", "#f0ad4e", "#5bc0de"]);
+
+            // Define the geographic projection
+            let projection = d3.geoEqualEarth().fitSize([width, height], land);
+            let path = d3.geoPath(projection, context);
+
+            // Clustering function to group nearby points
+            function clusterPoints(points, radius) {
+                const clusters = [];
+                points.forEach(point => {
+                    let added = false;
+                    for (const cluster of clusters) {
+                        const dx = point.x - cluster.x;
+                        const dy = point.y - cluster.y;
+                        if (Math.sqrt(dx * dx + dy * dy) < radius) {
+                            cluster.points.push(point);
+                            cluster.x = (cluster.x * (cluster.points.length - 1) + point.x) / cluster.points.length;
+                            cluster.y = (cluster.y * (cluster.points.length - 1) + point.y) / cluster.points.length;
+                            added = true;
+                            break;
+                        }
+                    }
+                    if (!added) {
+                        clusters.push({ x: point.x, y: point.y, points: [point] });
+                    }
+                });
+                return clusters;
+            }
+
+            // Function to render the map and dots
+            function render() {
+                // Clear the canvas
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw the land with a color that matches the screenshot
+                context.beginPath();
+                path(land);
+                context.fillStyle = "#79acd2";
+                context.fill();
+
+                // Project the data points to the canvas coordinates
+                const pts = filteredData.map(d => {
+                    const [x, y] = projection([+d.Long, +d.Lat]) || [];
+                    return {
+                        x, y,
+                        // Fix the geographic region column name
+                        color: colorScale(d["1.4 Geographic Region"] || "black"),
+                        info: d["1.1 Name of Laboratory"] || "Laboratory Missing",
+                        city: d["City"] || "Unknown City",
+                        memberState: d["1.3 Member State"] || "No member state",
+                        contact: d["1.7 Contact Person"] || "No contact available",
+                        address: d["1.2 Physical Address"] || "No address available",
+                        radionuclides: d["5.2 Radionuclides measured by laboratory"] || "No info on file"
+                    };
+                }).filter(d => d.x && d.y); // Filter out points that fall outside the projection
+
+                // Cluster points to avoid overlap
+                const clusters = clusterPoints(pts, 15);
+
+                clusters.forEach(cluster => {
+                    if (cluster.points.length > 1) {
+                        // Draw a cluster circle
+                        context.beginPath();
+                        context.arc(cluster.x, cluster.y, 10, 0, 2 * Math.PI);
+                        context.fillStyle = "gray";
+                        context.fill();
+                        context.fillStyle = "white";
+                        context.textAlign = "center";
+                        context.textBaseline = "middle";
+                        context.font = "12px Arial";
+                        context.fillText(cluster.points.length, cluster.x, cluster.y);
+                    } else {
+                        const point = cluster.points[0];
+                        context.beginPath();
+                        context.arc(point.x, point.y, 5, 0, 2 * Math.PI);
+                        context.fillStyle = point.color;
+                        context.fill();
+                    }
+                });
+                
+                // Build the quadtree for efficient searching
+                quadtree = d3.quadtree().x(d => d.x).y(d => d.y).addAll(pts);
+            }
+
+            // Initial render with all data and update result count
+            render();
+            updateResultCount();
+
+            function updateResultCount() {
+                resultCountEl.textContent = `${filteredData.length} results found.`;
+            }
+
+            // --- Event Listeners ---
+            
+            // Search bar functionality
+            searchBar.addEventListener("input", function() {
+                const query = this.value.toLowerCase();
+                filteredData = data.filter(d =>
+                    (d["1.3 Member State"] && d["1.3 Member State"].toLowerCase().includes(query)) ||
+                    (d["1.1 Name of Laboratory"] && d["1.1 Name of Laboratory"].toLowerCase().includes(query)) ||
+                    (d["1.4 Geographic Region"] && d["1.4 Geographic Region"].toLowerCase().includes(query)) ||
+                    (d["1.7 Contact Person"] && d["1.7 Contact Person"].toLowerCase().includes(query)) ||
+                    (d["City"] && d["City"].toLowerCase().includes(query)) ||
+                    (d["5.2 Radionuclides measured by laboratory"] && d["5.2 Radionuclides measured by laboratory"].toLowerCase().includes(query))
+                );
+                render();
+                updateResultCount();
+            });
+
+            // Mouse events for tooltips
+            canvas.addEventListener("mousemove", (event) => {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = event.clientX - rect.left;
+                const mouseY = event.clientY - rect.top;
+
+                // Use the quadtree to find the nearest point efficiently
+                const closestPoint = quadtree.find(mouseX, mouseY, 10); // Search within a radius of 10 pixels
+
+                if (closestPoint) {
+                    tooltip.style.display = "block";
+                    // Position tooltip relative to the map container
+                    const mapRect = mapContainer.getBoundingClientRect();
+                    tooltip.style.left = `${event.clientX - mapRect.left + 10}px`;
+                    tooltip.style.top = `${event.clientY - mapRect.top + 10}px`;
+                    tooltip.innerHTML = `
+                        <strong>${closestPoint.info}</strong><br>
+                        🏢 ${closestPoint.address}<br>
+                        📍 ${closestPoint.city}<br>
+                        🌍 ${closestPoint.memberState}<br>
+                        <hr class="my-1 border-gray-600">
+                        🧑‍💼 ${closestPoint.contact}<br>
+                        <hr class="my-1 border-gray-600">
+                        <span class="font-semibold">Radionuclides:</span><br>
+                        ${closestPoint.radionuclides.split(';').join('<br>')}
+                    `;
+                } else {
+                    tooltip.style.display = "none";
+                }
+            });
+
+            canvas.addEventListener("click", (event) => {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = event.clientX - rect.left;
+                const mouseY = event.clientY - rect.top;
+
+                // Use the quadtree to find the nearest point on click
+                const clickedPoint = quadtree.find(mouseX, mouseY, 10);
+
+                if (clickedPoint) {
+                    tooltip.style.display = "block";
+                    // Position tooltip relative to the map container
+                    const mapRect = mapContainer.getBoundingClientRect();
+                    tooltip.style.left = `${event.clientX - mapRect.left + 10}px`;
+                    tooltip.style.top = `${event.clientY - mapRect.top + 10}px`;
+                    tooltip.innerHTML = `
+                        <strong>${clickedPoint.info}</strong><br>
+                        🏢 ${clickedPoint.address}<br>
+                        📍 ${clickedPoint.city}<br>
+                        🌍 ${clickedPoint.memberState}<br>
+                        <hr class="my-1 border-gray-600">
+                        🧑‍💼 ${clickedPoint.contact}<br>
+                        <hr class="my-1 border-gray-600">
+                        <span class="font-semibold">Radionuclides:</span><br>
+                        ${clickedPoint.radionuclides.split(';').join('<br>')}
+                    `;
+                } else {
+                    tooltip.style.display = "none";
+                }
+            });
+
+            // Handle responsiveness
+            window.addEventListener('resize', () => {
+                const newWidth = container.clientWidth;
+                canvas.width = newWidth;
+                canvas.height = newWidth / 2;
+                projection.fitSize([canvas.width, canvas.height], land);
+                path = d3.geoPath(projection, context);
+                render();
+            });
+
+            // Handle zooming
+            const zoom = d3.zoom()
+                .scaleExtent([1, 250])
+                .on("zoom", (event) => {
+                    const transform = event.transform;
+                    projection.translate([transform.x, transform.y]).scale(transform.k * (canvas.width / 2 / Math.PI));
+                    render();
+                });
+
+            d3.select(canvas)
+                .call(zoom)
+                .on("dblclick.zoom", null);
+        }
+
+        // Initialize the chart once the DOM is ready
+        document.addEventListener("DOMContentLoaded", initializeRadionuclidesChart);
+    </script>
+</body>
+</html>
