@@ -1,4 +1,4 @@
-const csvDataPath1 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 const landTopojsonPath = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json";
 
 async function initializeALMERAMap() {
