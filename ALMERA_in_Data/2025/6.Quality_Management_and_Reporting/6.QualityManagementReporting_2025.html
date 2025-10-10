@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMERA Quality Management & Reporting</title>
+    <link rel="stylesheet" href="../css/ALMERA_in_Data.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+    <a href="../ALMERA_in_Data_Homepage/ALMERA_in_Data_2025.html">
+        <h1>ALMERA in Data (2025)</h1>
+    </a>
+</header>
+
+    <div class="content-wrapper">
+    <div id="navigation-placeholder"></div>
+    <main class="container mx-auto p-6 md:p-10 bg-white shadow-lg rounded-xl my-8">
+        <div class="breadcrumbs">
+            <a href="../../../Main/home/index.html">Home</a>
+            <span>&gt;</span>
+            <a href="../../2025/ALMERA_in_Data_Homepage/ALMERA_in_Data_2025.html">ALMERA in Data (2025)</a>
+            <span>&gt;</span>
+            <a href="../ALMERA_in_Data_Homepage/ALMERA_in_Data_2025.html">ALMERA in Data (2025) - Archive</a>
+            <span>&gt;</span>
+            <span>6. Quality Management & Reporting</span>
+            
+            <h2>6. Quality Management & Reporting</h2>
+            <section>
+                <details open>
+                    <summary>1. Has the laboratory implemented a quality management system?</summary>
+                    <div id="QMS_System-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>4. Has the laboratory participated in national proficiency testing exercises?</summary>
+                    <div id="National_PT-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>5. Has the laboratory participated in international proficiency testing exercises?</summary>
+                    <div id="International_PT-chart-container" class="chart-container"></div>
+                    <summary>International PTs that ALMERA labs participate in</summary>
+                    <div id="International_PT_Pie_Chart-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>7. Has the laboratory established internal QA/QC procedures for measurement validation and to check equipment performance?</summary>
+                    <div id="Internal_QAQC_Procedures-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>8. What uncertainty and characteristic limit calculations are used by the lab?</summary>
+                    <div id="Uncertainty_and_Characteristic_Limits_Chart-chart-container" class="chart-container"></div>
+                  </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>9. What decay data library is used?</summary>
+                    <div id="Decay_Library-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>10. What is the method used for the calibration of gamma spectrometer/s?</summary>
+                    <div id="Calibration_Method_Used_for_Gamma_Spectrometers-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>11. What format is used by the laboratory to report data?</summary>
+                    <div id="Data_Reporting_Format-chart-container" class="chart-container"></div>
+                  </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>12. What is the frequency with which results are reported to national authorities?</summary>
+                    <div id="Frequency_of_Reporting_to_National_Authorities-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>13. Is routine monitoring data reported to a regional or international database?</summary>
+                    <div id="Data_Monitoring_Reporting-chart-container" class="chart-container"></div>
+                    <summary>Databases used to report routine monitoring data</summary>
+                    <div id="Databases_Used_to_Report_Data_Pie-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>14. Does the laboratory report data in emergency situations?</summary>
+                    <div id="Data_Reporting_In_Emergency_Situations-chart-container" class="chart-container"></div>
+                    <summary>Which authority is the data reported to?</summary>
+                    <div id="Authority_Where_Data_Is_Reported_To-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>15. Can the laboratory report data to the IAEA ALMERA coordination if requested?</summary>
+                    <div id="Report_Data_to_IAEA-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+            <section>
+                <details open>
+                    <summary>16. Is the laboratory part of another network in addition to ALMERA?</summary>
+                    <div id="Affiliation_to_Another_Network-chart-container" class="chart-container"></div>
+                    <summary>Other Networks that ALMERA Labs belong to</summary>
+                    <div id="Other_Networks_that_ALMERA_Labs_Belong_To-chart-container" class="chart-container"></div>
+                </details>
+            </section>
+
+        </main>
+    </div>
+
+    <button id="topBtn">↑</button>
+
+    <footer>
+        &copy; 2025 ALMERA Network
+    </footer>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+
+    <script src="6.1QMS_System.js"></script>
+    <script src="6.4National_PT.js"></script>
+    <script src="6.5International_PT.js"></script>
+    <script src="6.5_International_PT_Pie_Chart.js"></script>
+    <script src="6.7Internal_QAQC_Procedures.js"></script>
+    <script src="6.8Uncertainty_Calculations.js"></script>
+    <script src="6.9Decay_Library.js"></script>
+    <script src="6.10Calibration_Method_Used_for_Gamma_Spectrometers.js"></script>
+    <script src="6.11Data_Reporting_Format.js"></script>
+    <script src="6.12Frequency_of_Reporting_to_National_Authorities.js"></script>
+    <script src="6.13Data_Monitoring_Reporting.js"></script>
+    <script src="6.13Databases_Used_to_Report_Data_Pie.js"></script>
+    <script src="6.14Data_Reporting_In_Emergency_Situations.js"></script>
+    <script src="6.14Authority_Where_Data_Is_Reported_To.js"></script>
+    <script src="6.15Report_Data_to_IAEA.js"></script>
+    <script src="6.16Affiliation_to_Another_Network_(Not_ALMERA).js"></script>
+    <script src="6.16Other_Networks_that_ALMERA_Labs_Belong_To.js"></script>
+
+    <script src="../components/utility.js"></script>
+    <script src="../components/navigation/load_navigation.js"></script>
+
+</body>
+
+</html>
