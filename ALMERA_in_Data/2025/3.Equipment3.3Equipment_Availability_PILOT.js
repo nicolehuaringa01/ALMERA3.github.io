@@ -1,4 +1,4 @@
-// ALMERA_in_Data/2025/3.Equipment/3.2Equipment_Available_PILOT.js
+// ALMERA_in_Data/2025/3.Equipment/3.3Equipment_Availability_PILOT.js
 
 const csvDataPathPilot = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
