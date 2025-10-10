@@ -77,7 +77,7 @@ async function initializeFieldSurveyCapabilitiesChart() {
     }
 
     // --- Data Processing using the new functions ---
-    const FieldSurveyCapabilitiesColumn = "3.1 Field survey capabilities"; // User-provided column name
+    const FieldSurveyCapabilitiesColumn = "3.1 Which of the following field survey capabilities are available at your facility? (Select all that apply)"; // User-provided column name
     if (!rawData[0] || !rawData[0][FieldSurveyCapabilitiesColumn]) {
         console.error(`Error: CSV data missing required column "${FieldSurveyCapabilitiesColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
         container.innerHTML = `<p style='color: red;'>Error: Missing "${FieldSurveyCapabilitiesColumn}" column in CSV data.</p>`;
