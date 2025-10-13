@@ -2,10 +2,16 @@
 
 const csvDataPath8 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
+// Helper function to normalize strings for robust column matching
+function normalizeString(str) {
+    if (typeof str !== 'string') return '';
+    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' ');
+}
+
 async function initializeHostALMERACMsChart() {
     const container = document.getElementById("host-almera-cms-chart-container");
     if (!container) {
-      console.error("Host training chart container element #host-almera-cms-chart-container not found.");
+        console.error("Host training chart container element #host-almera-cms-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
@@ -31,21 +37,33 @@ async function initializeHostALMERACMsChart() {
     // --- Data Processing ---
     const hostALMERACMsColumn = '2.4 Able to host ALMERA coordination meetings?';
 
+    // Find the exact column name in the loaded data using normalization
+    let foundColumn = null;
+    const normalizedTargetColumn = normalizeString(hostALMERACMsColumn);
+    if (data.length > 0) {
+        for (const header of Object.keys(data[0])) {
+            if (normalizeString(header) === normalizedTargetColumn) {
+                foundColumn = header;
+                break;
+            }
+        }
+    }
+
+    // This is the key fix: Check if the normalized column was found
+    if (!foundColumn) {
+        console.error(`Error: CSV data is empty or missing expected column ("${hostALMERACMsColumn}").`);
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for host almera cms chart. Check column name.</p>`;
+        return;
+    }
+
     // Initialize counts for Yes/No
     const ALMERACMS = {
         "Yes": 0,
         "No": 0
     };
 
-    // Validate if the required column exists
-    if (data.length === 0 || !data[0][hostALMERACMsColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${hostALMERACMsColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for host almera cms chart. Check column name.</p>`;
-        return;
-    }
-
     data.forEach(d => {
-        let answer = d[hostALMERACMsColumn];
+        let answer = d[foundColumn];
         if (typeof answer === "string") {
             // Trim whitespace and take only the first part if semi-colon separated
             answer = answer.trim().split(";")[0];
@@ -65,6 +83,15 @@ async function initializeHostALMERACMsChart() {
         return;
     }
 
+    // Create the "Total responses" div and prepend it to the container.
+    const totalResponsesDiv = document.createElement('div');
+    totalResponsesDiv.textContent = `Total responses: ${total}`;
+    totalResponsesDiv.style.fontWeight = 'bold';
+    totalResponsesDiv.style.textAlign = 'left';
+    totalResponsesDiv.style.paddingBottom = '5px';
+    container.innerHTML = ''; // Clear container first
+    container.appendChild(totalResponsesDiv);
+
     // Prepare data for plotting (answer, percentage, and count)
     const chartData = Object.entries(ALMERACMS).map(([answer, count]) => ({
         answer,
@@ -78,7 +105,10 @@ async function initializeHostALMERACMsChart() {
 
     // Function to create and append the plot, allowing for redraw on resize
     const renderPlot = (currentWidth) => {
-        container.innerHTML = ''; // Clear existing chart
+        const existingPlot = container.querySelector('svg');
+        if (existingPlot) {
+            existingPlot.remove();
+        }
 
         const HostALMERACMsPlot = Plot.plot({
             width: currentWidth,
@@ -91,7 +121,8 @@ async function initializeHostALMERACMsChart() {
                 label: "Availability to host ALMERA Coordination Meetings",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
-                domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
+                domain: [0, 1],
+                tickFormat: d => `${Math.round(d * 100)}`
             },
             color: {
                 domain: ["Yes", "No"], // Explicit domain for color mapping
