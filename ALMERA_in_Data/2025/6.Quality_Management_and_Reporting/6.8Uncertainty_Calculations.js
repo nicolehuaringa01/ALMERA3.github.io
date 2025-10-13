@@ -8,7 +8,7 @@ d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv").then(data 
 
         for (const row of data) {
             if (row["6.8 What uncertainty and characteristic limit calculations are used by the lab?"]) {
-                const radionuclides = row["6.8 What uncertainty and characteristic limit calculations are used by the lab?"].split(";").map(d => d.trim());
+                const radionuclides = row["6.8 What uncertainty and characteristic limit calculations are used by the lab?"].split(/;|\n|\r/).map(d => d.trim());
                 for (const r of radionuclides) {
                     counts.set(r, (counts.get(r) || 0) + 1);
                 }
