@@ -1,18 +1,18 @@
 // ALMERA_in_Data/2025/3.Equipment/3.3Equipment_Availability_PILOT.js
 
-const csvDataPathPilot = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
+const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
-// This function processes the raw data to count PilotEquipmentss
-function getPilotEquipmentsCounts(data, PilotEquipmentsColumn) {
+// This function processes the raw data to count Equipment_Availability
+function getEquipment_AvailabilityCounts(data, Equipment_AvailabilityColumn) {
     const counts = new Map();
 
     for (const row of data) {
-        if (row[PilotEquipmentsColumn]) {
+        if (row[Equipment_AvailabilityColumn]) {
             // Split by semicolon as per your Observable notebook's implicit logic
-            const PilotEquipmentss = row[PilotEquipmentsColumn].split(/;|\n|\r/).map(d => d.trim());
-            for (const aff of PilotEquipmentss) {
-                if (aff) { // Ensure PilotEquipments string is not empty after trimming
-                    counts.set(aff, (counts.get(aff) || 0) + 1);
+            const Equipment_Availability = row[Equipment_AvailabilityColumn].split(/;|\n|\r/).map(d => d.trim());
+            for (const cap of Equipment_Availability) {
+                if (cap) { // Ensure capability string is not empty after trimming
+                    counts.set(cap, (counts.get(cap) || 0) + 1);
                 }
             }
         }
@@ -22,7 +22,7 @@ function getPilotEquipmentsCounts(data, PilotEquipmentsColumn) {
     let otherCount = 0;
 
     for (const [name, value] of counts.entries()) {
-        if (value === 1) { // PilotEquipmentss with only one occurrence go into "Other"
+        if (value === 1) { // Equipment_Availability with only one occurrence go into "Other"
             otherCount += 1;
         } else {
             result.push({ name, value });
@@ -36,18 +36,17 @@ function getPilotEquipmentsCounts(data, PilotEquipmentsColumn) {
     return result;
 }
 
-// This function selects the top N PilotEquipmentss, including "Other" if present
-function getTopPilotEquipmentss(PilotEquipmentsCounts, numTop = 6) {
-    let top = PilotEquipmentsCounts
+// This function selects the top N Equipment_Availability, including "Other" if present
+function getTopEquipment_Availability(capabilityCounts, numTop = 6) {
+    let top = capabilityCounts
         .slice() // Create a shallow copy to sort without modifying original
         .sort((a, b) => d3.descending(a.value, b.value)) // Sort by value descending
         .slice(0, numTop); // Take the top N
 
     // Ensure "Other" is included if it's one of the top N or if it exists and wasn't in top N
-    const other = PilotEquipmentsCounts.find(d => d.name === "Other");
+    const other = capabilityCounts.find(d => d.name === "Other");
     if (other && !top.some(d => d.name === "Other")) {
         top.push(other); // Add "Other" if it wasn't already in the top N
-        // You might want to re-sort 'top' after adding 'Other' if its position matters
         top.sort((a, b) => d3.descending(a.value, b.value));
     }
 
@@ -55,10 +54,10 @@ function getTopPilotEquipmentss(PilotEquipmentsCounts, numTop = 6) {
 }
 
 
-async function initializePilotEquipmentsChart() {
-    const container = document.getElementById("PilotEquipments-chart-container");
+async function initializeEquipment_AvailabilityChart() {
+    const container = document.getElementById("Equipment_Availability-chart-container");
     if (!container) {
-        console.error("PilotEquipments chart container element #PilotEquipments-chart-container not found.");
+        console.error("Equipment_Availability chart container element #Equipment_Availability-chart-container not found.");
         return;
     }
 
@@ -68,58 +67,63 @@ async function initializePilotEquipmentsChart() {
 
     let rawData;
     try {
-        rawData = await d3.csv(csvDataPathPilot);
-        console.log("PilotEquipments CSV raw data loaded:", rawData.length, "records");
+        rawData = await d3.csv(csvDataPath1);
+        console.log("Equipment_Availability CSV raw data loaded:", rawData.length, "records");
     } catch (error) {
-        console.error("Error loading PilotEquipments CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load PilotEquipments data. Check console for details (e.g., CSV path).</p>";
+        console.error("Error loading Equipment_Availability CSV data:", error);
+        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Equipment_Availability data. Check console for details (e.g., CSV path).</p>";
         return;
     }
 
     // --- Data Processing using the new functions ---
-    const PilotEquipmentsColumn = "3.2 Select the equipment available in your laboratory.";
-    if (!rawData[0] || !rawData[0][PilotEquipmentsColumn]) {
-        console.error(`Error: CSV data missing required column "${PilotEquipmentsColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
-        container.innerHTML = `<p style='color: red;'>Error: Missing "${PilotEquipmentsColumn}" column in CSV data.</p>`;
+    const Equipment_AvailabilityColumn = "3.2 Select the equipment available in your laboratory."; // User-provided column name
+    if (!rawData[0] || !rawData[0][Equipment_AvailabilityColumn]) {
+        console.error(`Error: CSV data missing required column "${Equipment_AvailabilityColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
+        container.innerHTML = `<p style='color: red;'>Error: Missing "${Equipment_AvailabilityColumn}" column in CSV data.</p>`;
         return;
     }
 
-    const PilotEquipmentsCounts = getPilotEquipmentsCounts(rawData, PilotEquipmentsColumn);
-    const topPilotEquipments = getTopPilotEquipmentss(PilotEquipmentsCounts, 6); // Get top 6 PilotEquipmentss
+    const Equipment_AvailabilityCounts = getEquipment_AvailabilityCounts(rawData, Equipment_AvailabilityColumn);
+    const topEquipment_Availability = getTopEquipment_Availability(Equipment_AvailabilityCounts, 6); // Get top 6 Equipment_Availability
 
-    if (topPilotEquipments.length === 0) {
-        console.warn("No valid PilotEquipments data found after processing.");
-        container.innerHTML = "<p style='text-align: center;'>No PilotEquipments data to display after filtering/processing.</p>";
+    if (topEquipment_Availability.length === 0) {
+        console.warn("No valid Equipment_Availability data found after processing.");
+        container.innerHTML = "<p style='text-align: center;'>No Equipment_Availability data to display after filtering/processing.</p>";
         return;
     }
 
     // --- Calculate total and percentages for the tooltip ---
-    const totalPilotEquipmentssCount = d3.sum(topPilotEquipments, d => d.value);
+    const totalEquipment_AvailabilityCount = d3.sum(topEquipment_Availability, d => d.value);
+    
+    // --- THIS IS THE FIX ---
+    const totalCount = d3.sum(Equipment_AvailabilityCounts, d => d.value);
 
-    // Add percentage to each PilotEquipments object in topPilotEquipments
-    topPilotEquipments.forEach(d => {
-        d.percent = (totalPilotEquipmentssCount > 0) ? (d.value / totalPilotEquipmentssCount) : 0;
+    const labsThatAnswered = rawData.filter(d => d[Equipment_AvailabilityColumn] && d[Equipment_AvailabilityColumn].trim() !== "").length;
+
+    // Add percentage to each capability object in topEquipment_Availability
+    topEquipment_Availability.forEach(d => {
+        d.percent = (totalEquipment_AvailabilityCount > 0) ? (d.value / totalEquipment_AvailabilityCount) : 0;
     });
 
-    console.log("Processed topPilotEquipments data with percentages:", topPilotEquipments);
+    console.log("Processed topEquipment_Availability data with percentages:", topEquipment_Availability);
 
     // --- Chart Rendering Logic ---
 
     // Create the color scale.
     const color = d3.scaleOrdinal()
-        .domain(topPilotEquipments.map(d => d.name))
-        .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topPilotEquipments.length).reverse());
+        .domain(topEquipment_Availability.map(d => d.name))
+        .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topEquipment_Availability.length).reverse());
 
     // Create the pie layout and arc generator.
     const pie = d3.pie()
-        .sort(null) // Do not sort, use the pre-sorted topPilotEquipments
+        .sort(null) // Do not sort, use the pre-sorted topEquipment_Availability
         .value(d => d.value);
 
     const arc = d3.arc()
         .innerRadius(0)
         .outerRadius(Math.min(width, height) / 2 - 1);
 
-    const arcs = pie(topPilotEquipments);
+    const arcs = pie(topEquipment_Availability);
 
     // Create the SVG container.
     const svg = d3.create("svg")
@@ -137,7 +141,7 @@ async function initializePilotEquipmentsChart() {
             .attr("fill", d => color(d.data.name))
             .attr("d", arc)
         .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
+            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`);
     // Add a legend.
     const legend = svg.append("g")
         .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`) // Position adjusted for clarity
@@ -160,9 +164,25 @@ async function initializePilotEquipmentsChart() {
         .attr("dy", "0.35em")
         .text(d => d);
 
+    // --- THIS IS THE FIX ---
+    svg.append("text")
+        .attr("x", -width / 2 + 10)
+        .attr("y", -height / 2 + 20)
+        .attr("text-anchor", "start")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold")
+        .text(`Total responses: ${totalCount.toLocaleString("en-US")}`);
+
+    svg.append("text")
+        .attr("x", -width / 2 + 10)
+        .attr("y", -height / 2 + 40)
+        .attr("text-anchor", "start")
+        .attr("font-size", "12px")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+
     // Append the SVG to the designated container
     container.appendChild(svg.node());
-    console.log("PilotEquipments chart appended to DOM.");
+    console.log("Equipment_Availability chart appended to DOM.");
 
     // Handle responsiveness: redraw on window resize
     window.addEventListener('resize', () => {
@@ -181,4 +201,4 @@ async function initializePilotEquipmentsChart() {
 }
 
 // Initialize the chart when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", initializePilotEquipmentsChart);
+document.addEventListener("DOMContentLoaded", initializeEquipment_AvailabilityChart);
