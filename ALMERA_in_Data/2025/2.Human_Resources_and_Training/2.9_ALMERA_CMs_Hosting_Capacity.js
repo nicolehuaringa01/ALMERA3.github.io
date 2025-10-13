@@ -96,6 +96,8 @@ async function renderALMERACMsHostingCapacityHistogram() {
         .domain([0, d3.max(nonEmptyBins, d => d.length)]).nice()
         .range([height - margin.bottom, margin.top]);
 
+    const labsThatAnswered = data.filter(d => d[foundColumn] && d[foundColumn].trim() !== "").length;
+
     // Create SVG element
     const svg = container.append("svg")
         .attr("width", width)
@@ -157,8 +159,16 @@ async function renderALMERACMsHostingCapacityHistogram() {
         .style("font-size", "16px")
         .style("font-weight", "bold")
         .text("Distribution of ALMERA CMs Hosting Capacity");
+
+    // Total responses
+    svg.append("text")
+        .attr("x", margin.left)
+        .attr("y", margin.top - 15)
+        .attr("text-anchor", "start")
+        .style("font-size", "16px")
+        .style("font-weight", "bold")
+        .text(`Total responses: ${labsThatAnswered}`);
 }
 
 // Call the function to r the chart when the script loads
 renderALMERACMsHostingCapacityHistogram();
-
