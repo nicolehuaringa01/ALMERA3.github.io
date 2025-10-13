@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2020/6.Quality_Management_and_Reporting/6.12Frequency_of_Reporting_to_National_Authorities.js
 
-const csvDataPath12 = "/ALMERA3.github.io/data/Observable2020Survey.csv"; // User-provided path
+const csvDataPath12 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv"; // User-provided path
 
 // This function processes the raw data to count Frequency_of_Reporting_to_National_Authoritiess
 function getFrequency_of_Reporting_to_National_AuthoritiesCounts(data, Frequency_of_Reporting_to_National_AuthoritiesColumn) {
