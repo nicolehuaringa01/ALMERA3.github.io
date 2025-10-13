@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2025/3.Equipment/3.3Equipment_Availability_PILOT.js
 
-const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
+const csvDataPath3 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 // This function processes the raw data to count Equipment_Availability
 function getEquipment_AvailabilityCounts(data, Equipment_AvailabilityColumn) {
@@ -67,7 +67,7 @@ async function initializeEquipment_AvailabilityChart() {
 
     let rawData;
     try {
-        rawData = await d3.csv(csvDataPath1);
+        rawData = await d3.csv(csvDataPath3);
         console.log("Equipment_Availability CSV raw data loaded:", rawData.length, "records");
     } catch (error) {
         console.error("Error loading Equipment_Availability CSV data:", error);
