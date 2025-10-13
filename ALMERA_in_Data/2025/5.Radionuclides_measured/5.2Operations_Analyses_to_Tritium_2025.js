@@ -69,7 +69,7 @@ async function initializeOperations_Analyses_to_TritiumChart() {
 
     let rawData;
     try {
-        rawData = await d3.csv(csvDataPath3);
+        rawData = await d3.csv(csvDataPath2);
         console.log("Operations_Analyses_to_Tritium CSV raw data loaded:", rawData.length, "records");
     } catch (error) {
         console.error("Error loading Operations_Analyses_to_Tritium CSV data:", error);
