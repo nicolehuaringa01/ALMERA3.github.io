@@ -88,7 +88,7 @@ const createMost_Frequently_Measured_Radionuclides_in_ALMERA_LabsToLabsMap = (ra
 
         if (!radionuclidesRaw || !labName || !memberState) continue; // Skip if essential data is missing
 
-        const radionuclides = radionuclidesRaw.split(";").map(e => e.trim()).filter(e => e); // Split, trim, and filter out empty strings
+        const radionuclides = extractRadionuclidesFromMatrixDynamique(radionuclidesRaw); // Split, trim, and filter out empty strings
 
         for (const radionuclide of radionuclides) {
             if (!map.has(radionuclide)) {
