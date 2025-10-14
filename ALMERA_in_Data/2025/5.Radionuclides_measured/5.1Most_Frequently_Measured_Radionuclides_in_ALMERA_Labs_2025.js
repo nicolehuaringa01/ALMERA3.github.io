@@ -26,21 +26,21 @@ function normalizeString(str) {
 // Parses the new "Matrix Dynamique" text format and extracts radionuclides
 function extractRadionuclidesFromMatrixDynamique(text) {
     if (!text) return [];
-    // Split entries by newlines or "Radionuclide:" occurrences
     const entries = text.split(/(?:\n|(?=Radionuclide:))/).map(e => e.trim()).filter(e => e);
-    const radionuclides = [];
+    const radionuclides = new Set();
 
     for (const entry of entries) {
-        // Find the radionuclide name using regex
         const match = entry.match(/Radionuclide:\s*([A-Za-z0-9\-]+)/i);
         if (match && match[1]) {
-            radionuclides.push(match[1].trim());
+            radionuclides.add(match[1].trim());
         }
     }
-    return radionuclides;
+
+    // Return as an array (unique per cell)
+    return Array.from(radionuclides);
 }
 
-// Update counting function to use the new parser
+// New version: counts each radionuclide only once per lab/row
 const calculateMost_Frequently_Measured_Radionuclides_in_ALMERA_LabsCounts = (radionuclideColumn) => {
     const counts = new Map();
 
@@ -48,13 +48,16 @@ const calculateMost_Frequently_Measured_Radionuclides_in_ALMERA_LabsCounts = (ra
         const cellText = row[radionuclideColumn];
         const radionuclides = extractRadionuclidesFromMatrixDynamique(cellText);
 
-        for (const r of radionuclides) {
+        // Make sure each radionuclide in this row is only counted once
+        const uniqueInRow = new Set(radionuclides);
+        for (const r of uniqueInRow) {
             counts.set(r, (counts.get(r) || 0) + 1);
         }
     }
 
     return Array.from(counts.entries()).map(([name, value]) => ({ name, value }));
 };
+
 
 
 /**
