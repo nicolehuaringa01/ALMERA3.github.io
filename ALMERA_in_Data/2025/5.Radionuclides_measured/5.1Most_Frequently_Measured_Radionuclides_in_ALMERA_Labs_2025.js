@@ -23,18 +23,39 @@ function normalizeString(str) {
  * @param {string} radionuclideColumn - The exact column name for radionuclides.
  * @returns {Array<Object>} An array of objects, { name: string, value: number }.
  */
-const calculateMost_Frequently_Measured_Radionuclides_in_ALMERA_LabsCounts = (radionuclideColumn) => {
-    const counts = new Map();
-    for (const row of allSurveyData_Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs) {
-        if (row[radionuclideColumn]) { // Use the passed column name
-            const radionuclides = row[radionuclideColumn].split(";").map(d => d.trim()).filter(d => d); // Filter out empty strings
-            for (const r of radionuclides) {
-                counts.set(r, (counts.get(r) || 0) + 1);
-            }
+// Parses the new "Matrix Dynamique" text format and extracts radionuclides
+function extractRadionuclidesFromMatrixDynamique(text) {
+    if (!text) return [];
+    // Split entries by newlines or "Radionuclide:" occurrences
+    const entries = text.split(/(?:\n|(?=Radionuclide:))/).map(e => e.trim()).filter(e => e);
+    const radionuclides = [];
+
+    for (const entry of entries) {
+        // Find the radionuclide name using regex
+        const match = entry.match(/Radionuclide:\s*([A-Za-z0-9\-]+)/i);
+        if (match && match[1]) {
+            radionuclides.push(match[1].trim());
         }
     }
+    return radionuclides;
+}
+
+// Update counting function to use the new parser
+const calculateMost_Frequently_Measured_Radionuclides_in_ALMERA_LabsCounts = (radionuclideColumn) => {
+    const counts = new Map();
+
+    for (const row of allSurveyData_Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs) {
+        const cellText = row[radionuclideColumn];
+        const radionuclides = extractRadionuclidesFromMatrixDynamique(cellText);
+
+        for (const r of radionuclides) {
+            counts.set(r, (counts.get(r) || 0) + 1);
+        }
+    }
+
     return Array.from(counts.entries()).map(([name, value]) => ({ name, value }));
 };
+
 
 /**
  * Gets the top N most frequently measured Most_Frequently_Measured_Radionuclides_in_ALMERA_Labss.
@@ -432,7 +453,7 @@ d3.csv(csvDataPath1).then(data => {
     allSurveyData_Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs = data;
 
     // Define the target column name for radionuclides for 9.2
-    const targetRadionuclideColumnName = "EasyRadionuclides"; // **VERIFY THIS COLUMN NAME**
+    const targetRadionuclideColumnName = "Matrix Dynamique"; // **VERIFY THIS COLUMN NAME**
 
     let foundRadionuclideColumn = null;
     const normalizedTargetRadionuclide = normalizeString(targetRadionuclideColumnName);
