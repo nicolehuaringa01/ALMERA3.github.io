@@ -2,15 +2,15 @@
 const csvDataPath51 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // User-provided path
 
 // This function processes the raw data to count Data_Centers_Results_Are_Being_Sent_To
-function getAffiliationCounts(data, affiliationColumn) {
+function getData_Centers_Results_Are_Being_Sent_ToCounts(data, Data_Centers_Results_Are_Being_Sent_ToColumn) {
     const counts = new Map();
 
     for (const row of data) {
-        if (row[affiliationColumn]) {
+        if (row[Data_Centers_Results_Are_Being_Sent_ToColumn]) {
             // This correctly separates Data_Centers_Results_Are_Being_Sent_To entered across multiple lines within a single CSV cell.
-            const Data_Centers_Results_Are_Being_Sent_To = row[affiliationColumn].split(/;|\n|\r/).map(d => d.trim());
+            const Data_Centers_Results_Are_Being_Sent_To = row[Data_Centers_Results_Are_Being_Sent_ToColumn].split(/;|\n|\r/).map(d => d.trim());
             for (const aff of Data_Centers_Results_Are_Being_Sent_To) {
-                if (aff) { // Ensure affiliation string is not empty after trimming
+                if (aff) { // Ensure Data_Centers_Results_Are_Being_Sent_To string is not empty after trimming
                     counts.set(aff, (counts.get(aff) || 0) + 1);
                 }
             }
@@ -36,14 +36,14 @@ function getAffiliationCounts(data, affiliationColumn) {
 }
 
 // This function selects the top N Data_Centers_Results_Are_Being_Sent_To, including "Other" if present
-function getTopData_Centers_Results_Are_Being_Sent_To(affiliationCounts, numTop = 6) {
-    let top = affiliationCounts
+function getTopData_Centers_Results_Are_Being_Sent_To(Data_Centers_Results_Are_Being_Sent_ToCounts, numTop = 6) {
+    let top = Data_Centers_Results_Are_Being_Sent_ToCounts
         .slice() // Create a shallow copy to sort without modifying original
         .sort((a, b) => d3.descending(a.value, b.value)) // Sort by value descending
         .slice(0, numTop); // Take the top N
 
     // Ensure "Other" is included if it's one of the top N or if it exists and wasn't in top N
-    const other = affiliationCounts.find(d => d.name === "Other");
+    const other = Data_Centers_Results_Are_Being_Sent_ToCounts.find(d => d.name === "Other");
     if (other && !top.some(d => d.name === "Other")) {
         top.push(other); // Add "Other" if it wasn't already in the top N
         // You might want to re-sort 'top' after adding 'Other' if its position matters
@@ -54,10 +54,10 @@ function getTopData_Centers_Results_Are_Being_Sent_To(affiliationCounts, numTop 
 }
 
 
-async function initializeAffiliationChart() {
-    const container = document.getElementById("affiliation-chart-container");
+async function initializeData_Centers_Results_Are_Being_Sent_ToChart() {
+    const container = document.getElementById("Data_Centers_Results_Are_Being_Sent_To-chart-container");
     if (!container) {
-        console.error("Affiliation chart container element #affiliation-chart-container not found.");
+        console.error("Data_Centers_Results_Are_Being_Sent_To chart container element #Data_Centers_Results_Are_Being_Sent_To-chart-container not found.");
         return;
     }
 
@@ -68,60 +68,60 @@ async function initializeAffiliationChart() {
     let rawData;
     try {
         rawData = await d3.csv(csvDataPath3);
-        console.log("Affiliation CSV raw data loaded:", rawData.length, "records");
+        console.log("Data_Centers_Results_Are_Being_Sent_To CSV raw data loaded:", rawData.length, "records");
     } catch (error) {
-        console.error("Error loading affiliation CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load affiliation data. Check console for details (e.g., CSV path).</p>";
+        console.error("Error loading Data_Centers_Results_Are_Being_Sent_To CSV data:", error);
+        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Data_Centers_Results_Are_Being_Sent_To data. Check console for details (e.g., CSV path).</p>";
         return;
     }
 
     // --- Data Processing using the new functions ---
-    const affiliationColumn = "7.5 To which data centre are the results being transmitted?";
-    if (!rawData[0] || !rawData[0][affiliationColumn]) {
-        console.error(`Error: CSV data missing required column "${affiliationColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
-        container.innerHTML = `<p style='color: red;'>Error: Missing "${affiliationColumn}" column in CSV data.</p>`;
+    const Data_Centers_Results_Are_Being_Sent_ToColumn = "7.5 To which data centre are the results being transmitted?";
+    if (!rawData[0] || !rawData[0][Data_Centers_Results_Are_Being_Sent_ToColumn]) {
+        console.error(`Error: CSV data missing required column "${Data_Centers_Results_Are_Being_Sent_ToColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
+        container.innerHTML = `<p style='color: red;'>Error: Missing "${Data_Centers_Results_Are_Being_Sent_ToColumn}" column in CSV data.</p>`;
         return;
     }
 
-    const affiliationCounts = getAffiliationCounts(rawData, affiliationColumn);
-    let topAffiliation = getTopData_Centers_Results_Are_Being_Sent_To(affiliationCounts, 6); // Get top 6 Data_Centers_Results_Are_Being_Sent_To
+    const Data_Centers_Results_Are_Being_Sent_ToCounts = getData_Centers_Results_Are_Being_Sent_ToCounts(rawData, Data_Centers_Results_Are_Being_Sent_ToColumn);
+    let topData_Centers_Results_Are_Being_Sent_To = getTopData_Centers_Results_Are_Being_Sent_To(Data_Centers_Results_Are_Being_Sent_ToCounts, 6); // Get top 6 Data_Centers_Results_Are_Being_Sent_To
 
-    if (topAffiliation.length === 0) {
-        console.warn("No valid affiliation data found after processing.");
-        container.innerHTML = "<p style='text-align: center;'>No affiliation data to display after filtering/processing.</p>";
+    if (topData_Centers_Results_Are_Being_Sent_To.length === 0) {
+        console.warn("No valid Data_Centers_Results_Are_Being_Sent_To data found after processing.");
+        container.innerHTML = "<p style='text-align: center;'>No Data_Centers_Results_Are_Being_Sent_To data to display after filtering/processing.</p>";
         return;
     }
 
     // --- Calculate total and percentages for the tooltip ---
-    const totalData_Centers_Results_Are_Being_Sent_ToCount = d3.sum(topAffiliation, d => d.value);
+    const totalData_Centers_Results_Are_Being_Sent_ToCount = d3.sum(topData_Centers_Results_Are_Being_Sent_To, d => d.value);
 
-    // Count only laboratories that actually responded (non-empty affiliation column)
-    const labsThatAnswered = rawData.filter(d => d[affiliationColumn] && d[affiliationColumn].trim() !== "").length;
+    // Count only laboratories that actually responded (non-empty Data_Centers_Results_Are_Being_Sent_To column)
+    const labsThatAnswered = rawData.filter(d => d[Data_Centers_Results_Are_Being_Sent_ToColumn] && d[Data_Centers_Results_Are_Being_Sent_ToColumn].trim() !== "").length;
 
-    // Add percentage to each affiliation object in topAffiliation
-    topAffiliation.forEach(d => {
+    // Add percentage to each Data_Centers_Results_Are_Being_Sent_To object in topData_Centers_Results_Are_Being_Sent_To
+    topData_Centers_Results_Are_Being_Sent_To.forEach(d => {
         d.percent = (totalData_Centers_Results_Are_Being_Sent_ToCount > 0) ? (d.value / totalData_Centers_Results_Are_Being_Sent_ToCount) : 0;
     });
 
-    console.log("Processed topAffiliation data with percentages:", topAffiliation);
+    console.log("Processed topData_Centers_Results_Are_Being_Sent_To data with percentages:", topData_Centers_Results_Are_Being_Sent_To);
 
     // --- Chart Rendering Logic ---
 
     // Create the color scale.
     const color = d3.scaleOrdinal()
-        .domain(topAffiliation.map(d => d.name))
-        .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topAffiliation.length).reverse());
+        .domain(topData_Centers_Results_Are_Being_Sent_To.map(d => d.name))
+        .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topData_Centers_Results_Are_Being_Sent_To.length).reverse());
 
     // Create the pie layout and arc generator.
     const pie = d3.pie()
-        .sort(null) // Do not sort, use the pre-sorted topAffiliation
+        .sort(null) // Do not sort, use the pre-sorted topData_Centers_Results_Are_Being_Sent_To
         .value(d => d.value);
 
     const arc = d3.arc()
         .innerRadius(0)
         .outerRadius(Math.min(width, height) / 2 - 1);
 
-    const arcs = pie(topAffiliation);
+    const arcs = pie(topData_Centers_Results_Are_Being_Sent_To);
 
     // Create the SVG container.
     const svg = d3.create("svg")
@@ -180,7 +180,7 @@ async function initializeAffiliationChart() {
 
     // Append the SVG to the designated container
     container.appendChild(svg.node());
-    console.log("Affiliation chart appended to DOM.");
+    console.log("Data_Centers_Results_Are_Being_Sent_To chart appended to DOM.");
 
     // Handle responsiveness: redraw on window resize
     window.addEventListener('resize', () => {
@@ -199,4 +199,4 @@ async function initializeAffiliationChart() {
 }
 
 // Initialize the chart when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", initializeAffiliationChart);
+document.addEventListener("DOMContentLoaded", initializeData_Centers_Results_Are_Being_Sent_ToChart);
