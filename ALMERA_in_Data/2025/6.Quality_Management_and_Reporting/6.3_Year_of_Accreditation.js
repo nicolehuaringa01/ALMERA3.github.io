@@ -1,6 +1,6 @@
 // Load CSV file
 d3.csv("2025_ALMERA_Capabilities_Survey.csv").then(data => {
-  
+
   // Column to extract
   const column = "6.3 If the laboratory is accredited against ISO 17025, specify year of accreditation.";
 
@@ -16,52 +16,70 @@ d3.csv("2025_ALMERA_Capabilities_Survey.csv").then(data => {
   const processedData = Array.from(yearCounts, ([year, count]) => ({ year, count }))
     .sort((a, b) => a.year - b.year);
 
-  // Setup chart dimensions
-  const svg = d3.select("#chart"),
-        margin = {top: 30, right: 30, bottom: 50, left: 70},
-        width = +svg.attr("width") - margin.left - margin.right,
-        height = +svg.attr("height") - margin.top - margin.bottom;
+  // Chart setup
+  const margin = { top: 40, right: 30, bottom: 50, left: 70 },
+        width = 700 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
-  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+  // Append SVG to container
+  const svg = d3.select("#Year_of_Accreditation-chart-container")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Scales
-  const x = d3.scaleLinear()
-    .domain([0, d3.max(processedData, d => d.count)])
-    .range([0, width]);
-
-  const y = d3.scaleBand()
+  const x = d3.scaleBand()
     .domain(processedData.map(d => d.year))
-    .range([0, height])
+    .range([0, width])
     .padding(0.1);
 
+  const y = d3.scaleLinear()
+    .domain([0, d3.max(processedData, d => d.count)])
+    .nice()
+    .range([height, 0]);
+
   // Bars
-  g.selectAll(".bar")
+  svg.selectAll(".bar")
     .data(processedData)
     .enter()
     .append("rect")
     .attr("class", "bar")
-    .attr("y", d => y(d.year))
-    .attr("width", d => x(d.count))
-    .attr("height", y.bandwidth());
-
-  // Axes
-  g.append("g")
-    .attr("class", "y-axis")
-    .call(d3.axisLeft(y).tickFormat(d3.format("d")));
-
-  g.append("g")
-    .attr("transform", `translate(0, ${height})`)
-    .call(d3.axisBottom(x).ticks(6).tickFormat(d3.format("d")));
+    .attr("x", d => x(d.year))
+    .attr("y", d => y(d.count))
+    .attr("width", x.bandwidth())
+    .attr("height", d => height - y(d.count))
+    .attr("fill", "#1e88e5");
 
   // Labels
-  g.selectAll(".label")
+  svg.selectAll(".label")
     .data(processedData)
     .enter()
     .append("text")
-    .attr("x", d => x(d.count) + 5)
-    .attr("y", d => y(d.year) + y.bandwidth() / 1.5)
-    .text(d => d.count)
+    .attr("x", d => x(d.year) + x.bandwidth() / 2)
+    .attr("y", d => y(d.count) - 5)
+    .attr("text-anchor", "middle")
     .attr("fill", "#334155")
-    .attr("font-size", "12px");
+    .attr("font-size", "12px")
+    .text(d => d.count);
+
+  // Axes
+  svg.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+
+  svg.append("g")
+    .call(d3.axisLeft(y).ticks(6));
+
+  // Chart title
+  svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", -10)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "16px")
+    .attr("font-weight", "600")
+    .attr("fill", "#1e293b")
+    .text("ISO 17025 Accreditation Year Distribution");
 
 });
