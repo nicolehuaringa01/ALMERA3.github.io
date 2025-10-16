@@ -74,7 +74,7 @@
             border-top: 5px solid var(--color-primary-dark);
             opacity: 1;
         }
-        #observablehq-chartRadionuclides-06420684 {
+        #observablehq-chart-2aed4482 {
             width: min(95vw, 1000px);
             min-width: 600px;
             max-width: 100%;
@@ -86,7 +86,7 @@
             align-items: center;
         }
 
-        #observablehq-chartRadionuclides-06420684 svg {
+        #observablehq-chart-2aed4482 svg {
           max-width: 100% !important;
           height: auto !important;
         }
@@ -95,14 +95,14 @@
           overflow-x: hidden;
         }
 
-        #observablehq-chartRadionuclides-06420684 text {
+        #observablehq-chart-2aed4482 text {
           fill: #222 !important; /* or white, depending on your map background */
           color: #222 !important;
         }
 
 /* Fix tooltip background and text specifically */
-        #observablehq-chartRadionuclides-06420684 .tooltip,
-        #observablehq-chartRadionuclides-06420684 .hover-tooltip {
+        #observablehq-chart-2aed4482 .tooltip,
+        #observablehq-chart-2aed4482 .hover-tooltip {
           background: rgba(0, 0, 0, 0.8) !important;
           color: white !important;
           border: none !important;
@@ -110,11 +110,11 @@
         }
 
 /* If the tooltip uses SVG <text> (common in Observable maps) */
-        #observablehq-chartRadionuclides-06420684 svg text {
+        #observablehq-chart-2aed4482 svg text {
           fill: white !important;  /* or #333 if your background is pale */
         }
         
-        #observablehq-chartRadionuclides-06420684 svg text {
+        #observablehq-chart-2aed4482 svg text {
           fill: #fff !important;
           text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
@@ -162,12 +162,12 @@
                     Map of ALMERA Network Members
                 </h3>
 
-                <div id="observablehq-chartRadionuclides-06420684"></div>
+                <div id="observablehq-chart-2aed4482"></div>
                 <script type="module">
                 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
-                import define from "https://api.observablehq.com/d/f7ca97e9524b2c1c@838.js?v=4";
+                import define from "https://api.observablehq.com/d/41a9a0aae91355d0@20.js?v=4";
                 new Runtime().module(define, name => {
-                  if (name === "chartRadionuclides") return new Inspector(document.querySelector("#observablehq-chartRadionuclides-06420684"));
+                  if (name === "chart") return new Inspector(document.querySelector("#observablehq-chart-2aed4482"));
                 });
                 </script>
 
