@@ -74,7 +74,7 @@
             border-top: 5px solid var(--color-primary-dark);
             opacity: 1;
         }
-        #observablehq-chartRadionuclides-b02dbf8a {
+        #observablehq-chartRadionuclides-03a3620f {
             width: min(95vw, 1000px);
             min-width: 600px;
             max-width: 100%;
@@ -86,7 +86,7 @@
             align-items: center;
         }
 
-        #observablehq-chartRadionuclides-b02dbf8a svg {
+        #observablehq-chartRadionuclides-03a3620f svg {
           max-width: 100% !important;
           height: auto !important;
         }
@@ -94,6 +94,31 @@
         body {
           overflow-x: hidden;
         }
+
+        #observablehq-chartRadionuclides-03a3620f text {
+          fill: #222 !important; /* or white, depending on your map background */
+          color: #222 !important;
+        }
+
+/* Fix tooltip background and text specifically */
+        #observablehq-chartRadionuclides-03a3620f .tooltip,
+        #observablehq-chartRadionuclides-03a3620f .hover-tooltip {
+          background: rgba(0, 0, 0, 0.8) !important;
+          color: white !important;
+          border: none !important;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+
+/* If the tooltip uses SVG <text> (common in Observable maps) */
+        #observablehq-chartRadionuclides-03a3620f svg text {
+          fill: white !important;  /* or #333 if your background is pale */
+        }
+        
+        #observablehq-chartRadionuclides-03a3620f svg text {
+          fill: #fff !important;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
         /* Make sure all other custom styles are also included,
            especially the :root variables and body/header/main/footer styles. */
     </style>
