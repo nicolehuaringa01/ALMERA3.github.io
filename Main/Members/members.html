@@ -74,7 +74,7 @@
             border-top: 5px solid var(--color-primary-dark);
             opacity: 1;
         }
-        #observablehq-chart-2aed4482 {
+        #observablehq-chart-2dc5593e {
             width: min(95vw, 1000px);
             min-width: 600px;
             max-width: 100%;
@@ -86,7 +86,7 @@
             align-items: center;
         }
 
-        #observablehq-chart-2aed4482 svg {
+        #observablehq-chart-2dc5593e svg {
           max-width: 100% !important;
           height: auto !important;
         }
@@ -95,14 +95,14 @@
           overflow-x: hidden;
         }
 
-        #observablehq-chart-2aed4482 text {
+        #observablehq-chart-2dc5593e text {
           fill: #222 !important; /* or white, depending on your map background */
           color: #222 !important;
         }
 
 /* Fix tooltip background and text specifically */
-        #observablehq-chart-2aed4482 .tooltip,
-        #observablehq-chart-2aed4482 .hover-tooltip {
+        #observablehq-chart-2dc5593e .tooltip,
+        #observablehq-chart-2dc5593e .hover-tooltip {
           background: rgba(0, 0, 0, 0.8) !important;
           color: white !important;
           border: none !important;
@@ -110,11 +110,11 @@
         }
 
 /* If the tooltip uses SVG <text> (common in Observable maps) */
-        #observablehq-chart-2aed4482 svg text {
+        #observablehq-chart-2dc5593e svg text {
           fill: white !important;  /* or #333 if your background is pale */
         }
         
-        #observablehq-chart-2aed4482 svg text {
+        #observablehq-chart-2dc5593e svg text {
           fill: #fff !important;
           text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
@@ -161,13 +161,13 @@
                 <h3 class="text-xl md:text-2xl font-medium text-gray-800 mb-4">
                     Map of ALMERA Network Members
                 </h3>
-
-                <div id="observablehq-chart-2aed4482"></div>
+                
+                <div id="observablehq-chart-2dc5593e"></div>
                 <script type="module">
                 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
-                import define from "https://api.observablehq.com/d/41a9a0aae91355d0@20.js?v=4";
+                import define from "https://api.observablehq.com/d/41a9a0aae91355d0@24.js?v=4&api_key=2a4e6a4f9d68aefce2e8e305289fce4ebcec8669";
                 new Runtime().module(define, name => {
-                  if (name === "chart") return new Inspector(document.querySelector("#observablehq-chart-2aed4482"));
+                  if (name === "chart") return new Inspector(document.querySelector("#observablehq-chart-2dc5593e"));
                 });
                 </script>
 
