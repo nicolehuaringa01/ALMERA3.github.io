@@ -31,7 +31,14 @@
             <details open>
                 <summary>1. Geographic Coverage of ALMERA Laboratories</summary>
                 <p>This map visualizes the global distribution of ALMERA laboratories, colored by geographic region. Hover over a point to see laboratory details, or click to pin the tooltip.</p>
-                <div id="almera-members-map-container"></div>
+                <div id="observablehq-chart-2dc5593e"></div>
+                <script type="module">
+                import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+                import define from "https://api.observablehq.com/d/41a9a0aae91355d0@24.js?v=4&api_key=2a4e6a4f9d68aefce2e8e305289fce4ebcec8669";
+                new Runtime().module(define, name => {
+                  if (name === "chart") return new Inspector(document.querySelector("#observablehq-chart-2dc5593e"));
+                });
+                </script>
             </details>
         </section>
 
@@ -90,7 +97,6 @@
 <script src="https://unpkg.com/topojson-client@3"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     
-<script src="1.1ALMERA_Members_Map.js"></script>
 <script src="../response_count_2025.js"></script>
 <script src="1.2LabsGeographic_2025.js"></script>
 <script src="1.3Affiliation_2025.js"></script>
