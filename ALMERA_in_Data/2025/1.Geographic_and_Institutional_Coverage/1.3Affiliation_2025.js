@@ -7,8 +7,7 @@ function getAffiliationCounts(data, affiliationColumn) {
 
     for (const row of data) {
         if (row[affiliationColumn]) {
-            // FIX: Using a regular expression to split by semicolon (;) OR newline (\n) OR carriage return (\r).
-            // This correctly separates affiliations entered across multiple lines within a single CSV cell.
+            // Splits affiliations entered across multiple lines within a single CSV cell.
             const affiliations = row[affiliationColumn].split(/;|\n|\r/).map(d => d.trim());
             for (const aff of affiliations) {
                 if (aff) { // Ensure affiliation string is not empty after trimming
