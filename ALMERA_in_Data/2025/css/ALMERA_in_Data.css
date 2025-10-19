@@ -1,7 +1,7 @@
 :root {
-    --color-primary: #0256b3; /* IAEA blue, or your brand primary color */
-    --color-primary-dark: #01488f; /* Darker shade for hover/active */
-    --color-accent: #00a896; /* A contrasting accent color for highlights (e.g., green/teal) */
+    --color-primary: #0256b3; /* IAEA blue*/
+    --color-primary-dark: #01488f;
+    --color-accent: #00a896;
     --color-text-dark: #333;
     --color-text-light: #fff;
     --color-background-light: #f9fafb;
@@ -20,9 +20,9 @@ body {
     color: var(--color-text-dark);
     line-height: 1.6;
     padding-top: 64px;
-    font-size: 16px; /* Explicit base font size for consistency */
-    -webkit-font-smoothing: antialiased; /* Smoother font rendering on macOS/iOS */
-    -moz-osx-font-smoothing: grayscale; /* Smoother font rendering on macOS/iOS */
+    font-size: 16px; 
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
