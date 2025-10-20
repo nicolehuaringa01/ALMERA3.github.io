@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2025/3.Equipment/3.1FieldSurveyCapabilities_2025.js
 
-const csvDataPath13 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
+const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 // --- Data Processing Functions (unchanged) ---
 function getFieldSurveyCapabilitiesCounts(data, FieldSurveyCapabilitiesColumn) {
@@ -125,7 +125,7 @@ async function initializeFieldSurveyCapabilitiesChart() {
     if (!container) return;
 
     let rawData;
-    try { rawData = await d3.csv(csvDataPath13); }
+    try { rawData = await d3.csv(csvDataPath1); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
     const FieldSurveyCapabilitiesColumn = "3.2 Select the equipment available in your laboratory.";
