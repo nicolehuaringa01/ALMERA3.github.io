@@ -128,7 +128,7 @@ async function initializeFieldSurveyCapabilitiesChart() {
     try { rawData = await d3.csv(csvDataPath1); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const FieldSurveyCapabilitiesColumn = "3.2 Select the equipment available in your laboratory.";
+    const FieldSurveyCapabilitiesColumn = "3.1 Which of the following field survey capabilities are available at your facility? (Select all that apply)";
     if (!rawData[0] || !rawData[0][FieldSurveyCapabilitiesColumn]) {
         return container.innerHTML = `<p style='color:red'>Missing "${FieldSurveyCapabilitiesColumn}" column.</p>`;
     }
