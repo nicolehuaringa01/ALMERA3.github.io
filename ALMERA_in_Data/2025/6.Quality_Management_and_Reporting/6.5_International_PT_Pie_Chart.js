@@ -1,183 +1,152 @@
-//ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.5_International_PT_Pie_Chart.js
+// ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.5_International_PT_Pie_Chart
 
+const csvDataPath52 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
-d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv").then(data => {
-    // 1. International_PT_PieCounts (adapted from your Observable code)
-    const International_PT_PieCounts = () => {
-        const counts = new Map();
-
-        for (const row of data) {
-            if (row["6.5 What is the name of the PT scheme/s?"]) {
-                const radionuclides = row["6.5 What is the name of the PT scheme/s?"].split(/;|\n|\r/).map(d => d.trim());
-                for (const r of radionuclides) {
-                    counts.set(r, (counts.get(r) || 0) + 1);
-                }
+// --- Data Processing Functions (unchanged) ---
+function getInternational_PTCounts(data, International_PTColumn) {
+    const counts = new Map();
+    for (const row of data) {
+        if (row[International_PTColumn]) {
+            const International_PTs = row[International_PTColumn]
+                .split(/;|\r?\n/)   // split on ";" OR newlines
+                .map(d => d.trim())
+                .filter(d => d.length > 0);
+            for (const aff of International_PTs) {
+                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure International_PT string is not empty after trimming
             }
         }
+    }
+    let result = [];
+    let otherCount = 0;
+    for (const [name, value] of counts.entries()) {
+        if (value === 1) otherCount += 1; // International_PTs with only one occurrence go into "Other"
+        else result.push({ name, value });
+        }
+    if (otherCount > 0) result.push({ name: "Other", value: otherCount });
+    return result;
+}
 
-        return Array.from(counts.entries()).map(([name, value]) => ({ name, value }));
-    };
-
-    // 2. topInternational_PT_Pie (adapted)
-    const topInternational_PT_Pie = International_PT_PieCounts()
+function getTopInternational_PTs(International_PTCounts, numTop = 9) {
+    let top = International_PTCounts
+        .slice()
         .sort((a, b) => d3.descending(a.value, b.value))
-        .slice(0, 7);
+        .slice(0, numTop);
+    const other = International_PTCounts.find(d => d.name === "Other");
+    if (other && !top.some(d => d.name === "Other")) {
+        top.push(other); // Add "Other" if it wasn't already in the top N
+        // You might want to re-sort 'top' after adding 'Other' if its position matters
+        top.sort((a, b) => d3.descending(a.value, b.value));
+    }
+    return top;
+}
+function renderBarChart(container, topInternational_PT, labsThatAnswered, color) {
+    const width = 928, height = 500;
 
-    // 3. International_PT_PieToLabsMap (adapted)
-    const International_PT_PieToLabsMap = () => {
-        const map = new Map();
+    // Adjust vertical space since we are removing the legend
+    const topMargin = 50;
+    const bottomMargin = 50;
+    const leftMargin = 200; // Increased margin for long labels
+    const rightMargin = 30;
 
-        for (const row of data) {
-            const International_PT_PieRaw = row["International_PT_Pie total"];
-            const labName = row["1.1 Name of Laboratory"];
-            const memberState = row["1.3 Member State"];
+    const svg = d3.create("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
 
-            if (!International_PT_PieRaw || !labName || !memberState) continue;
+    // X scale for bars
+    const x = d3.scaleLinear()
+        .domain([0, d3.max(topInternational_PT, d => d.value)])
+        .nice()
+        .range([leftMargin, width - rightMargin]);
 
-            const International_PT_Pies = International_PT_PieRaw.split(";").map(e => e.trim());
+    // Y scale for bars
+    const y = d3.scaleBand()
+        .domain(topInternational_PT.map(d => d.name))
+        .range([topMargin, height - bottomMargin])
+        .padding(0.2);
 
-            // Count International_PT_Pie occurrences
-            const counts = {};
-            for (const International_PT_Pie of International_PT_Pies) {
-                if (!counts[International_PT_Pie]) counts[International_PT_Pie] = 0;
-                counts[International_PT_Pie]++;
-            }
-
-            for (const [International_PT_Pie, count] of Object.entries(counts)) {
-                if (!map.has(International_PT_Pie)) map.set(International_PT_Pie, new Map()); // International_PT_Pie → Map<MemberState, Map<LabName, count>>
-
-                const stateMap = map.get(International_PT_Pie);
-
-                if (!stateMap.has(memberState)) stateMap.set(memberState, new Map());
-
-                stateMap.get(memberState).set(labName, count);
-            }
-        }
-
-        return map;
-    };
-
-    let selectedInternational_PT_Pie = null; // Mutable variable in Observable, now a regular variable
-
-    // 4. International_PT_PiesPieChart (adapted)
-    const createPieChart = () => {
-        const width = 928;
-        const height = Math.min(width, 500);
-// --- Calculate total and percentages for the tooltip ---
-    const totalInternational_PT_PiesCount = d3.sum(topInternational_PT_Pie, d => d.value);
-
-    // Add percentage to each International_PT_Pie object in topInternational_PT_Pie
-    topInternational_PT_Pie.forEach(d => {
-        d.percent = (totalInternational_PT_PiesCount > 0) ? (d.value / totalInternational_PT_PiesCount) : 0;
-    });
-
-    console.log("Processed topInternational_PT_Pie data with percentages:", topInternational_PT_Pie);
-        const color = d3.scaleOrdinal()
-            .domain(topInternational_PT_Pie.map(d => d.name))
-            .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topInternational_PT_Pie.length).reverse());
-
-        const pie = d3.pie()
-            .sort(null)
-            .value(d => d.value);
-
-        const arc = d3.arc()
-            .innerRadius(0)
-            .outerRadius(Math.min(width, height) / 2 - 1);
-
-        const arcs = pie(topInternational_PT_Pie);
-
-        const svg = d3.select("#International_PT_Pie_Chart-chart-container") // Select the container in the HTML
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("viewBox", [-width / 2, -height / 2, width, height])
-            .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif; cursor: pointer;");
-
-        svg.append("g")
-            .attr("stroke", "white")
-            .selectAll()
-            .data(arcs)
-            .join("path")
-            .attr("fill", d => color(d.data.name))
-            .attr("d", arc)
-            .on("click", (event, d) => {
-                selectedInternational_PT_Pie = d.data.name; // Update the selected International_PT_Pie
-                updateLabInfo(); // Call the function to update the lab info
-            })
-            .append("title")
-            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
-
-        const legend = svg.append("g")
-            .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`)
-            .attr("font-family", "sans-serif")
-            .attr("font-size", 10)
-            .selectAll("g")
-            .data(color.domain())
-            .join("g")
-            .attr("transform", (d, i) => `translate(0, ${i * 20})`);
-
-        legend.append("rect")
-            .attr("x", 0)
-            .attr("width", 18)
-            .attr("height", 18)
-            .attr("fill", color);
-
-        legend.append("text")
-            .attr("x", 24)
-            .attr("y", 9)
-            .attr("dy", "0.35em")
-            .text(d => d);
-
-        return svg.node();
-    };
-
-    // 5. selectedInternational_PT_PieLabs (adapted)
-    const updateLabInfo = () => { // Renamed to updateLabInfo, since it's a function
-        const selected = selectedInternational_PT_Pie;
-        const container = d3.select("#lab-info-container");
-
-        container.html(""); // Clear previous content
-
-        if (!selected) {
-            container.append("p").html("<em>Nothing to show yet.</em>");
-            return;
-        }
-
-        const stateMap = International_PT_PieToLabsMap().get(selected);
-
-        if (!stateMap || stateMap.size === 0) {
-            container.append("p").html(`No labs found for <strong>${selected}</strong>.`);
-            return;
-        }
-
-        // Get total number of *distinct* labs across all states
-        let totalLabs = 0;
-        for (const labsMap of stateMap.values()) {
-            totalLabs += labsMap.size;
-        }
-
-        // Sort states
-        const sortedStates = Array.from(stateMap.keys()).sort(d3.ascending);
-
-        const div = container.append("div");
-
-        div.append("h3").html(`Labs with <strong>${selected}</strong> (${totalLabs} total)`);
-
-        sortedStates.forEach(state => {
-            const labsMap = stateMap.get(state);
-            const sortedLabs = Array.from(labsMap.entries()).sort((a, b) => d3.ascending(a[0], b[0])); // [labName, count]
-
-            const stateDiv = div.append("div");
-            stateDiv.append("h4").text(state);
-
-            const ul = stateDiv.append("ul");
-            sortedLabs.forEach(([lab, count]) => {
-                ul.append("li").text(`${lab} (${count})`);
+    // Bars
+    svg.append("g")
+        .selectAll("rect")
+        .data(topInternational_PT)
+        .join("rect")
+            .attr("x", leftMargin)
+            .attr("y", d => y(d.name))
+            .attr("width", d => x(d.value) - leftMargin)
+            .attr("height", y.bandwidth())
+            .attr("fill", d => color(d.name))
+        .append("title")
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.name}: ${d.value} labs (${pct}%)`;
             });
-        });
-    };
 
-    // Call the functions to create the visualization
-    createPieChart();
-    updateLabInfo(); // Initial call to show "Nothing to show yet"
-});
+    // Percent + counts labels at end of bars
+    svg.append("g")
+        .selectAll("text.value")
+        .data(topInternational_PT)
+        .join("text")
+            .attr("class", "value")
+            .attr("x", d => x(d.value) + 5)
+            .attr("y", d => y(d.name) + y.bandwidth() / 2)
+            .attr("dominant-baseline", "middle")
+            .attr("fill", "black")
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.value} (${pct}%)`;
+            });
+
+    // X axis
+    svg.append("g")
+        .attr("transform", `translate(0,${height - bottomMargin})`)
+        .call(d3.axisBottom(x));
+
+    // Y axis (now with labels!)
+    svg.append("g")
+        .attr("transform", `translate(${leftMargin},0)`)
+        .call(d3.axisLeft(y)); // Corrected: removed `.tickFormat('')` to show labels
+
+    // Total labs (top band)
+    svg.append("text")
+        .attr("x", leftMargin)
+        .attr("y", 20)
+        .attr("text-anchor", "start")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+
+    // The entire legend section has been completely removed from here.
+
+    container.appendChild(svg.node());
+}
+// --- Main Init ---
+async function initializeInternational_PTChart() {
+    const container = document.getElementById("International_PT-chart-container");
+    if (!container) return;
+
+    let rawData;
+    try { rawData = await d3.csv(csvDataPath52); }
+    catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
+
+    const International_PTColumn = "6.5 What is the name of the PT scheme/s?";
+    if (!rawData[0] || !rawData[0][International_PTColumn]) {
+        return container.innerHTML = `<p style='color:red'>Missing "${International_PTColumn}" column.</p>`;
+    }
+
+    const International_PTCounts = getInternational_PTCounts(rawData, International_PTColumn);
+    let topInternational_PT = International_PTCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
+
+    if (topInternational_PT.length === 0) {
+        return container.innerHTML = "<p>No data to display.</p>";
+    }
+
+    const labsThatAnswered = rawData.filter(d => d[International_PTColumn] && d[International_PTColumn].trim() !== "").length;
+
+    const color = d3.scaleOrdinal()
+        .domain(topInternational_PT.map(d => d.name))
+        .range(d3.schemeTableau10);
+
+    renderBarChart(container, topInternational_PT, labsThatAnswered, color);
+}
+// Run
+document.addEventListener("DOMContentLoaded", initializeInternational_PTChart);
