@@ -127,7 +127,6 @@ async function initializeQMS_BasisChart() {
     let rawData;
     try { rawData = await d3.csv(csvDataPath2); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
-
     const QMS_BasisColumn = "6.2 State the basis of the QMS programme";
     if (!rawData[0] || !rawData[0][QMS_BasisColumn]) {
         return container.innerHTML = `<p style='color:red'>Missing "${QMS_BasisColumn}" column.</p>`;
