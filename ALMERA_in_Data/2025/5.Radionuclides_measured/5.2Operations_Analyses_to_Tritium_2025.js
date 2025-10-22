@@ -128,7 +128,7 @@ async function initializeOperations_Analyses_to_TritiumChart() {
     try { rawData = await d3.csv(csvDataPath2); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const Operations_Analyses_to_TritiumColumn = '"5.1.1 If your laboratory is measuring H-3, please select operations/analyses performed:"';
+    const Operations_Analyses_to_TritiumColumn = '5.1.1 If your laboratory is measuring H-3, please select operations/analyses performed:';
     if (!rawData[0] || !rawData[0][Operations_Analyses_to_TritiumColumn]) {
         return container.innerHTML = `<p style='color:red'>Missing "${Operations_Analyses_to_TritiumColumn}" column.</p>`;
     }
