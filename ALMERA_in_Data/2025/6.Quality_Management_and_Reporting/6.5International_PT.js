@@ -29,7 +29,16 @@ async function initializeInternational_PTChart() {
     }
 
     // --- Data Processing ---
-    const International_PTColumn = '6.5 Is the laboratory participating in international proficiency testing exercises?';
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+const International_PTColumn = headers.find(h =>
+    h.includes("6.5") && h.includes("Is the laboratory participating in international proficiency testing exercises?")
+);
+
+if (!International_PTColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 6.5 Is the laboratory participating in international proficiency testing exercises? column.</p>`;
+}
+
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
