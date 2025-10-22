@@ -128,10 +128,16 @@ async function initializeOperations_Analyses_to_TritiumChart() {
     try { rawData = await d3.csv(csvDataPath2); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const Operations_Analyses_to_TritiumColumn = '5.1.1 If your laboratory is measuring H-3, please select operations/analyses performed:';
-    if (!rawData[0] || !rawData[0][Operations_Analyses_to_TritiumColumn]) {
-        return container.innerHTML = `<p style='color:red'>Missing "${Operations_Analyses_to_TritiumColumn}" column.</p>`;
-    }
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+const Operations_Analyses_to_TritiumColumn = headers.find(h =>
+    h.includes("H-3") && h.includes("operations/analyses")
+);
+
+if (!Operations_Analyses_to_TritiumColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing H-3 operations/analyses column.</p>`;
+}
+
 
     const Operations_Analyses_to_TritiumCounts = getOperations_Analyses_to_TritiumCounts(rawData, Operations_Analyses_to_TritiumColumn);
     let topOperations_Analyses_to_Tritium = Operations_Analyses_to_TritiumCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
