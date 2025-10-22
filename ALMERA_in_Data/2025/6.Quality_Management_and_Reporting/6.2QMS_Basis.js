@@ -75,13 +75,16 @@ async function initializeQMS_BasisChart() {
         return;
     }
 
-    // --- Data Processing using the new functions ---
-    const QMS_BasisColumn = "6.2 State the basis of the QMS programme";
-    if (!rawData[0] || !rawData[0][QMS_BasisColumn]) {
-        console.error(`Error: CSV data missing required column "${QMS_BasisColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
-        container.innerHTML = `<p style='color: red;'>Error: Missing "${QMS_BasisColumn}" column in CSV data.</p>`;
-        return;
-    }
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+const QMS_BasisColumn = headers.find(h =>
+    h.includes("6.2") && h.includes("State the basis of the QMS programme")
+);
+
+if (!QMS_BasisColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 6.2 State the basis of the QMS programme column.</p>`;
+}
+
 
     const QMS_BasisCounts = getQMS_BasisCounts(rawData, QMS_BasisColumn);
     let topQMS_Basis = getTopQMS_Basiss(QMS_BasisCounts, 6); // Get top 6 QMS_Basiss
