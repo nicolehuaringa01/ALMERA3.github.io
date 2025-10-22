@@ -127,10 +127,17 @@ async function initializeQMS_BasisChart() {
     let rawData;
     try { rawData = await d3.csv(csvDataPath2); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
-    const QMS_BasisColumn = "6.2 State the basis of the QMS programme";
-    if (!rawData[0] || !rawData[0][QMS_BasisColumn]) {
-        return container.innerHTML = `<p style='color:red'>Missing "${QMS_BasisColumn}" column.</p>`;
-    }
+    
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+const QMS_BasisColumn = headers.find(h =>
+    h.includes("6.2") && h.includes("State the basis of the QMS programme")
+);
+
+if (!QMS_BasisColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 6.2 State the basis of the QMS programme column.</p>`;
+}
+
 
     const QMS_BasisCounts = getQMS_BasisCounts(rawData, QMS_BasisColumn);
     let topQMS_Basis = QMS_BasisCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
