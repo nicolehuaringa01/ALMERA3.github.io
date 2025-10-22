@@ -1,5 +1,5 @@
 // Load CSV file
-d3.csv("2025_ALMERA_Capabilities_Survey.csv").then(data => {
+d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv").then(data => {
 
   // Column to extract
   const column = "6.3 If the laboratory is accredited against ISO 17025, specify year of accreditation.";
