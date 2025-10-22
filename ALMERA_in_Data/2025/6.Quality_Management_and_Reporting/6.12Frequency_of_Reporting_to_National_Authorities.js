@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.12Frequency_of_Reporting_to_National_Authorities
 
-const csvDataPath121 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
+const csvDataPath_6_12 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 // --- Data Processing Functions (unchanged) ---
 function getFrequency_of_Reporting_to_National_AuthoritiesCounts(data, Frequency_of_Reporting_to_National_AuthoritiesColumn) {
@@ -125,7 +125,7 @@ async function initializeFrequency_of_Reporting_to_National_AuthoritiesChart() {
     if (!container) return;
 
     let rawData;
-    try { rawData = await d3.csv(csvDataPath121); }
+    try { rawData = await d3.csv(csvDataPath_6_12); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
     const headers = Object.keys(rawData[0]).map(h => h.trim());
