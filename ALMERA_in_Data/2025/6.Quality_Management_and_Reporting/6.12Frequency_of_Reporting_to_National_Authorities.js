@@ -77,12 +77,15 @@ async function initializeFrequency_of_Reporting_to_National_AuthoritiesChart() {
     }
 
     // --- Data Processing using the new functions ---
-    const Frequency_of_Reporting_to_National_AuthoritiesColumn = "6.9 What is the frequency with which results are reported to national authorities?";
-    if (!rawData[0] || !rawData[0][Frequency_of_Reporting_to_National_AuthoritiesColumn]) {
-        console.error(`Error: CSV data missing required column "${Frequency_of_Reporting_to_National_AuthoritiesColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
-        container.innerHTML = `<p style='color: red;'>Error: Missing "${Frequency_of_Reporting_to_National_AuthoritiesColumn}" column in CSV data.</p>`;
-        return;
-    }
+     const headers = Object.keys(rawData[0]).map(h => h.trim());
+const Frequency_of_Reporting_to_National_AuthoritiesColumn = headers.find(h =>
+    h.includes("6.9") && h.includes("What is the frequency with which results are reported to national authorities?")
+);
+
+if (!Frequency_of_Reporting_to_National_AuthoritiesColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 6.9 What is the frequency with which results are reported to national authorities?.</p>`;
+}
 
     const Frequency_of_Reporting_to_National_AuthoritiesCounts = getFrequency_of_Reporting_to_National_AuthoritiesCounts(rawData, Frequency_of_Reporting_to_National_AuthoritiesColumn);
     const topFrequency_of_Reporting_to_National_Authorities = getTopFrequency_of_Reporting_to_National_Authoritiess(Frequency_of_Reporting_to_National_AuthoritiesCounts, 6); // Get top 6 Frequency_of_Reporting_to_National_Authoritiess
