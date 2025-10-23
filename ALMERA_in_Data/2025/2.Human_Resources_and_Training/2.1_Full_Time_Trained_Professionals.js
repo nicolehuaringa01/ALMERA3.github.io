@@ -145,33 +145,38 @@ d3.csv(csvPath).then(data => {
     .selectAll("text")
     .style("font-size", "14px");
 
-  // Legend
-  const legend = svg.append("g")
-    .attr("transform", `translate(${margin.left},${margin.top - 60})`);
+  // Vertical legend on the left
+const legend = svg.append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  let i = 0;
-  for (const [region, color] of Object.entries(regionColors)) {
-    legend.append("rect")
-      .attr("x", i * 160)
-      .attr("y", 0)
-      .attr("width", 15)
-      .attr("height", 15)
-      .attr("fill", color);
+let i = 0;
+for (const [region, color] of Object.entries(regionColors)) {
+  const yOffset = i * 25; // spacing between items
 
-    legend.append("text")
-      .attr("x", i * 160 + 20)
-      .attr("y", 12)
-      .text(region)
-      .style("font-size", "14px")
-      .style("font-weight", "600");
-    i++;
-  }
+  legend.append("rect")
+    .attr("x", 0)
+    .attr("y", yOffset)
+    .attr("width", 15)
+    .attr("height", 15)
+    .attr("fill", color);
+
+  legend.append("text")
+    .attr("x", 20)
+    .attr("y", yOffset + 12) // align text with rect
+    .text(region)
+    .style("font-size", "14px")
+    .style("font-weight", "600");
+
+  i++;
+}
+
 // Total responses in top-right corner
 svg.append("text")
   .attr("x", width - margin.right)  // right edge minus margin
-  .attr("y", margin.top / 2)       // somewhere near top
-  .attr("text-anchor", "end")      // align text to the right
+  .attr("y", margin.top)            // aligned with top of chart
+  .attr("text-anchor", "end")       // align text to the right
   .style("font-size", "14px")
   .style("font-weight", "600")
   .text(`Total responses: ${totalLabs}`);
+
 });
