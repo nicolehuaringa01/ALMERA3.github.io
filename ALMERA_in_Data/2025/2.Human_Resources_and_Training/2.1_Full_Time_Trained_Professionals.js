@@ -107,8 +107,15 @@ async function initializeHumanResourcesChart() {
         const HumanResourcesPlot = Plot.plot({
   width: currentWidth,
   height: height,
-  fx: { label: "Number of Trained Professionals (Per Lab)" },
-  y: { label: "Number of Laboratories", grid: true },
+  x: {
+    label: "Number of Trained Professionals (Per Lab)",
+    domain: ["1–5", "6–10", "11–15", "16–20", "21+"], // define desired left-to-right order
+    tickRotate: 0
+  },
+  y: {
+    label: "Number of Laboratories",
+    grid: true
+  },
   color: {
     legend: true,
     label: "Geographic Region",
@@ -117,11 +124,14 @@ async function initializeHumanResourcesChart() {
   },
   marks: [
     Plot.barY(chartData, {
-      fx: "range",
+      x: "range",
       y: "count",
-      x: "region",
       fill: "region",
-      title: d => `${d.count} labs`
+      title: d => `${d.region}: ${d.count} labs`, // hover tooltip only, no visible labels
+      sort: {
+        x: ["1–5", "6–10", "11–15", "16–20", "21+"],
+        fill: ["ASIA PACIFIC", "AFRICA", "EUROPE", "MIDDLE EAST", "NORTH AND LATIN AMERICA"]
+      }
     }),
     Plot.ruleY([0])
   ],
@@ -130,6 +140,7 @@ async function initializeHumanResourcesChart() {
     fontSize: "12px"
   }
 });
+
 
 
         container.appendChild(HumanResourcesPlot);
