@@ -146,9 +146,9 @@ async function initializeHumanResourcesChart() {
       }),
 
       // Colored grouped bars for each range within each region
-      Plot.barY(
+      Plot.dodgeX(
   chartData,
-  Plot.dodgeX({
+  Plot.barY({
     x: "region",
     y: "count",
     fill: "range",
@@ -156,8 +156,6 @@ async function initializeHumanResourcesChart() {
     sort: { x: sortedRegions, fill: ["1–5", "6–10", "11–20", "21+"] }
   })
 ),
-
-
 
       // Labels above gray bars (total)
       Plot.text(totalsArray, {
