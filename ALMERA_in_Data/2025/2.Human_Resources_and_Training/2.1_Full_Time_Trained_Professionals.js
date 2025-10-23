@@ -166,13 +166,12 @@ d3.csv(csvPath).then(data => {
       .style("font-weight", "600");
     i++;
   }
-
-  // Title and total
-  svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", margin.top / 2)
-    .attr("text-anchor", "middle")
-    .style("font-size", "18px")
-    .style("font-weight", "700")
-    .text(`Number of Trained Professionals per Laboratory (Total responses: ${totalLabs})`);
+// Total responses in top-right corner
+svg.append("text")
+  .attr("x", width - margin.right)  // right edge minus margin
+  .attr("y", margin.top / 2)       // somewhere near top
+  .attr("text-anchor", "end")      // align text to the right
+  .style("font-size", "14px")
+  .style("font-weight", "600")
+  .text(`Total responses: ${totalLabs}`);
 });
