@@ -101,51 +101,81 @@ async function initializeHumanResourcesChart() {
 
     // Function to create and append the plot. This is wrapped so it can be called on resize.
     const renderPlot = (currentWidth) => {
-        // Clear any existing chart
-        container.innerHTML = '';
+  container.innerHTML = '';
 
-        const HumanResourcesPlot = Plot.plot({
-  width: currentWidth,
-  height: height,
-  x: {
-    label: "Number of Trained Professionals (Per Lab)",
-    domain: ["1–5", "6–10", "11–15", "16–20", "21+"], // define desired left-to-right order
-    tickRotate: 0
-  },
-  y: {
-    label: "Number of Laboratories",
-    grid: true
-  },
-  color: {
-    legend: true,
-    label: "Geographic Region",
-    domain: ["ASIA PACIFIC", "AFRICA", "EUROPE", "MIDDLE EAST", "NORTH AND LATIN AMERICA"],
-    range: ["#0083b4", "#9942b2", "#d10000", "#ddb100", "#009d28"]
-  },
-  marks: [
-    Plot.barY(chartData, {
-      x: "range",
-      y: "count",
-      fill: "region",
-      title: d => `${d.region}: ${d.count} labs`, // hover tooltip only, no visible labels
-      sort: {
-        x: ["1–5", "6–10", "11–15", "16–20", "21+"],
-        fill: ["ASIA PACIFIC", "AFRICA", "EUROPE", "MIDDLE EAST", "NORTH AND LATIN AMERICA"]
-      }
-    }),
-    Plot.ruleY([0])
-  ],
-  style: {
-    fontFamily: "Inter, sans-serif",
-    fontSize: "12px"
-  }
-});
+  // Compute total labs per region (for gray background bars)
+  const totalsByRegion = d3.rollup(
+    chartData,
+    v => d3.sum(v, d => d.count),
+    d => d.region
+  );
 
+  // Convert totals to array for sorting
+  const totalsArray = Array.from(totalsByRegion, ([region, total]) => ({ region, total }));
 
+  // Sort regions by total (ascending → least to most)
+  const sortedRegions = totalsArray.sort((a, b) => a.total - b.total).map(d => d.region);
 
-        container.appendChild(HumanResourcesPlot);
-        console.log("Human Resources chart appended to DOM.");
-    };
+  // Plot
+  const HumanResourcesPlot = Plot.plot({
+    width: currentWidth,
+    height: height,
+    marginLeft: 60,
+    marginBottom: 60,
+    x: {
+      domain: sortedRegions,
+      label: "Geographic Region",
+      tickRotate: 0
+    },
+    y: {
+      label: "Number of Laboratories",
+      grid: true
+    },
+    color: {
+      legend: true,
+      label: "Number of Full-Time Trained Professionals (Per Lab)",
+      domain: ["1–5", "6–10", "11–20", "21+"],
+      range: ["#7f7f7f", "#0083b4", "#9942b2", "#d10000"] // You can change range if desired
+    },
+    marks: [
+      // Gray background bars (total per region)
+      Plot.barY(totalsArray, {
+        x: "region",
+        y: "total",
+        fill: "#e0e0e0"
+      }),
+
+      // Colored grouped bars for each range within each region
+      Plot.barY(chartData, {
+        x: "region",
+        y: "count",
+        fill: "range",
+        sort: { x: sortedRegions, fill: ["1–5", "6–10", "11–20", "21+"] },
+        title: d => `${d.range}: ${d.count} labs`
+      }),
+
+      // Labels above gray bars (total)
+      Plot.text(totalsArray, {
+        x: "region",
+        y: d => d.total + 2, // position slightly above bar
+        text: d => `${d.total} Labs`,
+        textAnchor: "middle",
+        dy: -6,
+        fill: "#333",
+        fontWeight: "600"
+      }),
+
+      Plot.ruleY([0])
+    ],
+    style: {
+      fontFamily: "Inter, sans-serif",
+      fontSize: "12px"
+    }
+  });
+
+  container.appendChild(HumanResourcesPlot);
+};
+
 
     // Initial render of the plot
     renderPlot(width);
