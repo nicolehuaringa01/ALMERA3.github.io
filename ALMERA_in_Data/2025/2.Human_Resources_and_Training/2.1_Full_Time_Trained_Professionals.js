@@ -104,6 +104,8 @@ d3.csv(csvPath).then(data => {
     .nice()
     .range([height - margin.bottom, margin.top]);
 
+  // ... (The rest of your code remains the same until the gray bars)
+
   // Gray total bars
   svg.selectAll(".total-bar")
     .data(chartData.filter(d => d.region === "TOTAL"))
@@ -113,7 +115,20 @@ d3.csv(csvPath).then(data => {
     .attr("y", d => y(d.count))
     .attr("width", x0.bandwidth())
     .attr("height", d => y(0) - y(d.count))
-    .attr("fill", "#e0e0e0");
+    .attr("fill", "#e0e0e0")
+     // --- TOOLTIP FUNCTIONALITY ---
+    .on("mousemove", (event, d) => {
+        const totalPct = ((d.count / totalLabs) * 100).toFixed(1);
+        tooltip.style("display", "block")
+          .style("left", event.pageX + 10 + "px")
+          .style("top", event.pageY - 20 + "px")
+          .html(`
+              <b>Range: ${d.range}</b><br>
+              Total labs: ${d.count}<br>
+              (${totalPct}% of all respondents)
+          `);
+    })
+    .on("mouseleave", () => tooltip.style("display", "none"));
 
   // Colored bars
   svg.selectAll(".region-bar")
