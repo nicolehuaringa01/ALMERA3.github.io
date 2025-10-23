@@ -100,7 +100,7 @@ d3.csv(csvPath).then(data => {
     .padding(0.1);
 
   const y = d3.scaleLinear()
-    .domain([0, d3.max(chartData.filter(d => d.region === "TOTAL"), d => d.count) * 1.2])
+    .domain([0, d3.max(chartData.filter(d => d.region === "TOTAL"), d => d.count) * 1.1])
     .nice()
     .range([height - margin.bottom, margin.top]);
 
@@ -147,8 +147,6 @@ d3.csv(csvPath).then(data => {
     .style("font-size", "14px");
 
   // Vertical legend on the left
-// FIX: Changed the translate Y value to move the legend further up.
-// I'm using margin.top / 3 as a starting point, which should put it high up in the margin area.
 const legend = svg.append("g")
   .attr("transform", `translate(${margin.left}, 30)`); // Adjusted from ${margin.top} to 30
 
@@ -167,7 +165,7 @@ for (const [region, color] of Object.entries(regionColors)) {
     .attr("x", 20)
     .attr("y", yOffset + 12) // align text with rect
     .text(region)
-    .style("font-size", "14px")
+    .style("font-size", "12px")
     .style("font-weight", "600");
 
   i++;
