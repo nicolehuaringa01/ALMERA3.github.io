@@ -163,6 +163,7 @@ d3.csv(csvPath).then(data => {
 
 // New Legend positioning
 // Let's place it at the top, just below the very top margin, and center it or place it near the left for clarity.
+// New Legend positioning
 const legend = svg.append("g")
   .attr("transform", `translate(${margin.left}, 30)`); // Starting position for the legend
 
@@ -180,7 +181,7 @@ for (const [region, color] of Object.entries(regionColors)) {
     .attr("height", 15)
     .attr("fill", color);
 
-  // Append text and get its bounding box to calculate its width
+  // Append text
   const textElement = legendItem.append("text")
     .attr("x", 20) // 15 (rect width) + 5 (small gap)
     .attr("y", 12) // Align text vertically with the rect
@@ -188,16 +189,15 @@ for (const [region, color] of Object.entries(regionColors)) {
     .style("font-size", "14px")
     .style("font-weight", "600");
 
-  // Calculate the width of the current legend item (rect + text)
-  // We need to get the actual rendered width of the text.
-  // This requires the SVG to be rendered in the DOM to get BBox correctly.
-  // For simplicity in static code, we can estimate or use a helper function if available.
-  // Let's use a rough estimation for text width for now, or get a more precise one if needed.
-  const textWidth = textElement.node().getComputedTextLength();
-  
+  // --- FIX: Replaced the dynamic calculation with a safe estimate ---
+  // We need to estimate the width of the text to calculate the position of the next legend item.
+  // A quick way is to use a rough estimate: (Region Name Length * Font Size Factor)
+  // Let's use 8 pixels per character for 14px text, plus a generous fixed padding.
+  const textWidthEstimate = region.length * 8; 
+
   // Update currentX for the next legend item
-  // 15 (rect width) + 5 (gap before text) + textWidth + 30 (padding for next item)
-  currentX += 15 + 5 + textWidth + 30; // 30 is horizontal padding between legend items
+  // 20 (rect and gap) + textWidthEstimate + 40 (generous padding for next item)
+  currentX += 20 + textWidthEstimate + 40; 
 }
 
 // Total responses in top-right corner (This remains as is)
@@ -205,16 +205,6 @@ svg.append("text")
   .attr("x", width - margin.right)  
   .attr("y", 30)            
   .attr("text-anchor", "end")       
-  .style("font-size", "14px")
-  .style("font-weight", "600")
-  .text(`Total responses: ${totalLabs}`);
-
-});
-// Total responses in top-right corner
-svg.append("text")
-  .attr("x", width - margin.right)  // right edge minus margin
-  .attr("y", 30)            // FIX: Also adjusted this Y position to match the new legend position
-  .attr("text-anchor", "end")       // align text to the right
   .style("font-size", "14px")
   .style("font-weight", "600")
   .text(`Total responses: ${totalLabs}`);
