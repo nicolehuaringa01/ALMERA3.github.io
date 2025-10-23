@@ -105,42 +105,32 @@ async function initializeHumanResourcesChart() {
         container.innerHTML = '';
 
         const HumanResourcesPlot = Plot.plot({
-            width: currentWidth, // Use the current width of the container
-            height: height,
-            x: {
-                label: "Number of Trained Professionals (Per Lab)",
-                tickRotate: 0, // No tick rotation for better readability
-                domain: ["1–5", "6–10", "11–20", "21+"] // Explicit order for x-axis categories
-            },
-            y: {
-                label: "Number of Laboratories",
-                grid: true // Show grid lines for the y-axis
-            },
-            color: {
-                legend: true, // Display a legend for colors
-                label: "Geographic Region",
-                domain: Object.keys(regionColors), // Explicit domain order for the legend
-                range: Object.values(regionColors) // Corresponding colors for the legend
-            },
-            marks: [
-                Plot.barY(chartData, {
-                    x: "range",
-                    y: "count",
-                    fill: "region",
-                    title: d => `${d.count} labs`, // Tooltip text
-                    // Corrected: Added the sort property with your specified order
-                    sort: {
-                        fill: "region",
-                        order: ["ASIA PACIFIC", "AFRICA", "EUROPE", "MIDDLE EAST", "NORTH AND LATIN AMERICA"]
-                    }
-                }),
-                Plot.ruleY([0]) // Draw a baseline at y=0
-            ],
-            style: {
-                fontFamily: "Inter, sans-serif", // Use the Inter font, falling back to sans-serif
-                fontSize: "12px", // General font size for the plot
-            }
-        });
+  width: currentWidth,
+  height: height,
+  fx: { label: "Number of Trained Professionals (Per Lab)" },
+  y: { label: "Number of Laboratories", grid: true },
+  color: {
+    legend: true,
+    label: "Geographic Region",
+    domain: ["ASIA PACIFIC", "AFRICA", "EUROPE", "MIDDLE EAST", "NORTH AND LATIN AMERICA"],
+    range: ["#0083b4", "#9942b2", "#d10000", "#ddb100", "#009d28"]
+  },
+  marks: [
+    Plot.barY(chartData, {
+      fx: "range",
+      y: "count",
+      x: "region",
+      fill: "region",
+      title: d => `${d.count} labs`
+    }),
+    Plot.ruleY([0])
+  ],
+  style: {
+    fontFamily: "Inter, sans-serif",
+    fontSize: "12px"
+  }
+});
+
 
         container.appendChild(HumanResourcesPlot);
         console.log("Human Resources chart appended to DOM.");
