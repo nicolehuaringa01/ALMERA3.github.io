@@ -2,220 +2,157 @@
 
 const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // User-provided path
 
-// Helper function to normalize strings for comparison (remove extra spaces, non-breaking spaces)
-function normalizeString(str) {
-    if (typeof str !== 'string') return '';
-    return str.trim().replace(/\s+/g, ' ').replace(/\u00A0/g, ' '); // Replace all whitespace with single space, remove non-breaking spaces
-}
-
-// This function processes the raw data to count Environmental_Monitoring_Capabilitiess
+// --- Data Processing Functions (unchanged) ---
 function getEnvironmental_Monitoring_CapabilitiesCounts(data, Environmental_Monitoring_CapabilitiesColumn) {
     const counts = new Map();
-
     for (const row of data) {
         if (row[Environmental_Monitoring_CapabilitiesColumn]) {
-            // Split by semicolon as per your Observable notebook's implicit logic
-            const Environmental_Monitoring_Capabilitiess = row[Environmental_Monitoring_CapabilitiesColumn].split(/;|\n|\r/).map(d => d.trim());
+            const Environmental_Monitoring_Capabilitiess = row[Environmental_Monitoring_CapabilitiesColumn]
+                .split(/;|\r?\n/)   // split on ";" OR newlines
+                .map(d => d.trim())
+                .filter(d => d.length > 0);
             for (const aff of Environmental_Monitoring_Capabilitiess) {
-                if (aff) { // Ensure Environmental_Monitoring_Capabilities string is not empty after trimming
-                    counts.set(aff, (counts.get(aff) || 0) + 1);
-                }
+                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure Environmental_Monitoring_Capabilities string is not empty after trimming
             }
         }
     }
-
     let result = [];
-    let syntheticOtherCount = 0;
-
+    let otherCount = 0;
     for (const [name, value] of counts.entries()) {
-        if (value === 1 && name !== "Other") {
-            syntheticOtherCount += 1;
-        } else {
-            result.push({ name, value });
+        if (value === 1) otherCount += 1; // Environmental_Monitoring_Capabilitiess with only one occurrence go into "Other"
+        else result.push({ name, value });
         }
-    }
-
-    let existingOtherIndex = result.findIndex(d => d.name === "Other");
-
-    if (existingOtherIndex !== -1) {
-        result[existingOtherIndex].value += syntheticOtherCount;
-    } else if (syntheticOtherCount > 0) {
-        result.push({ name: "Other", value: syntheticOtherCount });
-    }
-
+    if (otherCount > 0) result.push({ name: "Other", value: otherCount });
     return result;
 }
 
-// This function selects the top N Environmental_Monitoring_Capabilitiess, including "Other" if present
-function getTopEnvironmental_Monitoring_Capabilitiess(Environmental_Monitoring_CapabilitiesCounts, numTop = 12) {
+function getTopEnvironmental_Monitoring_Capabilitiess(Environmental_Monitoring_CapabilitiesCounts, numTop = 9) {
     let top = Environmental_Monitoring_CapabilitiesCounts
         .slice()
         .sort((a, b) => d3.descending(a.value, b.value))
         .slice(0, numTop);
-
     const other = Environmental_Monitoring_CapabilitiesCounts.find(d => d.name === "Other");
     if (other && !top.some(d => d.name === "Other")) {
-        top.push(other);
+        top.push(other); // Add "Other" if it wasn't already in the top N
+        // You might want to re-sort 'top' after adding 'Other' if its position matters
         top.sort((a, b) => d3.descending(a.value, b.value));
     }
-
     return top;
 }
+function renderBarChart(container, topEnvironmental_Monitoring_Capabilities, labsThatAnswered, color) {
+    const width = 928, height = 500;
 
+    // Adjust vertical space since we are removing the legend
+    const topMargin = 50;
+    const bottomMargin = 50;
+    const leftMargin = 200; // Increased margin for long labels
+    const rightMargin = 30;
 
-async function initializeEnvironmental_Monitoring_CapabilitiesChart() {
-    const container = document.getElementById("Environmental_Monitoring_Capabilities-chart-container");
-    if (!container) {
-        console.error("Environmental_Monitoring_Capabilities chart container element #Environmental_Monitoring_Capabilities-chart-container not found.");
-        return;
-    }
-
-    const width = 928;
-    const height = Math.min(width, 500);
-
-    let rawData;
-    try {
-        rawData = await d3.csv(csvDataPath1);
-        console.log("Environmental_Monitoring_Capabilities CSV raw data loaded:", rawData.length, "records");
-
-        if (rawData.length === 0) {
-            console.warn("CSV data is empty. No chart to display.");
-            container.innerHTML = "<p style='text-align: center;'>CSV data is empty. No chart to display.</p>";
-            return;
-        }
-
-        // *** CRUCIAL DEBUGGING STEP: Log all headers found by D3.js ***
-        const parsedHeaders = Object.keys(rawData[0]);
-        console.log("CSV data loaded. First row headers (as parsed by D3.js):", parsedHeaders);
-
-
-    } catch (error) {
-        console.error("Error loading Environmental_Monitoring_Capabilities CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Environmental_Monitoring_Capabilities data. Please check the console for details and ensure the CSV path is correct.</p>";
-        return;
-    }
-
-    // --- Data Processing using the new functions ---
-    const targetColumnName = "7.1  What environmental radioactivity monitoring tasks is the laboratory/institution authorised or appointed to perform? Please select all that apply.";
-
-    // --- Robust Column Name Validation ---
-    let foundColumn = null;
-    const normalizedTarget = normalizeString(targetColumnName);
-
-    for (const header of Object.keys(rawData[0])) {
-        if (normalizeString(header) === normalizedTarget) {
-            foundColumn = header;
-            break;
-        }
-    }
-
-    if (!foundColumn) {
-        console.error(`Error: Could not find a matching column for "${targetColumnName}" in the CSV data.`);
-        console.error("Available headers (normalized for comparison):", Object.keys(rawData[0]).map(normalizeString));
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column "${targetColumnName}" not found in CSV. Please check the exact header name in the console.</p>`;
-        return;
-    }
-
-    console.log(`Successfully identified column: "${foundColumn}" for processing.`);
-    const Environmental_Monitoring_CapabilitiesColumn = foundColumn; // Use the exactly matched header
-
-
-    const Environmental_Monitoring_CapabilitiesCounts = getEnvironmental_Monitoring_CapabilitiesCounts(rawData, Environmental_Monitoring_CapabilitiesColumn);
-    const topEnvironmental_Monitoring_Capabilities = getTopEnvironmental_Monitoring_Capabilitiess(Environmental_Monitoring_CapabilitiesCounts, 10); // Get top 10 Environmental_Monitoring_Capabilitiess
-
-    if (topEnvironmental_Monitoring_Capabilities.length === 0) {
-        console.warn("No valid Environmental_Monitoring_Capabilities data found after processing.");
-        container.innerHTML = "<p style='text-align: center;'>No Environmental_Monitoring_Capabilities data to display after filtering/processing.</p>";
-        return;
-    }
-
-     // --- Calculate total and percentages for the tooltip ---
-    const totalEnvironmental_Monitoring_CapabilitiessCount = d3.sum(topEnvironmental_Monitoring_Capabilities, d => d.value);
-
-    // Add percentage to each Environmental_Monitoring_Capabilities object in topEnvironmental_Monitoring_Capabilities
-    topEnvironmental_Monitoring_Capabilities.forEach(d => {
-        d.percent = (totalEnvironmental_Monitoring_CapabilitiessCount > 0) ? (d.value / totalEnvironmental_Monitoring_CapabilitiessCount) : 0;
-    });
-
-    console.log("Processed topEnvironmental_Monitoring_Capabilities data with percentages:", topEnvironmental_Monitoring_Capabilities);
-
-    // --- Chart Rendering Logic ---
-
-    // Create the color scale.
-    const color = d3.scaleOrdinal()
-        .domain(topEnvironmental_Monitoring_Capabilities.map(d => d.name))
-        .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topEnvironmental_Monitoring_Capabilities.length).reverse());
-
-    // Create the pie layout and arc generator.
-    const pie = d3.pie()
-        .sort(null) // Do not sort, use the pre-sorted topEnvironmental_Monitoring_Capabilities
-        .value(d => d.value);
-
-    const arc = d3.arc()
-        .innerRadius(0)
-        .outerRadius(Math.min(width, height) / 2 - 1);
-
-    const arcs = pie(topEnvironmental_Monitoring_Capabilities);
-
-    // Create the SVG container.
     const svg = d3.create("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("viewBox", [-width / 2, -height / 2, width, height]) // Center the view
-        .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif;"); // General styling
+        .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
 
-    // Add a Environmental_Monitoring_Capabilities path for each value.
+    // X scale for bars
+    const x = d3.scaleLinear()
+        .domain([0, d3.max(topEnvironmental_Monitoring_Capabilities, d => d.value)])
+        .nice()
+        .range([leftMargin, width - rightMargin]);
+
+    // Y scale for bars
+    const y = d3.scaleBand()
+        .domain(topEnvironmental_Monitoring_Capabilities.map(d => d.name))
+        .range([topMargin, height - bottomMargin])
+        .padding(0.2);
+
+    // Bars
     svg.append("g")
-        .attr("stroke", "white")
-        .selectAll("path")
-        .data(arcs)
-        .join("path")
-            .attr("fill", d => color(d.data.name))
-            .attr("d", arc)
-        .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
+        .selectAll("rect")
+        .data(topEnvironmental_Monitoring_Capabilities)
+        .join("rect")
+            .attr("x", leftMargin)
+            .attr("y", d => y(d.name))
+            .attr("width", d => x(d.value) - leftMargin)
+            .attr("height", y.bandwidth())
+            .attr("fill", d => color(d.name))
+        .append("title")
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.name}: ${d.value} labs (${pct}%)`;
+            });
 
-    // Add a legend.
-    const legend = svg.append("g")
-        .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`) // Position adjusted for clarity
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-        .selectAll("g")
-        .data(color.domain())
-        .join("g")
-            .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+    // Percent + counts labels at end of bars
+    svg.append("g")
+        .selectAll("text.value")
+        .data(topEnvironmental_Monitoring_Capabilities)
+        .join("text")
+            .attr("class", "value")
+            .attr("x", d => x(d.value) + 5)
+            .attr("y", d => y(d.name) + y.bandwidth() / 2)
+            .attr("dominant-baseline", "middle")
+            .attr("fill", "black")
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.value} (${pct}%)`;
+            });
 
-    legend.append("rect")
-        .attr("x", 0)
-        .attr("width", 18)
-        .attr("height", 18)
-        .attr("fill", color);
+    // X axis
+    svg.append("g")
+        .attr("transform", `translate(0,${height - bottomMargin})`)
+        .call(d3.axisBottom(x));
 
-    legend.append("text")
-        .attr("x", 24)
-        .attr("y", 9)
-        .attr("dy", "0.35em")
-        .text(d => d);
+    // Y axis (now with labels!)
+    svg.append("g")
+        .attr("transform", `translate(${leftMargin},0)`)
+        .call(d3.axisLeft(y)); // Corrected: removed `.tickFormat('')` to show labels
 
-    // Append the SVG to the designated container
+    // Total labs (top band)
+    svg.append("text")
+        .attr("x", leftMargin)
+        .attr("y", 20)
+        .attr("text-anchor", "start")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+
+    // The entire legend section has been completely removed from here.
+
     container.appendChild(svg.node());
-    console.log("Environmental_Monitoring_Capabilities chart appended to DOM.");
+}
+// --- Main Init ---
+async function initializeEnvironmental_Monitoring_CapabilitiesChart() {
+    const container = document.getElementById("Environmental_Monitoring_Capabilities-chart-container");
+    if (!container) return;
 
-    // Handle responsiveness: redraw on window resize
-    window.addEventListener('resize', () => {
-        const newWidth = container.clientWidth;
-        const newHeight = Math.min(newWidth, 500);
-        svg.attr("width", newWidth)
-           .attr("height", newHeight)
-           .attr("viewBox", [-newWidth / 2, -newHeight / 2, newWidth, newHeight]);
+    let rawData;
+    try { rawData = await d3.csv(csvDataPath1); }
+    catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-        arc.outerRadius(Math.min(newWidth, newHeight) / 2 - 1);
-        svg.selectAll("path").attr("d", arc);
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+const Environmental_Monitoring_CapabilitiesColumn = headers.find(h =>
+    h.includes("7.1") && h.includes("What environmental radioactivity monitoring tasks is the laboratory/institution authorised or appointed to perform?")
+);
 
-        // Reposition legend (optional, could be static)
-        legend.attr("transform", `translate(${newWidth / 2 - 200}, ${-newHeight / 2 + 20})`);
-    });
+if (!Environmental_Monitoring_CapabilitiesColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 7.1  What environmental radioactivity monitoring tasks is the laboratory/institution authorised or appointed to perform?</p>`;
 }
 
-// Initialize the chart when the DOM is fully loaded
+
+    const Environmental_Monitoring_CapabilitiesCounts = getEnvironmental_Monitoring_CapabilitiesCounts(rawData, Environmental_Monitoring_CapabilitiesColumn);
+    let topEnvironmental_Monitoring_Capabilities = Environmental_Monitoring_CapabilitiesCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
+
+    if (topEnvironmental_Monitoring_Capabilities.length === 0) {
+        return container.innerHTML = "<p>No data to display.</p>";
+    }
+
+    const labsThatAnswered = rawData.filter(d => d[Environmental_Monitoring_CapabilitiesColumn] && d[Environmental_Monitoring_CapabilitiesColumn].trim() !== "").length;
+
+    const color = d3.scaleOrdinal()
+        .domain(topEnvironmental_Monitoring_Capabilities.map(d => d.name))
+        .range(d3.schemeTableau10);
+
+    renderBarChart(container, topEnvironmental_Monitoring_Capabilities, labsThatAnswered, color);
+}
+// Run
 document.addEventListener("DOMContentLoaded", initializeEnvironmental_Monitoring_CapabilitiesChart);
