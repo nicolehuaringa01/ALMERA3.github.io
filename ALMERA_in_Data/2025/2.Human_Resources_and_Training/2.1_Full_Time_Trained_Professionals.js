@@ -148,7 +148,7 @@ d3.csv(csvPath).then(data => {
 
   // Vertical legend on the left
 const legend = svg.append("g")
-  .attr("transform", `translate(${margin.left}, 30)`); // Adjusted from ${margin.top} to 30
+  .attr("transform", `translate(${margin.left}, 40)`); // Adjusted from ${margin.top} to 30
 
 let i = 0;
 for (const [region, color] of Object.entries(regionColors)) {
