@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.16Other_Networks_that_ALMERA_Labs_Belong_To.js
 
-const csvDataPath145 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; 
+const csvDataPath16_1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; 
 
 // --- Data Processing Functions (unchanged) ---
 function getOther_Networks_that_ALMERA_Labs_Belong_ToCounts(data, Other_Networks_that_ALMERA_Labs_Belong_ToColumn) {
@@ -125,7 +125,7 @@ async function initializeOther_Networks_that_ALMERA_Labs_Belong_ToChart() {
     if (!container) return;
 
     let rawData;
-    try { rawData = await d3.csv(csvDataPath145); }
+    try { rawData = await d3.csv(csvDataPath16_1); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
     const headers = Object.keys(rawData[0]).map(h => h.trim());
