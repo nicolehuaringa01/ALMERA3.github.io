@@ -6,6 +6,7 @@
     --color-text-light: #fff;
     --color-background-light: #ffffff;
     --color-background-card: #fff;
+    --color-background-nav: #eef3f8;
     --color-border-light: #ddd;
     --color-shadow-light: rgba(0, 0, 0, 0.1);
     --color-shadow-medium: rgba(0, 0, 0, 0.05);
@@ -83,7 +84,7 @@ header h1 {
     left: 0;
     width: 250px;
     height: calc(100vh - 64px);
-    background: var(--color-background-card);
+    background: var(--color-background-nav);
     padding: 1.5rem 0.5rem;
     box-shadow: 2px 0 8px var(--color-shadow-light);
     display: flex;
