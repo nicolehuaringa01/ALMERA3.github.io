@@ -10,8 +10,8 @@
     --color-border-light: #ddd;
     --color-shadow-light: rgba(0, 0, 0, 0.1);
     --color-shadow-medium: rgba(0, 0, 0, 0.05);
-    --color-nav-link-normal: #e0e0e0; /* A light grey for non-hovered nav links */
-    --color-nav-link-hover: #c0c0c0; /* A dark grey for hovered nav links */
+    --color-nav-link-normal: #eef3f8; /* A light grey for non-hovered nav links */
+    --color-nav-link-hover: #CCDBEA; /* A dark grey for hovered nav links */
 }
 
 body {
