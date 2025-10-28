@@ -2,9 +2,9 @@
     --color-primary: #5d81e3; /* IAEA blue, or your brand primary color */
     --color-primary-dark: #45526e; /* Darker shade for hover/active */
     --color-accent: #00a896; /* A contrasting accent color for highlights (e.g., green/teal) */
-    --color-text-dark: #333;
+    --color-text-dark: #777777;
     --color-text-light: #fff;
-    --color-background-light: #f9fafb;
+    --color-background-light: #ffffff;
     --color-background-card: #fff;
     --color-border-light: #ddd;
     --color-shadow-light: rgba(0, 0, 0, 0.1);
