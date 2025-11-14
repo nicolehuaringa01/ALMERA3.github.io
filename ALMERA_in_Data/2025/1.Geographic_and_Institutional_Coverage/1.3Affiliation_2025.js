@@ -128,10 +128,16 @@ async function initializeAffiliationChart() {
     try { rawData = await d3.csv(csvDataPath3); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const AffiliationColumn = "1.11 Affiliation";
-    if (!rawData[0] || !rawData[0][AffiliationColumn]) {
-        return container.innerHTML = `<p style='color:red'>Missing "${AffiliationColumn}" column.</p>`;
-    }
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+const AffiliationColumn = headers.find(h =>
+    h.includes("1.11") && h.includes("Affiliation")
+);
+
+if (!AffiliationColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 6.5 What is the name of the PT scheme/s? column.</p>`;
+}
+
 
     const AffiliationCounts = getAffiliationCounts(rawData, AffiliationColumn);
     let topAffiliation = AffiliationCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
