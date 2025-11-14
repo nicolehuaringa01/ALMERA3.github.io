@@ -121,7 +121,7 @@ function renderBarChart(container, topAffiliation, labsThatAnswered, color) {
 }
 // --- Main Init ---
 async function initializeAffiliationChart() {
-    const container = document.getElementById("Affiliation-chart-container");
+    const container = document.getElementById("affiliation-chart-container");
     if (!container) return;
 
     let rawData;
