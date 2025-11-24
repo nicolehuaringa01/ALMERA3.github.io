@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2025/2.Human_Resources_and_Training/2.5_Able_To_Host_Training_Courses.js
 
-const csvDataPath5 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
+const csvDataPath6 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 async function initializeHostTrainingChart() {
     const container = document.getElementById("host-courses-chart-container");
@@ -20,7 +20,7 @@ async function initializeHostTrainingChart() {
 
     let data;
     try {
-        data = await d3.csv(csvDataPath5);
+        data = await d3.csv(csvDataPath6);
         console.log("Host Training CSV data loaded successfully. Number of records:", data.length);
     } catch (error) {
         console.error("Error loading Host Training CSV data:", error);
