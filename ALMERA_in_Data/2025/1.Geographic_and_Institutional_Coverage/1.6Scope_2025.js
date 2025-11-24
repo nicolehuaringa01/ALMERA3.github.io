@@ -13,7 +13,7 @@ function getscopeCounts(data, scopeColumn) {
             
             // Check if the current lab selected both options
             const hasAnthropogenic = scopes.includes("Anthropogenic");
-            const hasNORM = scopes.includes("NORM (Naturally-Occurring Radioactive Materials)");
+            const hasNORM = scopes.includes("NORM (Naturally Occurring Radioactive Materials)");
 
             // If both are present, create a new "Both" category
             if (hasAnthropogenic && hasNORM) {
