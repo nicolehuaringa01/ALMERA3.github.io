@@ -29,7 +29,7 @@ async function initializeHostTrainingChart() {
     }
 
     // --- Data Processing ---
-    const trainingColumn = '2.3 Able to host training courses?';
+    const trainingColumn = '2.6 Able to host training courses?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
