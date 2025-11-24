@@ -35,7 +35,7 @@ async function initializeHostALMERACMsChart() {
     }
 
     // --- Data Processing ---
-    const hostALMERACMsColumn = '2.4 Able to host ALMERA coordination meetings?';
+    const hostALMERACMsColumn = '2.8 Able to host ALMERA coordination meetings?';
 
     // Find the exact column name in the loaded data using normalization
     let foundColumn = null;
