@@ -29,7 +29,7 @@ async function initializeHostExternalTraineeChart() {
     }
 
     // --- Data Processing ---
-    const hosttraineeColumn = '2.7 Able to host trainees from other laboratories?';
+    const hosttraineeColumn = '2.7 Able to host individual trainees?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
