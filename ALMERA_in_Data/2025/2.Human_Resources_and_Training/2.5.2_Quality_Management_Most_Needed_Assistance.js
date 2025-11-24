@@ -128,10 +128,16 @@ async function initializeQuality_Management_Most_Needed_AssistanceChart() {
     try { rawData = await d3.csv(csvDataPath5_2); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const Quality_Management_Most_Needed_AssistanceColumn = "2.5 In the area of QUALITY MANAGEMENT, which specific topic requires the most assistance?";
-    if (!rawData[0] || !rawData[0][Quality_Management_Most_Needed_AssistanceColumn]) {
-        return container.innerHTML = `<p style='color:red'>Missing "${Quality_Management_Most_Needed_AssistanceColumn}" column.</p>`;
-    }
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+const Quality_Management_Most_Needed_AssistanceColumn = headers.find(h =>
+    h.includes("2.5") && h.includes("In the area of QUALITY MANAGEMENT, which specific topic requires the most assistance?")
+);
+
+if (!Quality_Management_Most_Needed_AssistanceColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 6.5 What is the name of the PT scheme/s? column.</p>`;
+}
+
 
     const Quality_Management_Most_Needed_AssistanceCounts = getQuality_Management_Most_Needed_AssistanceCounts(rawData, Quality_Management_Most_Needed_AssistanceColumn);
     let topQuality_Management_Most_Needed_Assistance = Quality_Management_Most_Needed_AssistanceCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
