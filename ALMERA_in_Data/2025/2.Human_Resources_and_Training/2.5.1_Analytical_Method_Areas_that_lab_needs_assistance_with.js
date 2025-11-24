@@ -128,10 +128,16 @@ async function initializeAnalytical_Method_Areas_that_lab_needs_assistance_withC
     try { rawData = await d3.csv(csvDataPath5_1); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const Analytical_Method_Areas_that_lab_needs_assistance_withColumn = "2.5 Which specific ANALYTICAL METHOD is the highest priority for training?";
-    if (!rawData[0] || !rawData[0][Analytical_Method_Areas_that_lab_needs_assistance_withColumn]) {
-        return container.innerHTML = `<p style='color:red'>Missing "${Analytical_Method_Areas_that_lab_needs_assistance_withColumn}" column.</p>`;
-    }
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+const Analytical_Method_Areas_that_lab_needs_assistance_withColumn = headers.find(h =>
+    h.includes("2.5") && h.includes("Which specific ANALYTICAL METHOD is the highest priority for training?")
+);
+
+if (!Analytical_Method_Areas_that_lab_needs_assistance_withColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 6.5 What is the name of the PT scheme/s? column.</p>`;
+}
+
 
     const Analytical_Method_Areas_that_lab_needs_assistance_withCounts = getAnalytical_Method_Areas_that_lab_needs_assistance_withCounts(rawData, Analytical_Method_Areas_that_lab_needs_assistance_withColumn);
     let topAnalytical_Method_Areas_that_lab_needs_assistance_with = Analytical_Method_Areas_that_lab_needs_assistance_withCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
