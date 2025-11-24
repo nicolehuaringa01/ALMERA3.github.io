@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2025/2.Human_Resources_and_Training/2.9_ALMERA_CMs_Hosting_Capacity.js
 
-const csvDataPath9 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
+const csvDataPath8_1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 const ALMERACMsHostingCapacityColumnName = "2.8 State the maximum number of participants";
 
@@ -24,7 +24,7 @@ async function renderALMERACMsHostingCapacityHistogram() {
 
     let data;
     try {
-        data = await d3.csv(csvDataPath9);
+        data = await d3.csv(csvDataPath8_1);
     } catch (error) {
         console.error("Error loading CSV data for 2.9 ALMERACMs Hosting Capacity:", error);
         container.append("p").style("color", "red").text("Failed to load data for ALMERA CMs Hosting Capacity. Please check the CSV file path and content.");
