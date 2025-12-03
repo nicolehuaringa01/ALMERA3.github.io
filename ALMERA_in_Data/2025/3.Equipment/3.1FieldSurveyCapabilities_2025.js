@@ -128,11 +128,15 @@ async function initializeFieldSurveyCapabilitiesChart() {
     try { rawData = await d3.csv(csvDataPath1); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const FieldSurveyCapabilitiesColumn = "3.1 Which of the following field survey capabilities are available at your facility? (Select all that apply)";
-    if (!rawData[0] || !rawData[0][FieldSurveyCapabilitiesColumn]) {
-        return container.innerHTML = `<p style='color:red'>Missing "${FieldSurveyCapabilitiesColumn}" column.</p>`;
-    }
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
 
+    const FieldSurveyCapabilitiesColumn = headers.find(h =>
+    h.includes("3.1") && h.includes("Which of the following field survey capabilities are available at your facility? (Select all that apply)")
+);
+    if (!FieldSurveyCapabilitiesColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 3.1 Which of the following field survey capabilities are available at your facility? (Select all that apply) column.</p>`;
+}
     const FieldSurveyCapabilitiesCounts = getFieldSurveyCapabilitiesCounts(rawData, FieldSurveyCapabilitiesColumn);
     let topFieldSurveyCapabilities = FieldSurveyCapabilitiesCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
 
