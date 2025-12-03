@@ -87,8 +87,10 @@ async function initializeStaffTrainingChart() {
 
     // Function to create and append the plot, allowing for redraw on resize
     const renderPlot = (currentWidth) => {
-        container.innerHTML = ''; // Clear existing chart
-
+        const existingPlot = container.querySelector('svg');
+        if (existingPlot) {
+            existingPlot.remove();
+        }
         const StaffTrainingPlot = Plot.plot({
             width: currentWidth,
             height: height,
@@ -101,6 +103,7 @@ async function initializeStaffTrainingChart() {
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
+                tickFormat: d => `${Math.round(d * 100)}`
             },
             color: {
                 domain: ["Yes", "No"], // Explicit domain for color mapping
