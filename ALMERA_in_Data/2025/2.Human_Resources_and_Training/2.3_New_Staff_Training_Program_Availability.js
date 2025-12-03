@@ -103,7 +103,7 @@ async function initializeStaffTrainingChart() {
                 label: "Availability of training programme for new staff",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
-                domain: [0, 1] // Ensure x-axis spans 0 to 1 for percentages
+                domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
                 tickFormat: d => `${Math.round(d * 100)}`
             },
             color: {
