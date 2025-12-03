@@ -1,6 +1,6 @@
 // ALMERA_in_Data/2020/8.RegulatoryFramework/8.5National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food.js
 
-const csvDataPath5 = "/ALMERA3.github.io/data/2020_ALMERA_Capabilities_Survey.csv"; // Using 'csvDataPath' for clarity in this file
+const csvDataPath5 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // Using 'csvDataPath' for clarity in this file
 
 async function initializeNational_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_FoodChart() {
     const container = document.getElementById("National_Monitoring_Programme_for_Radioactivity_in_Nationally_Produced_Food-chart-container");
