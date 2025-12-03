@@ -1,4 +1,4 @@
-// ALMERA_in_Data/2025/4.Methods/4.1MethodAndRoutineDevelopment_2025.js
+// ALMERA_in_Data/2020/8.RegulatoryFramework/8.3MethodAndRoutineDevelopment.js
 
 const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
@@ -29,20 +29,7 @@ async function initializeMethodAndRoutineDevelopmentChart() {
     }
 
     // --- Data Processing ---
-
-    let rawData;
-    try { rawData = await d3.csv(csvDataPath1); }
-    catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
-    
-    const headers = Object.keys(rawData[0]).map(h => h.trim());
-
-    const MethodAndRoutineDevelopmentColumn = headers.find(h =>
-    h.includes("4.1") && h.includes("Has the laboratory been involved in development of routine and/or rapid analytical methods?")
-);
-    if (!MethodAndRoutineDevelopmentColumn) {
-    console.error("Available headers:", headers);
-    return container.innerHTML = `<p style='color:red'>Missing 4.1 Has the laboratory been involved in development of routine and/or rapid analytical methods? column.</p>`;
-}
+    const MethodAndRoutineDevelopmentColumn = '4.1 Has the laboratory been involved in development of routine and/or rapid analytical methods?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -105,7 +92,6 @@ async function initializeMethodAndRoutineDevelopmentChart() {
             existingPlot.remove();
         }
 
-
         const MethodAndRoutineDevelopmentPlot = Plot.plot({
             width: currentWidth,
             height: height,
@@ -114,7 +100,7 @@ async function initializeMethodAndRoutineDevelopmentChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Participation in Development of Analytical Methods ",
+                label: "Radioactivity Standards in food, drinking water, and/or atmospheric aerosols and deposition ",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
