@@ -29,7 +29,15 @@ async function initializeMethodAndRoutineDevelopmentChart() {
     }
 
     // --- Data Processing ---
-    const MethodAndRoutineDevelopmentColumn = '4.1 Has the laboratory been involved in development of routine and/or rapid analytical methods?';
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+
+    const MethodAndRoutineDevelopmentColumn = headers.find(h =>
+    h.includes("4.1") && h.includes("Has the laboratory been involved in development of routine and/or rapid analytical methods?")
+);
+    if (!MethodAndRoutineDevelopmentColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 4.1 Has the laboratory been involved in development of routine and/or rapid analytical methods? column.</p>`;
+}
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
