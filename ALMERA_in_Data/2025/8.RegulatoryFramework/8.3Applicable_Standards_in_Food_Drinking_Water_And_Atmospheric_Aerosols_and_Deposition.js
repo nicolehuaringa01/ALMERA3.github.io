@@ -127,10 +127,14 @@ async function initializeApplicable_Standards_in_Food_Drinking_Water_And_Atmosph
     try { rawData = await d3.csv(csvDataPath31); }
     catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
 
-    const Applicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_DepositionColumn = "8.3 Select the applicable standards from the list below:";
-    if (!rawData[0] || !rawData[0][Applicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_DepositionColumn]) {
-        return container.innerHTML = `<p style='color:red'>Missing "${Applicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_DepositionColumn}" column.</p>`;
-    }
+    const Applicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_DepositionColumn = headers.find(h =>
+    h.includes("8.3") && h.includes("Select the applicable standards from the list below:")
+);
+
+    if (!Applicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_DepositionColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 8.3 Select the applicable standards from the list below: column.</p>`;
+}
 
     const Applicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_DepositionCounts = getApplicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_DepositionCounts(rawData, Applicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_DepositionColumn);
     let topApplicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_Deposition = Applicable_Standards_in_Food_Drinking_Water_And_Atmospheric_Aerosols_and_DepositionCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
