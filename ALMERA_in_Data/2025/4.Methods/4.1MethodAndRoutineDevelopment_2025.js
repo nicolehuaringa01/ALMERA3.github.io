@@ -29,6 +29,11 @@ async function initializeMethodAndRoutineDevelopmentChart() {
     }
 
     // --- Data Processing ---
+
+    let rawData;
+    try { rawData = await d3.csv(csvDataPath1); }
+    catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
+    
     const headers = Object.keys(rawData[0]).map(h => h.trim());
 
     const MethodAndRoutineDevelopmentColumn = headers.find(h =>
