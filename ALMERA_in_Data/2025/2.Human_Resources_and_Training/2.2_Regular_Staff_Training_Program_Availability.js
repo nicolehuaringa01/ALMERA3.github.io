@@ -65,6 +65,15 @@ async function initializeStaffTrainingChart() {
         return;
     }
 
+    // Create the "Total responses" div and prepend it to the container.
+    const totalResponsesDiv = document.createElement('div');
+    totalResponsesDiv.textContent = `Total responses: ${total}`;
+    totalResponsesDiv.style.fontWeight = 'bold';
+    totalResponsesDiv.style.textAlign = 'left';
+    totalResponsesDiv.style.paddingBottom = '5px';
+    container.innerHTML = ''; // Clear container first
+    container.appendChild(totalResponsesDiv);
+
     // Prepare data for plotting (answer, percentage, and count)
     const chartData = Object.entries(ALMERACMS).map(([answer, count]) => ({
         answer,
