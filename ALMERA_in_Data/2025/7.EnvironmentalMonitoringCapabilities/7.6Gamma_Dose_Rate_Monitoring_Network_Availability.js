@@ -74,6 +74,7 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
     container.innerHTML = ''; // Clear container first
     container.appendChild(totalResponsesDiv);
 
+
     // Prepare data for plotting (answer, percentage, and count)
     const chartData = Object.entries(ALMERACMS).map(([answer, count]) => ({
         answer,
@@ -91,7 +92,6 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
         if (existingPlot) {
             existingPlot.remove();
         }
-
         const Gamma_Dose_Rate_Monitoring_Network_AvailabilityPlot = Plot.plot({
             width: currentWidth,
             height: height,
