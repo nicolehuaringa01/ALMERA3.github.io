@@ -1,4 +1,4 @@
-// ALMERA_in_Data/2025/6.Quality_Managemnt_and_Reporting/6.8Uncertainty_Calculations.js
+// ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.8Uncertainty_Calculations.js
 
 const csvDataPath8 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
