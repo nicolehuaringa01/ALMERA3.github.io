@@ -29,7 +29,7 @@ async function initializeResults_Transmitted_Automically_to_Data_CentreChart() {
     }
 
     // --- Data Processing ---
-    const Results_Transmitted_Automically_to_Data_CentreColumn = "7.5 Are the laboratory's measurement results transmitted automatically to a data centre?";
+    const Results_Transmitted_Automically_to_Data_CentreColumn = "7.7 Are the laboratory's measurement results transmitted automatically to a data centre?";
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
