@@ -1,15 +1,15 @@
-// ALMERA_in_Data/2025/4.Methods/4.1MethodAndRoutineDevelopment_2025.js
+// ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.13Data_Monitoring_Reporting.js
 
-const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; 
+const csvDataPath13 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
-async function initializeMethodAndRoutineDevelopmentChart() {
+async function initializeData_Monitoring_ReportingChart() {
     const container = document.getElementById("MethodAndRoutineDevelopment-chart-container");
     if (!container) {
-        console.error("MethodAndRoutineDevelopment chart container element #MethodAndRoutineDevelopment-chart-container not found.");
+      console.error("Data_Monitoring_Reporting chart container element #MethodAndRoutineDevelopment-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
-        errorDiv.textContent = 'Error: Chart container not found in HTML for MethodAndRoutineDevelopment chart.';
+        errorDiv.textContent = 'Error: Chart container not found in HTML for Data_Monitoring_Reporting chart.';
         document.body.appendChild(errorDiv);
         return;
     }
@@ -20,16 +20,16 @@ async function initializeMethodAndRoutineDevelopmentChart() {
 
     let data;
     try {
-        data = await d3.csv(csvDataPath1);
-        console.log("MethodAndRoutineDevelopment CSV data loaded successfully. Number of records:", data.length);
+        data = await d3.csv(csvDataPath13);
+        console.log("Data_Monitoring_Reporting CSV data loaded successfully. Number of records:", data.length);
     } catch (error) {
-        console.error("Error loading MethodAndRoutineDevelopment CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load MethodAndRoutineDevelopment data. Please check the console for details and ensure the CSV path is correct.</p>";
+        console.error("Error loading Data_Monitoring_Reporting CSV data:", error);
+        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Data_Monitoring_Reporting data. Please check the console for details and ensure the CSV path is correct.</p>";
         return;
     }
 
     // --- Data Processing ---
-    const MethodAndRoutineDevelopmentColumn = '4.1 Has the laboratory been involved in development of routine and/or rapid analytical methods?';
+    const Data_Monitoring_ReportingColumn = '6.10 Is routine monitoring data reported to a regional or international database?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -38,14 +38,14 @@ async function initializeMethodAndRoutineDevelopmentChart() {
     };
 
     // Validate if the required column exists
-    if (data.length === 0 || !data[0][MethodAndRoutineDevelopmentColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${MethodAndRoutineDevelopmentColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for MethodAndRoutineDevelopment chart. Check column name.</p>`;
+    if (data.length === 0 || !data[0][Data_Monitoring_ReportingColumn]) {
+        console.error(`Error: CSV data is empty or missing expected column ("${Data_Monitoring_ReportingColumn}").`);
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for Data_Monitoring_Reporting chart. Check column name.</p>`;
         return;
     }
 
     data.forEach(d => {
-        let answer = d[MethodAndRoutineDevelopmentColumn];
+        let answer = d[Data_Monitoring_ReportingColumn];
         if (typeof answer === "string") {
             // Trim whitespace and take only the first part if semi-colon separated
             answer = answer.trim().split(";")[0];
@@ -60,8 +60,8 @@ async function initializeMethodAndRoutineDevelopmentChart() {
 
     // Check if total is zero to avoid division by zero
     if (total === 0) {
-        console.warn("No 'Yes' or 'No' responses found for MethodAndRoutineDevelopment program.");
-        container.innerHTML = "<p style='text-align: center;'>No data to display for MethodAndRoutineDevelopment program.</p>";
+        console.warn("No 'Yes' or 'No' responses found for Data_Monitoring_Reporting.");
+        container.innerHTML = "<p style='text-align: center;'>No data to display for Data_Monitoring_Reporting.</p>";
         return;
     }
 
@@ -81,7 +81,7 @@ async function initializeMethodAndRoutineDevelopmentChart() {
         count
     }));
 
-    console.log("Processed MethodAndRoutineDevelopment chartData:", chartData);
+    console.log("Processed Data_Monitoring_Reporting chartData:", chartData);
 
     // --- Chart Rendering ---
 
@@ -91,8 +91,7 @@ async function initializeMethodAndRoutineDevelopmentChart() {
         if (existingPlot) {
             existingPlot.remove();
         }
-        
-        const MethodAndRoutineDevelopmentPlot = Plot.plot({
+        const Data_Monitoring_ReportingPlot = Plot.plot({
             width: currentWidth,
             height: height,
             y: {
@@ -100,15 +99,15 @@ async function initializeMethodAndRoutineDevelopmentChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Lab involvement in development of routine and/or rapid analytical methods",
+                label: "Routine data reported to regional or international database",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
                 tickFormat: d => `${Math.round(d * 100)}`
             },
             color: {
-                domain: ["Yes", "No", "Unsure"], // Explicit domain for color mapping
-                range: ["#6aa84f", "#d13d32", "#d18c32"], // Green for Yes, Red for No, Yellow for Unsure
+                domain: ["Yes", "No"], // Explicit domain for color mapping
+                range: ["#6aa84f", "#d13d32"], // Green for Yes, Red for No
                 legend: true // Display legend
             },
             marks: [
@@ -139,8 +138,8 @@ async function initializeMethodAndRoutineDevelopmentChart() {
                 fontSize: "14px"
             }
         });
-        container.appendChild(MethodAndRoutineDevelopmentPlot);
-        console.log("MethodAndRoutineDevelopment chart appended to DOM.");
+        container.appendChild(Data_Monitoring_ReportingPlot);
+        console.log("Data_Monitoring_Reporting chart appended to DOM.");
     };
 
     // Initial render
@@ -157,4 +156,4 @@ async function initializeMethodAndRoutineDevelopmentChart() {
 }
 
 // Initialize the chart when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", initializeMethodAndRoutineDevelopmentChart);
+document.addEventListener("DOMContentLoaded", initializeData_Monitoring_ReportingChart);
