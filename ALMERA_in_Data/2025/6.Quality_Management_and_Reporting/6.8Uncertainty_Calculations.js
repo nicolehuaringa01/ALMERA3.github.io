@@ -1,183 +1,158 @@
-//ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.8Uncertainty_Calculations.js
+// ALMERA_in_Data/2025/6.Quality_Managemnt_and_Reporting/6.8Uncertainty_Calculations.js
 
+const csvDataPath8 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
-d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv").then(data => {
-    // 1. Uncertainty_and_Characteristic_LimitsCounts (adapted from your Observable code)
-    const Uncertainty_and_Characteristic_LimitsCounts = () => {
-        const counts = new Map();
-
-        for (const row of data) {
-            if (row["6.8 What uncertainty and characteristic limit calculations are used by the lab?"]) {
-                const radionuclides = row["6.8 What uncertainty and characteristic limit calculations are used by the lab?"].split(/;|\n|\r/).map(d => d.trim());
-                for (const r of radionuclides) {
-                    counts.set(r, (counts.get(r) || 0) + 1);
-                }
+// --- Data Processing Functions (unchanged) ---
+function getUncertainty_CalculationsCounts(data, Uncertainty_CalculationsColumn) {
+    const counts = new Map();
+    for (const row of data) {
+        if (row[Uncertainty_CalculationsColumn]) {
+            const Uncertainty_Calculationss = row[Uncertainty_CalculationsColumn]
+                .split(/;|\r?\n/)   // split on ";" OR newlines
+                .map(d => d.trim())
+                .filter(d => d.length > 0);
+            for (const aff of Uncertainty_Calculationss) {
+                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure Uncertainty_Calculations string is not empty after trimming
             }
         }
+    }
+    let result = [];
+    let otherCount = 0;
+    for (const [name, value] of counts.entries()) {
+        if (value === 1) otherCount += 1; // Uncertainty_Calculationss with only one occurrence go into "Other"
+        else result.push({ name, value });
+        }
+    if (otherCount > 0) result.push({ name: "Other", value: otherCount });
+    return result;
+}
 
-        return Array.from(counts.entries()).map(([name, value]) => ({ name, value }));
-    };
-
-    // 2. topUncertainty_and_Characteristic_Limits (adapted)
-    const topUncertainty_and_Characteristic_Limits = Uncertainty_and_Characteristic_LimitsCounts()
+function getTopUncertainty_Calculationss(Uncertainty_CalculationsCounts, numTop = 9) {
+    let top = Uncertainty_CalculationsCounts
+        .slice()
         .sort((a, b) => d3.descending(a.value, b.value))
-        .slice(0, 7);
+        .slice(0, numTop);
+    const other = Uncertainty_CalculationsCounts.find(d => d.name === "Other");
+    if (other && !top.some(d => d.name === "Other")) {
+        top.push(other); // Add "Other" if it wasn't already in the top N
+        // You might want to re-sort 'top' after adding 'Other' if its position matters
+        top.sort((a, b) => d3.descending(a.value, b.value));
+    }
+    return top;
+}
+function renderBarChart(container, topUncertainty_Calculations, labsThatAnswered, color) {
+    const width = 928, height = 500;
 
-    // 3. Uncertainty_and_Characteristic_LimitsToLabsMap (adapted)
-    const Uncertainty_and_Characteristic_LimitsToLabsMap = () => {
-        const map = new Map();
+    // Adjust vertical space since we are removing the legend
+    const topMargin = 50;
+    const bottomMargin = 50;
+    const leftMargin = 200; // Increased margin for long labels
+    const rightMargin = 30;
 
-        for (const row of data) {
-            const Uncertainty_and_Characteristic_LimitsRaw = row["6.8Uncertainty_Calculations"];
-            const labName = row["1.1 Name of Laboratory"];
-            const memberState = row["1.3 Member State"];
+    const svg = d3.create("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
 
-            if (!Uncertainty_and_Characteristic_LimitsRaw || !labName || !memberState) continue;
+    // X scale for bars
+    const x = d3.scaleLinear()
+        .domain([0, d3.max(topUncertainty_Calculations, d => d.value)])
+        .nice()
+        .range([leftMargin, width - rightMargin]);
 
-            const Uncertainty_and_Characteristic_Limitss = Uncertainty_and_Characteristic_LimitsRaw.split(";").map(e => e.trim());
+    // Y scale for bars
+    const y = d3.scaleBand()
+        .domain(topUncertainty_Calculations.map(d => d.name))
+        .range([topMargin, height - bottomMargin])
+        .padding(0.2);
 
-            // Count Uncertainty_and_Characteristic_Limits occurrences
-            const counts = {};
-            for (const Uncertainty_and_Characteristic_Limits of Uncertainty_and_Characteristic_Limitss) {
-                if (!counts[Uncertainty_and_Characteristic_Limits]) counts[Uncertainty_and_Characteristic_Limits] = 0;
-                counts[Uncertainty_and_Characteristic_Limits]++;
-            }
-
-            for (const [Uncertainty_and_Characteristic_Limits, count] of Object.entries(counts)) {
-                if (!map.has(Uncertainty_and_Characteristic_Limits)) map.set(Uncertainty_and_Characteristic_Limits, new Map()); // Uncertainty_and_Characteristic_Limits → Map<MemberState, Map<LabName, count>>
-
-                const stateMap = map.get(Uncertainty_and_Characteristic_Limits);
-
-                if (!stateMap.has(memberState)) stateMap.set(memberState, new Map());
-
-                stateMap.get(memberState).set(labName, count);
-            }
-        }
-
-        return map;
-    };
-
-    let selectedUncertainty_and_Characteristic_Limits = null; // Mutable variable in Observable, now a regular variable
-
-    // 4. Uncertainty_and_Characteristic_LimitssPieChart (adapted)
-    const createPieChart = () => {
-        const width = 928;
-        const height = Math.min(width, 500);
-// --- Calculate total and percentages for the tooltip ---
-    const totalUncertainty_and_Characteristic_LimitssCount = d3.sum(topUncertainty_and_Characteristic_Limits, d => d.value);
-
-    // Add percentage to each Uncertainty_and_Characteristic_Limits object in topUncertainty_and_Characteristic_Limits
-    topUncertainty_and_Characteristic_Limits.forEach(d => {
-        d.percent = (totalUncertainty_and_Characteristic_LimitssCount > 0) ? (d.value / totalUncertainty_and_Characteristic_LimitssCount) : 0;
-    });
-
-    console.log("Processed topUncertainty_and_Characteristic_Limits data with percentages:", topUncertainty_and_Characteristic_Limits);
-        const color = d3.scaleOrdinal()
-            .domain(topUncertainty_and_Characteristic_Limits.map(d => d.name))
-            .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), topUncertainty_and_Characteristic_Limits.length).reverse());
-
-        const pie = d3.pie()
-            .sort(null)
-            .value(d => d.value);
-
-        const arc = d3.arc()
-            .innerRadius(0)
-            .outerRadius(Math.min(width, height) / 2 - 1);
-
-        const arcs = pie(topUncertainty_and_Characteristic_Limits);
-
-        const svg = d3.select("#Uncertainty_and_Characteristic_Limits_Chart-chart-container") // Select the container in the HTML
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("viewBox", [-width / 2, -height / 2, width, height])
-            .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif; cursor: pointer;");
-
-        svg.append("g")
-            .attr("stroke", "white")
-            .selectAll()
-            .data(arcs)
-            .join("path")
-            .attr("fill", d => color(d.data.name))
-            .attr("d", arc)
-            .on("click", (event, d) => {
-                selectedUncertainty_and_Characteristic_Limits = d.data.name; // Update the selected Uncertainty_and_Characteristic_Limits
-                updateLabInfo(); // Call the function to update the lab info
-            })
-            .append("title")
-            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
-
-        const legend = svg.append("g")
-            .attr("transform", `translate(${width / 2 - 200}, ${-height / 2 + 20})`)
-            .attr("font-family", "sans-serif")
-            .attr("font-size", 10)
-            .selectAll("g")
-            .data(color.domain())
-            .join("g")
-            .attr("transform", (d, i) => `translate(0, ${i * 20})`);
-
-        legend.append("rect")
-            .attr("x", 0)
-            .attr("width", 18)
-            .attr("height", 18)
-            .attr("fill", color);
-
-        legend.append("text")
-            .attr("x", 24)
-            .attr("y", 9)
-            .attr("dy", "0.35em")
-            .text(d => d);
-
-        return svg.node();
-    };
-
-    // 5. selectedUncertainty_and_Characteristic_LimitsLabs (adapted)
-    const updateLabInfo = () => { // Renamed to updateLabInfo, since it's a function
-        const selected = selectedUncertainty_and_Characteristic_Limits;
-        const container = d3.select("#lab-info-container");
-
-        container.html(""); // Clear previous content
-
-        if (!selected) {
-            container.append("p").html("<em>Nothing to show yet.</em>");
-            return;
-        }
-
-        const stateMap = Uncertainty_and_Characteristic_LimitsToLabsMap().get(selected);
-
-        if (!stateMap || stateMap.size === 0) {
-            container.append("p").html(`No labs found for <strong>${selected}</strong>.`);
-            return;
-        }
-
-        // Get total number of *distinct* labs across all states
-        let totalLabs = 0;
-        for (const labsMap of stateMap.values()) {
-            totalLabs += labsMap.size;
-        }
-
-        // Sort states
-        const sortedStates = Array.from(stateMap.keys()).sort(d3.ascending);
-
-        const div = container.append("div");
-
-        div.append("h3").html(`Labs with <strong>${selected}</strong> (${totalLabs} total)`);
-
-        sortedStates.forEach(state => {
-            const labsMap = stateMap.get(state);
-            const sortedLabs = Array.from(labsMap.entries()).sort((a, b) => d3.ascending(a[0], b[0])); // [labName, count]
-
-            const stateDiv = div.append("div");
-            stateDiv.append("h4").text(state);
-
-            const ul = stateDiv.append("ul");
-            sortedLabs.forEach(([lab, count]) => {
-                ul.append("li").text(`${lab} (${count})`);
+    // Bars
+    svg.append("g")
+        .selectAll("rect")
+        .data(topUncertainty_Calculations)
+        .join("rect")
+            .attr("x", leftMargin)
+            .attr("y", d => y(d.name))
+            .attr("width", d => x(d.value) - leftMargin)
+            .attr("height", y.bandwidth())
+            .attr("fill", d => color(d.name))
+        .append("title")
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.name}: ${d.value} labs (${pct}%)`;
             });
-        });
-    };
 
-    // Call the functions to create the visualization
-    createPieChart();
-    updateLabInfo(); // Initial call to show "Nothing to show yet"
-});
+    // Percent + counts labels at end of bars
+    svg.append("g")
+        .selectAll("text.value")
+        .data(topUncertainty_Calculations)
+        .join("text")
+            .attr("class", "value")
+            .attr("x", d => x(d.value) + 5)
+            .attr("y", d => y(d.name) + y.bandwidth() / 2)
+            .attr("dominant-baseline", "middle")
+            .attr("fill", "black")
+            .text(d => {
+                const pct = ((d.value / labsThatAnswered) * 100).toFixed(1);
+                return `${d.value} (${pct}%)`;
+            });
+
+    // X axis
+    svg.append("g")
+        .attr("transform", `translate(0,${height - bottomMargin})`)
+        .call(d3.axisBottom(x));
+
+    // Y axis (now with labels!)
+    svg.append("g")
+        .attr("transform", `translate(${leftMargin},0)`)
+        .call(d3.axisLeft(y)); // Corrected: removed `.tickFormat('')` to show labels
+
+    // Total labs (top band)
+    svg.append("text")
+        .attr("x", leftMargin)
+        .attr("y", 20)
+        .attr("text-anchor", "start")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
+
+    // The entire legend section has been completely removed from here.
+
+    container.appendChild(svg.node());
+}
+// --- Main Init ---
+async function initializeUncertainty_CalculationsChart() {
+    const container = document.getElementById("Uncertainty_Calculations-chart-container");
+    if (!container) return;
+
+    let rawData;
+    try { rawData = await d3.csv(csvDataPath8); }
+    catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
+
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
+const Uncertainty_CalculationsColumn = headers.find(h =>
+    h.includes("6.8") && h.includes("What uncertainty and characteristic limit calculations are used by the lab?")
+);
+
+if (!Uncertainty_CalculationsColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 6.5 What is the name of the PT scheme/s? column.</p>`;
+}
+
+
+    const Uncertainty_CalculationsCounts = getUncertainty_CalculationsCounts(rawData, Uncertainty_CalculationsColumn);
+    let topUncertainty_Calculations = Uncertainty_CalculationsCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
+
+    if (topUncertainty_Calculations.length === 0) {
+        return container.innerHTML = "<p>No data to display.</p>";
+    }
+
+    const labsThatAnswered = rawData.filter(d => d[Uncertainty_CalculationsColumn] && d[Uncertainty_CalculationsColumn].trim() !== "").length;
+
+    const color = d3.scaleOrdinal()
+        .domain(topUncertainty_Calculations.map(d => d.name))
+        .range(d3.schemeTableau10);
+
+    renderBarChart(container, topUncertainty_Calculations, labsThatAnswered, color);
+}
+// Run
+document.addEventListener("DOMContentLoaded", initializeUncertainty_CalculationsChart);
