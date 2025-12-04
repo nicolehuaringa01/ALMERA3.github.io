@@ -29,7 +29,7 @@ async function initializeNational_Sampling_Station_Network_AvailabilityChart() {
     }
 
     // --- Data Processing ---
-    const National_Sampling_Station_Network_AvailabilityColumn = '7.2 Is there a network of sampling stations established in the country?';
+    const National_Sampling_Station_Network_AvailabilityColumn = '7.4 Is there a network of sampling stations established in the country?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
