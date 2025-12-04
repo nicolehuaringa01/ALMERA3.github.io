@@ -130,7 +130,7 @@ async function initializeDatabases_Used_to_Report_Data_BarChart() {
 
     const headers = Object.keys(rawData[0]).map(h => h.trim());
 const Databases_Used_to_Report_Data_BarColumn = headers.find(h =>
-    h.includes("6.10") && h.includes("Which database(s) is the routine monitoring data reported to?")
+    h.includes("6.13") && h.includes("Which database(s) is the routine monitoring data reported to?")
 );
 
 if (!Databases_Used_to_Report_Data_BarColumn) {
