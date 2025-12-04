@@ -1,5 +1,4 @@
-// ALMERA_in_Data/6.Quality_Management_and_Reporting/6.10Calibration_Method_Used_for_Gamma_Spectrometers.js
-
+// ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.10Calibration_Method_Used_for_Gamma_Spectrometers.js
 const csvDataPath10 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // User-provided path
 
 // This function processes the raw data to count Calibration_Method_Used_for_Gamma_Spectrometerss
@@ -8,14 +7,14 @@ function getCalibration_Method_Used_for_Gamma_SpectrometersCounts(data, Calibrat
 
     for (const row of data) {
         if (row[Calibration_Method_Used_for_Gamma_SpectrometersColumn]) {
-            // Split by semicolon as per your Observable notebook's implicit logic
-            const Calibration_Method_Used_for_Gamma_Spectrometerss = row[Calibration_Method_Used_for_Gamma_SpectrometersColumn].split(";").map(d => d.trim());
-            for (const aff of Calibration_Method_Used_for_Gamma_Spectrometerss) {
-                if (aff) { // Ensure Calibration_Method_Used_for_Gamma_Spectrometers string is not empty after trimming
-                    counts.set(aff, (counts.get(aff) || 0) + 1);
-                }
-            }
-        }
+            // Splits Calibration_Method_Used_for_Gamma_Spectrometerss entered across multiple lines within a single CSV cell.
+            const Calibration_Method_Used_for_Gamma_Spectrometerss = row[Calibration_Method_Used_for_Gamma_SpectrometersColumn].split(/;|\n|\r/).map(d => d.trim());
+            for (const aff of Calibration_Method_Used_for_Gamma_Spectrometerss) {
+                if (aff) { // Ensure Calibration_Method_Used_for_Gamma_Spectrometers string is not empty after trimming
+                    counts.set(aff, (counts.get(aff) || 0) + 1);
+                }
+            }
+        }
     }
 
     let result = [];
@@ -37,7 +36,7 @@ function getCalibration_Method_Used_for_Gamma_SpectrometersCounts(data, Calibrat
 }
 
 // This function selects the top N Calibration_Method_Used_for_Gamma_Spectrometerss, including "Other" if present
-function getTopCalibration_Method_Used_for_Gamma_Spectrometerss(Calibration_Method_Used_for_Gamma_SpectrometersCounts, numTop = 12) {
+function getTopCalibration_Method_Used_for_Gamma_Spectrometerss(Calibration_Method_Used_for_Gamma_SpectrometersCounts, numTop = 6) {
     let top = Calibration_Method_Used_for_Gamma_SpectrometersCounts
         .slice() // Create a shallow copy to sort without modifying original
         .sort((a, b) => d3.descending(a.value, b.value)) // Sort by value descending
@@ -76,19 +75,19 @@ async function initializeCalibration_Method_Used_for_Gamma_SpectrometersChart() 
         return;
     }
 
-const headers = Object.keys(rawData[0]).map(h => h.trim());
+    const headers = Object.keys(rawData[0]).map(h => h.trim());
 const Calibration_Method_Used_for_Gamma_SpectrometersColumn = headers.find(h =>
-    h.includes("6.10") && h.includes("What is the method used for the calibration of gamma spectrometer/s?")
+    h.includes("6.10") && h.includes("6.10 What is the method used for the calibration of gamma spectrometer/s?")
 );
 
 if (!Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
     console.error("Available headers:", headers);
-    return container.innerHTML = `<p style='color:red'>Missing 6.10 What is the method used for the calibration of gamma spectrometer/s? column.</p>`;
+    return container.innerHTML = `<p style='color:red'>Missing 6.2 State the basis of the QMS programme column.</p>`;
 }
 
-    
+
     const Calibration_Method_Used_for_Gamma_SpectrometersCounts = getCalibration_Method_Used_for_Gamma_SpectrometersCounts(rawData, Calibration_Method_Used_for_Gamma_SpectrometersColumn);
-    const topCalibration_Method_Used_for_Gamma_Spectrometers = getTopCalibration_Method_Used_for_Gamma_Spectrometerss(Calibration_Method_Used_for_Gamma_SpectrometersCounts, 6); // Get top 6 Calibration_Method_Used_for_Gamma_Spectrometerss
+    let topCalibration_Method_Used_for_Gamma_Spectrometers = getTopCalibration_Method_Used_for_Gamma_Spectrometerss(Calibration_Method_Used_for_Gamma_SpectrometersCounts, 6); // Get top 6 Calibration_Method_Used_for_Gamma_Spectrometerss
 
     if (topCalibration_Method_Used_for_Gamma_Spectrometers.length === 0) {
         console.warn("No valid Calibration_Method_Used_for_Gamma_Spectrometers data found after processing.");
@@ -96,8 +95,11 @@ if (!Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
         return;
     }
 
-     // --- Calculate total and percentages for the tooltip ---
+    // --- Calculate total and percentages for the tooltip ---
     const totalCalibration_Method_Used_for_Gamma_SpectrometerssCount = d3.sum(topCalibration_Method_Used_for_Gamma_Spectrometers, d => d.value);
+
+    // Count only laboratories that actually responded (non-empty Calibration_Method_Used_for_Gamma_Spectrometers column)
+    const labsThatAnswered = rawData.filter(d => d[Calibration_Method_Used_for_Gamma_SpectrometersColumn] && d[Calibration_Method_Used_for_Gamma_SpectrometersColumn].trim() !== "").length;
 
     // Add percentage to each Calibration_Method_Used_for_Gamma_Spectrometers object in topCalibration_Method_Used_for_Gamma_Spectrometers
     topCalibration_Method_Used_for_Gamma_Spectrometers.forEach(d => {
@@ -131,7 +133,7 @@ if (!Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
         .attr("viewBox", [-width / 2, -height / 2, width, height]) // Center the view
         .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif;"); // General styling
 
-    // Add a Calibration_Method_Used_for_Gamma_Spectrometers path for each value.
+    // Add a sector path for each value.
     svg.append("g")
         .attr("stroke", "white")
         .selectAll("path")
@@ -140,7 +142,7 @@ if (!Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
             .attr("fill", d => color(d.data.name))
             .attr("d", arc)
         .append("title") // Tooltip on hover
-            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`); // MODIFIED HERE
+            .text(d => `${d.data.name}: ${(d.data.percent * 100).toFixed(1)}% (${d.data.value.toLocaleString("en-US")} labs)`);
 
     // Add a legend.
     const legend = svg.append("g")
@@ -163,6 +165,14 @@ if (!Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
         .attr("y", 9)
         .attr("dy", "0.35em")
         .text(d => d);
+
+    svg.append("text")
+        .attr("x", -width / 2 + 10) 
+        .attr("y", -height / 2 + 20)
+        .attr("text-anchor", "start")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold")
+        .text(`Total responses: ${totalCalibration_Method_Used_for_Gamma_SpectrometerssCount.toLocaleString("en-US")}`);
 
     // Append the SVG to the designated container
     container.appendChild(svg.node());
