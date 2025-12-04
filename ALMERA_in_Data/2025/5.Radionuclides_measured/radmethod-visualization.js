@@ -208,7 +208,7 @@ const renderRadMethodCharts = () => {
 // It's crucial that this script loads AFTER the CSV data is available.
 // If your previous script already loads it, you might pass it, or load it again here.
 // For simplicity and independence, we'll load it again.
-d3.csv("/ALMERA3.github.io/data/Observable2025Survey.csv").then(data => {
+d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv").then(data => {
     allRadMethodSurveyData = data; // Store the loaded data
 
     // Process data once after loading
