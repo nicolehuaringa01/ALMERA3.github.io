@@ -2,47 +2,51 @@
 
 const csvDataPath10 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
-// --- Data Processing Functions (unchanged) ---
+// --- Data Processing Functions (MODIFIED FOR FIX) ---
+
 function getCalibration_Method_Used_for_Gamma_SpectrometersCounts(data, Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
     const counts = new Map();
+    
+    // 1. Initial count of ALL unique answers
     for (const row of data) {
         if (row[Calibration_Method_Used_for_Gamma_SpectrometersColumn]) {
-            const Calibration_Method_Used_for_Gamma_Spectrometerss = row[Calibration_Method_Used_for_Gamma_SpectrometersColumn]
-                .split(/;|\r?\n/)   // split on ";" OR newlines
+            // Split by semicolon (;) or newline (\r?\n), trim, and filter empty strings
+            const methods = row[Calibration_Method_Used_for_Gamma_SpectrometersColumn]
+                .split(/;|\r?\n/) 
                 .map(d => d.trim())
                 .filter(d => d.length > 0);
-            for (const aff of Calibration_Method_Used_for_Gamma_Spectrometerss) {
-                if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure Calibration_Method_Used_for_Gamma_Spectrometers string is not empty after trimming
+            
+            for (const method of methods) {
+                if (method) counts.set(method, (counts.get(method) || 0) + 1); 
             }
         }
     }
+    
+    // 2. Aggregate methods that appeared only once into a single "Other" category
     let result = [];
     let otherCount = 0;
+    
     for (const [name, value] of counts.entries()) {
-        if (value === 1) otherCount += 1; // Calibration_Method_Used_for_Gamma_Spectrometerss with only one occurrence go into "Other"
-        else result.push({ name, value });
+        // Only entries with a count of 1 are grouped into 'Other'
+        if (value === 1) {
+            otherCount += 1; 
+        } else {
+            // All other entries (count > 1) are pushed directly
+            result.push({ name, value });
         }
+    }
+    
+    // 3. Add the final aggregated "Other" count (if any)
     if (otherCount > 0) result.push({ name: "Other", value: otherCount });
+
     return result;
 }
 
-function getTopCalibration_Method_Used_for_Gamma_Spectrometerss(Calibration_Method_Used_for_Gamma_SpectrometersCounts, numTop = 9) {
-    let top = Calibration_Method_Used_for_Gamma_SpectrometersCounts
-        .slice()
-        .sort((a, b) => d3.descending(a.value, b.value))
-        .slice(0, numTop);
-    const other = Calibration_Method_Used_for_Gamma_SpectrometersCounts.find(d => d.name === "Other");
-    if (other && !top.some(d => d.name === "Other")) {
-        top.push(other); // Add "Other" if it wasn't already in the top N
-        // You might want to re-sort 'top' after adding 'Other' if its position matters
-        top.sort((a, b) => d3.descending(a.value, b.value));
-    }
-    return top;
-}
 function renderBarChart(container, topCalibration_Method_Used_for_Gamma_Spectrometers, labsThatAnswered, color) {
+    // Standard D3 dimensions (can be updated for responsiveness if needed)
     const width = 928, height = 500;
 
-    // Adjust vertical space since we are removing the legend
+    // Margins
     const topMargin = 50;
     const bottomMargin = 50;
     const leftMargin = 200; // Increased margin for long labels
@@ -104,7 +108,7 @@ function renderBarChart(container, topCalibration_Method_Used_for_Gamma_Spectrom
     // Y axis (now with labels!)
     svg.append("g")
         .attr("transform", `translate(${leftMargin},0)`)
-        .call(d3.axisLeft(y)); // Corrected: removed `.tickFormat('')` to show labels
+        .call(d3.axisLeft(y)); 
 
     // Total labs (top band)
     svg.append("text")
@@ -115,37 +119,46 @@ function renderBarChart(container, topCalibration_Method_Used_for_Gamma_Spectrom
         .attr("font-weight", "bold")
         .text(`Total laboratories that answered: ${labsThatAnswered.toLocaleString("en-US")}`);
 
-    // The entire legend section has been completely removed from here.
-
     container.appendChild(svg.node());
 }
+
 // --- Main Init ---
 async function initializeCalibration_Method_Used_for_Gamma_SpectrometersChart() {
     const container = document.getElementById("Calibration_Method_Used_for_Gamma_Spectrometers-chart-container");
     if (!container) return;
 
     let rawData;
-    try { rawData = await d3.csv(csvDataPath10); }
-    catch { return container.innerHTML = "<p style='color:red'>Failed to load CSV.</p>"; }
+    try { 
+        // Using d3.csv with the corrected path
+        rawData = await d3.csv(csvDataPath10); 
+    }
+    catch (error) { 
+        console.error("Error loading CSV:", error);
+        return container.innerHTML = "<p style='color:red'>Failed to load CSV. Check the console for details.</p>"; 
+    }
 
     const headers = Object.keys(rawData[0]).map(h => h.trim());
-const Calibration_Method_Used_for_Gamma_SpectrometersColumn = headers.find(h =>
-    h.includes("6.10") && h.includes("What is the method used for the calibration of gamma spectrometer/s?")
-);
+    const Calibration_Method_Used_for_Gamma_SpectrometersColumn = headers.find(h =>
+        h.includes("6.10") && h.includes("What is the method used for the calibration of gamma spectrometer/s?")
+    );
 
-if (!Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
-    console.error("Available headers:", headers);
-    return container.innerHTML = `<p style='color:red'>Missing 6.5 What is the name of the PT scheme/s? column.</p>`;
-}
+    if (!Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
+        console.error("Available headers:", headers);
+        // Updated error message to match the actual question being queried
+        return container.innerHTML = `<p style='color:red'>Missing 6.10 Calibration Method column.</p>`;
+    }
 
-
+    // Use the fixed counting function
     const Calibration_Method_Used_for_Gamma_SpectrometersCounts = getCalibration_Method_Used_for_Gamma_SpectrometersCounts(rawData, Calibration_Method_Used_for_Gamma_SpectrometersColumn);
-    let topCalibration_Method_Used_for_Gamma_Spectrometers = Calibration_Method_Used_for_Gamma_SpectrometersCounts.sort((a, b) => d3.descending(a.value, b.value)); // Corrected: Added sorting here
+    
+    // Sort the final aggregated array for display (no more top N function needed)
+    let topCalibration_Method_Used_for_Gamma_Spectrometers = Calibration_Method_Used_for_Gamma_SpectrometersCounts.sort((a, b) => d3.descending(a.value, b.value));
 
     if (topCalibration_Method_Used_for_Gamma_Spectrometers.length === 0) {
         return container.innerHTML = "<p>No data to display.</p>";
     }
 
+    // Determine the number of labs who actually answered the column
     const labsThatAnswered = rawData.filter(d => d[Calibration_Method_Used_for_Gamma_SpectrometersColumn] && d[Calibration_Method_Used_for_Gamma_SpectrometersColumn].trim() !== "").length;
 
     const color = d3.scaleOrdinal()
@@ -154,5 +167,7 @@ if (!Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
 
     renderBarChart(container, topCalibration_Method_Used_for_Gamma_Spectrometers, labsThatAnswered, color);
 }
-// Run
+
+// Run (Keeping the DOMContentLoaded listener here is acceptable, 
+// though direct execution often works better when the script is at the bottom of <body>.)
 document.addEventListener("DOMContentLoaded", initializeCalibration_Method_Used_for_Gamma_SpectrometersChart);
