@@ -29,7 +29,7 @@ async function initializeData_Reporting_In_Emergency_SituationsChart() {
     }
 
     // --- Data Processing ---
-    const Data_Reporting_In_Emergency_SituationsColumn = '6.11 Does the laboratory report data in emergency situations?';
+    const Data_Reporting_In_Emergency_SituationsColumn = '6.14 Does the laboratory report data in emergency situations?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
