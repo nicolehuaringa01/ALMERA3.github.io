@@ -29,7 +29,7 @@ async function initializeReport_Data_to_IAEAChart() {
     }
 
     // --- Data Processing ---
-    const Report_Data_to_IAEAColumn = '6.12 Can the laboratory report data to the IAEA ALMERA coordination if requested?';
+    const Report_Data_to_IAEAColumn = '6.15 Is the laboratory authorized to report data to the IAEA ALMERA coordination, if requested?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
