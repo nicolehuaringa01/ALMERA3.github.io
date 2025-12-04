@@ -29,7 +29,7 @@ async function initializeData_Monitoring_ReportingChart() {
     }
 
     // --- Data Processing ---
-    const Data_Monitoring_ReportingColumn = '6.10 Is routine monitoring data reported to a regional or international database?';
+    const Data_Monitoring_ReportingColumn = '6.13 Is routine monitoring data reported to a regional or international database?';
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -91,6 +91,7 @@ async function initializeData_Monitoring_ReportingChart() {
         if (existingPlot) {
             existingPlot.remove();
         }
+
         const Data_Monitoring_ReportingPlot = Plot.plot({
             width: currentWidth,
             height: height,
@@ -99,7 +100,7 @@ async function initializeData_Monitoring_ReportingChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Routine data reported to regional or international database",
+                label: "Implementation of a Quality Management System",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
