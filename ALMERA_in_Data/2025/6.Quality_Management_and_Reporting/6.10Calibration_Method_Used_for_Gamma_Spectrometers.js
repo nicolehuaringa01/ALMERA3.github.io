@@ -1,6 +1,6 @@
 // ALMERA_in_Data/6.Quality_Management_and_Reporting/6.10Calibration_Method_Used_for_Gamma_Spectrometers.js
 
-const csvDataPath10 = "/ALMERA3.github.io/data/Observable2025Survey.csv"; // User-provided path
+const csvDataPath10 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; // User-provided path
 
 // This function processes the raw data to count Calibration_Method_Used_for_Gamma_Spectrometerss
 function getCalibration_Method_Used_for_Gamma_SpectrometersCounts(data, Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
