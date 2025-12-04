@@ -1,11 +1,11 @@
-// ALMERA_in_Data/2020/8.RegulatoryFramework/8.3MethodAndRoutineDevelopment.js
+// ALMERA_in_Data/2025/4.Methods/4.1MethodAndRoutineDevelopment_2025.js
 
-const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
+const csvDataPath1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv"; 
 
 async function initializeMethodAndRoutineDevelopmentChart() {
     const container = document.getElementById("MethodAndRoutineDevelopment-chart-container");
     if (!container) {
-      console.error("MethodAndRoutineDevelopment chart container element #MethodAndRoutineDevelopments-chart-container not found.");
+        console.error("MethodAndRoutineDevelopment chart container element #MethodAndRoutineDevelopment-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
@@ -60,8 +60,8 @@ async function initializeMethodAndRoutineDevelopmentChart() {
 
     // Check if total is zero to avoid division by zero
     if (total === 0) {
-        console.warn("No 'Yes' or 'No' responses found for MethodAndRoutineDevelopment.");
-        container.innerHTML = "<p style='text-align: center;'>No data to display for MethodAndRoutineDevelopment.</p>";
+        console.warn("No 'Yes' or 'No' responses found for MethodAndRoutineDevelopment program.");
+        container.innerHTML = "<p style='text-align: center;'>No data to display for MethodAndRoutineDevelopment program.</p>";
         return;
     }
 
@@ -91,7 +91,7 @@ async function initializeMethodAndRoutineDevelopmentChart() {
         if (existingPlot) {
             existingPlot.remove();
         }
-
+        
         const MethodAndRoutineDevelopmentPlot = Plot.plot({
             width: currentWidth,
             height: height,
@@ -100,15 +100,15 @@ async function initializeMethodAndRoutineDevelopmentChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Radioactivity Standards in food, drinking water, and/or atmospheric aerosols and deposition ",
+                label: "Lab involvement in development of routine and/or rapid analytical methods",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
                 tickFormat: d => `${Math.round(d * 100)}`
             },
             color: {
-                domain: ["Yes", "No"], // Explicit domain for color mapping
-                range: ["#6aa84f", "#d13d32"], // Green for Yes, Red for No
+                domain: ["Yes", "No", "Unsure"], // Explicit domain for color mapping
+                range: ["#6aa84f", "#d13d32", "#d18c32"], // Green for Yes, Red for No, Yellow for Unsure
                 legend: true // Display legend
             },
             marks: [
