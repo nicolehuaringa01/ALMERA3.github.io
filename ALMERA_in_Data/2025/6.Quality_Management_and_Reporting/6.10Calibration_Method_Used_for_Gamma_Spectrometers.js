@@ -76,14 +76,17 @@ async function initializeCalibration_Method_Used_for_Gamma_SpectrometersChart() 
         return;
     }
 
-    // --- Data Processing using the new functions ---
-    const Calibration_Method_Used_for_Gamma_SpectrometersColumn = "6.10 What is the method used for the calibration of gamma spectrometer/s?"; // User-provided column name
-    if (!rawData[0] || !rawData[0][Calibration_Method_Used_for_Gamma_SpectrometersColumn]) {
-        console.error(`Error: CSV data missing required column "${Calibration_Method_Used_for_Gamma_SpectrometersColumn}". Available columns:`, rawData.length > 0 ? Object.keys(rawData[0]) : "No data rows.");
-        container.innerHTML = `<p style='color: red;'>Error: Missing "${Calibration_Method_Used_for_Gamma_SpectrometersColumn}" column in CSV data.</p>`;
-        return;
-    }
+const headers = Object.keys(rawData[0]).map(h => h.trim());
+const Calibration_Method_Used_for_Gamma_SpectrometersColumn = headers.find(h =>
+    h.includes("6.10") && h.includes("What is the method used for the calibration of gamma spectrometer/s?")
+);
 
+if (!Calibration_Method_Used_for_Gamma_SpectrometersColumn) {
+    console.error("Available headers:", headers);
+    return container.innerHTML = `<p style='color:red'>Missing 6.10 What is the method used for the calibration of gamma spectrometer/s? column.</p>`;
+}
+
+    
     const Calibration_Method_Used_for_Gamma_SpectrometersCounts = getCalibration_Method_Used_for_Gamma_SpectrometersCounts(rawData, Calibration_Method_Used_for_Gamma_SpectrometersColumn);
     const topCalibration_Method_Used_for_Gamma_Spectrometers = getTopCalibration_Method_Used_for_Gamma_Spectrometerss(Calibration_Method_Used_for_Gamma_SpectrometersCounts, 6); // Get top 6 Calibration_Method_Used_for_Gamma_Spectrometerss
 
