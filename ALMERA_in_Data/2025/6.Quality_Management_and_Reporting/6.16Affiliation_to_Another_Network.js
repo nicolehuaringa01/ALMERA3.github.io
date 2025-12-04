@@ -48,7 +48,7 @@ async function initializeAffiliation_to_Another_NetworkChart() {
     }
 
     // --- Data Processing ---
-    const targetColumnName = '6.13 Is the laboratory part of another network in addition to ALMERA? (e.g. Ring of Five, RANET, PROCORAD, etc.)';
+    const targetColumnName = '6.16 Is the laboratory part of another network in addition to ALMERA? (e.g. Ring of 5, RANET, PROCORAD, etc.)';
 
     // --- Robust Column Name Validation ---
     let foundColumn = null;
