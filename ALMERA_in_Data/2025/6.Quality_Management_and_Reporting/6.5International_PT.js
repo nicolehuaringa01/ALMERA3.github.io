@@ -31,7 +31,7 @@ async function initializeInternational_PTChart() {
     // --- Data Processing ---
     const headers = Object.keys(data[0]).map(h => h.trim());
 const International_PTColumn = headers.find(h =>
-    h.includes("6.5") && h.includes("Is the laboratory participating in international proficiency testing exercises?")
+    h.includes("6.5") && h.includes("Has the laboratory participated in international proficiency testing exercises?")
 );
 
 if (!International_PTColumn) {
