@@ -1,35 +1,45 @@
 // ALMERA_in_Data/2025/7.EnvironmentalMonitoringCapabilities/7.5Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country.js
 
-const csvDataPath5 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
+// FIX 2: Corrected CSV path for GitHub Pages
+const csvDataPath5 = "ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryChart() {
     const container = document.getElementById("Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country-chart-container");
+    // Simplified container check logic
     if (!container) {
-      console.error("Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country chart container element #Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countrys-chart-container not found.");
-        const errorDiv = document.createElement('div');
-        errorDiv.style.color = 'red';
-        errorDiv.style.textAlign = 'center';
-        errorDiv.textContent = 'Error: Chart container not found in HTML for Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country chart.';
-        document.body.appendChild(errorDiv);
+        console.error("Chart container not found.");
         return;
     }
 
-    // Set dimensions for the chart. Using current width of the container.
+    // Set dimensions for the chart
     const width = container.clientWidth;
-    const height = 120; // Fixed height as per your Observable code
+    const height = 120; // Fixed height
 
     let data;
     try {
         data = await d3.csv(csvDataPath5);
-        console.log("Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country CSV data loaded successfully. Number of records:", data.length);
+        console.log("CSV data loaded successfully. Number of records:", data.length);
     } catch (error) {
-        console.error("Error loading Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country CSV data:", error);
-        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country data. Please check the console for details and ensure the CSV path is correct.</p>";
+        console.error("Error loading CSV data:", error);
+        container.innerHTML = "<p style='color: red; text-align: center;'>Failed to load data. Please check the console for details and ensure the CSV path is correct.</p>";
         return;
     }
 
-    // --- Data Processing ---
-    const Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryColumn = "7.5 Is there an environmental monitoring network of automatic monitors for gamma-ray spectrometry of aerosols and/or for gaseous iodine in the laboratory's country?";
+    // --- Data Processing (FIX 1: Robust Column Finding) ---
+
+    // 1. Get all headers and trim whitespace
+    const headers = data.length > 0 ? Object.keys(data[0]).map(h => h.trim()) : [];
+    
+    // 2. Search for the column using key phrases unique to this question
+    const targetColumn = headers.find(h => 
+        h.includes("7.5") && 
+        h.includes("environmental monitoring network") && 
+        h.includes("aerosols")
+    );
+
+    // Use the found column name, or if not found, use a fallback (which will cause the check below to fail)
+    const Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryColumn = targetColumn;
+
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -38,12 +48,12 @@ async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry
     };
 
     // Validate if the required column exists
-    if (data.length === 0 || !data[0][Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country chart. Check column name.</p>`;
+    if (!Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryColumn) {
+        console.error("Available headers:", headers);
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column not found. Check unique keywords (7.5, network, aerosols).</p>`;
         return;
     }
-
+    
     data.forEach(d => {
         let answer = d[Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryColumn];
         if (typeof answer === "string") {
@@ -56,12 +66,13 @@ async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry
         }
     });
 
+    // ... (rest of the calculation and rendering logic is unchanged and is correct) ...
     const total = ALMERACMS.Yes + ALMERACMS.No;
 
     // Check if total is zero to avoid division by zero
     if (total === 0) {
-        console.warn("No 'Yes' or 'No' responses found for Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country.");
-        container.innerHTML = "<p style='text-align: center;'>No data to display for Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country.</p>";
+        console.warn("No 'Yes' or 'No' responses found for chart.");
+        container.innerHTML = "<p style='text-align: center;'>No data to display.</p>";
         return;
     }
 
@@ -82,7 +93,7 @@ async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry
         count
     }));
 
-    console.log("Processed Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country chartData:", chartData);
+    console.log("Processed chartData:", chartData);
 
     // --- Chart Rendering ---
 
@@ -92,7 +103,7 @@ async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry
         if (existingPlot) {
             existingPlot.remove();
         }
-        const Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryPlot = Plot.plot({
+        const chartPlot = Plot.plot({
             width: currentWidth,
             height: height,
             y: {
@@ -100,11 +111,11 @@ async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Automatic monitors for gamma-ray spectrometry of aerosols and/or gasouse iodine in the country",
+                label: "Automatic monitors for gamma-ray spectrometry of aerosols and/or gaseous iodine in the country",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
-                tickFormat: d => `${Math.round(d * 100)}`
+                tickFormat: d => `${Math.round(d * 100)}%` // Added percent symbol for clarity
             },
             color: {
                 domain: ["Yes", "No"], // Explicit domain for color mapping
@@ -121,7 +132,11 @@ async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry
                 Plot.text(chartData, {
                     y: () => "All Labs",
                     // Position text in the middle of each segment
-                    x: d => d.percent / 2 + (d.answer === "Yes" ? 0 : chartData.find(c => c.answer === "Yes").percent),
+                    x: (d, i) => {
+                         // Find the 'Yes' percentage to correctly offset the 'No' label
+                         const yesPercent = chartData.find(c => c.answer === "Yes")?.percent || 0;
+                         return d.answer === "Yes" ? d.percent / 2 : yesPercent + d.percent / 2;
+                    },
                     text: d => `${(d.percent * 100).toFixed(0)}%`, // Display percentage rounded to whole number
                     fill: "white",
                     fontWeight: "bold",
@@ -139,8 +154,8 @@ async function initializeEnvironmental_Monitoring_Network_for_Gamma_Spectrometry
                 fontSize: "14px"
             }
         });
-        container.appendChild(Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_countryPlot);
-        console.log("Environmental_Monitoring_Network_for_Gamma_Spectrometry_of_Aerosols_for_gaseous_iodine_in_country chart appended to DOM.");
+        container.appendChild(chartPlot);
+        console.log("Chart appended to DOM.");
     };
 
     // Initial render
