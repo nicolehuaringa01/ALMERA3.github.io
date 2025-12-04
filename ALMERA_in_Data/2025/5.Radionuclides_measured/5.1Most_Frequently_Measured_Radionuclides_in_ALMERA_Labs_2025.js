@@ -456,7 +456,7 @@ d3.csv(csvDataPath1).then(data => {
     allSurveyData_Most_Frequently_Measured_Radionuclides_in_ALMERA_Labs = data;
 
     // Define the target column name for radionuclides for 9.2
-    const targetRadionuclideColumnName = "Matrix Dynamique"; // **VERIFY THIS COLUMN NAME**
+    const targetRadionuclideColumnName = "5.1 Radionuclides measured by the laboratory";
 
     let foundRadionuclideColumn = null;
     const normalizedTargetRadionuclide = normalizeString(targetRadionuclideColumnName);
