@@ -1,4 +1,4 @@
-// ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.9Decay_Library.js
+// ALMERA_in_Data/2025/6.Quality_Managemnt_and_Reporting/6.9Decay_Library.js
 
 const csvDataPath9 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
@@ -135,7 +135,7 @@ const Decay_LibraryColumn = headers.find(h =>
 
 if (!Decay_LibraryColumn) {
     console.error("Available headers:", headers);
-    return container.innerHTML = `<p style='color:red'>Missing 6.9 What decay data library is used? column.</p>`;
+    return container.innerHTML = `<p style='color:red'>Missing 6.5 What is the name of the PT scheme/s? column.</p>`;
 }
 
 
