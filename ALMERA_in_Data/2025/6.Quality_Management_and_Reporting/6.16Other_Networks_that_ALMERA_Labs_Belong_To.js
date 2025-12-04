@@ -130,7 +130,7 @@ async function initializeOther_Networks_that_ALMERA_Labs_Belong_ToChart() {
 
     const headers = Object.keys(rawData[0]).map(h => h.trim());
 const Other_Networks_that_ALMERA_Labs_Belong_ToColumn = headers.find(h =>
-    h.includes("6.13") && h.includes("Select other networks in addition to ALMERA that the laboratory is member of.")
+    h.includes("6.16") && h.includes("Select other networks in addition to ALMERA that the laboratory is member of.")
 );
 
 if (!Other_Networks_that_ALMERA_Labs_Belong_ToColumn) {
