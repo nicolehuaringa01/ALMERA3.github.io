@@ -129,12 +129,12 @@ async function initializeData_Centers_Results_Are_Being_Sent_ToChart() {
 
     const headers = Object.keys(rawData[0]).map(h => h.trim());
 const Data_Centers_Results_Are_Being_Sent_ToColumn = headers.find(h =>
-    h.includes("7.5") && h.includes("To which data centre are the results being transmitted?")
+    h.includes("7.7") && h.includes("To which data centre are the results being transmitted?")
 );
 
 if (!Data_Centers_Results_Are_Being_Sent_ToColumn) {
     console.error("Available headers:", headers);
-    return container.innerHTML = `<p style='color:red'>Missing 7.5 To which data centre are the results being transmitted?</p>`;
+    return container.innerHTML = `<p style='color:red'>Missing 7.7 To which data centre are the results being transmitted?</p>`;
 }
 
 
