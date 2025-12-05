@@ -1,11 +1,10 @@
-// ALMERA_in_Data/2025/7.EnvironmentalMonitoringCapabilities/7.7Results_Transmitted_Automically_to_Data_Centre.js
-
+// ALMERA_in_Data/2025/7.EnvironmentalMonitoringCapabilities/7.7Results_Transmitted_Automically_to_Data_Centre
 const csvDataPath7 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 async function initializeResults_Transmitted_Automically_to_Data_CentreChart() {
     const container = document.getElementById("Results_Transmitted_Automically_to_Data_Centre-chart-container");
     if (!container) {
-      console.error("Results_Transmitted_Automically_to_Data_Centre chart container element #Results_Transmitted_Automically_to_Data_Centres-chart-container not found.");
+      console.error("Results_Transmitted_Automically_to_Data_Centres-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
@@ -14,7 +13,7 @@ async function initializeResults_Transmitted_Automically_to_Data_CentreChart() {
         return;
     }
 
-    // Set dimensions for the chart. Using current width of the container.
+        // Set dimensions for the chart. Using current width of the container.
     const width = container.clientWidth;
     const height = 120; // Fixed height as per your Observable code
 
@@ -28,8 +27,19 @@ async function initializeResults_Transmitted_Automically_to_Data_CentreChart() {
         return;
     }
 
-    // --- Data Processing ---
-    const Results_Transmitted_Automically_to_Data_CentreColumn = "7.7 Are the laboratory's measurement results transmitted automatically to a data centre?";
+    // --- Data Processing (MODIFIED) ---
+
+    // 1. Get all headers and trim whitespace
+    const headers = data.length > 0 ? Object.keys(data[0]).map(h => h.trim()) : [];
+
+    // 2. Robustly search for the column using key phrases
+    const targetColumn = headers.find(h =>
+        h.includes("7.7") &&
+        h.includes("Are the laboratory's measurement results transmitted automatically to a data centre?")
+    );
+
+    // Use the found column name for the rest of the script
+    const Results_Transmitted_Automically_to_Data_CentreColumn = targetColumn;
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -38,9 +48,9 @@ async function initializeResults_Transmitted_Automically_to_Data_CentreChart() {
     };
 
     // Validate if the required column exists
-    if (data.length === 0 || !data[0][Results_Transmitted_Automically_to_Data_CentreColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${Results_Transmitted_Automically_to_Data_CentreColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for Results_Transmitted_Automically_to_Data_Centre chart. Check column name.</p>`;
+    if (!Results_Transmitted_Automically_to_Data_CentreColumn) { // Simpler check using the new variable
+        console.error("Available headers:", headers);
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column not found. Check unique keywords (7.7, Is there a gamma dose rate monitoring network operational in the country?).</p>`;
         return;
     }
 
@@ -64,7 +74,7 @@ async function initializeResults_Transmitted_Automically_to_Data_CentreChart() {
         container.innerHTML = "<p style='text-align: center;'>No data to display for Results_Transmitted_Automically_to_Data_Centre.</p>";
         return;
     }
-    
+
     // Create the "Total responses" div and prepend it to the container.
     const totalResponsesDiv = document.createElement('div');
     totalResponsesDiv.textContent = `Total responses: ${total}`;
@@ -92,7 +102,6 @@ async function initializeResults_Transmitted_Automically_to_Data_CentreChart() {
             existingPlot.remove();
         }
 
-
         const Results_Transmitted_Automically_to_Data_CentrePlot = Plot.plot({
             width: currentWidth,
             height: height,
@@ -101,7 +110,7 @@ async function initializeResults_Transmitted_Automically_to_Data_CentreChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Results Transmitted to a Data Centre",
+                label: "Availability of gamma dose rate monitoring network operational in the country",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
