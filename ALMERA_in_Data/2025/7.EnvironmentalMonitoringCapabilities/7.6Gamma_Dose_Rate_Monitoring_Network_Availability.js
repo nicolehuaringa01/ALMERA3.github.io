@@ -1,11 +1,10 @@
 // ALMERA_in_Data/2025/7.EnvironmentalMonitoringCapabilities/7.6Gamma_Dose_Rate_Monitoring_Network_Availability.js
-
 const csvDataPath6 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() {
     const container = document.getElementById("Gamma_Dose_Rate_Monitoring_Network_Availability-chart-container");
     if (!container) {
-      console.error("Gamma_Dose_Rate_Monitoring_Network_Availability chart container element #Gamma_Dose_Rate_Monitoring_Network_Availabilitys-chart-container not found.");
+      console.error("Gamma_Dose_Rate_Monitoring_Network_Availabilitys-chart-container not found.");
         const errorDiv = document.createElement('div');
         errorDiv.style.color = 'red';
         errorDiv.style.textAlign = 'center';
@@ -14,7 +13,7 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
         return;
     }
 
-    // Set dimensions for the chart. Using current width of the container.
+        // Set dimensions for the chart. Using current width of the container.
     const width = container.clientWidth;
     const height = 120; // Fixed height as per your Observable code
 
@@ -28,8 +27,19 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
         return;
     }
 
-    // --- Data Processing ---
-    const Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn = "7.6 Is there a gamma dose rate monitoring network operational in the country?";
+    // --- Data Processing (MODIFIED) ---
+
+    // 1. Get all headers and trim whitespace
+    const headers = data.length > 0 ? Object.keys(data[0]).map(h => h.trim()) : [];
+
+    // 2. Robustly search for the column using key phrases
+    const targetColumn = headers.find(h =>
+        h.includes("7.6") &&
+        h.includes("Is there a gamma dose rate monitoring network operational in the country?")
+    );
+
+    // Use the found column name for the rest of the script
+    const Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn = targetColumn;
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -38,9 +48,9 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
     };
 
     // Validate if the required column exists
-    if (data.length === 0 || !data[0][Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for Gamma_Dose_Rate_Monitoring_Network_Availability chart. Check column name.</p>`;
+    if (!Gamma_Dose_Rate_Monitoring_Network_AvailabilityColumn) { // Simpler check using the new variable
+        console.error("Available headers:", headers);
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column not found. Check unique keywords (7.6, Is there a gamma dose rate monitoring network operational in the country?).</p>`;
         return;
     }
 
@@ -74,7 +84,6 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
     container.innerHTML = ''; // Clear container first
     container.appendChild(totalResponsesDiv);
 
-
     // Prepare data for plotting (answer, percentage, and count)
     const chartData = Object.entries(ALMERACMS).map(([answer, count]) => ({
         answer,
@@ -92,6 +101,7 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
         if (existingPlot) {
             existingPlot.remove();
         }
+
         const Gamma_Dose_Rate_Monitoring_Network_AvailabilityPlot = Plot.plot({
             width: currentWidth,
             height: height,
@@ -100,7 +110,7 @@ async function initializeGamma_Dose_Rate_Monitoring_Network_AvailabilityChart() 
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Automatic monitors for gamma-ray spectrometry of aerosols and/or gasouse iodine in the country",
+                label: "Availability of gamma dose rate monitoring network operational in the country",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
