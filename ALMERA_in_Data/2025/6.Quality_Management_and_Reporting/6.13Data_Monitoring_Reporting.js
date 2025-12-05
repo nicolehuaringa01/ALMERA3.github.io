@@ -14,7 +14,7 @@ async function initializeData_Monitoring_ReportingChart() {
         return;
     }
 
-    // Set dimensions for the chart. Using current width of the container.
+        // Set dimensions for the chart. Using current width of the container.
     const width = container.clientWidth;
     const height = 120; // Fixed height as per your Observable code
 
@@ -28,8 +28,20 @@ async function initializeData_Monitoring_ReportingChart() {
         return;
     }
 
-    // --- Data Processing ---
-    const Data_Monitoring_ReportingColumn = '6.13 Is routine monitoring data reported to a regional or international database?';
+    // --- Data Processing (MODIFIED) ---
+
+    // 1. Get all headers and trim whitespace
+    const headers = data.length > 0 ? Object.keys(data[0]).map(h => h.trim()) : [];
+
+    // 2. Robustly search for the column using key phrases
+    const targetColumn = headers.find(h =>
+        h.includes("6.13") &&
+        h.includes("monitoring data reported") &&
+        h.includes("database")
+    );
+
+    // Use the found column name for the rest of the script
+    const Data_Monitoring_ReportingColumn = targetColumn;
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -38,9 +50,9 @@ async function initializeData_Monitoring_ReportingChart() {
     };
 
     // Validate if the required column exists
-    if (data.length === 0 || !data[0][Data_Monitoring_ReportingColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${Data_Monitoring_ReportingColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for Data_Monitoring_Reporting chart. Check column name.</p>`;
+    if (!Data_Monitoring_ReportingColumn) { // Simpler check using the new variable
+        console.error("Available headers:", headers);
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column not found. Check unique keywords (6.13, reported, database).</p>`;
         return;
     }
 
