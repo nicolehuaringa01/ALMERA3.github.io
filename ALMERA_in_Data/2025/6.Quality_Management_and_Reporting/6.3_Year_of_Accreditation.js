@@ -18,7 +18,7 @@ d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv").then(data 
 
   // Chart setup
   const margin = { top: 40, right: 30, bottom: 50, left: 70 },
-        width = 700 - margin.left - margin.right,
+        width = 1200 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
   // Append SVG to container
