@@ -6,17 +6,16 @@ d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv").then(data 
 
   // Parse, clean, and filter data
   const yearCounts = d3.rollup(
-    data
-      .map(d => parseInt(d[column]))
-      .filter(y => y >= 1900 && y <= new Date().getFullYear()),
-    v => v.length,
-    y => y
-  );
+        data
+            .map(d => parseInt(d[column]))
+            .filter(y => y >= 1900 && y <= new Date().getFullYear()),
+        v => v.length,
+        y => y
+    );
+  const rawProcessedData = Array.from(yearCounts, ([year, count]) => ({ year, count })) 
+        .sort((a, b) => a.year - b.year);
 
-  const finalChartData = Array.from(yearCounts, ([year, count]) => ({ year, count }))
-    .sort((a, b) => a.year - b.year);
-
-  const finalChartData = groupHistoricalYears(rawfinalChartData);
+  const finalChartData = groupHistoricalYears(rawProcessedData); 
 
   // Chart setup
   const margin = { top: 40, right: 30, bottom: 50, left: 70 },
