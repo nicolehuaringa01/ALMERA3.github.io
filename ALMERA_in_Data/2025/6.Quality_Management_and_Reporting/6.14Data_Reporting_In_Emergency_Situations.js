@@ -1,4 +1,4 @@
-// ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.14Data_Reporting_In_Emergency_Situations.js
+// ALMERA_in_Data/2025/6.Quality_Management_and_Reporting/6.13Data_Reporting_In_Emergency_Situations.js
 
 const csvDataPath14 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
@@ -14,7 +14,7 @@ async function initializeData_Reporting_In_Emergency_SituationsChart() {
         return;
     }
 
-    // Set dimensions for the chart. Using current width of the container.
+        // Set dimensions for the chart. Using current width of the container.
     const width = container.clientWidth;
     const height = 120; // Fixed height as per your Observable code
 
@@ -28,8 +28,19 @@ async function initializeData_Reporting_In_Emergency_SituationsChart() {
         return;
     }
 
-    // --- Data Processing ---
-    const Data_Reporting_In_Emergency_SituationsColumn = '6.14 Does the laboratory report data in emergency situations?';
+    // --- Data Processing (MODIFIED) ---
+
+    // 1. Get all headers and trim whitespace
+    const headers = data.length > 0 ? Object.keys(data[0]).map(h => h.trim()) : [];
+
+    // 2. Robustly search for the column using key phrases
+    const targetColumn = headers.find(h =>
+        h.includes("6.14") &&
+        h.includes("Does the laboratory report data in emergency situations?")
+    );
+
+    // Use the found column name for the rest of the script
+    const Data_Reporting_In_Emergency_SituationsColumn = targetColumn;
 
     // Initialize counts for Yes/No
     const ALMERACMS = {
@@ -38,9 +49,9 @@ async function initializeData_Reporting_In_Emergency_SituationsChart() {
     };
 
     // Validate if the required column exists
-    if (data.length === 0 || !data[0][Data_Reporting_In_Emergency_SituationsColumn]) {
-        console.error(`Error: CSV data is empty or missing expected column ("${Data_Reporting_In_Emergency_SituationsColumn}").`);
-        container.innerHTML = `<p style='color: red; text-align: center;'>Error: CSV data incomplete for Data_Reporting_In_Emergency_Situations chart. Check column name.</p>`;
+    if (!Data_Reporting_In_Emergency_SituationsColumn) { // Simpler check using the new variable
+        console.error("Available headers:", headers);
+        container.innerHTML = `<p style='color: red; text-align: center;'>Error: Column not found. Check unique keywords (6.14, laboratory report data in emergency situations?).</p>`;
         return;
     }
 
@@ -100,7 +111,7 @@ async function initializeData_Reporting_In_Emergency_SituationsChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Emergency Reporting ",
+                label: "Ability to report data in emergency situations",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
