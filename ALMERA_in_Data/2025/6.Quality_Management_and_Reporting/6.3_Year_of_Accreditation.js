@@ -19,7 +19,7 @@ d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv").then(data 
 
     // Chart setup
     const margin = { top: 40, right: 30, bottom: 90, left: 70 }, // Adjusted bottom margin for rotated labels
-        baseWidth = 1400; // Increased width for better spacing
+        baseWidth = 1200; // Increased width for better spacing
     const width = baseWidth - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
@@ -34,7 +34,7 @@ d3.csv("/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv").then(data 
     // Scales
 
     const x = d3.scaleBand()
-        .domain(finalChartData.map(d => d.year)) // NOW uses "Pre-2000" and year numbers
+        .domain(finalChartData.map(d => d.year))
         .range([0, width])
         .padding(0.2);
 
