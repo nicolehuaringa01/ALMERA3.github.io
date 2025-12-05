@@ -49,7 +49,7 @@ async function initializeReport_Data_to_IAEAChart() {
     }
 
     // --- Data Processing ---
-    const targetColumnName = '6.16 Is the laboratory part of another network in addition to ALMERA? (e.g. Ring of 5, RANET, PROCORAD, etc.)';
+    const targetColumnName = '6.15 Is the laboratory authorized to report data to the IAEA ALMERA coordination, if requested?';
 
     // --- Robust Column Name Validation ---
     let foundColumn = null;
