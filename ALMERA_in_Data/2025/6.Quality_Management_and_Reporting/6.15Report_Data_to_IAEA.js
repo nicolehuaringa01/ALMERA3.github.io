@@ -136,7 +136,7 @@ async function initializeReport_Data_to_IAEAChart() {
                 axis: false // Hide y-axis as it's a single bar
             },
             x: {
-                label: "Participation in other networks in addition to ALMERA",
+                label: "Able to report data to IAEA/ALMERA",
                 labelAnchor: "center",
                 labelOffset: 40, // Space for the label
                 domain: [0, 1], // Ensure x-axis spans 0 to 1 for percentages
