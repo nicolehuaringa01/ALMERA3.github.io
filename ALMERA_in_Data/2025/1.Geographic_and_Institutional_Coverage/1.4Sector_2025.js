@@ -99,19 +99,17 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
     // X axis
     svg.append("g")
         .attr("transform", `translate(0,${height - bottomMargin})`)
-        .call(d3.axisBottom(x)); 
+        .call(d3.axisBottom(x));
     
-    // Y axis (now with labels!)
-    svg.append("g")
-    .attr("transform", `translate(${leftMargin},0)`)
-    // Use .tickSize(0) to remove the small tick marks next to the labels
-    .call(d3.axisLeft(y).tickSize(0)) 
-    // Select the text elements for the tick marks
-    .selectAll(".tick text") 
-    // Apply the color scale to the text itself
-    // Use .replace to safely handle any trailing data/newlines in the label source
-    .attr("fill", d => color(d.replace(/;.*/, '').trim())) 
-    .attr("font-weight", "600"); // Use 600 or bold to make it stand out
+    // Y axis (The integrated "Legend" labels)
+    const yAxisGroup = svg.append("g")
+        .attr("transform", `translate(${leftMargin},0)`)
+        .call(d3.axisLeft(y).tickSize(0)); // Use tickSize(0) to remove the small ticks
+
+    // Color and Bold the Y-axis labels to match the bars
+    yAxisGroup.selectAll(".tick text")
+        .attr("fill", d => color(d.replace(/;.*/, '').trim()))
+        .attr("font-weight", "600");
 
     // Total labs (top band)
     svg.append("text")
