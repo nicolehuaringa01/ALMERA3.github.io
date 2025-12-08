@@ -97,9 +97,13 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
             });
 
     // X axis
+
     svg.append("g")
-        .attr("transform", `translate(0,${height - bottomMargin})`)
-        .call(d3.axisBottom(x));
+    .attr("transform", `translate(${leftMargin},0)`)
+    .call(d3.axisLeft(y))
+    .selectAll(".tick text") // Select the text elements for the tick marks
+    .attr("fill", d => color(d)) // Apply the color scale to the text itself
+    .attr("font-weight", "bold"); // Optional: make text bold for emphasis
 
     // Y axis (now with labels!)
     svg.append("g")
