@@ -2,6 +2,25 @@
 
 const csvDataPath5_1 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
+function mapAreasToShortNames(longName) {
+    const trimmedName = longName.trim();
+    switch (trimmedName) {
+        case "Radiometric techniques (e.g., gamma spectrometry, alpha/beta counting, liquid scintillation)":
+            return "Radiometric Techniques";
+
+        case "Radiochemical methods":
+            return "Radiochemical Methods";
+
+        case "Chemical Analysis (e.g., titrations, chromatography)":
+            return "Chemical Analysis";
+
+        case "In-Situ Measurements and Field Techniques":
+            return "In-situ Measurements & Field Techniques";
+
+        default:
+            return trimmedName;
+    }
+}
 // --- Data Processing Functions (unchanged) ---
 function getAnalytical_Method_Areas_that_lab_needs_assistance_withCounts(data, Analytical_Method_Areas_that_lab_needs_assistance_withColumn) {
     const counts = new Map();
