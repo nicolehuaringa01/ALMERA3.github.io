@@ -25,7 +25,7 @@ const container = d3.select("#human-resources-chart-container");
 const width = 900;
 const height = 500;
 // Increased margin.top to ensure space for the legend.
-const margin = { top: 120, right: 50, bottom: 120, left: 80 }; 
+const margin = { top: 80, right: 50, bottom: 120, left: 80 }; 
 
 const svg = container.append("svg")
   .attr("width", width)
@@ -165,7 +165,7 @@ d3.csv(csvPath).then(data => {
 // Let's place it at the top, just below the very top margin, and center it or place it near the left for clarity.
 // New Legend positioning
 const legend = svg.append("g")
-  .attr("transform", `translate(${margin.left}, 30)`); // Starting position for the legend
+  .attr("transform", `translate(${margin.left}, 50)`); // Starting position for the legend
 
 let currentX = 0; // Tracks the current X position for placing legend items
 
@@ -204,7 +204,7 @@ for (const [region, color] of Object.entries(regionColors)) {
 svg.append("text")
   .attr("x", width - margin.left)  
   .attr("y", 30)            
-  .attr("text-anchor", "end")       
+  .attr("text-anchor", "start")       
   .style("font-size", "14px")
   .style("font-weight", "600")
   .text(`Total responses: ${totalLabs}`);
