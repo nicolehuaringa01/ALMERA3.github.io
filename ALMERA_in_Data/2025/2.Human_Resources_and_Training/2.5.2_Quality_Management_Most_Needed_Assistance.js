@@ -2,6 +2,31 @@
 
 const csvDataPath5_2 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
+function mapAreasToShortNames(longName) {
+    const trimmedName = longName.trim();
+    switch (trimmedName) {
+            
+        case "Participating in Proficiency Tests (PTs) / Interlaboratory Comparisons (ILCs)":
+            return "Participation in PTs & ILCs"; 
+
+        case "Preparation for ISO/IEC 17025 Accreditation":
+            return "ISO/IEC 17025 Accreditation";
+
+        case "Standard Operating Procedure Writing and Review":
+            return "Standard Operating Procedures";
+
+        case "Creating and Managing Quality Control Charts":
+            return "Quality Control Charts";
+        
+        case "None":
+            return "None";
+        
+        // Return the original name if no match is found (e.g., "Other" or short names)
+        default:
+            return trimmedName;
+    }
+}
+
 // --- Data Processing Functions (unchanged) ---
 function getQuality_Management_Most_Needed_AssistanceCounts(data, Quality_Management_Most_Needed_AssistanceColumn) {
     const counts = new Map();
@@ -9,7 +34,7 @@ function getQuality_Management_Most_Needed_AssistanceCounts(data, Quality_Manage
         if (row[Quality_Management_Most_Needed_AssistanceColumn]) {
             const Quality_Management_Most_Needed_Assistances = row[Quality_Management_Most_Needed_AssistanceColumn]
                 .split(/;|\r?\n/)   // split on ";" OR newlines
-                .map(d => d.trim())
+                .map(d => mapAreasToShortNames(d))
                 .filter(d => d.length > 0);
             for (const aff of Quality_Management_Most_Needed_Assistances) {
                 if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure Quality_Management_Most_Needed_Assistance string is not empty after trimming
