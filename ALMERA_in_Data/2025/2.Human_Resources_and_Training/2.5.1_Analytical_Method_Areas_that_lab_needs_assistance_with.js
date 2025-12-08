@@ -28,7 +28,7 @@ function getAnalytical_Method_Areas_that_lab_needs_assistance_withCounts(data, A
         if (row[Analytical_Method_Areas_that_lab_needs_assistance_withColumn]) {
             const Analytical_Method_Areas_that_lab_needs_assistance_withs = row[Analytical_Method_Areas_that_lab_needs_assistance_withColumn]
                 .split(/;|\r?\n/)   // split on ";" OR newlines
-                .map(d => d.trim())
+                .map(d => mapAreasToShortNames(d))
                 .filter(d => d.length > 0);
             for (const aff of Analytical_Method_Areas_that_lab_needs_assistance_withs) {
                 if (aff) counts.set(aff, (counts.get(aff) || 0) + 1); // Ensure Analytical_Method_Areas_that_lab_needs_assistance_with string is not empty after trimming
