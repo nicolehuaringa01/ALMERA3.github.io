@@ -63,40 +63,52 @@ async function renderALMERACMsHostingCapacityHistogram() {
 
     // Define the bins for the histogram
     // Using d3.histogram for automatic binning, or you can define custom bins
+    // This creates bins starting at 0, 50, 70, 90, ..., 190, 200.
+    const customThresholds = [
+        0, 50, 70, 90, 110, 130, 150, 170, 190, 200
+    ];
+
     const maxCapacity = d3.max(capacities);
-    const minCapacity = d3.min(capacities);
+
+    const domainEnd = Math.max(maxCapacity + 1, 200);
 
     // Determine a reasonable number of bins or step size
     // For counts, often integer bins or small ranges make sense.
     // Let's try bins of size 5, or use d3.thresholdFreedmanDiaconis for more dynamic binning
     const binThresholds = d3.range(0, maxCapacity + 5, 5); // Bins like [0-5), [5-10), etc.
 
-    const histogram = d3.histogram()
-        .value(d => d)
-        .domain([0, maxCapacity + 5]) // Ensure domain covers all data
-        .thresholds(binThresholds);
+   const histogram = d3.histogram()
+        .value(d => d)
+        .domain([0, domainEnd]) // Set domain to start at 0 and end high enough
+        .thresholds(customThresholds); // Use custom thresholds
 
     const bins = histogram(capacities);
 
     // Filter out empty bins if you don't want to show them
     const nonEmptyBins = bins.filter(b => b.length > 0);
 
+    function formatBinLabel(bin) {
+        // First bin: <50
+        if (bin.x0 === 0 && bin.x1 === 50) return "<50";
+        // Final bin: 200+
+        if (bin.x0 === 200) return "200+"; 
+        // All 20-unit bins (x1 - x0 = 20)
+        if (bin.x1 - bin.x0 === 20) return `${bin.x0}-${bin.x1 - 1}`;
+        // Fallback (for any unexpected bins, though it shouldn't happen with our thresholds)
+        return `[${bin.x0}-${bin.x1 - 1}]`;
+    }
+
     // Set up scales
     const x = d3.scaleBand()
-        .domain(nonEmptyBins.map(d => {
-            // Format bin labels nicely, e.g., "0-4", "5-9", "10+"
-            if (d.x1 === Infinity) return `${d.x0}+`;
-            if (d.x0 === d.x1 - 1) return `${d.x0}`; // For single value bins if that happens
-            return `${d.x0}-${d.x1 - 1}`;
-        }))
+        .domain(nonEmptyBins.map(formatBinLabel))
         .range([margin.left, width - margin.right])
-        .padding(0.1);
+        .padding(0.1);
 
     const y = d3.scaleLinear()
-        .domain([0, d3.max(nonEmptyBins, d => d.length)]).nice()
-        .range([height - margin.bottom, margin.top]);
+        .domain([0, d3.max(nonEmptyBins, d => d.length)]).nice()
+        .range([height - margin.bottom, margin.top]);
 
-    const labsThatAnswered = data.filter(d => d[foundColumn] && d[foundColumn].trim() !== "").length;
+    const labsThatAnswered = data.filter(d => d[foundColumn] && d[foundColumn].trim() !== "").length;
 
     // Create SVG element
     const svg = container.append("svg")
@@ -107,17 +119,17 @@ async function renderALMERACMsHostingCapacityHistogram() {
 
     // Bars
     svg.append("g")
-        .attr("fill", "black") // Blue color for bars
-        .selectAll("rect")
-        .data(nonEmptyBins)
-        .join("rect")
-        .attr("x", d => x(`${d.x0}-${d.x1 - 1}`)) // Use formatted bin label for x position
-        .attr("y", d => y(d.length))
-        .attr("height", d => y(0) - y(d.length))
-        .attr("width", x.bandwidth())
-        .append("title") // Tooltip for each bar
-        .text(d => `Capacity: ${d.x0}-${d.x1 - 1} participants\nNumber of Labs: ${d.length}`);
-
+        .attr("fill", "black") // Blue color for bars
+        .selectAll("rect")
+        .data(nonEmptyBins)
+        .join("rect")
+        .attr("x", d => x(formatBinLabel(d)))
+        .attr("y", d => y(d.length))
+        .attr("height", d => y(0) - y(d.length))
+        .attr("width", x.bandwidth())
+        .append("title") // Tooltip for each bar
+        .text(d => `Capacity: ${formatBinLabel(d)} participants\nNumber of Labs: ${d.length}`);
+    
     // X-axis
     svg.append("g")
         .attr("transform", `translate(0,${height - margin.bottom})`)
