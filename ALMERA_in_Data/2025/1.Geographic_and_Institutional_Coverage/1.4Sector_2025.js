@@ -97,7 +97,11 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
             });
 
     // X axis
-
+    svg.append("g")
+        .attr("transform", `translate(0,${height - bottomMargin})`)
+        .call(d3.axisBottom(x)); 
+    
+    // Y axis (now with labels!)
     svg.append("g")
     .attr("transform", `translate(${leftMargin},0)`)
     .call(d3.axisLeft(y))
@@ -105,10 +109,6 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
     .attr("fill", d => color(d)) // Apply the color scale to the text itself
     .attr("font-weight", "bold"); // Optional: make text bold for emphasis
 
-    // Y axis (now with labels!)
-    svg.append("g")
-        .attr("transform", `translate(${leftMargin},0)`)
-        .call(d3.axisLeft(y)); // Corrected: removed `.tickFormat('')` to show labels
 
     // Total labs (top band)
     svg.append("text")
