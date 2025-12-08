@@ -3,36 +3,39 @@
 const csvDataPath5 = "/ALMERA3.github.io/data/2025_ALMERA_Capabilities_Survey.csv";
 
 // --- Utility function for text wrapping ---
-function wrapText(text, width, lineHeight) {
+function wrapText(text, maxWidth, lineHeight) {
     text.each(function() {
         var text = d3.select(this),
-            words = text.text().split(/\s+/).reverse(), // Split text into words, reverse for easier popping
+            words = text.text().split(/\s+/).reverse(),
             word,
             line = [],
             lineNumber = 0,
-            // Get original position (y is often 0 for d3 axes, but we need the calculated position)
+            lineHeightPx = 14, // Approximate line height in pixels for 12px font
             y = text.attr("y") || 0,
-            dy = parseFloat(text.attr("dy") || 0),
-            tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-
-        // Set a fixed character limit (in characters)
-        const characterLimit = 25; 
+            // Ensure dy is a string like "0.35em" to work with D3's tspan positioning
+            dy = text.attr("dy") ? parseFloat(text.attr("dy")) : 0.35, 
+            tspan = text.text(null).append("tspan").attr("x", -10).attr("y", y).attr("dy", dy + "em");
+        
+        // Define a character limit based on a rough estimate (25 chars) 
+        // We use character count as measuring text width can be complex in D3 without prior rendering
+        const charLimit = 35; 
 
         while (word = words.pop()) {
-            const potentialLine = line.join(" ") + " " + word;
-            
-            // Check if adding the word exceeds the character limit
-            if (potentialLine.length > characterLimit && line.length > 0) {
-                // Start a new line
+            line.push(word);
+            // If the current line is too long, or we are at the end of the text
+            if (line.join(" ").length > charLimit && line.length > 1) {
+                // Remove the last word, print the line, and start a new line with the last word
+                line.pop();
+                tspan.text(line.join(" "));
                 line = [word];
                 tspan = text.append("tspan")
-                    .attr("x", -10) // Keep left aligned
+                    .attr("x", -10) // Left align to the Y-axis tick mark
                     .attr("y", y)
-                    .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                    // Increment lineNumber and use lineHeight for vertical spacing
+                    .attr("dy", ++lineNumber * lineHeight + dy + "em") 
                     .text(word);
             } else {
-                // Add to the current line
-                line.push(word);
+                // If it fits or is the first word, just update the current line
                 tspan.text(line.join(" "));
             }
         }
@@ -84,7 +87,8 @@ function renderBarChart(container, topAreas_that_lab_needs_assistance_to_achieve
     // Adjust vertical space since we are removing the legend
     const topMargin = 50;
     const bottomMargin = 50;
-    const leftMargin = 300; // Increased margin for long, wrapped labels
+    // FIX 1: Increased margin for long, wrapped labels
+    const leftMargin = 300; 
     const rightMargin = 30;
 
     const svg = d3.create("svg")
@@ -145,12 +149,9 @@ function renderBarChart(container, topAreas_that_lab_needs_assistance_to_achieve
         .attr("transform", `translate(${leftMargin},0)`)
         .call(d3.axisLeft(y).tickSize(0)); // Use tickSize(0) for cleaner look
 
-    // Apply the wrapping and styling to the text elements
+    // FIX 2: Apply the wrapping to the text elements using a line height of 1.2
     yAxis.selectAll(".tick text")
-        .attr("x", -10) // Small adjustment left
-        .attr("dy", "0.35em") // Vertical alignment adjustment
-        .call(wrapText, leftMargin - 10, 1.2); // Apply wrapping
-
+        .call(wrapText, leftMargin - 10, 1.2); 
 
     // Total labs (top band)
     svg.append("text")
