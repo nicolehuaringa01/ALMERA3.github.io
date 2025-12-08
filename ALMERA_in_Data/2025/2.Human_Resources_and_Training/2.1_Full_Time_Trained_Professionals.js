@@ -202,7 +202,7 @@ for (const [region, color] of Object.entries(regionColors)) {
 
 // Total responses in top-right corner (This remains as is)
 svg.append("text")
-  .attr("x", width - margin.right)  
+  .attr("x", width - margin.left)  
   .attr("y", 30)            
   .attr("text-anchor", "end")       
   .style("font-size", "14px")
