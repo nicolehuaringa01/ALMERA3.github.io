@@ -162,12 +162,13 @@
                     Map of ALMERA Network Members
                 </h3>
                 
-                <div id="observablehq-chart-2dc5593e"></div>
+                <div id="observablehq-chart-95e82f31"></div>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
                 <script type="module">
                 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
-                import define from "https://api.observablehq.com/d/41a9a0aae91355d0@24.js?v=4&api_key=2a4e6a4f9d68aefce2e8e305289fce4ebcec8669";
+                import define from "https://api.observablehq.com/d/41a9a0aae91355d0@70.js?v=4";
                 new Runtime().module(define, name => {
-                  if (name === "chart") return new Inspector(document.querySelector("#observablehq-chart-2dc5593e"));
+                  if (name === "chart") return new Inspector(document.querySelector("#observablehq-chart-95e82f31"));
                 });
                 </script>
 
