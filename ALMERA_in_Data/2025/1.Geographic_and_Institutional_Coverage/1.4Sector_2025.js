@@ -97,19 +97,18 @@ function renderBarChart(container, topsector, labsThatAnswered, color) {
             });
 
     // X axis
-    svg.append("g")
-        .attr("transform", `translate(0,${height - bottomMargin})`)
-        .call(d3.axisBottom(x));
-    
-    // Y axis (The integrated "Legend" labels)
-    const yAxisGroup = svg.append("g")
-        .attr("transform", `translate(${leftMargin},0)`)
-        .call(d3.axisLeft(y).tickSize(0)); // Use tickSize(0) to remove the small ticks
 
-    // Color and Bold the Y-axis labels to match the bars
-    yAxisGroup.selectAll(".tick text")
-        .attr("fill", d => color(d.replace(/;.*/, '').trim()))
-        .attr("font-weight", "600");
+    svg.append("g")
+    .attr("transform", `translate(${leftMargin},0)`)
+    .call(d3.axisLeft(y))
+    .selectAll(".tick text") // Select the text elements for the tick marks
+    .attr("fill", d => color(d)) // Apply the color scale to the text itself
+    .attr("font-weight", "bold"); // Optional: make text bold for emphasis
+
+    // Y axis (now with labels!)
+    svg.append("g")
+        .attr("transform", `translate(${leftMargin},0)`)
+        .call(d3.axisLeft(y)); // Corrected: removed `.tickFormat('')` to show labels
 
     // Total labs (top band)
     svg.append("text")
@@ -150,12 +149,6 @@ async function initializesectorChart() {
     const color = d3.scaleOrdinal()
         .domain(topsector.map(d => d.name))
         .range(d3.schemeTableau10);
-        container.innerHTML = '';
-
-    const color = d3.scaleOrdinal()
-        .domain(topsector.map(d => d.name))
-        .range(d3.schemeTableau10);
-
 
     renderBarChart(container, topsector, labsThatAnswered, color);
 }
