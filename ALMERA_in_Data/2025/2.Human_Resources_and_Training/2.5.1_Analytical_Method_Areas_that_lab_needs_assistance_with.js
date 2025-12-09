@@ -8,9 +8,6 @@ function mapAreasToShortNames(longName) {
         case "Radiometric techniques (e.g., gamma spectrometry, alpha/beta counting, liquid scintillation)":
             return "Radiometric Techniques";
 
-        case "Radiochemical methods":
-            return "Radiochemical Methods";
-
         case "Chemical Analysis (e.g., titrations, chromatography)":
             return "Chemical Analysis";
 
