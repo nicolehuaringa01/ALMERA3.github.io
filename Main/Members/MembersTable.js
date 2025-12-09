@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const csvFilePath = '../../data/Observable2020Survey.csv'; // Your specified CSV path
+    const csvFilePath = '../../data/2025_ALMERA_Capabilities_Survey.csv'; // Your specified CSV path
     const tableBodyD3 = d3.select('#table-body-content'); // D3 selection for table body
     const tableBodyNative = document.getElementById('table-body-content'); // Native selection for innerHTML
     const searchInput = document.getElementById('table-search');
