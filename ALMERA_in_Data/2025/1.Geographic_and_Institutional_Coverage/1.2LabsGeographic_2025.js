@@ -7,7 +7,7 @@ d3.csv(csvDataPath2)
     console.log("CSV Data loaded successfully. Number of rows:", data.length);
     if (data.length === 0) {
       console.warn("CSV data is empty.");
-      const chartContainer = document.getElementById("labs-geographic-chart");
+      const chartContainer = document.getElementById("labs-geographic-survey-chart");
       if (chartContainer) {
         chartContainer.innerHTML = "<p style='color: orange;'>CSV data is empty. No chart to display.</p>";
       }
@@ -18,7 +18,7 @@ d3.csv(csvDataPath2)
     const geographicRegionColumn = "1.4 Geographic Region";
     if (!data[0] || !data[0][geographicRegionColumn]) {
       console.error(`Error: CSV data missing required column "${geographicRegionColumn}". Available columns:`, Object.keys(data[0] || {}));
-      const chartContainer = document.getElementById("labs-geographic-chart");
+      const chartContainer = document.getElementById("labs-geographic-survey-chart");
       if (chartContainer) {
         chartContainer.innerHTML = `<p style='color: red;'>Error: Missing "${geographicRegionColumn}" column in CSV data.</p>`;
       }
@@ -45,7 +45,7 @@ d3.csv(csvDataPath2)
     const totalLabs = d3.sum(processedRegionCounts, d => d.count);
     if (totalLabs === 0) {
         console.warn("No laboratories found in the data for geographic regions.");
-        const chartContainer = document.getElementById("labs-geographic-chart");
+        const chartContainer = document.getElementById("labs-geographic-survey-chart");
         if (chartContainer) {
             chartContainer.innerHTML = "<p style='text-align: center;'>No data to display for geographic regions.</p>";
         }
@@ -110,17 +110,17 @@ d3.csv(csvDataPath2)
     });
 
     // Append plot to the DOM element with the correct ID
-    const chartContainer = document.getElementById("labs-geographic-chart");
+    const chartContainer = document.getElementById("labs-geographic-survey-chart");
     if (chartContainer) {
       chartContainer.appendChild(LabsGeographic);
-      console.log("Chart appended to labs-geographic-chart.");
+      console.log("Chart appended to labs-geographic-survey-chart.");
     } else {
-      console.error("Error: Chart container element with ID 'labs-geographic-chart' not found in the DOM.");
+      console.error("Error: Chart container element with ID 'labs-geographic-survey-chart' not found in the DOM.");
     }
   })
   .catch(error => {
     console.error("Error loading or processing CSV data:", error);
-    const chartContainer = document.getElementById("labs-geographic-chart");
+    const chartContainer = document.getElementById("labs-geographic-survey-chart");
     if (chartContainer) {
       chartContainer.innerHTML = "<p style='color: red;'>Failed to load graph data. Please check the console for errors and ensure the CSV path is correct and the column names match.</p>";
     }
