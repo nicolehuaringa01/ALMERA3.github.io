@@ -1,7 +1,7 @@
-const csvDataPath2 = "/ALMERA3.github.io/data/Observable2020Survey.csv";
-console.log("Attempting to load CSV from:", csvDataPath2);
+const csvDataPath = "/ALMERA3.github.io/data/Observable2020Survey.csv";
+console.log("Attempting to load CSV from:", csvDataPath);
 
-d3.csv(csvDataPath2)
+d3.csv(csvDataPath)
   .then(data => {
     console.log("CSV Data loaded successfully. Number of rows:", data.length);
     if (data.length === 0) {
